@@ -1,0 +1,70 @@
+# Simple workflow for updating data through Vantage6
+name: Update data through Vantage6 integration
+
+on:
+  # Allows one to run this workflow manually from the repository's 'Actions' tab
+  workflow_dispatch:
+
+  # Schedule the workflow to run every first day of January, March, May, July, September, and November at 00:00
+  # TODO: Uncomment the following lines to enable the schedule; and remove this TODO
+  # schedule:
+  #    - cron: '0 0 1 */2 *'
+
+jobs:
+  execute-vantage6-task:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+
+      - name: Create temporary directory
+        id: tempdir
+        run: echo "TEMP_DIR=$(mktemp -d)" >> $GITHUB_ENV
+
+      - name: Generate encryption key file
+        run: |
+          echo "${{ secrets.ENCRYPTION_KEY }}" > ${{ env.TEMP_DIR }}/encryption_key
+
+      - name: Generate JSON configuration file
+        run: |
+          cat <<EOF > ${{ env.TEMP_DIR }}/config.json
+          {
+            "collaboration": "${{ secrets.COLLABORATION }}",
+            "aggregating_organisation": "${{ secrets.AGGREGATING_ORGANISATION }}",
+            "server_url": "${{ secrets.SERVER_URL }}",
+            "server_port": "${{ secrets.SERVER_PORT }}",
+            "server_api": "${{ secrets.SERVER_API }}",
+            "username": "${{ secrets.SERVICE_ACCOUNT }}",
+            "password": "${{ secrets.SERVICE_PASSWORD }}",
+            "organization_key": "${{ env.TEMP_DIR }}/encryption_key"
+          }
+          EOF
+
+      - name: Install dependencies
+        run: pip install -r scripts/requirements.txt
+
+      - name: Run Python script with timeout
+        run: python scripts/vantage6_integration.py '${{ env.TEMP_DIR }}/config.json'
+        timeout-minutes: 10
+        env:
+          CONFIG_PATH: ${{ env.TEMP_DIR }}/config.json
+
+      - name: Cleanup temporary directory
+        if: always()
+        run: rm -rf ${{ env.TEMP_DIR }}
+
+      - name: Configure Git
+        run: |
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          git config --global user.name "${{ github.actor }}"
+
+      - name: Commit and push if there are changes
+        run: |
+          git add data/vantage6_result.json
+          git commit -m "Add/update vantage6 result JSON" || exit 0  # Exit gracefully if no changes
+          git push

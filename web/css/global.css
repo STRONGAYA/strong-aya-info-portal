@@ -1,0 +1,454 @@
+.background-gradient {
+    min-height: 100%;
+    margin: 0;
+    background: linear-gradient(to bottom, #f9f4ea, #ffffff);
+}
+
+
+:root {
+    /* fonts */
+    --font-poppins: Poppins;
+    --font-arial: Arial;
+
+    /* font sizes */
+    --font-size-3xs: 10px;
+    --font-size-sm: 14px;
+    --font-size-4xl: 23px;
+    --font-size-mini: 15px;
+    --font-size-lg: 18px;
+    --font-size-9xl: 28px;
+    --font-size-xs: 12px;
+    --font-size-base-5: 15.5px;
+    --font-size-mini-5: 14.5px;
+    --font-size-mid: 17px;
+    --font-size-base: 16px;
+    --font-size-11xl: 30px;
+    --font-size-7xl: 26px;
+
+    /* Colors */
+    --color-white: #fff;
+    --color-silver-100: #c9c6c4;
+    --color-silver-200: #b7b8b8;
+    --color-silver-300: #b5b5b5;
+    --color-darkgray-100: #aeaeae;
+    --color-darkgray-200: #a7a7a7;
+    --color-darkgray-300: #a2a2a2;
+    --color-chocolate: #f7741e;
+    --color-dimgray: rgba(112, 112, 112, 0.5);
+    --color-black: #000;
+    --color-palevioletred: #e36799;
+    --color-lightgray-100: #d7d7d7;
+    --color-lightgray-200: #d7d5d2;
+    --color-blue: #7607ff;
+    --color-gainsboro: #dbdbdb;
+
+    /* Border radiuses */
+    --br-mid: 17px;
+    --br-23xl: 42px;
+}
+
+
+/*Header*/
+
+/*Graphics / Banners */
+.leading-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: var(--color-chocolate);
+    width: 1536px;
+    height: 47px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-white);
+    z-index: 10;
+    font-size: x-large;
+}
+
+.header {
+    position: absolute;
+    top: -2px;
+    left: 0;
+    width: 1909px;
+    height: 136px;
+    font-size: var(--font-size-mini);
+    color: var(--color-darkgray-300);
+}
+
+.header-child {
+    position: absolute;
+    bottom: 0;
+    left: calc(50% + 455.5px);
+    background-color: var(--color-chocolate);
+    width: 126px;
+    height: 97px;
+}
+
+.header-item {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: var(--color-white);
+    width: 1410px;
+    height: 89px;
+}
+
+/*Navigation links*/
+.contact {
+    top: calc(50% + 10px);
+    left: calc(50% + 483.5px);
+    letter-spacing: 0.05px;
+    color: var(--color-white);
+}
+
+.about-us,
+.contact,
+.home {
+    text-decoration: none;
+    position: absolute;
+}
+
+.home {
+    top: calc(50% + 12px);
+    left: calc(50% - 89.5px);
+    letter-spacing: 0.05px;
+    color: inherit;
+}
+
+.about-us {
+    left: calc(50% - 21.5px);
+}
+
+.about-us,
+.ecosystems,
+.our-consortium {
+    top: calc(50% + 12px);
+    letter-spacing: 0.05px;
+    color: inherit;
+}
+
+.our-consortium {
+    text-decoration: none;
+    position: absolute;
+    left: calc(50% + 95.5px);
+}
+
+.ecosystems {
+    left: calc(50% + 248.5px);
+}
+
+.ecosystems,
+.news,
+.web-logo-1 {
+    text-decoration: none;
+    position: absolute;
+}
+
+.news {
+    top: calc(50% + 12px);
+    left: calc(50% + 387.5px);
+    letter-spacing: 0.05px;
+    color: inherit;
+}
+
+.web-logo-1 {
+    top: calc(50% + 2px);
+    left: calc(50% - 596.5px);
+    width: 191px;
+    height: 38px;
+    background-image: url(../images/weblogo1@2x.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+}
+
+/*Accessibility tools*/
+.accessibility {
+    position: absolute;
+    right: 1%;
+    top: 3px;
+    width: 238px;
+    height: 43px;
+    text-align: center;
+    font-size: var(--font-size-3xs);
+    color: var(--color-silver-300);
+}
+
+.ad-btn,
+.contrast-btn,
+.dark-btn,
+.language-btn {
+    display: flex;
+    justify-content: center;
+}
+
+.ad-btn,
+.audio {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.audio {
+    letter-spacing: 0.03px;
+}
+
+.ad-btn {
+    width: 28px;
+    height: 35.5px;
+}
+
+.volume-high-solid-icon {
+    font-size: 18px;
+}
+
+.contrast-btn {
+    position: absolute;
+    bottom: 0;
+    left: calc(50% - 74px);
+    width: 44px;
+    height: 36px;
+    text-align: left;
+}
+
+.circle-half-stroke-solid-icon {
+    font-size: 22px;
+}
+
+.dark-btn {
+    position: absolute;
+    bottom: 0;
+    left: calc(50% - 12px);
+    width: 22px;
+    height: 36px;
+}
+
+.moon-solid-icon {
+    font-size: 19px;
+}
+
+
+.language-btn {
+    position: absolute;
+    bottom: 0;
+    left: calc(50% + 27px);
+    width: 51px;
+    height: 36px;
+    text-align: left;
+}
+
+.language-solid-icon {
+    font-size: 20px;
+}
+
+.size-btn {
+    position: absolute;
+    right: 0;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    width: 24px;
+    font-size: var(--font-size-4xl);
+}
+
+.size-text {
+    position: absolute;
+    bottom: 0;
+    left: 3px;
+    font-size: var(--font-size-3xs);
+    letter-spacing: 0.03px;
+    text-align: left;
+}
+
+.size-icon {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    line-height: 35px;
+}
+
+/*Body*/
+body {
+    margin: 0;
+    line-height: normal;
+}
+
+/*Context*/
+.context-title {
+    position: absolute;
+    top: 0;
+    left: 0;
+    letter-spacing: 0.08px;
+    line-height: 28px;
+    font-weight: 600;
+}
+
+.bullet-triangle-icon {
+    position: absolute;
+    top: calc(50% - 3.95px);
+    left: 0;
+    width: 7px;
+    height: 7.9px;
+}
+
+.context-content {
+    position: absolute;
+    width: calc(100% - 17px);
+    bottom: 0;
+    left: 18px;
+    font-size: var(--font-size-sm);
+    display: inline-block;
+    color: var(--color-black);
+    height: 69px;
+}
+
+.context {
+    position: absolute;
+    bottom: 0;
+    left: 8px;
+    width: 764px;
+    height: 117px;
+    color: var(--color-palevioletred);
+}
+
+/*Footer*/
+.footer,
+.footer * {
+    font-size: var(--font-size-sm);
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.footer {
+    width: 100%;
+    height: 674px;
+    background-image: url(../images/footer@3x.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+}
+
+.project-logo-icon {
+    position: absolute;
+    top: 61px;
+    left: calc(50% - 589px);
+    width: 167px;
+    height: 33px;
+    object-fit: cover;
+}
+
+.project-description {
+    position: absolute;
+    top: calc(50% - 225px);
+    left: calc(50% - 589px);
+    max-width: 15%;
+    letter-spacing: 0.07px;
+    line-height: 26.5px;
+    color: var(--color-silver-100);
+    word-wrap: break-word;
+}
+
+
+/*Contact*/
+.quick-contact-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    position: relative;
+    padding: 20px;
+    top: 59px;
+    left: calc(50% + 260px);
+    background-color: var(--color-white);
+    border: 1px dashed var(--color-chocolate);
+    box-sizing: border-box;
+    width: 330px;
+    height: 306px;
+    font-size: var(--font-size-base-5);
+    color: var(--color-black);
+}
+
+.quick-contact-heading {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    top: 41px;
+    left: 30px;
+    font-size: var(--font-size-lg);
+    color: var(--color-blue);
+}
+
+.quick-contact-contents {
+    margin-bottom: 15px;
+    margin-left: 20px;
+}
+
+
+/*Funding*/
+.funding-statement {
+    position: absolute;
+    bottom: 86px;
+    left: calc(50% - 589px);
+    background-color: var(--color-dimgray);
+    width: 1179px;
+    height: 202px;
+    color: var(--color-lightgray-200);
+}
+
+.funding-item {
+    display: flex;
+    align-items: center;
+    margin: 10px 10px 20px 250px;
+    letter-spacing: 0.04px;
+    line-height: 28px;
+}
+
+.funding-item img {
+    margin-right: 10px; /* Adds space between the logo and the text */
+}
+
+.eu-logo-icon,
+.uk-ri-logo-icon {
+    position: absolute;
+    height: 59px;
+    object-fit: cover;
+}
+
+.eu-logo-icon {
+    left: 50px;
+    width: 173px;
+    bottom: 120px;
+}
+
+.uk-ri-logo-icon {
+    left: 50px;
+    width: 173px;
+    bottom: 20px;
+}
+
+.funding-tile {
+    position: absolute;
+    bottom: 58.5px;
+    left: calc(50% - 589.5px);
+    border-top: 1px var(--color-dimgray);
+    box-sizing: border-box;
+    width: 1180px;
+    height: 2px;
+}
+
+/*Copyright*/
+
+.copyright {
+    position: absolute;
+    bottom: 25px;
+    left: calc(50% - 237px);
+    font-size: var(--font-size-mini);
+    letter-spacing: 0.05px;
+    color: var(--color-silver-200);
+}

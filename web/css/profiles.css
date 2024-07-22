@@ -1,0 +1,237 @@
+.what-suits-you {
+    position: absolute;
+    top: 0;
+    left: 0;
+    letter-spacing: 0.08px;
+    line-height: 28px;
+    font-weight: 600;
+}
+
+.context-info-item {
+    position: absolute;
+    top: calc(50% - 3.95px);
+    left: 0;
+    width: 7px;
+    height: 7.9px;
+}
+
+.you-can-pick {
+    margin: 0;
+}
+
+.you-can-pick-container {
+    position: absolute;
+    width: calc(100% - 17px);
+    bottom: 0;
+    left: 18px;
+    font-size: var(--font-size-sm);
+    color: var(--color-black);
+    display: inline-block;
+    height: 69px;
+}
+
+.context-info1 {
+    position: absolute;
+    bottom: 0;
+    left: 110px;
+    width: 764px;
+    height: 117px;
+    font-size: var(--font-size-9xl);
+    color: var(--color-palevioletred);
+}
+
+.path-1-icon2 {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+    opacity: 0.5;
+}
+
+.set-as-default {
+    position: absolute;
+    top: calc(50% - 12px);
+    left: calc(50% - 62px);
+    font-size: var(--font-size-lg);
+}
+
+.default-btn {
+    position: absolute;
+    width: calc(100% - 200px);
+    right: 100px;
+    bottom: 39px;
+    left: 100px;
+    height: 58px;
+}
+
+.before-treatment {
+    position: absolute;
+    top: calc(50% - 37px);
+    left: calc(50% - 122px);
+    font-size: var(--font-size-9xl);
+    letter-spacing: 0.08px;
+    line-height: 28px;
+    font-weight: 600;
+    color: var(--color-chocolate);
+}
+
+.path-2-icon {
+    position: absolute;
+    width: calc(100% - 200px);
+    top: calc(50% + 151.5px);
+    right: 100px;
+    left: 100px;
+    max-width: 100%;
+    overflow: hidden;
+    height: 1px;
+    opacity: 0.3;
+}
+
+.firefly-abstract-icoon-van-tie {
+    position: absolute;
+    top: 0;
+    left: calc(50% - 101px);
+    width: 211px;
+    height: 211px;
+    object-fit: cover;
+}
+
+.explore-btn-text {
+    position: absolute;
+    top: calc(50% - 12.5px);
+    left: calc(50% - 34px);
+    font-size: var(--font-size-lg);
+}
+
+.explore-btn {
+    text-decoration: none;
+    position: absolute;
+    width: calc(100% - 200px);
+    top: calc(50% + 66px);
+    right: 100px;
+    left: 100px;
+    height: 67px;
+    color: inherit;
+}
+
+.information-that-can {
+    position: absolute;
+    height: 100%;
+    width: calc(100% + 1px);
+    top: 0;
+    left: 0;
+    display: inline-block;
+}
+
+.information-that-can-help-you-wrapper {
+    position: absolute;
+    width: calc(100% - 200px);
+    top: calc(50% + 10px);
+    right: 100px;
+    left: 100px;
+    height: 37px;
+    text-align: center;
+    font-size: var(--font-size-sm);
+    color: var(--color-black);
+}
+
+.profile-beyond-tile {
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.16);
+    border-radius: var(--br-mid);
+    background-color: var(--color-white);
+    width: 668px;
+    height: 536px;
+}
+
+.beyond-treatment {
+    position: absolute;
+    top: calc(50% - 37px);
+    left: calc(50% - 130px);
+    font-size: var(--font-size-9xl);
+    letter-spacing: 0.08px;
+    line-height: 28px;
+    font-weight: 600;
+    color: var(--color-chocolate);
+    text-align: center;
+}
+
+.firefly-abstract-icoon-van-tie1 {
+    position: absolute;
+    top: 0;
+    left: calc(50% - 108px);
+    width: 216px;
+    height: 216px;
+    object-fit: cover;
+}
+
+.information-that-can1 {
+    position: absolute;
+    width: calc(100% + 1px);
+    bottom: 0;
+    left: 0;
+    display: inline-block;
+    height: 37px;
+}
+
+.firefly-abstract-icoon-van-tie-parent {
+    position: absolute;
+    width: calc(100% - 200px);
+    top: 0;
+    right: 100px;
+    left: 100px;
+    height: 315px;
+    text-align: center;
+    font-size: var(--font-size-sm);
+    color: var(--color-black);
+}
+
+.profile-before-tile {
+    position: absolute;
+    top: 0;
+    right: 0;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.16);
+    border-radius: var(--br-mid);
+    background-color: var(--color-white);
+    width: 668px;
+    height: 536px;
+}
+
+.body2 {
+    position: absolute;
+    top: 354px;
+    left: 270px;
+    width: 1435px;
+    height: 875px;
+    font-size: var(--font-size-9xl);
+}
+
+.path-3-icon3 {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    right: 0;
+    left: 0;
+    max-width: 100%;
+    overflow: hidden;
+    height: 47px;
+}
+
+.profiles {
+    position: relative;
+    background-color: var(--color-white);
+    width: 100%;
+    height: 1987px;
+    text-align: left;
+    font-size: var(--font-size-sm);
+    color: var(--color-darkgray-300);
+    font-family: var(--font-poppins);
+}

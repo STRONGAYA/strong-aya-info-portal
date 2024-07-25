@@ -5,12 +5,10 @@ on:
   # Allows one to run this workflow manually from the repository's 'Actions' tab
   workflow_dispatch:
 
-  # Trigger the workflow when the workflow "Update data through Vantage6 integration" is successful
-  workflow_run:
-    workflows: [ "Update data through Vantage6 integration" ]
-    types:
-      - completed
-    branches: [ "main" ]
+    # Trigger the workflow on push to the /web directory on the main branch
+  push:
+    paths:
+      - 'web/**'
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:

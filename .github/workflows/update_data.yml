@@ -78,3 +78,6 @@ jobs:
           git add data/*
           git commit -m "Add/update vantage6 result JSON" || exit 0  # Exit gracefully if no changes
           git push
+
+      - name: Run Datawrapper script
+        run: python scripts/datawrapper.py "${{ secrets.DATAWRAPPER_TOKEN }}" plotting_info.json

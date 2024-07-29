@@ -6,7 +6,7 @@ The repository has a Vantage6 integration
 that attempts to retrieve the data from the STRONG AYA Vantage6 infrastructure.  
 This integration is triggered through a GitHub workflow and will periodically repeat the task after a set interval.  
 
-The portal is built using Adobe XD, Locofy.ai, GitHub Pages, DataWrapper and Vantage6.  
+The portal is built using Adobe XD, Locofy.ai, GitHub Pages, Datawrapper and Vantage6.  
 The provided implementation has a large dependency on the ...TODO_ALGO... algorithm,
 please refer to its respective repository for more information
 (https://github.com/STRONGAYA/...TODO_ALGO_LINK...).
@@ -35,3 +35,7 @@ To be documented
 ## Example data
 To be documented
 
+## References and acknowledgements
+- Icons present in this repository were obtained through FontAwesome.
+- Images present in this repository were generated using Adobe Firefly generative artificial intelligence.
+- Datawrapper people chart implementation was guided by the very helpful Datawrapper support staff ❤️. 

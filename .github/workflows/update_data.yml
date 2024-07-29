@@ -48,7 +48,7 @@ jobs:
       - name: Install dependencies
         run: pip install -r scripts/requirements.txt
 
-      - name: Run Python script with timeout
+      - name: Run Vantage6 Python script with timeout
         run: python scripts/vantage6_integration.py '${{ env.TEMP_DIR }}/config.json'
         timeout-minutes: 10
         env:
@@ -58,6 +58,16 @@ jobs:
         if: always()
         run: rm -rf ${{ env.TEMP_DIR }}
 
+      - name: Get repository name
+        id: repo
+        run: echo "REPO_NAME=${GITHUB_REPOSITORY}" >> $GITHUB_ENV
+
+      - name: Set raw path URL
+        run: echo "RAW_PATH=https://raw.githubusercontent.com/${{ env.REPO_NAME }}/main/" >> $GITHUB_ENV
+
+      - name: Run Flashcard Construction Python script
+        run: python scripts/construct_flashcards.py data/raw/vantage6_results.json plotting_info.json "${{ env.RAW_PATH }}"
+
       - name: Configure Git
         run: |
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
@@ -65,6 +75,6 @@ jobs:
 
       - name: Commit and push if there are changes
         run: |
-          git add data/vantage6_result.json
+          git add data/*
           git commit -m "Add/update vantage6 result JSON" || exit 0  # Exit gracefully if no changes
           git push

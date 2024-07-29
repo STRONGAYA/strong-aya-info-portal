@@ -1,0 +1,22 @@
+{
+  "Variable": [
+    "mock_educational_level",
+    "mock_educational_level",
+    "mock_educational_level"
+  ],
+  "Value": [
+    "primary",
+    "secondary",
+    "tertiary"
+  ],
+  "count": [
+    789,
+    456,
+    1223
+  ],
+  "count - female only": [
+    65,
+    87,
+    90
+  ]
+}

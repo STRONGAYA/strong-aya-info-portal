@@ -1,0 +1,14 @@
+{
+  "mock_educational_level": {
+    "chart_id": null,
+    "chart_title": "Flashcard with education level info",
+    "data_location": null,
+    "positive_strata": [
+      "tertiary"
+    ],
+    "negative_strata": [
+      "primary",
+      "secondary"
+    ]
+  }
+}

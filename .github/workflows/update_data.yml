@@ -10,6 +10,10 @@ on:
   # schedule:
   #    - cron: '0 0 1 */2 *'
 
+permissions:
+  contents: read
+  actions: write
+
 jobs:
   execute-vantage6-task:
     runs-on: [self-hosted, SURF]

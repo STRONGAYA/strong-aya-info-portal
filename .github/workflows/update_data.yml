@@ -16,7 +16,7 @@ permissions:
 
 jobs:
   execute-vantage6-task:
-    runs-on: [self-hosted, SURF]
+    runs-on: [self-hosted, SURF-machines]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2

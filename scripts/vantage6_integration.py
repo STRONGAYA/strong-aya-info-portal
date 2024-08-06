@@ -128,8 +128,8 @@ def _authenticate(config):
 
 if __name__ == "__main__":
     # Read configuration and plotting information from command line arguments
-    vantage6_config_path = r"C:\Users\p70087077\PycharmProjects\federated-non-expert-info-portal\data\config.json"
-    plotting_info_path = r"C:\Users\p70087077\PycharmProjects\federated-non-expert-info-portal\plotting_info.json"
+    vantage6_config_path = sys.argv[1]
+    plotting_info_path = sys.argv[2]
 
     # Attempt to retrieve the configuration and plotting information
     with open(vantage6_config_path, "r") as f:

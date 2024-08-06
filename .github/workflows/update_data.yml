@@ -53,7 +53,7 @@ jobs:
         run: pip install -r scripts/requirements.txt
 
       - name: Run Vantage6 Python script with timeout
-        run: python scripts/vantage6_integration.py '${{ env.TEMP_DIR }}/config.json'
+        run: python scripts/vantage6_integration.py '${{ env.TEMP_DIR }}/config.json' plotting_info.json
         timeout-minutes: 10
         env:
           CONFIG_PATH: ${{ env.TEMP_DIR }}/config.json

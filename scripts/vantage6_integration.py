@@ -71,8 +71,6 @@ def retrieve_categorical_descriptives(config, plotting_info):
         for info in plotting_info.values()
     }
 
-    print(variables_to_describe)
-
     # Create a task for the client to retrieve the descriptive data
     task = client.task.create(
         collaboration=config.get("collaboration"),
@@ -123,7 +121,6 @@ def _authenticate(config):
     # Set up encryption for the client
     if config.get("organization_key") == "":
         config["organization_key"] = None
-    print(config.get("organization_key"))
     client.setup_encryption(config.get("organization_key"))
 
     return client

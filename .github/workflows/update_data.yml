@@ -58,9 +58,9 @@ jobs:
         env:
           CONFIG_PATH: ${{ env.TEMP_DIR }}/config.json
 
-      - name: Cleanup temporary directory
-        if: always()
-        run: rm -rf ${{ env.TEMP_DIR }}
+#      - name: Cleanup temporary directory
+#        if: always()
+#        run: rm -rf ${{ env.TEMP_DIR }}
 
       - name: Get repository name
         id: repo

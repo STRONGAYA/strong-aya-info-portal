@@ -1,14 +1,14 @@
 {
   "mock_educational_level": {
+    "variable_identifier": "alg_v5",
     "chart_id": null,
     "chart_title": "Flashcard with education level info",
     "data_location": null,
     "positive_strata": [
-      "tertiary"
+      3, 4, 5
     ],
     "negative_strata": [
-      "primary",
-      "secondary"
+      1, 2
     ]
   }
 }

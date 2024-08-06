@@ -136,6 +136,30 @@ def publish_chart(api_token, chart_id):
         print('Failed to publish the chart:', response.json())
 
 
+def retrieve_embedding_component(api_token, chart_id):
+    """
+    Retrieves the web component embedding code for a chart on Datawrapper.
+
+    Parameters:
+    api_token (str): The Datawrapper API token.
+    chart_id (str): The ID of the chart to retrieve the embedding code for.
+
+    Returns:
+    str: The embedding code for the chart.
+    """
+    headers = {
+        'Authorization': f'Bearer {api_token}',
+        'Content-Type': 'application/json'
+    }
+
+    response = requests.get(f'{_base_url}charts/{chart_id}', headers=headers)
+    if response.status_code == 200:
+        return response.json()['metadata']['publish']['embed-codes']["embed-method-web-component"]
+    else:
+        print('Failed to retrieve embedding code:', response.json())
+        exit()
+
+
 if __name__ == '__main__':
     # Get the Datawrapper API token and plotting information path from command line arguments
     datawrapper_api_token = sys.argv[1]
@@ -152,6 +176,8 @@ if __name__ == '__main__':
                                     plotting_info[variable]['chart_title'])
             plotting_info[variable]['chart_id'] = chart_id
             publish_chart(datawrapper_api_token, chart_id)
+            embedding_code = retrieve_embedding_component(datawrapper_api_token, chart_id)
+            plotting_info[variable]['embedding_code'] = embedding_code
 
     # Save updated plotting information back to JSON file
     with open(os.path.join(os.path.dirname(os.getcwd()), plotting_information_path), 'w') as f:

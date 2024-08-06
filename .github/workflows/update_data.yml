@@ -53,14 +53,14 @@ jobs:
         run: pip install -r scripts/requirements.txt
 
       - name: Run Vantage6 Python script with timeout
-        run: python scripts/vantage6_integration.py '${{ env.TEMP_DIR }}/config.json' plotting_info.json
+        run: python scripts/vantage6_integration.py '${{ env.TEMP_DIR }}/config.json' plotting_info.json > /dev/null 2>&1
         timeout-minutes: 10
         env:
           CONFIG_PATH: ${{ env.TEMP_DIR }}/config.json
 
-#      - name: Cleanup temporary directory
-#        if: always()
-#        run: rm -rf ${{ env.TEMP_DIR }}
+      - name: Cleanup temporary directory
+        if: always()
+        run: rm -rf ${{ env.TEMP_DIR }}
 
       - name: Get repository name
         id: repo
@@ -70,7 +70,7 @@ jobs:
         run: echo "RAW_PATH=https://raw.githubusercontent.com/${{ env.REPO_NAME }}/main/" >> $GITHUB_ENV
 
       - name: Run Flashcard Construction Python script
-        run: python scripts/construct_flashcards.py data/raw/vantage6_results.json plotting_info.json "${{ env.RAW_PATH }}"
+        run: python scripts/construct_flashcard.py data/raw/vantage6_results.json plotting_info.json "${{ env.RAW_PATH }}"
 
       - name: Configure Git
         run: |

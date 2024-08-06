@@ -128,8 +128,8 @@ def _authenticate(config):
 
 if __name__ == "__main__":
     # Read configuration and plotting information from command line arguments
-    vantage6_config_path = sys.argv[1]
-    plotting_info_path = sys.argv[2]
+    vantage6_config_path = r"C:\Users\p70087077\PycharmProjects\federated-non-expert-info-portal\data\config.json"
+    plotting_info_path = r"C:\Users\p70087077\PycharmProjects\federated-non-expert-info-portal\plotting_info.json"
 
     # Attempt to retrieve the configuration and plotting information
     with open(vantage6_config_path, "r") as f:
@@ -140,6 +140,11 @@ if __name__ == "__main__":
 
     result = retrieve_categorical_descriptives(config, plotting_info)
 
+    # Check if the path exists or create it
+    output_dir = os.path.join("data", "raw")
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+
     # Save the result in the appropriate location
-    with open(os.path.join("data", "raw", "vantage6_result.json"), "w") as f:
+    with open(os.path.join(output_dir, "vantage6_result.json"), "w") as f:
         json.dump(result, f)

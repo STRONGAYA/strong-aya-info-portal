@@ -52,8 +52,11 @@ def construct_flashcard(aggregated_data_path, variable, positive_strata, negativ
     csv_data = pd.DataFrame(flashcard, columns=[variable]).to_csv(
         index=False, lineterminator='\n').replace(' ', '')
 
-    # Save the csv flashcard
+    # Check if path exists or create it
     output_dir = os.path.join('data', 'flashcards')
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+
     os.makedirs(output_dir, exist_ok=True)
     with open(os.path.join(output_dir, f'{variable}_flashcard.csv'), 'w') as f:
         f.write(csv_data)

@@ -77,7 +77,7 @@ if __name__ == '__main__':
         aggregate_data = json.loads(json.load(f))['categorical_descriptives']
 
     # Load plotting information from JSON file
-    with open(os.path.join(os.path.dirname(os.getcwd()), plotting_information_path), 'r') as f:
+    with open(plotting_information_path, 'r') as f:
         plotting_info = json.load(f)
 
     # Construct flashcards for each variable in plotting information

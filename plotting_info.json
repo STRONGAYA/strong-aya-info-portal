@@ -1,5 +1,5 @@
 {
-  "mock_educational_level": {
+  "educational_level": {
     "variable_identifier": "alg_v5",
     "chart_id": null,
     "chart_title": "Flashcard with education level info",

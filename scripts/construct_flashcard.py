@@ -89,5 +89,5 @@ if __name__ == '__main__':
         plotting_info[variable]['positive_count'] = relative_positive_icons
 
     # Save updated plotting information back to JSON file
-    with open(os.path.join(os.path.dirname(os.getcwd()), plotting_information_path), 'w') as f:
+    with open(plotting_information_path, 'w') as f:
         json.dump(plotting_info, f)

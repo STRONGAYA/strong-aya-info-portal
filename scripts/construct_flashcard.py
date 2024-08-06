@@ -94,4 +94,4 @@ if __name__ == '__main__':
 
     # Save updated plotting information back to JSON file
     with open(plotting_information_path, 'w') as f:
-        json.dump(plotting_info, f)
+        json.dump(plotting_info, f, indent=4)

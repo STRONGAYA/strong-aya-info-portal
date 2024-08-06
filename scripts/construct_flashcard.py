@@ -4,27 +4,29 @@ import sys
 
 import pandas as pd
 
+from io import StringIO as stringIO
+
 
 def construct_flashcard(aggregated_data_path, variable, positive_strata, negative_strata):
     """
     Constructs a flashcard based on the counts of positive and negative strata in the given data.
 
     :param str aggregated_data_path: The path to the JSON file containing the aggregated data.
-    :param str variable: The variable/column name in the DataFrame to analyze.
+    :param str variable: The variable/column name in the DataFrame to analyse.
     :param list positive_strata: A list of values considered as positive strata.
     :param list negative_strata: A list of values considered as negative strata.
     :return: The path to the saved flashcard CSV file.
     :rtype: str
     """
     # Load the JSON file into a DataFrame
-    aggregated_data = pd.read_json(aggregated_data_path)
+    aggregated_data = pd.read_json(stringIO(aggregated_data_path))
 
     # Filter the DataFrame based on the variable column
-    flashcard_data = aggregated_data[aggregated_data['Variable'] == variable]
+    flashcard_data = aggregated_data[aggregated_data['variable'] == variable]
 
     # Calculate the counts for the positive and negative strata
-    positive_counts = flashcard_data[flashcard_data['Value'].isin(positive_strata)]['count'].sum()
-    negative_counts = flashcard_data[flashcard_data['Value'].isin(negative_strata)]['count'].sum()
+    positive_counts = flashcard_data[flashcard_data['value'].isin(positive_strata)]['count'].sum()
+    negative_counts = flashcard_data[flashcard_data['value'].isin(negative_strata)]['count'].sum()
     total_counts = positive_counts + negative_counts
 
     # Calculate the ratio of positive and negative counts to the total counts
@@ -70,13 +72,19 @@ if __name__ == '__main__':
     _negative_icon = rf"![person]({repository_path}/web/images/Datawrapper_assests/person-grey.svg) "
     _max_icons = 101
 
+    # Load aggregated data from JSON file
+    with open(os.path.join(os.path.dirname(os.getcwd()), aggregate_data_path), 'r') as f:
+        aggregate_data = json.loads(json.load(f))['categorical_descriptives']
+
     # Load plotting information from JSON file
     with open(os.path.join(os.path.dirname(os.getcwd()), plotting_information_path), 'r') as f:
         plotting_info = json.load(f)
 
     # Construct flashcards for each variable in plotting information
     for variable in plotting_info:
-        flashcard_path = construct_flashcard(aggregate_data_path, variable, plotting_info[variable]['positive_strata'],
+        variable_identifier = plotting_info[variable]['variable_identifier']
+        flashcard_path = construct_flashcard(aggregate_data, variable_identifier,
+                                             plotting_info[variable]['positive_strata'],
                                              plotting_info[variable]['negative_strata'])
         plotting_info[variable]['data_location'] = rf"{repository_path}/data/flashcards/{flashcard_path}"
 

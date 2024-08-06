@@ -70,7 +70,7 @@ jobs:
         run: echo "RAW_PATH=https://raw.githubusercontent.com/${{ env.REPO_NAME }}/main/" >> $GITHUB_ENV
 
       - name: Run Flashcard Construction Python script
-        run: python scripts/construct_flashcard.py data/raw/vantage6_results.json plotting_info.json "${{ env.RAW_PATH }}"
+        run: python scripts/construct_flashcard.py federated-non-expert-info-portal/data/raw/vantage6_results.json plotting_info.json "${{ env.RAW_PATH }}"
 
       - name: Configure Git
         run: |
@@ -79,8 +79,8 @@ jobs:
 
       - name: Commit and push if there are changes
         run: |
-          git add data/*
-          git commit -m "Add/update vantage6 result JSON" || exit 0  # Exit gracefully if no changes
+          git add federated-non-expert-info-portal/data/*
+          git commit -m "Add/update Vantage6 result" || exit 0  # Exit gracefully if no changes
           git push
 
       - name: Run Datawrapper script

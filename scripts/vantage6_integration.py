@@ -146,5 +146,3 @@ if __name__ == "__main__":
     # Save the result in the appropriate location
     with open(os.path.join("data", "raw", "vantage6_result.json"), "w") as f:
         json.dump(result, f)
-
-    print(result)

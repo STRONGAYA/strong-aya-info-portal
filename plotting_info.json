@@ -98,7 +98,7 @@
     "variable_identifier": "ther_ht",
     "chart_id": null,
     "chart_title": "Flashcard with hormone therapy treatment status info",
-m    "data_location": null,
+    "data_location": null,
     "positive_strata": [
       1.0
     ],

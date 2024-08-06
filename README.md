@@ -7,15 +7,15 @@ that attempts to retrieve the data from the STRONG AYA Vantage6 infrastructure.
 This integration is triggered through a GitHub workflow and will periodically repeat the task after a set interval.  
 
 The portal is built using Adobe XD, Locofy.ai, GitHub Pages, Datawrapper and Vantage6.  
-The provided implementation has a large dependency on the ...TODO_ALGO... algorithm,
+The provided implementation has a large dependency on the descriptive statistics algorithm,
 please refer to its respective repository for more information
-(https://github.com/STRONGAYA/...TODO_ALGO_LINK...).
+(https://github.com/STRONGAYA/v6-descriptive-statistics).
 
 A more extensive description of the methodology that this repository represents 
 can be found in the associated scientific publication: currently as preprint on ...TODO_PAPER...
 
 ## Prequisites for own application
-- ### When using the ...TODO_ALGO... algorithm (default)
+- ### When using the descriptive statistics algorithm (default)
   - Vantage6 server and collaboration with nodes running on version 4.x.x
   - Distributed data in RDF-triple format 
   (produced using the Triplifier tool e.g. through https://github.com/MaastrichtU-CDS/Flyover)

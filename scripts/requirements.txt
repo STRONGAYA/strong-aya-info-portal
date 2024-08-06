@@ -83,9 +83,6 @@ tzdata==2024.1
 tzlocal==5.2
 urllib3==2.2.1
 vantage6==4.4.0
-vantage6-algorithm-tools==4.2.3
-vantage6-client==4.4.0
-vantage6-common==4.4.0
 wcwidth==0.2.13
 websocket-client==1.7.0
 Werkzeug==3.0.2

@@ -22,7 +22,8 @@
       91.666667,
       93.333333,
       100.0
-    ]
+    ],
+    "positive_count": null
   },
   "emotional_functioning": {
     "variable_identifier": "ef",
@@ -46,7 +47,8 @@
       83.333333,
       91.666667,
       100.0
-    ]
+    ],
+    "positive_count": null
   },
   "role_functioning": {
     "variable_identifier": "rf",
@@ -63,7 +65,8 @@
       66.666667,
       83.333333,
       100.0
-    ]
+    ],
+    "positive_count": null
   },
   "radiotherapy": {
     "variable_identifier": "ther_rt",
@@ -75,7 +78,8 @@
     ],
     "negative_strata": [
       0.0
-    ]
+    ],
+    "positive_count": null
   },
   "chemotherapy": {
     "variable_identifier": "ther_chemo",
@@ -87,18 +91,20 @@
     ],
     "negative_strata": [
       0.0
-    ]
+    ],
+    "positive_count": null
   },
   "hormone_therapy": {
     "variable_identifier": "ther_ht",
     "chart_id": null,
     "chart_title": "Flashcard with hormone therapy treatment status info",
-    "data_location": null,
+m    "data_location": null,
     "positive_strata": [
       1.0
     ],
     "negative_strata": [
       0.0
-    ]
+    ],
+    "positive_count": null
   }
 }

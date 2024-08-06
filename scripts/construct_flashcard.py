@@ -15,8 +15,8 @@ def construct_flashcard(aggregated_data_path, variable, positive_strata, negativ
     :param str variable: The variable/column name in the DataFrame to analyse.
     :param list positive_strata: A list of values considered as positive strata.
     :param list negative_strata: A list of values considered as negative strata.
-    :return: The path to the saved flashcard CSV file.
-    :rtype: str
+    :return: The path to the saved flashcard CSV file (inferred (or guessed even) from the git repository).
+    :rtype: str number of positive icons
     """
     # Load the JSON file into a DataFrame
     aggregated_data = pd.read_json(stringIO(aggregated_data_path))
@@ -58,7 +58,7 @@ def construct_flashcard(aggregated_data_path, variable, positive_strata, negativ
     with open(os.path.join(output_dir, f'{variable}_flashcard.csv'), 'w') as f:
         f.write(csv_data)
 
-    return f'{variable}_flashcard.csv'
+    return f'{variable}_flashcard.csv', relative_positive_icons
 
 
 if __name__ == '__main__':
@@ -83,10 +83,10 @@ if __name__ == '__main__':
     # Construct flashcards for each variable in plotting information
     for variable in plotting_info:
         variable_identifier = plotting_info[variable]['variable_identifier']
-        flashcard_path = construct_flashcard(aggregate_data, variable_identifier,
-                                             plotting_info[variable]['positive_strata'],
-                                             plotting_info[variable]['negative_strata'])
-        plotting_info[variable]['data_location'] = rf"{repository_path}/data/flashcards/{flashcard_path}"
+        flashcard_path, relative_positive_icons = construct_flashcard(aggregate_data, variable_identifier,
+                                                                      plotting_info[variable]['positive_strata'],
+                                                                      plotting_info[variable]['negative_strata'])
+        plotting_info[variable]['positive_count'] = relative_positive_icons
 
     # Save updated plotting information back to JSON file
     with open(os.path.join(os.path.dirname(os.getcwd()), plotting_information_path), 'w') as f:

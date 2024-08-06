@@ -1,116 +1,116 @@
 {
-  "physical_functioning": {
-    "variable_identifier": "pf",
-    "chart_id": null,
-    "chart_title": "Flashcard with EORTC QLQ-C30 physical functioning info",
-    "embedding_code": null,
-    "data_location": null,
-    "positive_strata": [
-      13.333333,
-      20.0,
-      26.666667,
-      33.333333,
-      40.0,
-      46.666667
-    ],
-    "negative_strata": [
-      53.333333,
-      60.0,
-      66.666667,
-      73.333333,
-      80.0,
-      86.666667,
-      91.666667,
-      93.333333,
-      100.0
-    ],
-    "positive_count": null
-  },
-  "emotional_functioning": {
-    "variable_identifier": "ef",
-    "chart_id": null,
-    "chart_title": "Flashcard with EORTC QLQ-C30 emotional functioning info",
-    "embedding_code": null,
-    "data_location": null,
-    "positive_strata": [
-      0.0,
-      8.333333,
-      16.666667,
-      25.0,
-      33.333333,
-      41.666667,
-      50.0
-    ],
-    "negative_strata": [
-      58.333333,
-      66.666667,
-      75.0,
-      77.777778,
-      83.333333,
-      91.666667,
-      100.0
-    ],
-    "positive_count": null
-  },
-  "role_functioning": {
-    "variable_identifier": "rf",
-    "chart_id": null,
-    "chart_title": "Flashcard with EORTC QLQ-C30 role functioning info",
-    "embedding_code": null,
-    "data_location": null,
-    "positive_strata": [
-      0.0,
-      16.666667,
-      33.333333,
-      50.0
-    ],
-    "negative_strata": [
-      66.666667,
-      83.333333,
-      100.0
-    ],
-    "positive_count": null
-  },
-  "radiotherapy": {
-    "variable_identifier": "ther_rt",
-    "chart_id": null,
-    "chart_title": "Flashcard with radiotherapy treatment status info",
-    "embedding_code": null,
-    "data_location": null,
-    "positive_strata": [
-      1.0
-    ],
-    "negative_strata": [
-      0.0
-    ],
-    "positive_count": null
-  },
-  "chemotherapy": {
-    "variable_identifier": "ther_chemo",
-    "chart_id": null,
-    "chart_title": "Flashcard with chemotherapy treatment status info",
-    "embedding_code": null,
-    "data_location": null,
-    "positive_strata": [
-      1.0
-    ],
-    "negative_strata": [
-      0.0
-    ],
-    "positive_count": null
-  },
-  "hormone_therapy": {
-    "variable_identifier": "ther_ht",
-    "chart_id": null,
-    "chart_title": "Flashcard with hormone therapy treatment status info",
-    "embedding_code": null,
-    "data_location": null,
-    "positive_strata": [
-      1.0
-    ],
-    "negative_strata": [
-      0.0
-    ],
-    "positive_count": null
-  }
+    "physical_functioning": {
+        "variable_identifier": "pf",
+        "chart_id": null,
+        "chart_title": "Flashcard with EORTC QLQ-C30 physical functioning info",
+        "embedding_code": null,
+        "data_location": "https://raw.githubusercontent.com/STRONGAYA/federated-non-expert-info-portal/main//data/flashcards/pf_flashcard.csv",
+        "positive_strata": [
+            13.333333,
+            20.0,
+            26.666667,
+            33.333333,
+            40.0,
+            46.666667
+        ],
+        "negative_strata": [
+            53.333333,
+            60.0,
+            66.666667,
+            73.333333,
+            80.0,
+            86.666667,
+            91.666667,
+            93.333333,
+            100.0
+        ],
+        "positive_count": 0
+    },
+    "emotional_functioning": {
+        "variable_identifier": "ef",
+        "chart_id": null,
+        "chart_title": "Flashcard with EORTC QLQ-C30 emotional functioning info",
+        "embedding_code": null,
+        "data_location": "https://raw.githubusercontent.com/STRONGAYA/federated-non-expert-info-portal/main//data/flashcards/ef_flashcard.csv",
+        "positive_strata": [
+            0.0,
+            8.333333,
+            16.666667,
+            25.0,
+            33.333333,
+            41.666667,
+            50.0
+        ],
+        "negative_strata": [
+            58.333333,
+            66.666667,
+            75.0,
+            77.777778,
+            83.333333,
+            91.666667,
+            100.0
+        ],
+        "positive_count": 5
+    },
+    "role_functioning": {
+        "variable_identifier": "rf",
+        "chart_id": null,
+        "chart_title": "Flashcard with EORTC QLQ-C30 role functioning info",
+        "embedding_code": null,
+        "data_location": "https://raw.githubusercontent.com/STRONGAYA/federated-non-expert-info-portal/main//data/flashcards/rf_flashcard.csv",
+        "positive_strata": [
+            0.0,
+            16.666667,
+            33.333333,
+            50.0
+        ],
+        "negative_strata": [
+            66.666667,
+            83.333333,
+            100.0
+        ],
+        "positive_count": 3
+    },
+    "radiotherapy": {
+        "variable_identifier": "ther_rt",
+        "chart_id": null,
+        "chart_title": "Flashcard with radiotherapy treatment status info",
+        "embedding_code": null,
+        "data_location": "https://raw.githubusercontent.com/STRONGAYA/federated-non-expert-info-portal/main//data/flashcards/ther_rt_flashcard.csv",
+        "positive_strata": [
+            1.0
+        ],
+        "negative_strata": [
+            0.0
+        ],
+        "positive_count": 48
+    },
+    "chemotherapy": {
+        "variable_identifier": "ther_chemo",
+        "chart_id": null,
+        "chart_title": "Flashcard with chemotherapy treatment status info",
+        "embedding_code": null,
+        "data_location": "https://raw.githubusercontent.com/STRONGAYA/federated-non-expert-info-portal/main//data/flashcards/ther_chemo_flashcard.csv",
+        "positive_strata": [
+            1.0
+        ],
+        "negative_strata": [
+            0.0
+        ],
+        "positive_count": 56
+    },
+    "hormone_therapy": {
+        "variable_identifier": "ther_ht",
+        "chart_id": null,
+        "chart_title": "Flashcard with hormone therapy treatment status info",
+        "embedding_code": null,
+        "data_location": "https://raw.githubusercontent.com/STRONGAYA/federated-non-expert-info-portal/main//data/flashcards/ther_ht_flashcard.csv",
+        "positive_strata": [
+            1.0
+        ],
+        "negative_strata": [
+            0.0
+        ],
+        "positive_count": 13
+    }
 }

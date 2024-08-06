@@ -86,6 +86,7 @@ if __name__ == '__main__':
         flashcard_path, relative_positive_icons = construct_flashcard(aggregate_data, variable_identifier,
                                                                       plotting_info[variable]['positive_strata'],
                                                                       plotting_info[variable]['negative_strata'])
+        plotting_info[variable]['data_location'] = rf"{repository_path}/data/flashcards/{flashcard_path}"
         plotting_info[variable]['positive_count'] = relative_positive_icons
 
     # Save updated plotting information back to JSON file

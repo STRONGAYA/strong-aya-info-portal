@@ -1,10 +1,17 @@
 {
     "physical_functioning": {
         "variable_identifier": "pf",
-        "chart_id": null,
+        "chart_id": "oA0sm",
         "chart_title": "Flashcard with EORTC QLQ-C30 physical functioning info",
         "data_location": "https://raw.githubusercontent.com/STRONGAYA/federated-non-expert-info-portal/main//data/flashcards/pf_flashcard.csv",
-        "embedding_code": null,
+        "positive_strata": [
+            13.333333,
+            20.0,
+            26.666667,
+            33.333333,
+            40.0,
+            46.666667
+        ],
         "negative_strata": [
             53.333333,
             60.0,
@@ -15,32 +22,13 @@
             91.666667,
             93.333333,
             100.0
-        ],
-        "positive_strata": [
-            13.333333,
-            20.0,
-            26.666667,
-            33.333333,
-            40.0,
-            46.666667
-        ],
-        "positive_count": 0
+        ]
     },
     "emotional_functioning": {
         "variable_identifier": "ef",
-        "chart_id": null,
+        "chart_id": "M2Q6p",
         "chart_title": "Flashcard with EORTC QLQ-C30 emotional functioning info",
         "data_location": "https://raw.githubusercontent.com/STRONGAYA/federated-non-expert-info-portal/main//data/flashcards/ef_flashcard.csv",
-        "embedding_code": null,
-        "negative_strata": [
-            58.333333,
-            66.666667,
-            75.0,
-            77.777778,
-            83.333333,
-            91.666667,
-            100.0
-        ],
         "positive_strata": [
             0.0,
             8.333333,
@@ -50,67 +38,67 @@
             41.666667,
             50.0
         ],
-        "positive_count": 5
+        "negative_strata": [
+            58.333333,
+            66.666667,
+            75.0,
+            77.777778,
+            83.333333,
+            91.666667,
+            100.0
+        ]
     },
     "role_functioning": {
         "variable_identifier": "rf",
-        "chart_id": null,
+        "chart_id": "kNm49",
         "chart_title": "Flashcard with EORTC QLQ-C30 role functioning info",
         "data_location": "https://raw.githubusercontent.com/STRONGAYA/federated-non-expert-info-portal/main//data/flashcards/rf_flashcard.csv",
-        "embedding_code": null,
-        "negative_strata": [
-            66.666667,
-            83.333333,
-            100.0
-        ],
         "positive_strata": [
             0.0,
             16.666667,
             33.333333,
             50.0
         ],
-        "positive_count": 3
+        "negative_strata": [
+            66.666667,
+            83.333333,
+            100.0
+        ]
     },
     "radiotherapy": {
         "variable_identifier": "ther_rt",
-        "chart_id": null,
+        "chart_id": "hzKUv",
         "chart_title": "Flashcard with radiotherapy treatment status info",
         "data_location": "https://raw.githubusercontent.com/STRONGAYA/federated-non-expert-info-portal/main//data/flashcards/ther_rt_flashcard.csv",
-        "embedding_code": null,
-        "negative_strata": [
-            0.0
-        ],
         "positive_strata": [
             1.0
         ],
-        "positive_count": 48
+        "negative_strata": [
+            0.0
+        ]
     },
     "chemotherapy": {
         "variable_identifier": "ther_chemo",
-        "chart_id": null,
+        "chart_id": "0udkN",
         "chart_title": "Flashcard with chemotherapy treatment status info",
         "data_location": "https://raw.githubusercontent.com/STRONGAYA/federated-non-expert-info-portal/main//data/flashcards/ther_chemo_flashcard.csv",
-        "embedding_code": null,
-        "negative_strata": [
-            0.0
-        ],
         "positive_strata": [
             1.0
         ],
-        "positive_count": 56
+        "negative_strata": [
+            0.0
+        ]
     },
     "hormone_therapy": {
         "variable_identifier": "ther_ht",
-        "chart_id": null,
+        "chart_id": "tqpbt",
         "chart_title": "Flashcard with hormone therapy treatment status info",
         "data_location": "https://raw.githubusercontent.com/STRONGAYA/federated-non-expert-info-portal/main//data/flashcards/ther_ht_flashcard.csv",
-        "embedding_code": null,
-        "negative_strata": [
-            0.0
-        ],
         "positive_strata": [
             1.0
         ],
-        "positive_count": 13
+        "negative_strata": [
+            0.0
+        ]
     }
 }

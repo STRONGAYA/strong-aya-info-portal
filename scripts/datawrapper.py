@@ -157,7 +157,8 @@ def retrieve_embedding_component(api_token, chart_id):
         return response.json()['metadata']['publish']['embed-codes']["embed-method-web-component"]
     else:
         print('Failed to retrieve embedding code:', response.json())
-        exit()
+        return (f'Failed to retrieve embedding code for chart with ID: {chart_id}, '
+                f'visit the Datawrapper dashboard to retrieve the embedding code.')
 
 
 if __name__ == '__main__':

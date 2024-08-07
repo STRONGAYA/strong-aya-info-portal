@@ -167,7 +167,7 @@ if __name__ == '__main__':
     plotting_information_path = sys.argv[2]
 
     # Load plotting information from JSON file
-    with open(os.path.join(os.path.dirname(os.getcwd()), plotting_information_path), 'r') as f:
+    with open(plotting_information_path, 'r') as f:
         plotting_info = json.load(f)
 
     # Create and publish charts for each variable in plotting information

@@ -5,6 +5,13 @@ on:
   # Allows one to run this workflow manually from the repository's 'Actions' tab
   workflow_dispatch:
 
+  # Trigger the workflow when the workflow "Update data through Vantage6 integration" is successful
+  workflow_run:
+    workflows: [ "Update data through Vantage6 integration" ]
+    types:
+      - completed
+    branches: [ "main" ]
+
     # Trigger the workflow on push to the /web directory on the main branch
   push:
     paths:
@@ -27,7 +34,7 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: [self-hosted, SURF]
+    runs-on: [ self-hosted, SURF ]
     steps:
       - name: Checkout
         uses: actions/checkout@v4

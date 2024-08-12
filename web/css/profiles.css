@@ -142,9 +142,11 @@
 }
 
 .profile-beyond-tile {
-    position: absolute;
+    position: inherit;
     top: 0;
     left: 0;
+    margin: 0;
+    padding: 0;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.16);
     border-radius: var(--br-mid);
     background-color: var(--color-white);
@@ -195,9 +197,12 @@
 }
 
 .profile-before-tile {
-    position: absolute;
+    position: inherit;
+    left: 50%;
     top: 0;
     right: 0;
+    margin: 0;
+    padding: 0;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.16);
     border-radius: var(--br-mid);
     background-color: var(--color-white);
@@ -208,8 +213,9 @@
 .body2 {
     position: absolute;
     top: 354px;
-    left: 270px;
-    width: 1435px;
+    left: 5%;
+    min-width: 95%;
+    max-width: 95%;
     height: 875px;
     font-size: var(--font-size-9xl);
 }

@@ -81,13 +81,13 @@
 .population {
     position: absolute;
     top: calc(50% + 92px);
-    left: calc(50% - 175px);
+    left: calc(50% - 165px);
     font-size: var(--font-size-9xl);
     letter-spacing: 0.08px;
     line-height: 28px;
     font-weight: 600;
     font-family: var(--font-poppins);
-    color: var(--color-palevioletred);
+    color: var(--color-chocolate);
     text-align: center;
 }
 
@@ -99,8 +99,8 @@
     position: absolute;
     height: calc(100% - 1px);
     top: 0;
+    right: 52.5%;
     bottom: 1px;
-    left: 82px;
     width: 608px;
 }
 
@@ -117,7 +117,7 @@
     line-height: 28px;
     font-weight: 600;
     font-family: var(--font-poppins);
-    color: var(--color-palevioletred);
+    color: var(--color-chocolate);
     text-align: center;
 }
 
@@ -141,7 +141,7 @@
     position: absolute;
     height: calc(100% - 1px);
     top: 0;
-    right: 92px;
+    right: 5.5%;
     bottom: 1px;
     width: 608px;
 }
@@ -174,18 +174,20 @@
 .mental-problems1 {
     position: absolute;
     top: calc(50% + 94px);
-    left: calc(50% - 122px);
+    left: calc(50% - 100px);
     letter-spacing: 0.08px;
     line-height: 28px;
     font-weight: 600;
+    color: var(--color-chocolate);
 }
 
 .module-c {
+    opacity: 40%;
     text-decoration: none;
     position: absolute;
     height: calc(100% - 1px);
     top: 0;
-    right: -561px;
+    right: -41.5%;
     bottom: 1px;
     width: 608px;
     cursor: pointer;
@@ -195,13 +197,13 @@
 .fertility-preservation {
     position: absolute;
     top: calc(50% + 94px);
-    left: calc(50% - 148px);
+    left: calc(50% - 100px);
     font-size: var(--font-size-9xl);
     letter-spacing: 0.08px;
     line-height: 28px;
     font-weight: 600;
     font-family: var(--font-poppins);
-    color: var(--color-palevioletred);
+    color: var(--color-chocolate);
     text-align: left;
 }
 
@@ -218,6 +220,7 @@
 }
 
 .module-d {
+    opacity: 40%;
     cursor: pointer;
     border: 0;
     padding: 0;
@@ -233,7 +236,7 @@
 .content1 {
     position: absolute;
     width: 100%;
-    top: calc(50% - 403.5px);
+    top: 15%;
     right: 0;
     left: 0;
     height: 501px;
@@ -243,9 +246,10 @@
 }
 
 .explore-your-own {
+
     position: absolute;
     top: calc(50% - 46.5px);
-    left: calc(50% - 407.5px);
+    left: 15%;
     letter-spacing: 0.08px;
     line-height: 28px;
     font-weight: 600;
@@ -254,7 +258,7 @@
 .explore-your-data-btn-item {
     position: absolute;
     top: calc(50% + 2.32px);
-    left: 227px;
+    left: 15%;
     width: 7px;
     height: 7.9px;
 }
@@ -262,7 +266,7 @@
 .as-contributor-you-container {
     position: absolute;
     top: calc(50% - 8.5px);
-    left: calc(50% - 389.5px);
+    left: 18%;
     font-size: var(--font-size-sm);
     color: var(--color-black);
     display: inline-block;
@@ -272,16 +276,18 @@
 
 .firefly-young-adult-waving-car {
     position: absolute;
-    height: calc(100% - 31px);
+    height: 80%;
     top: 17px;
     bottom: 14px;
-    left: 15px;
-    max-height: 100%;
-    width: 202px;
+    left: 2%;
+    max-height: 80%;
+    width: 13%;
+    max-width: 13%;
     object-fit: cover;
 }
 
 .explore-your-data-btn {
+    opacity: 40%;
     position: absolute;
     width: calc(100% - 166px);
     top: calc(50% + 162.5px);
@@ -359,6 +365,7 @@
 }
 
 .explore-subjects-btn {
+    opacity: 40%;
     position: absolute;
     top: 94px;
     left: calc(50% - 115.5px);
@@ -383,6 +390,7 @@
 }
 
 .glossary-btn1 {
+    opacity: 40%;
     position: absolute;
     top: 6px;
     right: 79px;
@@ -436,6 +444,7 @@
 }
 
 .tech-help-btn1 {
+    opacity: 40%;
     position: absolute;
     top: 6px;
     right: 8.5px;
@@ -448,8 +457,8 @@
 .body1 {
     position: absolute;
     top: 202px;
-    left: 270px;
-    width: 1435px;
+    left: 5%;
+    width: 90%;
     height: 1217px;
     font-size: var(--font-size-9xl);
     color: var(--color-palevioletred);

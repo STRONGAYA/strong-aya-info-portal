@@ -52,11 +52,8 @@
 
 /*Graphics / Banners */
 .leading-header {
-    position: absolute;
-    top: 0;
-    left: 0;
     background-color: var(--color-chocolate);
-    width: 1536px;
+    width: 80%;
     height: 47px;
     display: flex;
     justify-content: center;
@@ -70,7 +67,7 @@
     position: absolute;
     top: -2px;
     left: 0;
-    width: 1909px;
+    width: 100%;
     height: 136px;
     font-size: var(--font-size-mini);
     color: var(--color-darkgray-300);
@@ -78,11 +75,14 @@
 
 .header-child {
     position: absolute;
+    display: flex;
+    align-items: center;
     bottom: 0;
-    left: calc(50% + 455.5px);
+    left: 72%;
     background-color: var(--color-chocolate);
-    width: 126px;
+    width: 8%;
     height: 97px;
+    z-index: auto;
 }
 
 .header-item {
@@ -90,14 +90,14 @@
     bottom: 0;
     left: 0;
     background-color: var(--color-white);
-    width: 1410px;
+    width: 72%;
     height: 89px;
 }
 
 /*Navigation links*/
 .contact {
-    top: calc(50% + 10px);
-    left: calc(50% + 483.5px);
+    top: 40%;
+    left: 20%;
     letter-spacing: 0.05px;
     color: var(--color-white);
 }
@@ -110,20 +110,20 @@
 }
 
 .home {
-    top: calc(50% + 12px);
-    left: calc(50% - 89.5px);
+    top: 35%;
+    left: 50%;
     letter-spacing: 0.05px;
     color: inherit;
 }
 
 .about-us {
-    left: calc(50% - 21.5px);
+    left: 57.5%;
 }
 
 .about-us,
 .ecosystems,
 .our-consortium {
-    top: calc(50% + 12px);
+    top: 35%;
     letter-spacing: 0.05px;
     color: inherit;
 }
@@ -131,11 +131,11 @@
 .our-consortium {
     text-decoration: none;
     position: absolute;
-    left: calc(50% + 95.5px);
+    left: 66.5%;
 }
 
 .ecosystems {
-    left: calc(50% + 248.5px);
+    left: 80.5%;
 }
 
 .ecosystems,
@@ -146,8 +146,8 @@
 }
 
 .news {
-    top: calc(50% + 12px);
-    left: calc(50% + 387.5px);
+    top: 35%;
+    left: 93.5%;
     letter-spacing: 0.05px;
     color: inherit;
 }
@@ -165,10 +165,12 @@
 
 /*Accessibility tools*/
 .accessibility {
+    opacity: 40%;
     position: absolute;
     right: 1%;
-    top: 3px;
-    width: 238px;
+    top: 1%;
+    max-width: 220px;
+    width: 15%;
     height: 43px;
     text-align: center;
     font-size: var(--font-size-3xs);

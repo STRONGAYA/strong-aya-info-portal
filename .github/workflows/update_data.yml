@@ -6,9 +6,8 @@ on:
   workflow_dispatch:
 
   # Schedule the workflow to run every first day of January, March, May, July, September, and November at 00:00
-  # TODO: Uncomment the following lines to enable the schedule; and remove this TODO
-  # schedule:
-  #    - cron: '0 0 1 */2 *'
+  schedule:
+      - cron: '0 0 1 */2 *'
 
 permissions:
   contents: write

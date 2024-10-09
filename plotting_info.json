@@ -3,7 +3,7 @@
         "variable_identifier": "pf",
         "chart_id": "l3NII",
         "chart_title": "Flashcard with EORTC QLQ-C30 physical functioning info",
-        "data_location": "https://raw.githubusercontent.com/STRONGAYA/federated-non-expert-info-portal/main//data/flashcards/pf_flashcard.csv",
+        "data_location": "https://raw.githubusercontent.com/STRONGAYA/strong-aya-info-portal/main//data/flashcards/pf_flashcard.csv",
         "embedding_code": "<div style=\"min-height:400px\" id=\"datawrapper-vis-l3NII\"><script type=\"text/javascript\" defer src=\"https://datawrapper.dwcdn.net/l3NII/embed.js\" charset=\"utf-8\" data-target=\"#datawrapper-vis-l3NII\"></script><noscript><img src=\"https://datawrapper.dwcdn.net/l3NII/full.png\" alt=\"\" /></noscript></div>",
         "negative_strata": [
             53.333333,
@@ -30,7 +30,7 @@
         "variable_identifier": "ef",
         "chart_id": "rYS2I",
         "chart_title": "Flashcard with EORTC QLQ-C30 emotional functioning info",
-        "data_location": "https://raw.githubusercontent.com/STRONGAYA/federated-non-expert-info-portal/main//data/flashcards/ef_flashcard.csv",
+        "data_location": "https://raw.githubusercontent.com/STRONGAYA/strong-aya-info-portal/main//data/flashcards/ef_flashcard.csv",
         "embedding_code": "<div style=\"min-height:400px\" id=\"datawrapper-vis-rYS2I\"><script type=\"text/javascript\" defer src=\"https://datawrapper.dwcdn.net/rYS2I/embed.js\" charset=\"utf-8\" data-target=\"#datawrapper-vis-rYS2I\"></script><noscript><img src=\"https://datawrapper.dwcdn.net/rYS2I/full.png\" alt=\"\" /></noscript></div>",
         "negative_strata": [
             58.333333,
@@ -56,7 +56,7 @@
         "variable_identifier": "rf",
         "chart_id": "toqMW",
         "chart_title": "Flashcard with EORTC QLQ-C30 role functioning info",
-        "data_location": "https://raw.githubusercontent.com/STRONGAYA/federated-non-expert-info-portal/main//data/flashcards/rf_flashcard.csv",
+        "data_location": "https://raw.githubusercontent.com/STRONGAYA/strong-aya-info-portal/main//data/flashcards/rf_flashcard.csv",
         "embedding_code": "<div style=\"min-height:400px\" id=\"datawrapper-vis-toqMW\"><script type=\"text/javascript\" defer src=\"https://datawrapper.dwcdn.net/toqMW/embed.js\" charset=\"utf-8\" data-target=\"#datawrapper-vis-toqMW\"></script><noscript><img src=\"https://datawrapper.dwcdn.net/toqMW/full.png\" alt=\"\" /></noscript></div>",
         "negative_strata": [
             66.666667,
@@ -75,7 +75,7 @@
         "variable_identifier": "ther_rt",
         "chart_id": "ajjCE",
         "chart_title": "Flashcard with radiotherapy treatment status info",
-        "data_location": "https://raw.githubusercontent.com/STRONGAYA/federated-non-expert-info-portal/main//data/flashcards/ther_rt_flashcard.csv",
+        "data_location": "https://raw.githubusercontent.com/STRONGAYA/strong-aya-info-portal/main//data/flashcards/ther_rt_flashcard.csv",
         "embedding_code": "<div style=\"min-height:400px\" id=\"datawrapper-vis-ajjCE\"><script type=\"text/javascript\" defer src=\"https://datawrapper.dwcdn.net/ajjCE/embed.js\" charset=\"utf-8\" data-target=\"#datawrapper-vis-ajjCE\"></script><noscript><img src=\"https://datawrapper.dwcdn.net/ajjCE/full.png\" alt=\"\" /></noscript></div>",
         "negative_strata": [
             0.0
@@ -89,7 +89,7 @@
         "variable_identifier": "ther_chemo",
         "chart_id": "6ZY0N",
         "chart_title": "Flashcard with chemotherapy treatment status info",
-        "data_location": "https://raw.githubusercontent.com/STRONGAYA/federated-non-expert-info-portal/main//data/flashcards/ther_chemo_flashcard.csv",
+        "data_location": "https://raw.githubusercontent.com/STRONGAYA/strong-aya-info-portal/main//data/flashcards/ther_chemo_flashcard.csv",
         "embedding_code": "<div style=\"min-height:400px\" id=\"datawrapper-vis-6ZY0N\"><script type=\"text/javascript\" defer src=\"https://datawrapper.dwcdn.net/6ZY0N/embed.js\" charset=\"utf-8\" data-target=\"#datawrapper-vis-6ZY0N\"></script><noscript><img src=\"https://datawrapper.dwcdn.net/6ZY0N/full.png\" alt=\"\" /></noscript></div>",
         "negative_strata": [
             0.0
@@ -103,7 +103,7 @@
         "variable_identifier": "ther_ht",
         "chart_id": "YJVm3",
         "chart_title": "Flashcard with hormone therapy treatment status info",
-        "data_location": "https://raw.githubusercontent.com/STRONGAYA/federated-non-expert-info-portal/main//data/flashcards/ther_ht_flashcard.csv",
+        "data_location": "https://raw.githubusercontent.com/STRONGAYA/strong-aya-info-portal/main//data/flashcards/ther_ht_flashcard.csv",
         "embedding_code": "<div style=\"min-height:400px\" id=\"datawrapper-vis-YJVm3\"><script type=\"text/javascript\" defer src=\"https://datawrapper.dwcdn.net/YJVm3/embed.js\" charset=\"utf-8\" data-target=\"#datawrapper-vis-YJVm3\"></script><noscript><img src=\"https://datawrapper.dwcdn.net/YJVm3/full.png\" alt=\"\" /></noscript></div>",
         "negative_strata": [
             0.0

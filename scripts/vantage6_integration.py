@@ -75,9 +75,9 @@ def retrieve_categorical_descriptives(config, plotting_info):
     task = client.task.create(
         collaboration=config.get("collaboration"),
         organizations=config.get("aggregating_organisation"),
-        name="Non-expert descriptive retrieval",
+        name="STRONG AYA portal descriptive retrieval",
         image="ghcr.io/strongaya/v6-descriptive-statistics:v1.0.0-beta",
-        description="Retrieval of descriptive statistics for the non-expert information portal",
+        description="Retrieval of descriptive statistics for the STRONG AYA information portal",
         input_={"method": "central",
                 "kwargs": {"variables_to_describe": variables_to_describe}},
         databases=[{"label": "csv"}]

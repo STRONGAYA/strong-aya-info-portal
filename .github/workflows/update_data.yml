@@ -69,7 +69,7 @@ jobs:
         run: echo "RAW_PATH=https://raw.githubusercontent.com/${{ env.REPO_NAME }}/main/" >> $GITHUB_ENV
 
       - name: Run Flashcard Construction Python script
-        run: python scripts/construct_flashcard.py federated-non-expert-info-portal/data/raw/vantage6_result.json plotting_info.json "${{ env.RAW_PATH }}"
+        run: python scripts/construct_flashcard.py strong-aya-info-portal/data/raw/vantage6_result.json plotting_info.json "${{ env.RAW_PATH }}"
 
       - name: Configure Git
         run: |

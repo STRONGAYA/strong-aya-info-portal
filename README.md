@@ -1,5 +1,5 @@
-# Federated Non-Expert Information Portal
-This repository contains the code for the basic version for the STRONG AYA federated non-expert information portal.  
+# STRONG AYA Information Portal
+This repository contains the code for the basic version for the STRONG AYA information portal.  
 The portal was designed in Adobe XD, and here is embedded in a GitHub pages application as a **proof of concept** 
 that allows users to inspect data from multiple sources in a single interface.  
 The repository has a Vantage6 integration

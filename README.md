@@ -10,7 +10,7 @@ The proof of concept application is available at https://strongaya.github.io/str
 The full design of the portal is showcased in the `STRONG-AYA-Cancer-Info-Portal-Design.mp4` file
 and is embedded below.
 
-<video here after inclusion on GitHub>
+https://github.com/user-attachments/assets/154512a6-c9a5-49f8-bd9a-08ee88ba29f3
 
 The portal is built using Adobe XD, Locofy.ai, GitHub Pages, Datawrapper and Vantage6.  
 A schematic overview can be found in the `STRONG-AYA-Info-Portal-PoC-Flow.svg` file and is embedded below.

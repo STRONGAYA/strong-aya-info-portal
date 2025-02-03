@@ -7,8 +7,13 @@ that attempts to retrieve the data from the STRONG AYA Vantage6 infrastructure.
 This integration is triggered through a GitHub workflow and will periodically repeat the task after a set interval.  
 The proof of concept application is available at https://strongaya.github.io/strong-aya-info-portal/.
 
+The full design of the portal is showcased in the `STRONG-AYA-Cancer-Info-Portal-Design.mp4` file
+and is embedded below.
+
+<video here after inclusion on GitHub>
+
 The portal is built using Adobe XD, Locofy.ai, GitHub Pages, Datawrapper and Vantage6.  
-A schematic overview can be found in the `STRONG-AYA-info-portal-PoC-flow.svg` file and is embedded below.
+A schematic overview can be found in the `STRONG-AYA-Info-Portal-PoC-Flow.svg` file and is embedded below.
 ![Schematic Overview](STRONG-AYA-info-portal-PoC-flow.svg)
 
 The provided implementation has a large dependency on the descriptive statistics algorithm,

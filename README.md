@@ -5,8 +5,12 @@ that allows users to inspect data from multiple sources in a single interface.
 The repository has a Vantage6 integration
 that attempts to retrieve the data from the STRONG AYA Vantage6 infrastructure.  
 This integration is triggered through a GitHub workflow and will periodically repeat the task after a set interval.  
+The proof of concept application is available at https://strongaya.github.io/strong-aya-info-portal/.
 
 The portal is built using Adobe XD, Locofy.ai, GitHub Pages, Datawrapper and Vantage6.  
+A schematic overview can be found in the `STRONG-AYA-info-portal-PoC-flow.svg` file and is embedded below.
+![Schematic Overview](STRONG-AYA-info-portal-PoC-flow.svg)
+
 The provided implementation has a large dependency on the descriptive statistics algorithm,
 please refer to its respective repository for more information
 (https://github.com/STRONGAYA/v6-descriptive-statistics).
@@ -26,14 +30,6 @@ can be found in the associated scientific publication: currently as preprint on 
 - ### In development mode
   - Python 3.10 environment with libraries in `requirements.txt` installed
   - Access to example data in `example_data/` or alternative data in the same format
-
-
-## Running the application
-### Through GitHub Pages
-To be documented
-
-## Example data
-To be documented
 
 ## References and acknowledgements
 - Icons present in this repository were obtained through FontAwesome.

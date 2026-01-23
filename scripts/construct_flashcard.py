@@ -77,7 +77,9 @@ if __name__ == '__main__':
 
     # Load aggregated data from JSON file
     with open(os.path.join(os.path.dirname(os.getcwd()), aggregate_data_path), 'r') as f:
-        aggregate_data = json.loads(json.load(f))['categorical_descriptives']
+        content = f.read().strip()
+        data = json.loads(content)
+        aggregate_data = json.loads(data['categorical_descriptives'])
 
     # Load plotting information from JSON file
     with open(plotting_information_path, 'r') as f:

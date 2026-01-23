@@ -1,5 +1,6 @@
 import json
 import os
+import pyotp
 import sys
 
 from vantage6.client import UserClient as Client
@@ -22,6 +23,7 @@ def retrieve_categorical_descriptives(config, plotting_info):
         - username (str): The username for authentication.
         - password (str): The password for authentication.
         - organization_key (str): The private key of the user's organisation to set up end-to-end encryption.
+        - mfa_token (str, optional): The MFA token for authentication, if required.
     plotting_info (dict or str): Plotting information. If a string, it will be parsed as JSON.
         - Example structure:
             {
@@ -115,8 +117,17 @@ def _authenticate(config):
     # Create a client
     client = Client(config.get("server_url"), config.get("server_port"), config.get("server_api"),
                     log_level="debug")
+
+    # Generate an MFA code if a token is provided
+    code = config.get("mfa_token", None)
+    if code is not None:
+        generator = pyotp.totp.TOTP(code)
+        mfa_code = generator.now()
+    else:
+        mfa_code = None
+
     # Authenticate the client
-    client.authenticate(config.get("username"), config.get("password"))
+    client.authenticate(config.get("username"), config.get("password"), mfa_code)
 
     # Set up encryption for the client
     if config.get("organization_key") == "":

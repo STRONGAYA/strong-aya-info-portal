@@ -60,6 +60,7 @@ pydantic_core==2.16.3
 pyfiglet==0.8.post1
 Pygments==2.17.2
 PyJWT==2.6.0
+pyotp==2.9.0
 pyparsing==3.1.2
 python-dateutil==2.8.2
 pytz==2024.1
@@ -82,7 +83,7 @@ typing_extensions==4.11.0
 tzdata==2024.1
 tzlocal==5.2
 urllib3==2.2.1
-vantage6==4.4.0
+vantage6==4.12.0
 wcwidth==0.2.13
 websocket-client==1.7.0
 Werkzeug==3.0.2

@@ -44,7 +44,8 @@ jobs:
             "server_api": "${{ secrets.SERVER_API }}",
             "username": "${{ secrets.SERVICE_ACCOUNT }}",
             "password": "${{ secrets.SERVICE_PASSWORD }}",
-            "organization_key": "${{ env.TEMP_DIR }}/encryption_key"
+            "organization_key": "${{ env.TEMP_DIR }}/encryption_key",
+            "mfa_token": "${{ secrets.MFA_TOKEN }}"
           }
           EOF
 

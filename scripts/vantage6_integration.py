@@ -156,14 +156,6 @@ if __name__ == "__main__":
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
-    # Parse the result as JSON before writing to the file
-    try:
-        parsed_result = json.loads(result)
-    except json.JSONDecodeError as e:
-        print(f"ERROR - Failed to parse the Vantage6 result as JSON: {e}")
-        sys.exit(1)
-
-    # Save the parsed result as a valid JSON object
+    # Save the result in the appropriate location
     with open(os.path.join(output_dir, "vantage6_result.json"), "w") as f:
-        json.dump(parsed_result, f, indent=4)
-
+        json.dump(result, f, indent=4)

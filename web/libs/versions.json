@@ -1,0 +1,42 @@
+{
+  "libraries": {
+    "plotly.js": {
+      "current": "2.28.0",
+      "previous": null,
+      "cdn": "https://cdn.plot.ly/plotly-2.28.0.min.js",
+      "update_date": "2024-08-24",
+      "notes": "Updated to latest stable version"
+    },
+    "font-awesome": {
+      "current": "6.5.1",
+      "previous": "5.15.3",
+      "cdn": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css",
+      "update_date": "2024-08-24",
+      "notes": "Upgraded from 5.15.3 to 6.5.1 for latest icons"
+    },
+    "google-fonts-poppins": {
+      "current": "latest",
+      "previous": null,
+      "cdn": "https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,400&display=swap",
+      "update_date": "2024-08-24",
+      "notes": "Primary font for the portal"
+    },
+    "google-fonts-arial": {
+      "current": "latest",
+      "previous": null,
+      "cdn": "https://fonts.googleapis.com/css2?family=Arial:wght@400&display=swap",
+      "update_date": "2024-08-24",
+      "notes": "Fallback font"
+    }
+  },
+  "data_sources": {
+    "vantage6": {
+      "version": "4.15",
+      "previous": null,
+      "update_date": "2024-08-24",
+      "notes": "Updated to vantage6 version 4.15 for data compatibility"
+    }
+  },
+  "portal_version": "1.2.0",
+  "last_updated": "2024-08-24"
+}

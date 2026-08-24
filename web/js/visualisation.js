@@ -3,7 +3,54 @@
  * Handles icon array, table, and pie chart visualisations using Plotly.js
  * Loads data from GitHub CSV files
  * Supports multiple page types and visualisation variants
+ * Uses brand color theme and colorblind-safe palettes
  */
+
+// Brand color theme from existing CSS
+const BRAND_COLORS = {
+    primary: '#f7741e',      // Chocolate orange - main brand color
+    secondary: '#e36799',    // Pale violet red - existing accent
+    blue: '#7607ff',        // Blue - existing accent
+    dark: '#000000',        // Black
+    light: '#ffffff',       // White
+    silver: '#c9c6c4',      // Silver
+    lightGray: '#d7d7d7',   // Light gray
+    darkGray: '#aeaeae',    // Dark gray
+    gainsboro: '#dbdbdb'    // Gainsboro
+};
+
+// Colorblind-safe color palettes
+const COLORBLIND_SAFE = {
+    // IBM Design Library colorblind-safe palette
+    category1: '#648FFF',    // Blue
+    category2: '#DC267F',    // Magenta
+    category3: '#FE6100',    // Orange (matches brand)
+    category4: '#FFB000',    // Gold
+    category5: '#785EF0',    // Purple
+    
+    // Additional accessible colors
+    yes: '#648FFF',         // Blue for "Yes"
+    no: '#DC267F',          // Magenta for "No" (avoids red-green)
+    partial: '#FFB000',      // Gold for "Partial"
+    
+    // For functioning scores (avoiding red-green)
+    high: '#648FFF',        // Blue for high/good
+    medium: '#FE6100',      // Orange for medium
+    low: '#DC267F',          // Magenta for low
+    
+    // For symptoms (colorblind-safe)
+    severe: '#648FFF',      // Blue
+    moderate: '#FE6100',    // Orange
+    mild: '#FFB000',        // Gold
+    none: '#785EF0',        // Purple
+    
+    // Treatment colors (using brand colors)
+    received: '#f7741e',     // Brand orange
+    notReceived: '#d7d7d7', // Light gray
+    planned: '#7607ff',      // Brand blue
+    completed: '#648FFF',    // Accessible blue
+    ongoing: '#FFB000'       // Gold
+};
 
 // Page type configurations
 const PAGE_TYPES = {
@@ -63,15 +110,13 @@ const VISUALISATION_TYPES = {
         id: 'iconArraySimple',
         name: 'Simple Icon Array',
         description: 'Two categories: Yes/No - Clear binary representation',
-        icon: '👥',
-        requires: ['yes', 'no']
+        icon: '👥'
     },
     iconArrayComplex: {
         id: 'iconArrayComplex',
         name: 'Complex Icon Array',
         description: 'Multiple granular categories - Detailed breakdown',
-        icon: '👥',
-        requires: ['yes', 'no', 'partial']
+        icon: '👥'
     },
     table: {
         id: 'table',
@@ -90,61 +135,50 @@ const VISUALISATION_TYPES = {
         name: 'Bar Chart',
         description: 'Side-by-side comparison',
         icon: '📈'
-    },
-    groupedBarChart: {
-        id: 'groupedBarChart',
-        name: 'Grouped Bar Chart',
-        description: 'Comparison across multiple groups',
-        icon: '📊'
-    },
-    lineChart: {
-        id: 'lineChart',
-        name: 'Line Chart',
-        description: 'Trends over time',
-        icon: '📉'
     }
 };
 
-// Color schemes for different data types
+// Color schemes for different data types (using brand and colorblind-safe colors)
 const COLOR_SCHEMES = {
     default: {
-        yes: '#f7741e',
-        no: '#d7d7d7',
-        partial: '#ffcc00',
-        high: '#e74c3c',
-        medium: '#f39c12',
-        low: '#2ecc71',
-        very_high: '#c0392b',
-        very_low: '#27ae60'
+        yes: BRAND_COLORS.primary,     // Brand orange #f7741e
+        no: BRAND_COLORS.lightGray,    // Light gray #d7d7d7
+        partial: COLORBLIND_SAFE.category4, // Gold #FFB000
+        high: COLORBLIND_SAFE.category1,    // Blue #648FFF
+        medium: COLORBLIND_SAFE.category3,  // Orange #FE6100
+        low: COLORBLIND_SAFE.category2      // Magenta #DC267F
     },
     treatment: {
-        received: '#f7741e',
-        notReceived: '#d7d7d7',
-        partial: '#ffcc00',
-        planned: '#3498db',
-        completed: '#2ecc71',
-        ongoing: '#f39c12'
+        received: BRAND_COLORS.primary,    // Brand orange #f7741e
+        notReceived: BRAND_COLORS.lightGray, // Light gray #d7d7d7
+        partial: COLORBLIND_SAFE.category4,  // Gold #FFB000
+        planned: BRAND_COLORS.secondary,    // Pale violet red #e36799
+        completed: BRAND_COLORS.blue,       // Brand blue #7607ff
+        ongoing: COLORBLIND_SAFE.category4   // Gold #FFB000
     },
     functioning: {
-        declined: '#e74c3c',
-        stable: '#2ecc71',
-        improved: '#3498db',
-        significantly_declined: '#c0392b',
-        significantly_improved: '#27ae60'
+        // Avoid red-green for functioning scores
+        declined: COLORBLIND_SAFE.category2,   // Magenta #DC267F (instead of red)
+        stable: COLORBLIND_SAFE.category4,    // Gold #FFB000 (neutral)
+        improved: COLORBLIND_SAFE.category1,  // Blue #648FFF (instead of green)
+        significantly_declined: COLORBLIND_SAFE.category5, // Purple #785EF0
+        significantly_improved: BRAND_COLORS.blue // Brand blue #7607ff
     },
     symptoms: {
-        severe: '#c0392b',
-        moderate: '#e74c3c',
-        mild: '#f39c12',
-        none: '#2ecc71',
-        unknown: '#95a5a6'
+        // Colorblind-safe symptom colors
+        severe: COLORBLIND_SAFE.category2,     // Magenta #DC267F
+        moderate: COLORBLIND_SAFE.category3,   // Orange #FE6100
+        mild: COLORBLIND_SAFE.category4,       // Gold #FFB000
+        none: COLORBLIND_SAFE.category1,       // Blue #648FFF
+        unknown: BRAND_COLORS.silver           // Silver #c9c6c4
     },
     qualityOfLife: {
-        excellent: '#27ae60',
-        good: '#2ecc71',
-        fair: '#f1c40f',
-        poor: '#e67e22',
-        very_poor: '#d35400'
+        // Colorblind-safe QoL colors
+        excellent: COLORBLIND_SAFE.category1,  // Blue #648FFF
+        good: COLORBLIND_SAFE.category4,       // Gold #FFB000
+        fair: COLORBLIND_SAFE.category3,       // Orange #FE6100
+        poor: COLORBLIND_SAFE.category2,       // Magenta #DC267F
+        very_poor: COLORBLIND_SAFE.category5   // Purple #785EF0
     }
 };
 
@@ -152,38 +186,38 @@ const COLOR_SCHEMES = {
 const LEGEND_CONFIGS = {
     treatment: {
         simple: [
-            { id: 'received', label: 'Received Treatment', color: '#f7741e', description: 'Patients who received this treatment' },
-            { id: 'notReceived', label: 'Did Not Receive', color: '#d7d7d7', description: 'Patients who did not receive this treatment' }
+            { id: 'received', label: 'Received Treatment', color: COLOR_SCHEMES.treatment.received, description: 'Patients who received this treatment' },
+            { id: 'notReceived', label: 'Did Not Receive', color: COLOR_SCHEMES.treatment.notReceived, description: 'Patients who did not receive this treatment' }
         ],
         complex: [
-            { id: 'received', label: 'Received Treatment', color: '#f7741e', description: 'Completed treatment' },
-            { id: 'partial', label: 'Partial Treatment', color: '#ffcc00', description: 'Received some but not all planned treatment' },
-            { id: 'planned', label: 'Planned', color: '#3498db', description: 'Treatment planned but not yet started' },
-            { id: 'notReceived', label: 'Not Received', color: '#d7d7d7', description: 'Did not receive treatment' }
+            { id: 'received', label: 'Completed Treatment', color: COLOR_SCHEMES.treatment.completed, description: 'Completed full treatment' },
+            { id: 'partial', label: 'Partial Treatment', color: COLOR_SCHEMES.treatment.partial, description: 'Received some but not all planned treatment' },
+            { id: 'planned', label: 'Planned', color: COLOR_SCHEMES.treatment.planned, description: 'Treatment planned but not yet started' },
+            { id: 'notReceived', label: 'Not Received', color: COLOR_SCHEMES.treatment.notReceived, description: 'Did not receive treatment' }
         ]
     },
     functioning: {
         simple: [
-            { id: 'declined', label: 'Declined', color: '#e74c3c', description: 'Functioning has declined' },
-            { id: 'stable', label: 'Stable', color: '#2ecc71', description: 'Functioning remains stable' }
+            { id: 'declined', label: 'Declined', color: COLOR_SCHEMES.functioning.declined, description: 'Functioning has declined' },
+            { id: 'stable', label: 'Stable', color: COLOR_SCHEMES.functioning.stable, description: 'Functioning remains stable' }
         ],
         complex: [
-            { id: 'significantly_declined', label: 'Significantly Declined', color: '#c0392b', description: 'Major decline in functioning' },
-            { id: 'declined', label: 'Declined', color: '#e74c3c', description: 'Moderate decline in functioning' },
-            { id: 'stable', label: 'Stable', color: '#2ecc71', description: 'No significant change' },
-            { id: 'improved', label: 'Improved', color: '#3498db', description: 'Functioning has improved' }
+            { id: 'significantly_declined', label: 'Significantly Declined', color: COLOR_SCHEMES.functioning.significantly_declined, description: 'Major decline in functioning' },
+            { id: 'declined', label: 'Declined', color: COLOR_SCHEMES.functioning.declined, description: 'Moderate decline in functioning' },
+            { id: 'stable', label: 'Stable', color: COLOR_SCHEMES.functioning.stable, description: 'No significant change' },
+            { id: 'improved', label: 'Improved', color: COLOR_SCHEMES.functioning.improved, description: 'Functioning has improved' }
         ]
     },
     symptoms: {
         simple: [
-            { id: 'present', label: 'Present', color: '#e74c3c', description: 'Symptom is present' },
-            { id: 'absent', label: 'Absent', color: '#2ecc71', description: 'Symptom is not present' }
+            { id: 'present', label: 'Present', color: COLOR_SCHEMES.symptoms.moderate, description: 'Symptom is present' },
+            { id: 'absent', label: 'Absent', color: COLOR_SCHEMES.symptoms.none, description: 'Symptom is not present' }
         ],
         complex: [
-            { id: 'severe', label: 'Severe', color: '#c0392b', description: 'Severe symptoms' },
-            { id: 'moderate', label: 'Moderate', color: '#e74c3c', description: 'Moderate symptoms' },
-            { id: 'mild', label: 'Mild', color: '#f39c12', description: 'Mild symptoms' },
-            { id: 'none', label: 'None', color: '#2ecc71', description: 'No symptoms' }
+            { id: 'severe', label: 'Severe', color: COLOR_SCHEMES.symptoms.severe, description: 'Severe symptoms' },
+            { id: 'moderate', label: 'Moderate', color: COLOR_SCHEMES.symptoms.moderate, description: 'Moderate symptoms' },
+            { id: 'mild', label: 'Mild', color: COLOR_SCHEMES.symptoms.mild, description: 'Mild symptoms' },
+            { id: 'none', label: 'None', color: COLOR_SCHEMES.symptoms.none, description: 'No symptoms' }
         ]
     }
 };
@@ -198,6 +232,8 @@ class StrongAyaVisualisation {
         this.filters = {};
         this.legendData = [];
         this.pageType = null;
+        this.categoryCounts = {};
+        this.totalCount = 0;
         
         this.init();
     }
@@ -252,22 +288,22 @@ class StrongAyaVisualisation {
             // Get legend config for this page type
             const legendConfig = LEGEND_CONFIGS[pageId];
             if (legendConfig) {
-                // Use simple or complex based on current view
+                // Use simple legend by default
                 this.legendData = legendConfig.simple || [];
                 this.colorScheme = COLOR_SCHEMES[colorScheme];
             } else {
                 // Fallback to default
                 this.legendData = [
-                    { id: 'yes', label: 'Yes', color: '#f7741e', description: 'Positive/Yes' },
-                    { id: 'no', label: 'No', color: '#d7d7d7', description: 'Negative/No' }
+                    { id: 'yes', label: 'Yes', color: COLOR_SCHEMES.default.yes, description: 'Positive/Yes' },
+                    { id: 'no', label: 'No', color: COLOR_SCHEMES.default.no, description: 'Negative/No' }
                 ];
                 this.colorScheme = COLOR_SCHEMES.default;
             }
         } else {
             // Default legend
             this.legendData = [
-                { id: 'yes', label: 'Yes', color: '#f7741e', description: 'Positive/Yes' },
-                { id: 'no', label: 'No', color: '#d7d7d7', description: 'Negative/No' }
+                { id: 'yes', label: 'Yes', color: COLOR_SCHEMES.default.yes, description: 'Positive/Yes' },
+                { id: 'no', label: 'No', color: COLOR_SCHEMES.default.no, description: 'Negative/No' }
             ];
             this.colorScheme = COLOR_SCHEMES.default;
         }
@@ -327,6 +363,7 @@ class StrongAyaVisualisation {
             this.legendData.forEach(item => {
                 this.categoryCounts[item.id] = 0;
             });
+            this.totalCount = 0;
             return;
         }
         
@@ -336,6 +373,7 @@ class StrongAyaVisualisation {
             this.legendData.forEach(item => {
                 this.categoryCounts[item.id] = 0;
             });
+            this.totalCount = 0;
             return;
         }
         
@@ -347,8 +385,10 @@ class StrongAyaVisualisation {
             'person-orange': 'yes',
             'person-grey': 'no',
             'person-yellow': 'partial',
-            'person-green': 'stable',
-            'person-red': 'declined'
+            'person-gold': 'partial',
+            'person-blue': 'improved',
+            'person-magenta': 'declined',
+            'person-purple': 'significantly_declined'
         };
         
         // Initialize counts
@@ -438,7 +478,7 @@ class StrongAyaVisualisation {
     }
     
     render() {
-        if (!this.data && this.dataConfig.dataUrl && !this.visArea) return;
+        if (!this.visArea) return;
         
         switch (this.currentView) {
             case 'iconArrayComplex':
@@ -453,12 +493,6 @@ class StrongAyaVisualisation {
             case 'barChart':
                 this.renderBarChart();
                 break;
-            case 'groupedBarChart':
-                this.renderGroupedBarChart();
-                break;
-            case 'lineChart':
-                this.renderLineChart();
-                break;
             case 'iconArraySimple':
             default:
                 this.renderIconArraySimple();
@@ -467,7 +501,7 @@ class StrongAyaVisualisation {
     }
     
     renderIconArraySimple() {
-        if (!this.categoryCounts || this.totalCount === 0) {
+        if (this.totalCount === 0) {
             this.visArea.innerHTML = '<p style="text-align: center; padding: 20px;">No data available for icon array visualisation.</p>';
             return;
         }
@@ -480,7 +514,7 @@ class StrongAyaVisualisation {
         // Check if we have enough categories for complex view
         const hasEnoughCategories = Object.keys(this.categoryCounts).length >= 3;
         
-        if (!this.categoryCounts || this.totalCount === 0) {
+        if (this.totalCount === 0) {
             this.visArea.innerHTML = '<p style="text-align: center; padding: 20px;">No data available for complex icon array.</p>';
             return;
         }
@@ -514,10 +548,15 @@ class StrongAyaVisualisation {
             const icons = this.generateIconHTML(count, category.color);
             
             iconRows += `
-                <div class="icon-category-row" style="display: flex; align-items: center; gap: 10px; margin: 10px 0;">
-                    <div style="width: 30px; height: 30px; background: ${category.color}; border-radius: 3px; border: 1px solid #333; flex-shrink: 0;"></div>
-                    <div style="flex: 1;">${icons}</div>
-                    <span style="font-size: 14px; color: #666;">${count} (${percentage}%)</span>
+                <div class="icon-category-row">
+                    <div class="icon-category-header">
+                        <div class="icon-color-indicator" style="background: ${category.color};"></div>
+                        <span class="icon-category-label">${category.label}</span>
+                        <span class="icon-category-count">${count} (${percentage}%)</span>
+                    </div>
+                    <div class="icon-category-icons">
+                        ${icons}
+                    </div>
                 </div>
             `;
             
@@ -534,14 +573,14 @@ class StrongAyaVisualisation {
         });
         
         const title = this.dataConfig.title || (isComplex ? 'Detailed Distribution' : 'Distribution');
-        const subtitle = this.pageType ? this.pageType.description : 'Patient data from SURVAYA study';
+        const subtitle = this.dataConfig.description || this.pageType?.description || 'Patient data from SURVAYA study';
         
         return `
             <div class="visualisation-wrapper">
                 <div class="icon-array-visualisation">
-                    <h3>${title}</h3>
-                    <p class="visualisation-subtitle">${subtitle}</p>
-                    <p class="visualisation-subtitle">Total: ${this.totalCount} people</p>
+                    <h3 class="vis-title">${title}</h3>
+                    <p class="vis-subtitle">${subtitle}</p>
+                    <p class="vis-total">Total: ${this.totalCount} people</p>
                     
                     <div class="icon-array-container">
                         ${iconRows}
@@ -556,18 +595,17 @@ class StrongAyaVisualisation {
                 </div>
             </div>
             
-            ${this.dataConfig.description ? `<p class="visualisation-description">${this.dataConfig.description}</p>` : ''}
-            ${this.dataConfig.lastUpdated ? `<p class="visualisation-date">Last updated: ${this.dataConfig.lastUpdated}</p>` : ''}
+            ${this.dataConfig.lastUpdated ? `<p class="vis-date">Last updated: ${this.dataConfig.lastUpdated}</p>` : ''}
         `;
     }
     
     generateIconHTML(count, color) {
-        if (count === 0) return '<span style="color: #999;">—</span>';
+        if (count === 0) return '<span class="no-icons">—</span>';
         
         let html = '';
         for (let i = 0; i < count; i++) {
             html += `
-                <svg width="20" height="30" viewBox="0 0 20 30" style="flex-shrink: 0;" aria-label="Person">
+                <svg width="20" height="30" viewBox="0 0 20 30" class="person-icon" aria-label="Person">
                     <rect width="20" height="30" fill="${color}" rx="3"/>
                 </svg>
             `;
@@ -576,7 +614,7 @@ class StrongAyaVisualisation {
     }
     
     renderTable() {
-        if (!this.categoryCounts || this.totalCount === 0) {
+        if (this.totalCount === 0) {
             this.visArea.innerHTML = '<p style="text-align: center; padding: 20px;">No data available.</p>';
             return;
         }
@@ -607,7 +645,7 @@ class StrongAyaVisualisation {
         
         // Add total row
         tableRows += `
-            <tr>
+            <tr class="table-total">
                 <td><strong>Total</strong></td>
                 <td>${this.totalCount}</td>
                 <td>100%</td>
@@ -638,7 +676,7 @@ class StrongAyaVisualisation {
                     </div>
                 </div>
                 
-                <div class="visualisation-info">
+                <div class="vis-info">
                     <p><strong>Note:</strong> ${this.dataConfig.description || 'Patient-reported outcomes from the SURVAYA study'}.</p>
                     <p>Last updated: ${this.dataConfig.lastUpdated || 'August 2024'}</p>
                 </div>
@@ -649,7 +687,7 @@ class StrongAyaVisualisation {
     }
     
     renderPieChart() {
-        if (!this.categoryCounts || this.totalCount === 0) {
+        if (this.totalCount === 0) {
             this.visArea.innerHTML = '<p style="text-align: center; padding: 20px;">No data available for pie chart.</p>';
             return;
         }
@@ -665,7 +703,7 @@ class StrongAyaVisualisation {
             marker: {
                 colors: colors
             },
-            textinfo: 'label+percent+value',
+            textinfo: 'label+percent',
             textposition: 'inside',
             hoverinfo: 'label+percent+value',
             hole: 0.3
@@ -675,11 +713,17 @@ class StrongAyaVisualisation {
             title: {
                 text: `${this.dataConfig.title || 'Distribution'} (n=${this.totalCount})`,
                 x: 0.5,
-                xanchor: 'center'
+                xanchor: 'center',
+                font: {
+                    size: 18,
+                    family: 'Poppins, sans-serif'
+                }
             },
-            showlegend: false, // We'll use our custom legend
+            showlegend: false,
             height: 450,
-            margin: { t: 60, b: 50, l: 20, r: 20 }
+            margin: { t: 60, b: 50, l: 20, r: 20 },
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: 'rgba(0,0,0,0)'
         };
         
         const config = {
@@ -723,7 +767,7 @@ class StrongAyaVisualisation {
     }
     
     renderBarChart() {
-        if (!this.categoryCounts || this.totalCount === 0) {
+        if (this.totalCount === 0) {
             this.visArea.innerHTML = '<p style="text-align: center; padding: 20px;">No data available for bar chart.</p>';
             return;
         }
@@ -739,7 +783,7 @@ class StrongAyaVisualisation {
             marker: {
                 color: colors
             },
-            text: values,
+            text: values.map(v => v.toString()),
             textposition: 'auto',
             hoverinfo: 'x+y'
         }];
@@ -748,13 +792,25 @@ class StrongAyaVisualisation {
             title: {
                 text: `${this.dataConfig.title || 'Count by Category'} (Total: ${this.totalCount})`,
                 x: 0.5,
-                xanchor: 'center'
+                xanchor: 'center',
+                font: {
+                    size: 18,
+                    family: 'Poppins, sans-serif'
+                }
             },
-            xaxis: { title: 'Category' },
-            yaxis: { title: 'Count' },
+            xaxis: { 
+                title: 'Category',
+                tickfont: { family: 'Poppins, sans-serif' }
+            },
+            yaxis: { 
+                title: 'Count',
+                tickfont: { family: 'Poppins, sans-serif' }
+            },
             showlegend: false,
             height: 450,
-            margin: { t: 60, b: 50, l: 50, r: 20 }
+            margin: { t: 60, b: 50, l: 50, r: 20 },
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: 'rgba(0,0,0,0)'
         };
         
         const config = {
@@ -797,16 +853,8 @@ class StrongAyaVisualisation {
         }
     }
     
-    renderGroupedBarChart() {
-        this.visArea.innerHTML = '<p style="text-align: center; padding: 20px;">Grouped bar chart requires multiple data series. Not yet implemented for this dataset.</p>';
-    }
-    
-    renderLineChart() {
-        this.visArea.innerHTML = '<p style="text-align: center; padding: 20px;">Line chart requires time-series data. Not applicable for current dataset.</p>';
-    }
-    
     showError(message) {
-        this.visArea.innerHTML = `<p style="text-align: center; padding: 20px; color: red;">${message}</p>`;
+        this.visArea.innerHTML = `<p style="text-align: center; padding: 20px; color: ${BRAND_COLORS.secondary};">${message}</p>`;
     }
     
     applyFilters(filters) {
@@ -849,26 +897,6 @@ const VISUALISATION_CONFIGS = {
         colorScheme: 'treatment',
         defaultView: 'iconArraySimple'
     },
-    surgery: {
-        dataUrl: null, // Placeholder - add your CSV URL
-        title: 'Surgery',
-        description: 'Percentage of AYA cancer patients who underwent surgery',
-        lastUpdated: 'August 2024',
-        variable: 'ther_surgery',
-        pageType: 'treatment',
-        colorScheme: 'treatment',
-        defaultView: 'iconArraySimple'
-    },
-    immunotherapy: {
-        dataUrl: null, // Placeholder - add your CSV URL
-        title: 'Immunotherapy',
-        description: 'Percentage of AYA cancer patients who received immunotherapy',
-        lastUpdated: 'August 2024',
-        variable: 'ther_immuno',
-        pageType: 'treatment',
-        colorScheme: 'treatment',
-        defaultView: 'iconArraySimple'
-    },
     
     // Functioning modules
     emotional_functioning: {
@@ -900,112 +928,14 @@ const VISUALISATION_CONFIGS = {
         pageType: 'functioning',
         colorScheme: 'functioning',
         defaultView: 'iconArraySimple'
-    },
-    social_functioning: {
-        dataUrl: null, // Placeholder - add your CSV URL
-        title: 'Social Functioning',
-        description: 'Percentage of AYA cancer patients with declined social functioning',
-        lastUpdated: 'August 2024',
-        variable: 'sf',
-        pageType: 'functioning',
-        colorScheme: 'functioning',
-        defaultView: 'iconArraySimple'
-    },
-    cognitive_functioning: {
-        dataUrl: null, // Placeholder - add your CSV URL
-        title: 'Cognitive Functioning',
-        description: 'Percentage of AYA cancer patients with declined cognitive functioning',
-        lastUpdated: 'August 2024',
-        variable: 'cf',
-        pageType: 'functioning',
-        colorScheme: 'functioning',
-        defaultView: 'iconArraySimple'
-    },
-    
-    // Symptoms modules (placeholders - add your CSV URLs)
-    fatigue: {
-        dataUrl: null,
-        title: 'Fatigue',
-        description: 'Percentage of AYA cancer patients experiencing fatigue',
-        lastUpdated: 'August 2024',
-        variable: 'fa',
-        pageType: 'symptoms',
-        colorScheme: 'symptoms',
-        defaultView: 'iconArraySimple'
-    },
-    pain: {
-        dataUrl: null,
-        title: 'Pain',
-        description: 'Percentage of AYA cancer patients experiencing pain',
-        lastUpdated: 'August 2024',
-        variable: 'pa',
-        pageType: 'symptoms',
-        colorScheme: 'symptoms',
-        defaultView: 'iconArraySimple'
-    },
-    nausea: {
-        dataUrl: null,
-        title: 'Nausea',
-        description: 'Percentage of AYA cancer patients experiencing nausea',
-        lastUpdated: 'August 2024',
-        variable: 'nu',
-        pageType: 'symptoms',
-        colorScheme: 'symptoms',
-        defaultView: 'iconArraySimple'
-    },
-    
-    // Mental health modules (placeholders)
-    anxiety: {
-        dataUrl: null,
-        title: 'Anxiety',
-        description: 'Anxiety levels among AYA cancer patients',
-        lastUpdated: 'August 2024',
-        variable: 'anxiety',
-        pageType: 'mental_health',
-        colorScheme: 'qualityOfLife',
-        defaultView: 'iconArraySimple'
-    },
-    depression: {
-        dataUrl: null,
-        title: 'Depression',
-        description: 'Depression levels among AYA cancer patients',
-        lastUpdated: 'August 2024',
-        variable: 'depression',
-        pageType: 'mental_health',
-        colorScheme: 'qualityOfLife',
-        defaultView: 'iconArraySimple'
     }
 };
-
-// Helper function to add a new page type
-definePageType(id, config) {
-    PAGE_TYPES[id] = config;
-}
-
-// Helper function to add a new visualisation type
-defineVisualisationType(id, config) {
-    VISUALISATION_TYPES[id] = config;
-}
-
-// Helper function to add a new color scheme
-defineColorScheme(id, colors) {
-    COLOR_SCHEMES[id] = colors;
-}
-
-// Helper function to add a new legend configuration
-defineLegendConfig(pageType, simple, complex) {
-    if (!LEGEND_CONFIGS[pageType]) {
-        LEGEND_CONFIGS[pageType] = {};
-    }
-    if (simple) LEGEND_CONFIGS[pageType].simple = simple;
-    if (complex) LEGEND_CONFIGS[pageType].complex = complex;
-}
 
 // Initialize visualisations when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     // Check if we're on a module page
     const path = window.location.pathname;
-    const moduleMatch = path.match(/(chemotherapy|radiotherapy|hormonetherapy|emotional_functioning|physical_functioning|role_functioning|fatigue|pain|nausea|anxiety|depression|surgery|immunotherapy)/);
+    const moduleMatch = path.match(/(chemotherapy|radiotherapy|hormonetherapy|emotional_functioning|physical_functioning|role_functioning)/);
     
     if (moduleMatch) {
         const moduleType = moduleMatch[1];
@@ -1034,10 +964,8 @@ if (typeof module !== 'undefined' && module.exports) {
         PAGE_TYPES,
         VISUALISATION_TYPES,
         COLOR_SCHEMES,
-        LEGEND_CONFIGS,
-        definePageType,
-        defineVisualisationType,
-        defineColorScheme,
-        defineLegendConfig
+        COLORBLIND_SAFE,
+        BRAND_COLORS,
+        LEGEND_CONFIGS
     };
 }

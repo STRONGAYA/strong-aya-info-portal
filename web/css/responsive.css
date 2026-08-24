@@ -672,3 +672,331 @@ body {
         scroll-behavior: auto;
     }
 }
+
+/* Dark Mode Styles */
+.dark-mode {
+    --color-white: #1a1a1a;
+    --color-lightgray-100: #333;
+    --color-lightgray-200: #444;
+    --color-silver-100: #ccc;
+    --color-silver-200: #bbb;
+    --color-silver-300: #aaa;
+    --color-darkgray-100: #888;
+    --color-darkgray-200: #777;
+    --color-darkgray-300: #666;
+    --color-dimgray: rgba(200, 200, 200, 0.5);
+    --color-black: #fff;
+    --color-chocolate: #ff954f;
+    --color-palevioletred: #ff8db4;
+    --color-blue: #9d50ff;
+    --color-gainsboro: #444;
+}
+
+.dark-mode .background-gradient {
+    background: linear-gradient(to bottom, #1a1a1a, #000);
+}
+
+.dark-mode .footer {
+    background-image: url(../images/footer@3x.png);
+    filter: brightness(0.3) invert(1);
+}
+
+.dark-mode body {
+    background: #1a1a1a;
+    color: #e0e0e0;
+}
+
+.dark-mode .leading-header {
+    background-color: var(--color-chocolate);
+    color: var(--color-black);
+}
+
+.dark-mode .header-item {
+    background-color: #2a2a2a;
+    color: #ccc;
+}
+
+.dark-mode .header-child {
+    background-color: var(--color-chocolate);
+}
+
+.dark-mode a {
+    color: inherit;
+}
+
+.dark-mode .quick-contact-tile {
+    background-color: #2a2a2a;
+    border-color: var(--color-chocolate);
+    color: #e0e0e0;
+}
+
+.dark-mode .funding-statement {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #ccc;
+}
+
+.dark-mode .visualisation-container {
+    background: #2a2a2a;
+    color: #e0e0e0;
+}
+
+.dark-mode .data-table {
+    background: #2a2a2a;
+    color: #e0e0e0;
+}
+
+.dark-mode .data-table th {
+    background: #333;
+    color: #fff;
+}
+
+.dark-mode .data-table tr:hover {
+    background: rgba(247, 116, 30, 0.2);
+}
+
+/* High Contrast Mode Styles */
+.high-contrast-mode {
+    --color-white: #fff;
+    --color-black: #000;
+    --color-chocolate: #ff6600;
+    --color-palevioletred: #ff0080;
+    --color-blue: #0066ff;
+    --color-lightgray-100: #000;
+    --color-lightgray-200: #000;
+    --color-silver-100: #000;
+    --color-silver-200: #000;
+    --color-silver-300: #000;
+    --color-darkgray-100: #000;
+    --color-darkgray-200: #000;
+    --color-darkgray-300: #000;
+    --color-dimgray: rgba(0, 0, 0, 0.8);
+    --color-gainsboro: #000;
+}
+
+.high-contrast-mode body {
+    background: #fff !important;
+    color: #000 !important;
+}
+
+.high-contrast-mode .leading-header {
+    background-color: var(--color-chocolate) !important;
+    color: var(--color-white) !important;
+}
+
+.high-contrast-mode .header-item {
+    background-color: var(--color-white) !important;
+    color: var(--color-black) !important;
+    border: 2px solid var(--color-black) !important;
+}
+
+.high-contrast-mode .header-child {
+    background-color: var(--color-chocolate) !important;
+}
+
+.high-contrast-mode a {
+    color: var(--color-blue) !important;
+    text-decoration: underline !important;
+}
+
+.high-contrast-mode .quick-contact-tile {
+    background-color: var(--color-white) !important;
+    border: 2px solid var(--color-black) !important;
+    color: var(--color-black) !important;
+}
+
+.high-contrast-mode .funding-statement {
+    background-color: var(--color-white) !important;
+    color: var(--color-black) !important;
+    border: 2px solid var(--color-black) !important;
+}
+
+.high-contrast-mode .visualisation-container {
+    background: var(--color-white) !important;
+    color: var(--color-black) !important;
+    border: 2px solid var(--color-black) !important;
+}
+
+.high-contrast-mode .data-table {
+    border-collapse: separate !important;
+}
+
+.high-contrast-mode .data-table th,
+.high-contrast-mode .data-table td {
+    border: 2px solid var(--color-black) !important;
+    background: var(--color-white) !important;
+    color: var(--color-black) !important;
+}
+
+.high-contrast-mode .data-table th {
+    background: var(--color-lightgray-100) !important;
+}
+
+.high-contrast-mode button,
+.high-contrast-mode .dropdown-btn {
+    border: 2px solid var(--color-black) !important;
+    background: var(--color-white) !important;
+    color: var(--color-black) !important;
+}
+
+.high-contrast-mode .vis-btn.active {
+    background: var(--color-chocolate) !important;
+    color: var(--color-white) !important;
+}
+
+/* Text Size Styles */
+.text-normal {
+    font-size: 100%;
+}
+
+.text-large {
+    font-size: 120%;
+}
+
+.text-larger {
+    font-size: 150%;
+}
+
+/* Accessibility Button Styling */
+.accessibility {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.accessibility > div {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    padding: 5px 8px;
+    background: var(--color-white);
+    border: 1px solid var(--color-lightgray-100);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: var(--font-size-3xs);
+}
+
+.accessibility > div:hover {
+    background: var(--color-lightgray-100);
+    border-color: var(--color-chocolate);
+}
+
+.accessibility > div.active {
+    background: var(--color-chocolate);
+    color: var(--color-white);
+    border-color: var(--color-chocolate);
+}
+
+.accessibility > div.active .audio,
+.accessibility > div.active .size-text {
+    color: var(--color-white);
+}
+
+/* Accessibility button specific styling */
+.ad-btn,
+.contrast-btn,
+.dark-btn,
+.language-btn {
+    padding: 5px 10px;
+}
+
+.size-btn {
+    padding: 5px;
+}
+
+.size-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1;
+}
+
+/* Dark mode accessibility button */
+.dark-mode .dark-btn.active {
+    background: var(--color-white);
+    color: var(--color-black);
+}
+
+/* High contrast mode accessibility button */
+.high-contrast-mode .contrast-btn.active {
+    background: var(--color-black);
+    color: var(--color-white);
+}
+
+/* Responsive accessibility bar */
+@media (max-width: 768px) {
+    .accessibility {
+        width: 100%;
+        justify-content: center;
+        gap: 5px;
+        margin-top: 10px;
+    }
+    
+    .accessibility > div {
+        padding: 8px 10px;
+        font-size: 10px;
+    }
+    
+    .size-btn {
+        padding: 8px 5px;
+    }
+    
+    .size-icon {
+        font-size: 12px;
+    }
+}
+
+/* Focus styles for accessibility */
+.accessibility > div:focus {
+    outline: 3px solid var(--color-blue);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(118, 7, 255, 0.3);
+}
+
+/* Skip to main content link */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--color-chocolate);
+    color: var(--color-white);
+    padding: 8px 16px;
+    text-decoration: none;
+    z-index: 100;
+    transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* Ensure buttons are accessible */
+.scroll-arrow:focus,
+.treatment-btn:focus,
+.vis-btn:focus,
+.dropdown-btn:focus {
+    outline: 3px solid var(--color-blue);
+    outline-offset: 2px;
+}
+
+/* High contrast focus */
+.high-contrast-mode .skip-link:focus,
+.high-contrast-mode .scroll-arrow:focus,
+.high-contrast-mode .treatment-btn:focus,
+.high-contrast-mode .vis-btn:focus,
+.high-contrast-mode .dropdown-btn:focus {
+    outline: 3px solid var(--color-black);
+    outline-offset: 2px;
+}
+
+/* Dark mode focus */
+.dark-mode .skip-link:focus,
+.dark-mode .scroll-arrow:focus,
+.dark-mode .treatment-btn:focus,
+.dark-mode .vis-btn:focus,
+.dark-mode .dropdown-btn:focus {
+    outline: 3px solid var(--color-blue);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(157, 80, 255, 0.5);
+}

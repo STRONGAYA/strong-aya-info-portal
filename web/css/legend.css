@@ -1,0 +1,318 @@
+/* Legend Styling - Dedicated styles for visualisation legends */
+
+/* Legend container - positioned to the right of visualisation */
+.legend-container {
+    background: var(--color-white);
+    border: 1px solid var(--color-lightgray-100);
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.legend-container h4 {
+    margin: 0 0 15px 0;
+    font-size: var(--font-size-base);
+    color: var(--color-black);
+    border-bottom: 2px solid var(--color-chocolate);
+    padding-bottom: 8px;
+}
+
+.legend-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 5px;
+    transition: background 0.2s ease;
+}
+
+.legend-item:hover {
+    background: rgba(247, 116, 30, 0.1);
+}
+
+.legend-color-box {
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    border: 1px solid var(--color-darkgray-200);
+    flex-shrink: 0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.legend-label {
+    flex: 1;
+    font-size: var(--font-size-sm);
+    line-height: 1.4;
+}
+
+.legend-label strong {
+    color: var(--color-black);
+    font-weight: 600;
+}
+
+.legend-label span {
+    color: var(--color-darkgray-200);
+}
+
+/* Layout: Legend to the right of visualisation (desktop) */
+.visualisation-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+@media (min-width: 1024px) {
+    .visualisation-wrapper {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+    
+    .icon-array-visualisation,
+    .visualisation-content {
+        flex: 1;
+        min-width: 0;
+    }
+    
+    .legend-container {
+        flex: 0 0 280px;
+        margin-top: 0;
+        margin-left: 20px;
+        height: fit-content;
+        position: sticky;
+        top: 20px;
+        align-self: flex-start;
+    }
+    
+    .visualisation-selector {
+        order: -1;
+        margin-bottom: 15px;
+    }
+}
+
+/* Layout: Legend below visualisation (tablet/mobile) */
+@media (max-width: 1023px) {
+    .visualisation-wrapper {
+        flex-direction: column;
+    }
+    
+    .legend-container {
+        width: 100%;
+        margin-top: 20px;
+    }
+    
+    .legend-items {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    
+    .legend-item {
+        flex: 1 1 45%;
+        min-width: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .legend-item {
+        flex: 1 1 100%;
+        min-width: auto;
+    }
+    
+    .legend-container {
+        padding: 12px;
+    }
+    
+    .legend-color-box {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+/* High Contrast Mode Legend */
+.high-contrast-mode .legend-container {
+    border: 2px solid var(--color-black);
+    background: var(--color-white);
+}
+
+.high-contrast-mode .legend-container h4 {
+    border-bottom-color: var(--color-black);
+    color: var(--color-black);
+}
+
+.high-contrast-mode .legend-item {
+    background: transparent;
+    border: 1px solid transparent;
+}
+
+.high-contrast-mode .legend-color-box {
+    border: 2px solid var(--color-black);
+}
+
+/* Dark Mode Legend */
+.dark-mode .legend-container {
+    background: rgba(42, 42, 42, 0.95);
+    border-color: var(--color-lightgray-100);
+}
+
+.dark-mode .legend-container h4 {
+    color: var(--color-white);
+    border-bottom-color: var(--color-chocolate);
+}
+
+.dark-mode .legend-label strong {
+    color: var(--color-white);
+}
+
+.dark-mode .legend-label span {
+    color: var(--color-silver-200);
+}
+
+.dark-mode .legend-item:hover {
+    background: rgba(247, 116, 30, 0.2);
+}
+
+/* Complex legend with multiple categories */
+.legend-complex .legend-items {
+    flex-direction: column;
+}
+
+.legend-complex .legend-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    padding: 10px 12px;
+}
+
+.legend-complex .legend-color-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.legend-complex .legend-color-box {
+    width: 20px;
+    height: 20px;
+}
+
+.legend-complex .legend-range {
+    display: flex;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.legend-complex .range-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+}
+
+/* Icon array specific legend */
+.icon-array-legend {
+    margin-top: 15px;
+}
+
+.icon-array-legend .legend-items {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.icon-array-legend .legend-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+    min-width: 120px;
+}
+
+.icon-array-legend .legend-color-box {
+    width: 40px;
+    height: 60px;
+    margin-bottom: 8px;
+}
+
+.icon-array-legend .legend-count {
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    color: var(--color-black);
+}
+
+.icon-array-legend .legend-percent {
+    font-size: var(--font-size-sm);
+    color: var(--color-darkgray-200);
+}
+
+/* Responsive icon array legend */
+@media (max-width: 768px) {
+    .icon-array-legend .legend-items {
+        flex-direction: column;
+    }
+    
+    .icon-array-legend .legend-item {
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        text-align: left;
+        min-width: auto;
+    }
+    
+    .icon-array-legend .legend-color-box {
+        width: 30px;
+        height: 45px;
+        margin-bottom: 0;
+    }
+}
+
+/* Print styles for legend */
+@media print {
+    .legend-container {
+        page-break-inside: avoid;
+        border: 1px solid #ccc;
+    }
+    
+    .visualisation-wrapper {
+        flex-direction: column !important;
+    }
+    
+    .legend-container {
+        margin-left: 0 !important;
+    }
+}
+
+/* Animation for legend on hover */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.legend-item:active {
+    animation: pulse 0.3s ease;
+}
+
+/* Focus styles for legend items */
+.legend-item:focus-within,
+.legend-color-box:focus {
+    outline: 2px solid var(--color-chocolate);
+    outline-offset: 2px;
+}
+
+/* High contrast focus */
+.high-contrast-mode .legend-item:focus-within,
+.high-contrast-mode .legend-color-box:focus {
+    outline: 2px solid var(--color-black);
+}
+
+/* Dark mode focus */
+.dark-mode .legend-item:focus-within,
+.dark-mode .legend-color-box:focus {
+    outline: 2px solid var(--color-blue);
+}

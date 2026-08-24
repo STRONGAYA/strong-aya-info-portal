@@ -1,0 +1,628 @@
+/* Layout Fix CSS - Resets absolute positioning and fixes rendering issues */
+/* This file ensures proper layout structure and prevents element overlap */
+
+/* ============================================
+   BASE LAYOUT RESET
+   ============================================ */
+
+html {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative !important;
+}
+
+/* ============================================
+   HEADER FIXES
+   ============================================ */
+
+.header {
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 136px;
+    order: -1;
+    z-index: 100;
+}
+
+.header-child,
+.header-item {
+    position: relative !important;
+    width: auto !important;
+    height: auto !important;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.leading-header {
+    position: relative !important;
+    width: 100% !important;
+    background-color: var(--color-chocolate);
+    color: var(--color-white);
+    padding: 10px 0;
+    text-align: center;
+    font-size: var(--font-size-base);
+}
+
+.header-item {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: 15px !important;
+    padding: 10px 20px !important;
+    background: var(--color-white) !important;
+    min-height: 89px;
+    box-sizing: border-box !important;
+}
+
+.home,
+.about-us,
+.our-consortium,
+.ecosystems,
+.news,
+.contact {
+    position: relative !important;
+    display: inline-block !important;
+    text-decoration: none !important;
+    color: var(--color-darkgray-300) !important;
+    font-size: var(--font-size-mini) !important;
+    padding: 5px 10px !important;
+    margin: 0 !important;
+    top: auto !important;
+    left: auto !important;
+    bottom: auto !important;
+    right: auto !important;
+}
+
+.web-logo-1 {
+    position: relative !important;
+    display: block !important;
+    margin: 0 auto !important;
+    width: 191px !important;
+    height: 38px !important;
+    background-image: url(images/weblogo1@2x.png) !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    background-position: top !important;
+    top: auto !important;
+    left: auto !important;
+}
+
+.accessibility {
+    position: relative !important;
+    display: flex !important;
+    gap: 5px !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    width: auto !important;
+    max-width: 100% !important;
+    height: auto !important;
+    right: auto !important;
+    top: auto !important;
+    margin-left: auto !important;
+    padding: 10px !important;
+    box-sizing: border-box !important;
+}
+
+/* ============================================
+   FOOTER FIXES
+   ============================================ */
+
+.footer {
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 674px;
+    margin-top: auto !important;
+    order: 1;
+    z-index: 100;
+}
+
+.project-description,
+.quick-contact-tile,
+.funding-statement,
+.funding-tile,
+.copyright {
+    position: relative !important;
+    width: auto !important;
+    max-width: 100% !important;
+    left: auto !important;
+    bottom: auto !important;
+    top: auto !important;
+    right: auto !important;
+}
+
+.project-logo-icon {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+}
+
+.funding-item {
+    position: relative !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 15px !important;
+    margin: 20px 0 !important;
+    left: auto !important;
+    bottom: auto !important;
+}
+
+.funding-item img {
+    position: relative !important;
+    left: auto !important;
+    bottom: auto !important;
+    width: 100px !important;
+    height: auto !important;
+}
+
+.eu-logo-icon,
+.uk-ri-logo-icon {
+    position: relative !important;
+    width: 100px !important;
+    height: auto !important;
+}
+
+.quick-contact-tile {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    margin: 20px auto !important;
+    width: 90% !important;
+    max-width: 400px !important;
+    left: auto !important;
+    top: auto !important;
+}
+
+/* ============================================
+   BODY CONTENT FIXES
+   ============================================ */
+
+.profiles,
+.modules {
+    position: relative !important;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    order: 0;
+}
+
+.body1,
+.body2 {
+    position: relative !important;
+    width: 100% !important;
+    padding: 20px !important;
+    box-sizing: border-box !important;
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    order: 0;
+}
+
+/* Context sections */
+.context,
+.context-info {
+    position: relative !important;
+    width: 90% !important;
+    max-width: 900px !important;
+    margin: 0 auto 30px !important;
+    left: auto !important;
+    bottom: auto !important;
+}
+
+.context-title,
+.dive-into-various {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+}
+
+.bullet-triangle-icon,
+.context-info-child {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    bottom: auto !important;
+}
+
+.context-content,
+.pick-a-subject {
+    position: relative !important;
+    width: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+}
+
+/* Main tile (modules page) */
+.main-tile {
+    position: relative !important;
+    width: 100% !important;
+    max-width: 1200px !important;
+    padding: 20px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 20px !important;
+    margin: 0 auto !important;
+}
+
+.subjects-to-explore {
+    position: relative !important;
+    left: auto !important;
+    text-align: center !important;
+}
+
+/* Content grid */
+.content1 {
+    position: relative !important;
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
+    gap: 20px !important;
+    width: 100% !important;
+    justify-items: center !important;
+}
+
+.module-a,
+.module-b,
+.module-c,
+.module-d {
+    position: relative !important;
+    width: 100% !important;
+    max-width: 300px !important;
+    cursor: pointer !important;
+    transition: transform 0.3s ease !important;
+}
+
+.module-a:hover,
+.module-b:hover,
+.module-c:hover,
+.module-d:hover {
+    transform: scale(1.05) !important;
+}
+
+/* Module content pages */
+.module_a-child {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 20px !important;
+    padding: 20px !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    width: 100% !important;
+    left: auto !important;
+}
+
+/* Feeling overwhelmed section */
+.feeling-overwhelmed-parent {
+    position: relative !important;
+    width: 90% !important;
+    max-width: 800px !important;
+    margin: 20px auto !important;
+    padding: 20px !important;
+    left: auto !important;
+}
+
+.ellipse-parent {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 20px !important;
+    width: 100% !important;
+}
+
+.group-item,
+.group-inner {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+}
+
+.the-information-about-container {
+    position: relative !important;
+    left: auto !important;
+}
+
+/* Filter div */
+.filter-div {
+    position: relative !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+    justify-content: center !important;
+    margin: 20px auto !important;
+    width: 90% !important;
+    max-width: 800px !important;
+    left: auto !important;
+}
+
+.filter-div > div {
+    position: relative !important;
+    flex: 1 1 auto !important;
+    min-width: 150px !important;
+}
+
+/* Graph tools */
+.graph-tools {
+    position: relative !important;
+    display: flex !important;
+    gap: 20px !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    margin: 20px auto !important;
+    width: 90% !important;
+    max-width: 800px !important;
+}
+
+/* Legend */
+.legend {
+    position: relative !important;
+    display: flex !important;
+    gap: 20px !important;
+    justify-content: center !important;
+    margin: 20px auto !important;
+    width: 90% !important;
+    max-width: 800px !important;
+}
+
+.item-1,
+.item-2 {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+}
+
+.item-1-child {
+    background: var(--color-chocolate) !important;
+    width: 20px !important;
+    height: 20px !important;
+    border-radius: 3px !important;
+}
+
+.item-2-child {
+    background: var(--color-lightgray-100) !important;
+    width: 20px !important;
+    height: 20px !important;
+    border-radius: 3px !important;
+}
+
+/* Visualisation container */
+.module_a-item {
+    position: relative !important;
+    width: 100% !important;
+    left: auto !important;
+}
+
+/* Scroll group */
+.scroll-group-2 {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 20px !important;
+    margin: 20px auto !important;
+    width: 90% !important;
+    max-width: 800px !important;
+}
+
+.out-of-100-people-aged-15-to-3-parent {
+    position: relative !important;
+    text-align: center !important;
+    width: 100% !important;
+}
+
+/* Treatment navigation */
+.treatment-nav {
+    position: relative !important;
+    display: flex !important;
+    justify-content: center !important;
+    gap: 20px !important;
+    margin: 20px auto !important;
+    flex-wrap: wrap !important;
+}
+
+.treatment-btn {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 10px !important;
+    text-decoration: none !important;
+    color: inherit !important;
+    padding: 15px 25px !important;
+    background: var(--color-white) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+    transition: all 0.3s ease !important;
+}
+
+/* Return buttons */
+.return-button,
+.return-btn {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    text-decoration: none !important;
+    color: inherit !important;
+    left: auto !important;
+    top: auto !important;
+    bottom: auto !important;
+}
+
+/* Profile cards container */
+.profile-cards-container-wrapper {
+    position: relative !important;
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0 !important;
+    margin: 20px 0 !important;
+}
+
+.profile-cards-container {
+    position: relative !important;
+    display: flex !important;
+    gap: 20px !important;
+    overflow-x: auto !important;
+    scroll-behavior: smooth !important;
+    padding: 20px 0 !important;
+    width: 100% !important;
+    max-width: 1200px !important;
+    scrollbar-width: thin !important;
+    scrollbar-color: var(--color-chocolate) var(--color-lightgray-100) !important;
+}
+
+.profile-beyond-tile,
+.profile-before-tile {
+    position: relative !important;
+    flex: 0 0 auto !important;
+    min-width: 300px !important;
+    max-width: 400px !important;
+    cursor: pointer !important;
+    transition: transform 0.3s ease !important;
+}
+
+.profile-beyond-tile:hover,
+.profile-before-tile:hover {
+    transform: translateY(-5px) !important;
+}
+
+.scroll-arrow {
+    position: absolute !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    background: var(--color-chocolate) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 50% !important;
+    width: 40px !important;
+    height: 40px !important;
+    font-size: 20px !important;
+    cursor: pointer !important;
+    z-index: 10 !important;
+    transition: background 0.3s ease !important;
+}
+
+.scroll-arrow.left {
+    left: 10px !important;
+}
+
+.scroll-arrow.right {
+    right: 10px !important;
+}
+
+.scroll-arrow.hidden {
+    display: none !important;
+}
+
+/* ============================================
+   REMOVE ABSOLUTE POSITIONING FROM SPECIFIC ELEMENTS
+   ============================================ */
+
+/* Remove absolute positioning from all navigation links */
+a[class*="-"] {
+    position: relative !important;
+}
+
+/* Remove absolute positioning from all images */
+img {
+    position: relative !important;
+}
+
+/* Re-apply absolute positioning only where needed */
+.background-gradient {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    z-index: -1 !important;
+}
+
+/* ============================================
+   FIX OVERLAPPING ELEMENTS
+   ============================================ */
+
+* {
+    z-index: auto !important;
+}
+
+/* Bring content above background */
+.body1,
+.body2,
+.footer,
+.header {
+    z-index: 1 !important;
+}
+
+/* Bring interactive elements to front */
+button,
+a,
+.scroll-arrow,
+.modal {
+    z-index: 10 !important;
+}
+
+.modal-overlay {
+    z-index: 1000 !important;
+}
+
+/* ============================================
+   RESPONSIVE FIXES
+   ============================================ */
+
+@media (max-width: 768px) {
+    .header-item {
+        flex-direction: column !important;
+        gap: 10px !important;
+    }
+    
+    .accessibility {
+        width: 100% !important;
+        justify-content: center !important;
+    }
+    
+    .profile-cards-container {
+        padding: 10px 0 !important;
+    }
+    
+    .profile-beyond-tile,
+    .profile-before-tile {
+        min-width: 250px !important;
+    }
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+
+@media print {
+    .header,
+    .accessibility,
+    .scroll-arrow {
+        display: none !important;
+    }
+    
+    body {
+        min-height: auto !important;
+    }
+    
+    .body1,
+    .body2 {
+        page-break-inside: avoid !important;
+    }
+}

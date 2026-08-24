@@ -415,22 +415,13 @@ class StrongAyaVisualisation {
         const viewSelector = document.createElement('div');
         viewSelector.className = 'visualisation-selector';
         
-        // Get available visualisation types for this page type
-        const availableViews = this.pageType?.visualisationTypes || 
-                            ['iconArraySimple', 'iconArrayComplex', 'table', 'pieChart', 'barChart'];
-        
-        availableViews.forEach(view => {
-            const visType = VISUALISATION_TYPES[view];
-            if (visType) {
-                const btn = document.createElement('button');
-                btn.className = `vis-btn ${this.currentView === view ? 'active' : ''}`;
-                btn.textContent = visType.name;
-                btn.dataset.view = view;
-                btn.title = visType.description;
-                btn.addEventListener('click', () => this.switchView(view));
-                viewSelector.appendChild(btn);
-            }
-        });
+        // Create single button to open modal
+        const selectorBtn = document.createElement('button');
+        selectorBtn.className = 'vis-btn view-selection-btn';
+        selectorBtn.innerHTML = 'View Selection <span class="view-type-indicator">(' + this.getCurrentViewName() + ')</span>';
+        selectorBtn.title = 'Click to select visualisation type';
+        selectorBtn.addEventListener('click', () => this.openViewSelectorModal());
+        viewSelector.appendChild(selectorBtn);
         
         this.container.appendChild(viewSelector);
         
@@ -443,16 +434,175 @@ class StrongAyaVisualisation {
         this.visArea = visArea;
     }
     
+    getCurrentViewName() {
+        const viewType = VISUALISATION_TYPES[this.currentView];
+        return viewType ? viewType.name : this.currentView;
+    }
+    
+    openViewSelectorModal() {
+        // Create modal dynamically
+        if (document.getElementById('view-selector-modal')) {
+            this.updateViewSelectorModal();
+            document.getElementById('view-selector-modal').style.display = 'flex';
+            document.getElementById('view-selector-overlay').style.display = 'flex';
+            return;
+        }
+        
+        const overlay = document.createElement('div');
+        overlay.id = 'view-selector-overlay';
+        overlay.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 10000;';
+        
+        const modal = document.createElement('div');
+        modal.id = 'view-selector-modal';
+        modal.style.cssText = 'background: white; border-radius: 15px; padding: 25px; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; box-shadow: 0 10px 40px rgba(0,0,0,0.3);';
+        
+        const title = document.createElement('h3');
+        title.textContent = 'Select Visualisation';
+        title.style.cssText = 'margin: 0 0 20px 0; font-size: 26px; color: black; font-weight: 600; font-family: Poppins, sans-serif;';
+        modal.appendChild(title);
+        
+        const description = document.createElement('p');
+        description.textContent = 'Choose how you want to view the data. Each visualisation provides a different perspective.';
+        description.style.cssText = 'font-size: 14px; color: #a2a2a2; margin: 0 0 25px 0; line-height: 1.6;';
+        modal.appendChild(description);
+        
+        const grid = document.createElement('div');
+        grid.style.cssText = 'display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; margin-bottom: 20px;';
+        
+        // Get available views
+        const availableViews = this.pageType?.visualisationTypes || 
+                            ['iconArraySimple', 'iconArrayComplex', 'table', 'pieChart', 'barChart'];
+        
+        availableViews.forEach(viewId => {
+            const visType = VISUALISATION_TYPES[viewId];
+            if (visType) {
+                const card = document.createElement('div');
+                card.style.cssText = 'background: white; border: 2px solid #d7d7d7; border-radius: 10px; padding: 15px; cursor: pointer; transition: all 0.3s ease; text-align: left;';
+                if (this.currentView === viewId) {
+                    card.style.borderColor = '#f7741e';
+                    card.style.background = 'rgba(247, 116, 30, 0.05)';
+                }
+                
+                const name = document.createElement('div');
+                name.textContent = visType.name;
+                name.style.cssText = 'font-size: 16px; font-weight: 600; color: black; margin: 0 0 5px 0;';
+                card.appendChild(name);
+                
+                const desc = document.createElement('div');
+                desc.textContent = visType.description;
+                desc.style.cssText = 'font-size: 14px; color: #a2a2a2; margin: 0; line-height: 1.4;';
+                card.appendChild(desc);
+                
+                card.addEventListener('click', () => {
+                    // Remove selection from all cards
+                    grid.querySelectorAll('div').forEach(d => {
+                        d.style.borderColor = '#d7d7d7';
+                        d.style.background = 'white';
+                    });
+                    // Select this card
+                    card.style.borderColor = '#f7741e';
+                    card.style.background = 'rgba(247, 116, 30, 0.05)';
+                    this.currentView = viewId;
+                });
+                
+                grid.appendChild(card);
+            }
+        });
+        modal.appendChild(grid);
+        
+        const footer = document.createElement('div');
+        footer.style.cssText = 'display: flex; justify-content: flex-end; gap: 10px; border-top: 2px solid #d7d7d7; padding-top: 20px;';
+        
+        const cancelBtn = document.createElement('button');
+        cancelBtn.textContent = 'Cancel';
+        cancelBtn.style.cssText = 'padding: 12px 24px; border-radius: 8px; font-family: Poppins, sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; background: #d7d7d7; color: black; border: none;';
+        cancelBtn.addEventListener('click', () => {
+            overlay.style.display = 'none';
+        });
+        footer.appendChild(cancelBtn);
+        
+        const applyBtn = document.createElement('button');
+        applyBtn.textContent = 'Apply';
+        applyBtn.style.cssText = 'padding: 12px 24px; border-radius: 8px; font-family: Poppins, sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; background: #f7741e; color: white; border: none;';
+        applyBtn.addEventListener('click', () => {
+            this.switchView(this.currentView);
+            overlay.style.display = 'none';
+        });
+        footer.appendChild(applyBtn);
+        modal.appendChild(footer);
+        
+        overlay.appendChild(modal);
+        document.body.appendChild(overlay);
+        
+        // Close on overlay click
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                overlay.style.display = 'none';
+            }
+        });
+    }
+    
+    updateViewSelectorModal() {
+        const modal = document.getElementById('view-selector-modal');
+        if (!modal) return;
+        
+        const grid = modal.querySelector('div[style*="grid-template-columns"]');
+        if (!grid) return;
+        
+        const availableViews = this.pageType?.visualisationTypes || 
+                            ['iconArraySimple', 'iconArrayComplex', 'table', 'pieChart', 'barChart'];
+        
+        grid.innerHTML = '';
+        
+        availableViews.forEach(viewId => {
+            const visType = VISUALISATION_TYPES[viewId];
+            if (visType) {
+                const card = document.createElement('div');
+                card.style.cssText = 'background: white; border: 2px solid #d7d7d7; border-radius: 10px; padding: 15px; cursor: pointer; transition: all 0.3s ease; text-align: left;';
+                if (this.currentView === viewId) {
+                    card.style.borderColor = '#f7741e';
+                    card.style.background = 'rgba(247, 116, 30, 0.05)';
+                }
+                
+                const name = document.createElement('div');
+                name.textContent = visType.name;
+                name.style.cssText = 'font-size: 16px; font-weight: 600; color: black; margin: 0 0 5px 0;';
+                card.appendChild(name);
+                
+                const desc = document.createElement('div');
+                desc.textContent = visType.description;
+                desc.style.cssText = 'font-size: 14px; color: #a2a2a2; margin: 0; line-height: 1.4;';
+                card.appendChild(desc);
+                
+                card.addEventListener('click', () => {
+                    grid.querySelectorAll('div').forEach(d => {
+                        d.style.borderColor = '#d7d7d7';
+                        d.style.background = 'white';
+                    });
+                    card.style.borderColor = '#f7741e';
+                    card.style.background = 'rgba(247, 116, 30, 0.05)';
+                    this.currentView = viewId;
+                });
+                
+                grid.appendChild(card);
+            }
+        });
+    }
+    
     switchView(viewType) {
         this.currentView = viewType;
         
         // Update legend based on view type
         this.updateLegendForView(viewType);
         
-        const buttons = this.container.querySelectorAll('.vis-btn');
-        buttons.forEach(btn => {
-            btn.classList.toggle('active', btn.dataset.view === viewType);
-        });
+        // Update the view selection button text
+        const selectorBtn = this.container.querySelector('.view-selection-btn');
+        if (selectorBtn) {
+            selectorBtn.innerHTML = 'View Selection <span class="view-type-indicator">(' + this.getCurrentViewName() + ')</span>';
+        }
+        
+        // Update modal if open
+        this.updateViewSelectorModal();
         
         this.render();
     }

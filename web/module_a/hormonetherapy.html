@@ -6,11 +6,15 @@
 
     <link rel="stylesheet" href="../css/global.css"/>
     <link rel="stylesheet" href="../css/module_contents.css"/>
+    <link rel="stylesheet" href="../css/responsive.css"/>
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,400&display=swap"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Arial:wght@400&display=swap"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="../js/scroll.js" defer></script>
+    <script src="../js/dropdowns.js" defer></script>
+    <script src="../js/visualisation.js" defer></script>
 </head>
 <body>
 <div class="module_a">
@@ -67,7 +71,7 @@
 
         <!-- Copyright -->
         <div class="copyright">
-            © 2024 STRONG AYA. All Rights Reserved. Design By The Webdesign
+            	 2024 STRONG AYA. All Rights Reserved. Design By The Webdesign
         </div>
 
     </div>
@@ -91,7 +95,7 @@
                     <span class="span">!</span>
                 </p>
                 <p class="is-the-the">
-                    Looking for professional guidance and help? Contact …..
+                    Looking for professional guidance and help? Contact ..
                 </p>
             </div>
         </div>
@@ -152,13 +156,6 @@
                         <img class="group-child3" alt="" src="../images/arrow.svg"/>
                     </div>
                 </div>
-                <!--            <div class="time-btn">-->
-                <!--                <div class="compare-info-btn-child"></div>-->
-                <!--                <div class="time-since-diagnosis-parent">-->
-                <!--                    <div class="compare">Time since diagnosis</div>-->
-                <!--                    <img class="group-child3" alt="" src="../images/arrow.svg"/>-->
-                <!--                </div>-->
-                <!--            </div>-->
             </div>
 
             <div class="topics-btn">
@@ -203,47 +200,39 @@
             </div>
             <div class="module_a-item"></div>
 
-            <div id="datawrapper-vis-YJVm3">
-                <script type="text/javascript" defer src="https://datawrapper.dwcdn.net/YJVm3/embed.js" charset="utf-8"
-                        data-target="#datawrapper-vis-YJVm3"></script>
-                <noscript><img src="https://datawrapper.dwcdn.net/YJVm3/full.png" alt=""/></noscript>
-            </div>
+            <!-- New Visualisation Container -->
+            <div id="visualisation-container" class="visualisation-container"></div>
 
             <div class="scroll-group-2">
                 <div class="out-of-100-people-aged-15-to-3-parent">
-                    <!--                    <div class="out-of-100">-->
-                    <!--                        13 out of 100 people aged 15 to 39 years old ….-->
-                    <!--                    </div>-->
-
-
                     <div class="out-of-100-container">
                         <p class="is-the-the">
-                            <!--TODO implement JavaScript for fetching positive counts-->
                             13 out of 100 people aged 15 to 39 years old
                         </p>
                         <p class="is-the-the">
                             <span>receive </span>
-                            <b class="span"> hormonetherapy</b>
+                            <b class="span"> hormone therapy</b>
                         </p>
                     </div>
                 </div>
 
-                <a class="component-86-2" href="chemotherapy.html">
-                    <img class="visual-icon1" alt="" src="../images/visual1.svg"/>
-                    <div class="survivorship-support" style="text-align: right; right: 25px">
-                        <p class="is-the-the">Chemo</p>
-                        <p class="is-the-the">Therapy</p>
-                    </div>
-                </a>
+                <div class="treatment-nav">
+                    <a class="treatment-btn" href="chemotherapy.html">
+                        <img class="visual-icon2" alt="" src="../images/visual.svg"/>
+                        <div class="survivorship-support">
+                            <p class="is-the-the">Chemo</p>
+                            <p class="is-the-the">Therapy</p>
+                        </div>
+                    </a>
 
-                <a class="component-87-1" href="radiotherapy.html">
-                    <img class="visual-icon2" alt="" src="../images/visual.svg"/>
-                    <div class="survivorship-support" style="left: 22%">
-                        <p class="is-the-the">Radio</p>
-                        <p class="is-the-the">Therapy</p>
-                    </div>
-                </a>
-
+                    <a class="treatment-btn" href="radiotherapy.html">
+                        <img class="visual-icon1" alt="" src="../images/visual1.svg"/>
+                        <div class="survivorship-support">
+                            <p class="is-the-the">Radio</p>
+                            <p class="is-the-the">Therapy</p>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -300,5 +289,20 @@
         </div>
     </div>
 </div>
+
+<script>
+    // Initialize visualisation when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        const config = {
+            dataUrl: 'https://raw.githubusercontent.com/STRONGAYA/strong-aya-info-portal/main/data/flashcards/ther_ht_flashcard.csv',
+            title: 'Hormone Therapy',
+            description: 'Percentage of AYA cancer patients who received hormone therapy',
+            lastUpdated: 'August 2024',
+            variable: 'ther_ht'
+        };
+        
+        new StrongAyaVisualisation('visualisation-container', config);
+    });
+</script>
 </body>
 </html>

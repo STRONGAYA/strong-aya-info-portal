@@ -5,12 +5,15 @@ on:
   # Allows one to run this workflow manually from the repository's 'Actions' tab
   workflow_dispatch:
 
-  # Trigger the workflow when the workflow "Update data through Vantage6 integration" is successful
-  workflow_run:
-    workflows: [ "Update data through Vantage6 integration" ]
-    types:
-      - completed
-    branches: [ "main" ]
+  # TEMPORARILY DISABLED: trigger on completion of the Vantage6 data-fetching
+  # integration. The site is currently built solely from the data committed in
+  # the repo (see the "Sync flashcard data into web" step below).
+  # Re-enable this block to couple deployments to the data updates again.
+  # workflow_run:
+  #   workflows: [ "Update data through Vantage6 integration" ]
+  #   types:
+  #     - completed
+  #   branches: [ "main" ]
 
     # Trigger the workflow on push to the /web directory on the main branch
   push:
@@ -35,7 +38,10 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: [ self-hosted, SURF ]
+    # TEMPORARILY on a GitHub-hosted runner; switch back to the self-hosted
+    # runner when the data-fetching integration is re-enabled:
+    # runs-on: [ self-hosted, SURF ]
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4

@@ -14,6 +14,7 @@ on:
 
     # Trigger the workflow on push to the /web directory on the main branch
   push:
+    branches: [ "main" ]
     paths:
       - 'web/**'
 
@@ -41,6 +42,13 @@ jobs:
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
+
+      # The portal reads its flashcard CSVs from web/data; copy the latest
+      # generated flashcards (see update_data.yml) in before publishing
+      - name: Sync flashcard data into web
+        run: |
+          mkdir -p web/data
+          cp -f data/flashcards/*.csv web/data/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

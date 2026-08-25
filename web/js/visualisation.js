@@ -222,6 +222,22 @@ const LEGEND_CONFIGS = {
     }
 };
 
+// ------------------------------------------------------------------
+// PLACEHOLDER filter data (work in progress)
+// Number of people out of 100 that fall in the *first* legend
+// category (e.g. "received treatment" / "declined functioning") for
+// each cancer type / sex combination. `null` means "use the real,
+// unfiltered CSV data". Simply update these numbers once the real
+// filtered figures become available.
+// ------------------------------------------------------------------
+const FILTER_PLACEHOLDER_COUNTS = {
+    all:   { all: null, male: 48, female: 62, intersex: 55 },
+    blood: { all: 58,   male: 54, female: 61, intersex: 57 },
+    solid: { all: 52,   male: 49, female: 56, intersex: 53 },
+    brain: { all: 66,   male: 63, female: 68, intersex: 65 },
+    skin:  { all: 41,   male: 38, female: 44, intersex: 42 }
+};
+
 class StrongAyaVisualisation {
     constructor(containerId, dataConfig) {
         this.containerId = containerId;
@@ -343,15 +359,20 @@ class StrongAyaVisualisation {
     }
     
     parseCSV(csvText) {
+        // Flashcard CSV format: first line is the variable name (header),
+        // subsequent lines contain the icon markdown (e.g. person-orange/person-grey images)
         const lines = csvText.split('\n').filter(line => line.trim() !== '');
-        return lines.map(line => {
-            // Handle CSV with images (like the flashcard files)
-            const match = line.match(/^([^\n]+)\n?([\s\S]*)/);
-            if (match) {
-                return { variable: match[1].trim(), icons: match[2] };
-            }
-            return { variable: line.trim() };
-        });
+        if (lines.length === 0) {
+            return [];
+        }
+        
+        const variable = lines[0].trim();
+        const icons = lines.slice(1).join('\n');
+        
+        return [
+            { variable: variable },
+            { variable: variable, icons: icons }
+        ];
     }
     
     parseDataCategories() {
@@ -380,10 +401,15 @@ class StrongAyaVisualisation {
         // Count icons by color/type
         const iconString = firstRow.icons;
         
-        // Map icon types to legend categories
+        // Map icon types to legend categories.
+        // Orange icons represent the "positive" category (first legend entry,
+        // e.g. received/declined) and grey icons the second (e.g. notReceived/stable).
+        const positiveId = this.legendData[0] ? this.legendData[0].id : 'yes';
+        const negativeId = this.legendData[1] ? this.legendData[1].id : 'no';
+        
         const iconMappings = {
-            'person-orange': 'yes',
-            'person-grey': 'no',
+            'person-orange': positiveId,
+            'person-grey': negativeId,
             'person-yellow': 'partial',
             'person-gold': 'partial',
             'person-blue': 'improved',
@@ -406,24 +432,40 @@ class StrongAyaVisualisation {
         
         // Calculate total
         this.totalCount = Object.values(this.categoryCounts).reduce((sum, count) => sum + count, 0);
+        
+        // Remember the unfiltered counts so filters can be reset
+        this.baseCounts = Object.assign({}, this.categoryCounts);
     }
     
     createVisualisationContainer() {
         this.container.innerHTML = '';
         
-        // Create view selector
-        const viewSelector = document.createElement('div');
-        viewSelector.className = 'visualisation-selector';
-        
-        // Create single button to open modal
-        const selectorBtn = document.createElement('button');
-        selectorBtn.className = 'vis-btn view-selection-btn';
-        selectorBtn.innerHTML = 'View Selection <span class="view-type-indicator">(' + this.getCurrentViewName() + ')</span>';
-        selectorBtn.title = 'Click to select visualisation type';
-        selectorBtn.addEventListener('click', () => this.openViewSelectorModal());
-        viewSelector.appendChild(selectorBtn);
-        
-        this.container.appendChild(viewSelector);
+        // Place the "View" selection button next to the other tool buttons
+        // (Glossary, Help, Compare) in the page toolbar when available;
+        // fall back to a selector row above the visualisation otherwise.
+        const toolButtons = document.querySelector('.vis-card .tool-buttons');
+        if (toolButtons) {
+            if (!toolButtons.querySelector('.view-selection-btn')) {
+                const selectorBtn = document.createElement('button');
+                selectorBtn.className = 'tool-btn view-selection-btn';
+                selectorBtn.innerHTML = '<i class="fas fa-eye"></i>View';
+                selectorBtn.title = 'Click to select visualisation type';
+                selectorBtn.addEventListener('click', () => this.openViewSelectorModal());
+                toolButtons.insertBefore(selectorBtn, toolButtons.firstChild);
+            }
+        } else {
+            const viewSelector = document.createElement('div');
+            viewSelector.className = 'visualisation-selector';
+            
+            const selectorBtn = document.createElement('button');
+            selectorBtn.className = 'vis-btn view-selection-btn';
+            selectorBtn.innerHTML = 'View Selection <span class="view-type-indicator">(' + this.getCurrentViewName() + ')</span>';
+            selectorBtn.title = 'Click to select visualisation type';
+            selectorBtn.addEventListener('click', () => this.openViewSelectorModal());
+            viewSelector.appendChild(selectorBtn);
+            
+            this.container.appendChild(viewSelector);
+        }
         
         // Create visualisation area
         const visArea = document.createElement('div');
@@ -595,10 +637,16 @@ class StrongAyaVisualisation {
         // Update legend based on view type
         this.updateLegendForView(viewType);
         
-        // Update the view selection button text
-        const selectorBtn = this.container.querySelector('.view-selection-btn');
+        // Update the view selection button text (fallback selector row only;
+        // the toolbar "View" tool button keeps its compact label)
+        const selectorBtn = this.container.querySelector('.visualisation-selector .view-selection-btn');
         if (selectorBtn) {
             selectorBtn.innerHTML = 'View Selection <span class="view-type-indicator">(' + this.getCurrentViewName() + ')</span>';
+        }
+        const toolbarBtn = document.querySelector('.vis-card .tool-buttons .view-selection-btn');
+        if (toolbarBtn) {
+            toolbarBtn.innerHTML = '<i class="fas fa-eye"></i>View';
+            toolbarBtn.title = 'Current view: ' + this.getCurrentViewName() + ' — click to change';
         }
         
         // Update modal if open
@@ -686,8 +734,9 @@ class StrongAyaVisualisation {
     generateIconArrayHTML(type) {
         const isComplex = type === 'complex';
         
-        // Build icon rows for each category
+        // Build icons and legend items for each category
         let iconRows = '';
+        let combinedIcons = '';
         let legendItems = '';
         
         this.legendData.forEach(category => {
@@ -697,44 +746,58 @@ class StrongAyaVisualisation {
             // Generate icons for this category
             const icons = this.generateIconHTML(count, category.color);
             
-            iconRows += `
-                <div class="icon-category-row">
-                    <div class="icon-category-header">
-                        <div class="icon-color-indicator" style="background: ${category.color};"></div>
-                        <span class="icon-category-label">${category.label}</span>
-                        <span class="icon-category-count">${count} (${percentage}%)</span>
+            if (isComplex) {
+                iconRows += `
+                    <div class="icon-category-row">
+                        <div class="icon-category-header">
+                            <div class="icon-color-indicator" style="background: ${category.color};"></div>
+                            <span class="icon-category-label">${category.label}</span>
+                            <span class="icon-category-count">${count} (${percentage}%)</span>
+                        </div>
+                        <div class="icon-category-icons">
+                            ${icons}
+                        </div>
                     </div>
-                    <div class="icon-category-icons">
-                        ${icons}
-                    </div>
-                </div>
-            `;
+                `;
+            } else if (count > 0) {
+                // Simple view: single combined grid, 10 icons per row
+                combinedIcons += icons;
+            }
             
-            // Build legend item
+            // Build legend item (kept simple: swatch + label; the full
+            // explanation is shown as a tooltip when hovering the item)
             legendItems += `
-                <div class="legend-item">
+                <div class="legend-item" data-tooltip="${category.description || category.label}">
                     <div class="legend-color-box" style="background: ${category.color};"></div>
                     <div class="legend-label">
                         <strong>${category.label}</strong>
-                        <span>${category.description || ''}</span>
                     </div>
                 </div>
             `;
         });
         
-        const title = this.dataConfig.title || (isComplex ? 'Detailed Distribution' : 'Distribution');
+        const iconArea = isComplex
+            ? `<div class="icon-array-container">${iconRows}</div>`
+            : `<div class="icon-array-grid">${combinedIcons}</div>`;
+        
+        const title = this.dataConfig.title || 'Detailed Distribution';
         const subtitle = this.dataConfig.description || this.pageType?.description || 'Patient data from SURVAYA study';
+        
+        // Only the complex view shows the textual header; the simple icon
+        // array is presented as a large, centred figure with the legend
+        // middle-aligned next to it (the statement below the figure and the
+        // info note already provide the context and the update date).
+        const header = isComplex
+            ? `<h3 class="vis-title">${title}</h3>
+               <p class="vis-subtitle">${subtitle}</p>
+               <p class="vis-total">Total: ${this.totalCount} people</p>`
+            : '';
         
         return `
             <div class="visualisation-wrapper">
                 <div class="icon-array-visualisation">
-                    <h3 class="vis-title">${title}</h3>
-                    <p class="vis-subtitle">${subtitle}</p>
-                    <p class="vis-total">Total: ${this.totalCount} people</p>
-                    
-                    <div class="icon-array-container">
-                        ${iconRows}
-                    </div>
+                    ${header}
+                    ${iconArea}
                 </div>
                 
                 <div class="legend-container">
@@ -744,8 +807,6 @@ class StrongAyaVisualisation {
                     </div>
                 </div>
             </div>
-            
-            ${this.dataConfig.lastUpdated ? `<p class="vis-date">Last updated: ${this.dataConfig.lastUpdated}</p>` : ''}
         `;
     }
     
@@ -754,11 +815,7 @@ class StrongAyaVisualisation {
         
         let html = '';
         for (let i = 0; i < count; i++) {
-            html += `
-                <svg width="20" height="30" viewBox="0 0 20 30" class="person-icon" aria-label="Person">
-                    <rect width="20" height="30" fill="${color}" rx="3"/>
-                </svg>
-            `;
+            html += `<i class="fas fa-person person-icon" style="color: ${color};" aria-label="Person"></i>`;
         }
         return html;
     }
@@ -828,7 +885,6 @@ class StrongAyaVisualisation {
                 
                 <div class="vis-info">
                     <p><strong>Note:</strong> ${this.dataConfig.description || 'Patient-reported outcomes from the SURVAYA study'}.</p>
-                    <p>Last updated: ${this.dataConfig.lastUpdated || 'August 2024'}</p>
                 </div>
             </div>
         `;
@@ -1008,9 +1064,39 @@ class StrongAyaVisualisation {
     }
     
     applyFilters(filters) {
-        this.filters = filters;
-        console.log('Filters applied:', filters);
+        this.filters = Object.assign({}, this.filters, filters);
+        
+        const cancerType = this.filters.cancerType || 'all';
+        const sex = this.filters.sex || 'all';
+        const placeholder = (FILTER_PLACEHOLDER_COUNTS[cancerType] || {})[sex];
+        
+        // Always base the ids on the simple (two-category) legend
+        const simpleLegend = (LEGEND_CONFIGS[this.pageType?.id] || {}).simple || this.legendData;
+        const positiveId = simpleLegend[0] ? simpleLegend[0].id : 'yes';
+        const negativeId = simpleLegend[1] ? simpleLegend[1].id : 'no';
+        
+        if (placeholder === null || placeholder === undefined) {
+            // No placeholder for this combination: fall back to the
+            // real, unfiltered CSV counts
+            this.categoryCounts = Object.assign({}, this.baseCounts);
+        } else {
+            this.categoryCounts = {};
+            this.categoryCounts[positiveId] = placeholder;
+            this.categoryCounts[negativeId] = 100 - placeholder;
+        }
+        this.totalCount = Object.values(this.categoryCounts).reduce((sum, count) => sum + count, 0);
+        
         this.render();
+        this.updateStatement(this.categoryCounts[positiveId] || 0);
+    }
+    
+    // Keep the "N out of 100 people ..." statement below the figure in
+    // sync with the (filtered) data
+    updateStatement(count) {
+        const statement = document.querySelector('.vis-card .vis-statement');
+        if (statement) {
+            statement.innerHTML = statement.innerHTML.replace(/^\s*\d+/, count);
+        }
     }
 }
 
@@ -1018,7 +1104,7 @@ class StrongAyaVisualisation {
 const VISUALISATION_CONFIGS = {
     // Treatment modules
     chemotherapy: {
-        dataUrl: 'https://raw.githubusercontent.com/STRONGAYA/strong-aya-info-portal/main/data/flashcards/ther_chemo_flashcard.csv',
+        dataUrl: '../data/ther_chemo_flashcard.csv',
         title: 'Chemotherapy Treatment',
         description: 'Percentage of AYA cancer patients who received chemotherapy',
         lastUpdated: 'August 2024',
@@ -1028,7 +1114,7 @@ const VISUALISATION_CONFIGS = {
         defaultView: 'iconArraySimple'
     },
     radiotherapy: {
-        dataUrl: 'https://raw.githubusercontent.com/STRONGAYA/strong-aya-info-portal/main/data/flashcards/ther_rt_flashcard.csv',
+        dataUrl: '../data/ther_rt_flashcard.csv',
         title: 'Radiotherapy Treatment',
         description: 'Percentage of AYA cancer patients who received radiotherapy',
         lastUpdated: 'August 2024',
@@ -1038,7 +1124,7 @@ const VISUALISATION_CONFIGS = {
         defaultView: 'iconArraySimple'
     },
     hormonetherapy: {
-        dataUrl: 'https://raw.githubusercontent.com/STRONGAYA/strong-aya-info-portal/main/data/flashcards/ther_ht_flashcard.csv',
+        dataUrl: '../data/ther_ht_flashcard.csv',
         title: 'Hormone Therapy',
         description: 'Percentage of AYA cancer patients who received hormone therapy',
         lastUpdated: 'August 2024',
@@ -1050,7 +1136,7 @@ const VISUALISATION_CONFIGS = {
     
     // Functioning modules
     emotional_functioning: {
-        dataUrl: 'https://raw.githubusercontent.com/STRONGAYA/strong-aya-info-portal/main/data/flashcards/ef_flashcard.csv',
+        dataUrl: '../data/ef_flashcard.csv',
         title: 'Emotional Functioning',
         description: 'Percentage of AYA cancer patients with declined emotional functioning',
         lastUpdated: 'August 2024',
@@ -1060,7 +1146,7 @@ const VISUALISATION_CONFIGS = {
         defaultView: 'iconArraySimple'
     },
     physical_functioning: {
-        dataUrl: 'https://raw.githubusercontent.com/STRONGAYA/strong-aya-info-portal/main/data/flashcards/pf_flashcard.csv',
+        dataUrl: '../data/pf_flashcard.csv',
         title: 'Physical Functioning',
         description: 'Percentage of AYA cancer patients with declined physical functioning',
         lastUpdated: 'August 2024',
@@ -1070,7 +1156,7 @@ const VISUALISATION_CONFIGS = {
         defaultView: 'iconArraySimple'
     },
     role_functioning: {
-        dataUrl: 'https://raw.githubusercontent.com/STRONGAYA/strong-aya-info-portal/main/data/flashcards/rf_flashcard.csv',
+        dataUrl: '../data/rf_flashcard.csv',
         title: 'Role Functioning',
         description: 'Percentage of AYA cancer patients with declined role functioning',
         lastUpdated: 'August 2024',
@@ -1080,6 +1166,54 @@ const VISUALISATION_CONFIGS = {
         defaultView: 'iconArraySimple'
     }
 };
+
+// Wire up the working filter dropdowns (cancer type / sex) in the
+// filter bar; selecting an option updates the visualisation through
+// vis.applyFilters() using the placeholder data above
+function initFilterDropdowns(vis) {
+    document.querySelectorAll('.filter-wrap').forEach(function (wrap) {
+        const toggle = wrap.querySelector('.filter-toggle');
+        const dropdown = wrap.querySelector('.filter-dropdown');
+        const valueLabel = toggle ? toggle.querySelector('.filter-value') : null;
+        if (!toggle || !dropdown) return;
+        
+        toggle.addEventListener('click', function (e) {
+            e.stopPropagation();
+            // Close any other open filter dropdown first
+            document.querySelectorAll('.filter-dropdown').forEach(function (d) {
+                if (d !== dropdown) d.hidden = true;
+            });
+            const open = !dropdown.hidden;
+            dropdown.hidden = open;
+            toggle.setAttribute('aria-expanded', String(!open));
+        });
+        
+        dropdown.querySelectorAll('button[data-value]').forEach(function (option) {
+            option.addEventListener('click', function () {
+                dropdown.querySelectorAll('button[data-value]').forEach(function (o) {
+                    o.classList.remove('current');
+                });
+                option.classList.add('current');
+                if (valueLabel) {
+                    valueLabel.textContent = option.dataset.value === 'all' ? 'All' : option.textContent.trim();
+                }
+                dropdown.hidden = true;
+                toggle.setAttribute('aria-expanded', 'false');
+                
+                const update = {};
+                update[wrap.dataset.filter] = option.dataset.value;
+                vis.applyFilters(update);
+            });
+        });
+        
+        document.addEventListener('click', function (e) {
+            if (!wrap.contains(e.target) && !dropdown.hidden) {
+                dropdown.hidden = true;
+                toggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+    });
+}
 
 // Initialize visualisations when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
@@ -1092,15 +1226,24 @@ document.addEventListener('DOMContentLoaded', function() {
         const config = VISUALISATION_CONFIGS[moduleType];
         
         if (config) {
-            // Replace DataWrapper div with our visualisation
-            const datawrapperDiv = document.querySelector('div[id^="datawrapper-vis"]');
-            if (datawrapperDiv) {
-                datawrapperDiv.innerHTML = '';
-                datawrapperDiv.id = 'visualisation-container';
-                datawrapperDiv.className = 'visualisation-container';
-                
+            // Use the dedicated container if present, otherwise
+            // replace a legacy DataWrapper div with our visualisation
+            let container = document.getElementById('visualisation-container');
+            
+            if (!container) {
+                const datawrapperDiv = document.querySelector('div[id^="datawrapper-vis"]');
+                if (datawrapperDiv) {
+                    datawrapperDiv.innerHTML = '';
+                    datawrapperDiv.id = 'visualisation-container';
+                    datawrapperDiv.className = 'visualisation-container';
+                    container = datawrapperDiv;
+                }
+            }
+            
+            if (container) {
                 // Initialize visualisation
-                new StrongAyaVisualisation('visualisation-container', config);
+                const vis = new StrongAyaVisualisation('visualisation-container', config);
+                initFilterDropdowns(vis);
             }
         }
     }

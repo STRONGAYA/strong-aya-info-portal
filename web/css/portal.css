@@ -666,9 +666,17 @@ html.mode-dark .page img {
 }
 
 /* the cancer type options have longer labels, so give that dropdown
-   more room to keep each option on a single line where possible */
+   more room and keep each option on a single line */
 .filter-wrap[data-filter="cancerType"] .filter-dropdown {
-    min-width: min(380px, 90vw);
+    min-width: min(460px, 92vw);
+}
+
+/* on larger screens the options fit on one line; on small screens
+   they may wrap so the dropdown never overflows the viewport */
+@media (min-width: 640px) {
+    .filter-wrap[data-filter="cancerType"] .filter-dropdown button {
+        white-space: nowrap;
+    }
 }
 
 .filter-dropdown button {

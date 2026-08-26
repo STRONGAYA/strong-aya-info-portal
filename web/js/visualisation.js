@@ -67,7 +67,7 @@ const PAGE_TYPES = {
         name: 'Quality of Life & Functioning',
         description: 'Functioning scores and quality of life metrics from EORTC QLQ-C30 questionnaires',
         modules: ['emotional_functioning', 'physical_functioning', 'role_functioning', 'social_functioning', 'cognitive_functioning'],
-        visualisationTypes: ['iconArraySimple', 'table', 'pieChart', 'barChart'],
+        visualisationTypes: ['iconArraySimple', 'iconArrayComplex', 'table', 'pieChart', 'barChart'],
         colorScheme: 'functioning'
     },
     symptoms: {
@@ -197,15 +197,18 @@ const LEGEND_CONFIGS = {
         ]
     },
     functioning: {
+        // The explicit icon lists keep both views working with today's
+        // two-colour flashcards and with the more granular flashcards
+        // (purple/magenta/gold/blue icons) that will become available
         simple: [
-            { id: 'declined', label: 'Declined', color: COLOR_SCHEMES.functioning.declined, description: 'People whose score got worse' },
-            { id: 'stable', label: 'Stable', color: COLOR_SCHEMES.functioning.stable, description: 'People whose score stayed about the same' }
+            { id: 'declined', label: 'Declined', color: COLOR_SCHEMES.functioning.declined, icons: ['person-orange', 'person-purple', 'person-magenta'], description: 'People whose score got worse' },
+            { id: 'stable', label: 'Stable or improved', color: COLOR_SCHEMES.functioning.stable, icons: ['person-grey', 'person-gold', 'person-blue'], description: 'People whose score stayed about the same or got better' }
         ],
         complex: [
-            { id: 'significantly_declined', label: 'Significantly Declined', color: COLOR_SCHEMES.functioning.significantly_declined, description: 'People whose score got much worse' },
-            { id: 'declined', label: 'Declined', color: COLOR_SCHEMES.functioning.declined, description: 'People whose score got worse' },
-            { id: 'stable', label: 'Stable', color: COLOR_SCHEMES.functioning.stable, description: 'People whose score stayed about the same' },
-            { id: 'improved', label: 'Improved', color: COLOR_SCHEMES.functioning.improved, description: 'People whose score got better' }
+            { id: 'significantly_declined', label: 'Declined a lot', color: COLOR_SCHEMES.functioning.significantly_declined, icons: ['person-purple'], description: 'People whose score got much worse' },
+            { id: 'declined', label: 'Declined', color: COLOR_SCHEMES.functioning.declined, icons: ['person-orange', 'person-magenta'], description: 'People whose score got worse' },
+            { id: 'stable', label: 'Stable', color: COLOR_SCHEMES.functioning.stable, icons: ['person-grey', 'person-gold'], description: 'People whose score stayed about the same' },
+            { id: 'improved', label: 'Improved', color: COLOR_SCHEMES.functioning.improved, icons: ['person-blue'], description: 'People whose score got better' }
         ]
     },
     symptoms: {
@@ -495,16 +498,20 @@ class StrongAyaVisualisation {
         return viewType ? viewType.name : this.currentView;
     }
     
-    // Views available for this page; the complex icon array is only
-    // offered when the underlying data actually has 3+ icon colours
-    // (two-colour data renders identically in the simple array)
+    // Views available for this page. The complex icon array needs a
+    // complex legend; when that legend maps icon colours explicitly
+    // (icons: [...]), more granular levels are (or will be) available,
+    // so the view is always offered. Without such a mapping it is only
+    // offered when the data actually has 3+ icon colours (two-colour
+    // data renders identically in the simple array).
     getAvailableViews() {
         let views = this.pageType?.visualisationTypes ||
                     ['iconArraySimple', 'iconArrayComplex', 'table', 'pieChart', 'barChart'];
         const distinctColours = Object.values(this.iconColourCounts || {}).filter(c => c > 0).length;
-        const hasComplexLegend = !!(this.dataConfig.legend && this.dataConfig.legend.complex) ||
-                                 !!(LEGEND_CONFIGS[this.pageType?.id] || {}).complex;
-        if ((distinctColours > 0 && distinctColours < 3) || !hasComplexLegend) {
+        const complexLegend = (this.dataConfig.legend && this.dataConfig.legend.complex) ||
+                              (LEGEND_CONFIGS[this.pageType?.id] || {}).complex || null;
+        const hasIconMapping = !!complexLegend && complexLegend.some(item => item.icons);
+        if (!complexLegend || (!hasIconMapping && distinctColours > 0 && distinctColours < 3)) {
             views = views.filter(v => v !== 'iconArrayComplex');
         }
         return views;

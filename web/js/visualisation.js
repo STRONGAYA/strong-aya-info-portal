@@ -3,32 +3,32 @@
  * Handles icon array, table, and pie chart visualisations using Plotly.js
  * Loads data from GitHub CSV files
  * Supports multiple page types and visualisation variants
- * Uses brand color theme and colorblind-safe palettes
+ * Uses brand colour theme and colour-blind-safe palettes
  */
 
-// Brand color theme from existing CSS
+// Brand colour theme from existing CSS
 const BRAND_COLORS = {
-    primary: '#f7741e',      // Chocolate orange - main brand color
+    primary: '#f7741e',      // Chocolate orange - main brand colour
     secondary: '#e36799',    // Pale violet red - existing accent
     blue: '#7607ff',        // Blue - existing accent
     dark: '#000000',        // Black
     light: '#ffffff',       // White
     silver: '#c9c6c4',      // Silver
-    lightGray: '#d7d7d7',   // Light gray
-    darkGray: '#aeaeae',    // Dark gray
+    lightGray: '#d7d7d7',   // Light grey
+    darkGray: '#aeaeae',    // Dark grey
     gainsboro: '#dbdbdb'    // Gainsboro
 };
 
-// Colorblind-safe color palettes
+// Colour-blind-safe colour palettes
 const COLORBLIND_SAFE = {
-    // IBM Design Library colorblind-safe palette
+    // IBM Design Library colour-blind-safe palette
     category1: '#648FFF',    // Blue
     category2: '#DC267F',    // Magenta
     category3: '#FE6100',    // Orange (matches brand)
     category4: '#FFB000',    // Gold
     category5: '#785EF0',    // Purple
     
-    // Additional accessible colors
+    // Additional accessible colours
     yes: '#648FFF',         // Blue for "Yes"
     no: '#DC267F',          // Magenta for "No" (avoids red-green)
     partial: '#FFB000',      // Gold for "Partial"
@@ -38,15 +38,15 @@ const COLORBLIND_SAFE = {
     medium: '#FE6100',      // Orange for medium
     low: '#DC267F',          // Magenta for low
     
-    // For symptoms (colorblind-safe)
+    // For symptoms (colour-blind-safe)
     severe: '#648FFF',      // Blue
     moderate: '#FE6100',    // Orange
     mild: '#FFB000',        // Gold
     none: '#785EF0',        // Purple
     
-    // Treatment colors (using brand colors)
+    // Treatment colours (using brand colours)
     received: '#f7741e',     // Brand orange
-    notReceived: '#d7d7d7', // Light gray
+    notReceived: '#d7d7d7', // Light grey
     planned: '#7607ff',      // Brand blue
     completed: '#648FFF',    // Accessible blue
     ongoing: '#FFB000'       // Gold
@@ -57,7 +57,7 @@ const PAGE_TYPES = {
     treatment: {
         id: 'treatment',
         name: 'Treatment Information',
-        description: 'Information about cancer treatments received by AYA patients',
+        description: 'Information about cancer treatments that young people with cancer receive',
         modules: ['chemotherapy', 'radiotherapy', 'hormonetherapy', 'surgery', 'immunotherapy'],
         visualisationTypes: ['iconArraySimple', 'iconArrayComplex', 'table', 'pieChart', 'barChart'],
         colorScheme: 'treatment'
@@ -73,23 +73,23 @@ const PAGE_TYPES = {
     symptoms: {
         id: 'symptoms',
         name: 'Symptoms & Side Effects',
-        description: 'Common symptoms and treatment side effects reported by AYA patients',
+        description: 'Common symptoms and treatment side effects reported by young people with cancer',
         modules: ['fatigue', 'pain', 'nausea', 'anxiety', 'depression'],
         visualisationTypes: ['iconArraySimple', 'iconArrayComplex', 'table', 'pieChart', 'barChart'],
         colorScheme: 'symptoms'
     },
     mental_health: {
         id: 'mental_health',
-        name: 'Mental Health & Wellbeing',
-        description: 'Mental health metrics and psychological wellbeing indicators',
-        modules: ['anxiety', 'depression', 'stress', 'coping', 'resilience'],
-        visualisationTypes: ['iconArraySimple', 'iconArrayComplex', 'table', 'pieChart'],
-        colorScheme: 'qualityOfLife'
+        name: 'Mental Health',
+        description: 'How young people with cancer feel mentally, and the support they get',
+        modules: ['anxiety', 'depression', 'worry', 'mental_health_support'],
+        visualisationTypes: ['iconArraySimple', 'iconArrayComplex', 'table', 'pieChart', 'barChart'],
+        colorScheme: 'default'
     },
     lifestyle: {
         id: 'lifestyle',
         name: 'Lifestyle Factors',
-        description: 'Lifestyle factors affecting AYA cancer survivors',
+        description: 'Lifestyle factors that affect young people with cancer',
         modules: ['physical_activity', 'diet', 'sleep', 'smoking', 'alcohol'],
         visualisationTypes: ['iconArraySimple', 'table', 'pieChart', 'barChart'],
         colorScheme: 'default'
@@ -97,7 +97,7 @@ const PAGE_TYPES = {
     demographics: {
         id: 'demographics',
         name: 'Demographic Information',
-        description: 'Demographic characteristics of AYA cancer survivors',
+        description: 'Background information about young people with cancer',
         modules: ['age', 'sex', 'education', 'employment', 'relationship_status'],
         visualisationTypes: ['table', 'pieChart', 'barChart'],
         colorScheme: 'default'
@@ -109,40 +109,40 @@ const VISUALISATION_TYPES = {
     iconArraySimple: {
         id: 'iconArraySimple',
         name: 'Simple Icon Array',
-        description: 'Two categories: Yes/No - Clear binary representation',
+        description: 'Person icons in two groups — simple and clear',
         icon: '👥'
     },
     iconArrayComplex: {
         id: 'iconArrayComplex',
         name: 'Complex Icon Array',
-        description: 'Multiple granular categories - Detailed breakdown',
+        description: 'Person icons in more groups — more detail',
         icon: '👥'
     },
     table: {
         id: 'table',
         name: 'Data Table',
-        description: 'Verbose table with all numbers and percentages',
+        description: 'A table with all numbers and percentages',
         icon: '📊'
     },
     pieChart: {
         id: 'pieChart',
         name: 'Pie Chart',
-        description: 'Visual percentage representation',
+        description: 'A circle chart that shows the share of each group',
         icon: '🥧'
     },
     barChart: {
         id: 'barChart',
         name: 'Bar Chart',
-        description: 'Side-by-side comparison',
+        description: 'Bars that make the groups easy to compare',
         icon: '📈'
     }
 };
 
-// Color schemes for different data types (using brand and colorblind-safe colors)
+// Colour schemes for different data types (using brand and colour-blind-safe colours)
 const COLOR_SCHEMES = {
     default: {
         yes: BRAND_COLORS.primary,     // Brand orange #f7741e
-        no: BRAND_COLORS.lightGray,    // Light gray #d7d7d7
+        no: BRAND_COLORS.lightGray,    // Light grey #d7d7d7
         partial: COLORBLIND_SAFE.category4, // Gold #FFB000
         high: COLORBLIND_SAFE.category1,    // Blue #648FFF
         medium: COLORBLIND_SAFE.category3,  // Orange #FE6100
@@ -150,7 +150,7 @@ const COLOR_SCHEMES = {
     },
     treatment: {
         received: BRAND_COLORS.primary,    // Brand orange #f7741e
-        notReceived: BRAND_COLORS.lightGray, // Light gray #d7d7d7
+        notReceived: BRAND_COLORS.lightGray, // Light grey #d7d7d7
         partial: COLORBLIND_SAFE.category4,  // Gold #FFB000
         planned: BRAND_COLORS.secondary,    // Pale violet red #e36799
         completed: BRAND_COLORS.blue,       // Brand blue #7607ff
@@ -186,38 +186,38 @@ const COLOR_SCHEMES = {
 const LEGEND_CONFIGS = {
     treatment: {
         simple: [
-            { id: 'received', label: 'Received Treatment', color: COLOR_SCHEMES.treatment.received, description: 'Patients who received this treatment' },
-            { id: 'notReceived', label: 'Did Not Receive', color: COLOR_SCHEMES.treatment.notReceived, description: 'Patients who did not receive this treatment' }
+            { id: 'received', label: 'Received Treatment', color: COLOR_SCHEMES.treatment.received, description: 'People who receive this treatment' },
+            { id: 'notReceived', label: 'Did Not Receive', color: COLOR_SCHEMES.treatment.notReceived, description: 'People who do not receive this treatment' }
         ],
         complex: [
-            { id: 'received', label: 'Completed Treatment', color: COLOR_SCHEMES.treatment.completed, description: 'Completed full treatment' },
-            { id: 'partial', label: 'Partial Treatment', color: COLOR_SCHEMES.treatment.partial, description: 'Received some but not all planned treatment' },
-            { id: 'planned', label: 'Planned', color: COLOR_SCHEMES.treatment.planned, description: 'Treatment planned but not yet started' },
-            { id: 'notReceived', label: 'Not Received', color: COLOR_SCHEMES.treatment.notReceived, description: 'Did not receive treatment' }
+            { id: 'received', label: 'Completed Treatment', color: COLOR_SCHEMES.treatment.completed, description: 'People who completed the whole treatment' },
+            { id: 'partial', label: 'Partial Treatment', color: COLOR_SCHEMES.treatment.partial, description: 'People who received a part of the treatment' },
+            { id: 'planned', label: 'Planned', color: COLOR_SCHEMES.treatment.planned, description: 'People whose treatment is planned but has not started yet' },
+            { id: 'notReceived', label: 'Not Received', color: COLOR_SCHEMES.treatment.notReceived, description: 'People who did not receive the treatment' }
         ]
     },
     functioning: {
         simple: [
-            { id: 'declined', label: 'Declined', color: COLOR_SCHEMES.functioning.declined, description: 'Functioning has declined' },
-            { id: 'stable', label: 'Stable', color: COLOR_SCHEMES.functioning.stable, description: 'Functioning remains stable' }
+            { id: 'declined', label: 'Declined', color: COLOR_SCHEMES.functioning.declined, description: 'People whose score got worse' },
+            { id: 'stable', label: 'Stable', color: COLOR_SCHEMES.functioning.stable, description: 'People whose score stayed about the same' }
         ],
         complex: [
-            { id: 'significantly_declined', label: 'Significantly Declined', color: COLOR_SCHEMES.functioning.significantly_declined, description: 'Major decline in functioning' },
-            { id: 'declined', label: 'Declined', color: COLOR_SCHEMES.functioning.declined, description: 'Moderate decline in functioning' },
-            { id: 'stable', label: 'Stable', color: COLOR_SCHEMES.functioning.stable, description: 'No significant change' },
-            { id: 'improved', label: 'Improved', color: COLOR_SCHEMES.functioning.improved, description: 'Functioning has improved' }
+            { id: 'significantly_declined', label: 'Significantly Declined', color: COLOR_SCHEMES.functioning.significantly_declined, description: 'People whose score got much worse' },
+            { id: 'declined', label: 'Declined', color: COLOR_SCHEMES.functioning.declined, description: 'People whose score got worse' },
+            { id: 'stable', label: 'Stable', color: COLOR_SCHEMES.functioning.stable, description: 'People whose score stayed about the same' },
+            { id: 'improved', label: 'Improved', color: COLOR_SCHEMES.functioning.improved, description: 'People whose score got better' }
         ]
     },
     symptoms: {
         simple: [
-            { id: 'present', label: 'Present', color: COLOR_SCHEMES.symptoms.moderate, description: 'Symptom is present' },
-            { id: 'absent', label: 'Absent', color: COLOR_SCHEMES.symptoms.none, description: 'Symptom is not present' }
+            { id: 'present', label: 'Present', color: COLOR_SCHEMES.symptoms.moderate, description: 'People who have this symptom' },
+            { id: 'absent', label: 'Absent', color: COLOR_SCHEMES.symptoms.none, description: 'People who do not have this symptom' }
         ],
         complex: [
-            { id: 'severe', label: 'Severe', color: COLOR_SCHEMES.symptoms.severe, description: 'Severe symptoms' },
-            { id: 'moderate', label: 'Moderate', color: COLOR_SCHEMES.symptoms.moderate, description: 'Moderate symptoms' },
-            { id: 'mild', label: 'Mild', color: COLOR_SCHEMES.symptoms.mild, description: 'Mild symptoms' },
-            { id: 'none', label: 'None', color: COLOR_SCHEMES.symptoms.none, description: 'No symptoms' }
+            { id: 'severe', label: 'Severe', color: COLOR_SCHEMES.symptoms.severe, description: 'People with severe symptoms' },
+            { id: 'moderate', label: 'Moderate', color: COLOR_SCHEMES.symptoms.moderate, description: 'People with moderate symptoms' },
+            { id: 'mild', label: 'Mild', color: COLOR_SCHEMES.symptoms.mild, description: 'People with mild symptoms' },
+            { id: 'none', label: 'None', color: COLOR_SCHEMES.symptoms.none, description: 'People without symptoms' }
         ]
     }
 };
@@ -234,8 +234,8 @@ const FILTER_PLACEHOLDER_COUNTS = {
     all:   { all: null, male: 48, female: 62, intersex: 55 },
     blood: { all: 58,   male: 54, female: 61, intersex: 57 },
     solid: { all: 52,   male: 49, female: 56, intersex: 53 },
-    brain: { all: 66,   male: 63, female: 68, intersex: 65 },
-    skin:  { all: 41,   male: 38, female: 44, intersex: 42 }
+    skin:  { all: 41,   male: 38, female: 44, intersex: 42 },
+    brain: { all: 66,   male: 63, female: 68, intersex: 65 }
 };
 
 class StrongAyaVisualisation {
@@ -249,6 +249,8 @@ class StrongAyaVisualisation {
         this.legendData = [];
         this.pageType = null;
         this.categoryCounts = {};
+        this.iconColourCounts = {};
+        this.activePlaceholder = null;
         this.totalCount = 0;
         
         this.init();
@@ -296,7 +298,14 @@ class StrongAyaVisualisation {
     }
     
     loadLegendConfig() {
-        // Load legend based on page type and color scheme
+        // Page-specific legend from the config wins over the page-type one
+        if (this.dataConfig.legend && this.dataConfig.legend.simple) {
+            this.legendData = this.dataConfig.legend.simple;
+            this.colorScheme = COLOR_SCHEMES[this.dataConfig.colorScheme] || COLOR_SCHEMES.default;
+            return;
+        }
+        
+        // Load legend based on page type and colour scheme
         if (this.pageType) {
             const pageId = this.pageType.id;
             const colorScheme = this.dataConfig.colorScheme || this.pageType.colorScheme || 'default';
@@ -324,7 +333,7 @@ class StrongAyaVisualisation {
             this.colorScheme = COLOR_SCHEMES.default;
         }
         
-        // Apply colors from scheme to legend
+        // Apply colours from scheme to legend
         this.legendData.forEach(item => {
             if (this.colorScheme[item.id]) {
                 item.color = this.colorScheme[item.id];
@@ -354,7 +363,7 @@ class StrongAyaVisualisation {
             this.render();
         } catch (error) {
             console.error('Error loading data:', error);
-            this.showError('Failed to load visualisation data. Please try again later.');
+            this.showError('We could not load the data. Please try again later.');
         }
     }
     
@@ -376,65 +385,70 @@ class StrongAyaVisualisation {
     }
     
     parseDataCategories() {
-        // Parse the icon data to get counts for each category
+        // Count how often each icon colour occurs in the CSV, then map
+        // the colours onto the categories of the current legend
+        this.iconColourCounts = {};
+        
+        const firstRow = this.data && this.data[0];
+        if (firstRow && firstRow.icons) {
+            (firstRow.icons.match(/person-[a-z]+/g) || []).forEach(token => {
+                this.iconColourCounts[token] = (this.iconColourCounts[token] || 0) + 1;
+            });
+        }
+        
+        this.computeCountsForLegend();
+        
+        // Remember the unfiltered counts so filters can be reset
+        this.baseCounts = Object.assign({}, this.categoryCounts);
+    }
+    
+    // Turn the raw icon colour counts into counts per legend category.
+    // A legend entry can list its own icon colours (icons: [...]);
+    // otherwise the default mapping is used: orange icons belong to the
+    // first legend entry (e.g. received/declined) and grey icons to the
+    // second (e.g. notReceived/stable).
+    computeCountsForLegend() {
+        const colourCounts = this.iconColourCounts || {};
         this.categoryCounts = {};
-        
-        if (!this.data || this.data.length === 0) {
-            // Initialize with default categories
-            this.legendData.forEach(item => {
-                this.categoryCounts[item.id] = 0;
-            });
-            this.totalCount = 0;
-            return;
-        }
-        
-        const firstRow = this.data[0];
-        if (!firstRow || !firstRow.icons) {
-            // No icon data, use defaults
-            this.legendData.forEach(item => {
-                this.categoryCounts[item.id] = 0;
-            });
-            this.totalCount = 0;
-            return;
-        }
-        
-        // Count icons by color/type
-        const iconString = firstRow.icons;
-        
-        // Map icon types to legend categories.
-        // Orange icons represent the "positive" category (first legend entry,
-        // e.g. received/declined) and grey icons the second (e.g. notReceived/stable).
-        const positiveId = this.legendData[0] ? this.legendData[0].id : 'yes';
-        const negativeId = this.legendData[1] ? this.legendData[1].id : 'no';
-        
-        const iconMappings = {
-            'person-orange': positiveId,
-            'person-grey': negativeId,
-            'person-yellow': 'partial',
-            'person-gold': 'partial',
-            'person-blue': 'improved',
-            'person-magenta': 'declined',
-            'person-purple': 'significantly_declined'
-        };
-        
-        // Initialize counts
         this.legendData.forEach(item => {
             this.categoryCounts[item.id] = 0;
         });
         
-        // Count each icon type
-        Object.entries(iconMappings).forEach(([iconType, category]) => {
-            const count = (iconString.match(new RegExp(iconType, 'g')) || []).length;
-            if (this.categoryCounts[category] !== undefined) {
-                this.categoryCounts[category] += count;
-            }
-        });
+        if (this.legendData.some(item => item.icons)) {
+            this.legendData.forEach(item => {
+                (item.icons || []).forEach(icon => {
+                    this.categoryCounts[item.id] += colourCounts[icon] || 0;
+                });
+            });
+        } else {
+            const positiveId = this.legendData[0] ? this.legendData[0].id : 'yes';
+            const negativeId = this.legendData[1] ? this.legendData[1].id : 'no';
+            
+            const iconMappings = {
+                'person-orange': positiveId,
+                'person-grey': negativeId,
+                'person-yellow': 'partial',
+                'person-gold': 'partial',
+                'person-blue': 'improved',
+                'person-magenta': 'declined',
+                'person-purple': 'significantly_declined'
+            };
+            
+            Object.entries(iconMappings).forEach(([iconType, category]) => {
+                if (this.categoryCounts[category] !== undefined) {
+                    this.categoryCounts[category] += colourCounts[iconType] || 0;
+                }
+            });
+        }
         
-        // Calculate total
+        // Placeholder filter data overrides the counts (two-group legends only)
+        if (this.activePlaceholder !== null && this.activePlaceholder !== undefined &&
+            this.legendData.length === 2) {
+            this.categoryCounts[this.legendData[0].id] = this.activePlaceholder;
+            this.categoryCounts[this.legendData[1].id] = 100 - this.activePlaceholder;
+        }
+        
         this.totalCount = Object.values(this.categoryCounts).reduce((sum, count) => sum + count, 0);
-        
-        // Remember the unfiltered counts so filters can be reset
-        this.baseCounts = Object.assign({}, this.categoryCounts);
     }
     
     createVisualisationContainer() {
@@ -481,12 +495,33 @@ class StrongAyaVisualisation {
         return viewType ? viewType.name : this.currentView;
     }
     
+    // Views available for this page; the complex icon array is only
+    // offered when the underlying data actually has 3+ icon colours
+    // (two-colour data renders identically in the simple array)
+    getAvailableViews() {
+        let views = this.pageType?.visualisationTypes ||
+                    ['iconArraySimple', 'iconArrayComplex', 'table', 'pieChart', 'barChart'];
+        const distinctColours = Object.values(this.iconColourCounts || {}).filter(c => c > 0).length;
+        const hasComplexLegend = !!(this.dataConfig.legend && this.dataConfig.legend.complex) ||
+                                 !!(LEGEND_CONFIGS[this.pageType?.id] || {}).complex;
+        if ((distinctColours > 0 && distinctColours < 3) || !hasComplexLegend) {
+            views = views.filter(v => v !== 'iconArrayComplex');
+        }
+        return views;
+    }
+    
     openViewSelectorModal() {
-        // Create modal dynamically
-        if (document.getElementById('view-selector-modal')) {
+        // Track the selection separately so "Cancel" (or clicking the
+        // overlay) never leaves a half-committed view behind
+        this.pendingView = this.currentView;
+        
+        // Reuse the modal if it was created before; only the overlay's
+        // display is toggled (setting display: flex on the modal itself
+        // used to break its vertical layout on reopen)
+        const existingOverlay = document.getElementById('view-selector-overlay');
+        if (existingOverlay) {
             this.updateViewSelectorModal();
-            document.getElementById('view-selector-modal').style.display = 'flex';
-            document.getElementById('view-selector-overlay').style.display = 'flex';
+            existingOverlay.style.display = 'flex';
             return;
         }
         
@@ -499,57 +534,18 @@ class StrongAyaVisualisation {
         modal.style.cssText = 'background: white; border-radius: 15px; padding: 25px; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; box-shadow: 0 10px 40px rgba(0,0,0,0.3);';
         
         const title = document.createElement('h3');
-        title.textContent = 'Select Visualisation';
-        title.style.cssText = 'margin: 0 0 20px 0; font-size: 26px; color: black; font-weight: 600; font-family: Poppins, sans-serif;';
+        title.textContent = 'Choose how you want to see this information';
+        title.style.cssText = 'margin: 0 0 20px 0; font-size: 24px; color: black; font-weight: 600; font-family: Poppins, sans-serif;';
         modal.appendChild(title);
         
         const description = document.createElement('p');
-        description.textContent = 'Choose how you want to view the data. Each visualisation provides a different perspective.';
+        description.textContent = 'Pick the option that works best for you.';
         description.style.cssText = 'font-size: 14px; color: #a2a2a2; margin: 0 0 25px 0; line-height: 1.6;';
         modal.appendChild(description);
         
         const grid = document.createElement('div');
+        grid.id = 'view-selector-grid';
         grid.style.cssText = 'display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; margin-bottom: 20px;';
-        
-        // Get available views
-        const availableViews = this.pageType?.visualisationTypes || 
-                            ['iconArraySimple', 'iconArrayComplex', 'table', 'pieChart', 'barChart'];
-        
-        availableViews.forEach(viewId => {
-            const visType = VISUALISATION_TYPES[viewId];
-            if (visType) {
-                const card = document.createElement('div');
-                card.style.cssText = 'background: white; border: 2px solid #d7d7d7; border-radius: 10px; padding: 15px; cursor: pointer; transition: all 0.3s ease; text-align: left;';
-                if (this.currentView === viewId) {
-                    card.style.borderColor = '#f7741e';
-                    card.style.background = 'rgba(247, 116, 30, 0.05)';
-                }
-                
-                const name = document.createElement('div');
-                name.textContent = visType.name;
-                name.style.cssText = 'font-size: 16px; font-weight: 600; color: black; margin: 0 0 5px 0;';
-                card.appendChild(name);
-                
-                const desc = document.createElement('div');
-                desc.textContent = visType.description;
-                desc.style.cssText = 'font-size: 14px; color: #a2a2a2; margin: 0; line-height: 1.4;';
-                card.appendChild(desc);
-                
-                card.addEventListener('click', () => {
-                    // Remove selection from all cards
-                    grid.querySelectorAll('div').forEach(d => {
-                        d.style.borderColor = '#d7d7d7';
-                        d.style.background = 'white';
-                    });
-                    // Select this card
-                    card.style.borderColor = '#f7741e';
-                    card.style.background = 'rgba(247, 116, 30, 0.05)';
-                    this.currentView = viewId;
-                });
-                
-                grid.appendChild(card);
-            }
-        });
         modal.appendChild(grid);
         
         const footer = document.createElement('div');
@@ -567,7 +563,7 @@ class StrongAyaVisualisation {
         applyBtn.textContent = 'Apply';
         applyBtn.style.cssText = 'padding: 12px 24px; border-radius: 8px; font-family: Poppins, sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; background: #f7741e; color: white; border: none;';
         applyBtn.addEventListener('click', () => {
-            this.switchView(this.currentView);
+            this.switchView(this.pendingView || this.currentView);
             overlay.style.display = 'none';
         });
         footer.appendChild(applyBtn);
@@ -582,17 +578,20 @@ class StrongAyaVisualisation {
                 overlay.style.display = 'none';
             }
         });
+        
+        this.updateViewSelectorModal();
+        overlay.style.display = 'flex';
     }
     
+    // (Re)build the option cards in the view-selector modal; the grid is
+    // rebuilt on every open so the available views and the highlighted
+    // selection always reflect the current state
     updateViewSelectorModal() {
-        const modal = document.getElementById('view-selector-modal');
-        if (!modal) return;
-        
-        const grid = modal.querySelector('div[style*="grid-template-columns"]');
+        const grid = document.getElementById('view-selector-grid');
         if (!grid) return;
         
-        const availableViews = this.pageType?.visualisationTypes || 
-                            ['iconArraySimple', 'iconArrayComplex', 'table', 'pieChart', 'barChart'];
+        const selectedView = this.pendingView || this.currentView;
+        const availableViews = this.getAvailableViews();
         
         grid.innerHTML = '';
         
@@ -600,8 +599,9 @@ class StrongAyaVisualisation {
             const visType = VISUALISATION_TYPES[viewId];
             if (visType) {
                 const card = document.createElement('div');
+                card.className = 'view-option-card';
                 card.style.cssText = 'background: white; border: 2px solid #d7d7d7; border-radius: 10px; padding: 15px; cursor: pointer; transition: all 0.3s ease; text-align: left;';
-                if (this.currentView === viewId) {
+                if (selectedView === viewId) {
                     card.style.borderColor = '#f7741e';
                     card.style.background = 'rgba(247, 116, 30, 0.05)';
                 }
@@ -617,13 +617,13 @@ class StrongAyaVisualisation {
                 card.appendChild(desc);
                 
                 card.addEventListener('click', () => {
-                    grid.querySelectorAll('div').forEach(d => {
+                    grid.querySelectorAll('.view-option-card').forEach(d => {
                         d.style.borderColor = '#d7d7d7';
                         d.style.background = 'white';
                     });
                     card.style.borderColor = '#f7741e';
                     card.style.background = 'rgba(247, 116, 30, 0.05)';
-                    this.currentView = viewId;
+                    this.pendingView = viewId;
                 });
                 
                 grid.appendChild(card);
@@ -632,7 +632,13 @@ class StrongAyaVisualisation {
     }
     
     switchView(viewType) {
+        // Never switch to a view that is not available for this data
+        // (e.g. the complex icon array on two-category data)
+        if (!this.getAvailableViews().includes(viewType)) {
+            viewType = 'iconArraySimple';
+        }
         this.currentView = viewType;
+        this.pendingView = viewType;
         
         // Update legend based on view type
         this.updateLegendForView(viewType);
@@ -649,7 +655,7 @@ class StrongAyaVisualisation {
             toolbarBtn.title = 'Current view: ' + this.getCurrentViewName() + ' — click to change';
         }
         
-        // Update modal if open
+        // Keep the modal cards in sync for the next open
         this.updateViewSelectorModal();
         
         this.render();
@@ -658,21 +664,29 @@ class StrongAyaVisualisation {
     updateLegendForView(viewType) {
         // For complex views, use complex legend if available
         if (viewType === 'iconArrayComplex') {
-            const pageId = this.pageType?.id;
-            const legendConfig = LEGEND_CONFIGS[pageId];
-            if (legendConfig && legendConfig.complex) {
-                this.legendData = legendConfig.complex;
-                // Apply colors from scheme
-                this.legendData.forEach(item => {
-                    if (this.colorScheme[item.id]) {
-                        item.color = this.colorScheme[item.id];
-                    }
-                });
+            if (this.dataConfig.legend && this.dataConfig.legend.complex) {
+                // Page-specific complex legend from the config
+                this.legendData = this.dataConfig.legend.complex;
+            } else {
+                const pageId = this.pageType?.id;
+                const legendConfig = LEGEND_CONFIGS[pageId];
+                if (legendConfig && legendConfig.complex) {
+                    this.legendData = legendConfig.complex;
+                    // Apply colours from scheme
+                    this.legendData.forEach(item => {
+                        if (this.colorScheme[item.id]) {
+                            item.color = this.colorScheme[item.id];
+                        }
+                    });
+                }
             }
         } else {
             // Use simple legend
             this.loadLegendConfig();
         }
+        
+        // Recount the icons for the new legend
+        this.computeCountsForLegend();
     }
     
     render() {
@@ -700,7 +714,7 @@ class StrongAyaVisualisation {
     
     renderIconArraySimple() {
         if (this.totalCount === 0) {
-            this.visArea.innerHTML = '<p style="text-align: center; padding: 20px;">No data available for icon array visualisation.</p>';
+            this.visArea.innerHTML = '<p style="text-align: center; padding: 20px;">No data available.</p>';
             return;
         }
         
@@ -713,15 +727,15 @@ class StrongAyaVisualisation {
         const hasEnoughCategories = Object.keys(this.categoryCounts).length >= 3;
         
         if (this.totalCount === 0) {
-            this.visArea.innerHTML = '<p style="text-align: center; padding: 20px;">No data available for complex icon array.</p>';
+            this.visArea.innerHTML = '<p style="text-align: center; padding: 20px;">No data available.</p>';
             return;
         }
         
         if (!hasEnoughCategories) {
             this.visArea.innerHTML = `
                 <p style="text-align: center; padding: 20px; color: #666;">
-                    Complex view requires data with at least 3 categories. 
-                    Currently showing ${Object.keys(this.categoryCounts).length} category/categories.
+                    This detailed view needs data with at least 3 groups.
+                    This data has ${Object.keys(this.categoryCounts).length}.
                 </p>
             `;
             return;
@@ -780,23 +794,13 @@ class StrongAyaVisualisation {
             ? `<div class="icon-array-container">${iconRows}</div>`
             : `<div class="icon-array-grid">${combinedIcons}</div>`;
         
-        const title = this.dataConfig.title || 'Detailed Distribution';
-        const subtitle = this.dataConfig.description || this.pageType?.description || 'Patient data from SURVAYA study';
-        
-        // Only the complex view shows the textual header; the simple icon
-        // array is presented as a large, centred figure with the legend
-        // middle-aligned next to it (the statement below the figure and the
-        // info note already provide the context and the update date).
-        const header = isComplex
-            ? `<h3 class="vis-title">${title}</h3>
-               <p class="vis-subtitle">${subtitle}</p>
-               <p class="vis-total">Total: ${this.totalCount} people</p>`
-            : '';
-        
+        // No textual header around the icon arrays: the statement below the
+        // figure and the info note already provide the context and the
+        // update date. Both views are presented as a large, centred figure
+        // with the legend middle-aligned next to it.
         return `
             <div class="visualisation-wrapper">
                 <div class="icon-array-visualisation">
-                    ${header}
                     ${iconArea}
                 </div>
                 
@@ -856,7 +860,7 @@ class StrongAyaVisualisation {
                 <td><strong>Total</strong></td>
                 <td>${this.totalCount}</td>
                 <td>100%</td>
-                <td>Total population</td>
+                <td>All people together</td>
             </tr>
         `;
         
@@ -865,10 +869,10 @@ class StrongAyaVisualisation {
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>Category</th>
-                            <th>Count</th>
+                            <th>Group</th>
+                            <th>Number</th>
                             <th>Percentage</th>
-                            <th>Description</th>
+                            <th>What it means</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -882,10 +886,6 @@ class StrongAyaVisualisation {
                         ${legendItems}
                     </div>
                 </div>
-                
-                <div class="vis-info">
-                    <p><strong>Note:</strong> ${this.dataConfig.description || 'Patient-reported outcomes from the SURVAYA study'}.</p>
-                </div>
             </div>
         `;
         
@@ -894,7 +894,7 @@ class StrongAyaVisualisation {
     
     renderPieChart() {
         if (this.totalCount === 0) {
-            this.visArea.innerHTML = '<p style="text-align: center; padding: 20px;">No data available for pie chart.</p>';
+            this.visArea.innerHTML = '<p style="text-align: center; padding: 20px;">No data available.</p>';
             return;
         }
         
@@ -934,7 +934,7 @@ class StrongAyaVisualisation {
         
         const config = {
             responsive: true,
-            displayModeBar: true
+            displayModeBar: false
         };
         
         // Create wrapper with custom legend
@@ -968,13 +968,13 @@ class StrongAyaVisualisation {
             Plotly.newPlot(chartDiv, data, layout, config);
         } catch (error) {
             console.error('Error rendering Plotly chart:', error);
-            this.visArea.innerHTML = '<p style="text-align: center; padding: 20px;">Error rendering chart. Please ensure Plotly.js is loaded.</p>';
+            this.visArea.innerHTML = '<p style="text-align: center; padding: 20px;">We could not show the chart. Please reload the page.</p>';
         }
     }
     
     renderBarChart() {
         if (this.totalCount === 0) {
-            this.visArea.innerHTML = '<p style="text-align: center; padding: 20px;">No data available for bar chart.</p>';
+            this.visArea.innerHTML = '<p style="text-align: center; padding: 20px;">No data available.</p>';
             return;
         }
         
@@ -996,7 +996,7 @@ class StrongAyaVisualisation {
         
         const layout = {
             title: {
-                text: `${this.dataConfig.title || 'Count by Category'} (Total: ${this.totalCount})`,
+                text: `${this.dataConfig.title || 'Numbers by group'} (Total: ${this.totalCount})`,
                 x: 0.5,
                 xanchor: 'center',
                 font: {
@@ -1005,11 +1005,11 @@ class StrongAyaVisualisation {
                 }
             },
             xaxis: { 
-                title: 'Category',
+                title: 'Group',
                 tickfont: { family: 'Poppins, sans-serif' }
             },
             yaxis: { 
-                title: 'Count',
+                title: 'Number of people',
                 tickfont: { family: 'Poppins, sans-serif' }
             },
             showlegend: false,
@@ -1021,7 +1021,7 @@ class StrongAyaVisualisation {
         
         const config = {
             responsive: true,
-            displayModeBar: true
+            displayModeBar: false
         };
         
         // Create wrapper with custom legend
@@ -1055,7 +1055,7 @@ class StrongAyaVisualisation {
             Plotly.newPlot(chartDiv, data, layout, config);
         } catch (error) {
             console.error('Error rendering Plotly chart:', error);
-            this.visArea.innerHTML = '<p style="text-align: center; padding: 20px;">Error rendering chart. Please ensure Plotly.js is loaded.</p>';
+            this.visArea.innerHTML = '<p style="text-align: center; padding: 20px;">We could not show the chart. Please reload the page.</p>';
         }
     }
     
@@ -1070,24 +1070,20 @@ class StrongAyaVisualisation {
         const sex = this.filters.sex || 'all';
         const placeholder = (FILTER_PLACEHOLDER_COUNTS[cancerType] || {})[sex];
         
-        // Always base the ids on the simple (two-category) legend
-        const simpleLegend = (LEGEND_CONFIGS[this.pageType?.id] || {}).simple || this.legendData;
-        const positiveId = simpleLegend[0] ? simpleLegend[0].id : 'yes';
-        const negativeId = simpleLegend[1] ? simpleLegend[1].id : 'no';
+        // A null/undefined placeholder means: use the real CSV counts
+        this.activePlaceholder = (placeholder === null || placeholder === undefined) ? null : placeholder;
         
-        if (placeholder === null || placeholder === undefined) {
-            // No placeholder for this combination: fall back to the
-            // real, unfiltered CSV counts
-            this.categoryCounts = Object.assign({}, this.baseCounts);
-        } else {
-            this.categoryCounts = {};
-            this.categoryCounts[positiveId] = placeholder;
-            this.categoryCounts[negativeId] = 100 - placeholder;
-        }
-        this.totalCount = Object.values(this.categoryCounts).reduce((sum, count) => sum + count, 0);
-        
+        this.computeCountsForLegend();
         this.render();
-        this.updateStatement(this.categoryCounts[positiveId] || 0);
+        
+        // The statement always follows the first group of the simple legend
+        const simpleLegend = (this.dataConfig.legend && this.dataConfig.legend.simple) ||
+                             (LEGEND_CONFIGS[this.pageType?.id] || {}).simple || this.legendData;
+        const positiveId = simpleLegend[0] ? simpleLegend[0].id : 'yes';
+        const statementCount = this.activePlaceholder !== null
+            ? this.activePlaceholder
+            : ((this.baseCounts && this.baseCounts[positiveId]) || 0);
+        this.updateStatement(statementCount);
     }
     
     // Keep the "N out of 100 people ..." statement below the figure in
@@ -1106,7 +1102,7 @@ const VISUALISATION_CONFIGS = {
     chemotherapy: {
         dataUrl: '../data/ther_chemo_flashcard.csv',
         title: 'Chemotherapy Treatment',
-        description: 'Percentage of AYA cancer patients who received chemotherapy',
+        description: 'How many young people with cancer receive chemotherapy',
         lastUpdated: 'August 2024',
         variable: 'ther_chemo',
         pageType: 'treatment',
@@ -1116,7 +1112,7 @@ const VISUALISATION_CONFIGS = {
     radiotherapy: {
         dataUrl: '../data/ther_rt_flashcard.csv',
         title: 'Radiotherapy Treatment',
-        description: 'Percentage of AYA cancer patients who received radiotherapy',
+        description: 'How many young people with cancer receive radiotherapy',
         lastUpdated: 'August 2024',
         variable: 'ther_rt',
         pageType: 'treatment',
@@ -1126,7 +1122,7 @@ const VISUALISATION_CONFIGS = {
     hormonetherapy: {
         dataUrl: '../data/ther_ht_flashcard.csv',
         title: 'Hormone Therapy',
-        description: 'Percentage of AYA cancer patients who received hormone therapy',
+        description: 'How many young people with cancer receive hormone therapy',
         lastUpdated: 'August 2024',
         variable: 'ther_ht',
         pageType: 'treatment',
@@ -1138,7 +1134,7 @@ const VISUALISATION_CONFIGS = {
     emotional_functioning: {
         dataUrl: '../data/ef_flashcard.csv',
         title: 'Emotional Functioning',
-        description: 'Percentage of AYA cancer patients with declined emotional functioning',
+        description: 'How many young people with cancer feel worse emotionally after treatment',
         lastUpdated: 'August 2024',
         variable: 'ef',
         pageType: 'functioning',
@@ -1148,7 +1144,7 @@ const VISUALISATION_CONFIGS = {
     physical_functioning: {
         dataUrl: '../data/pf_flashcard.csv',
         title: 'Physical Functioning',
-        description: 'Percentage of AYA cancer patients with declined physical functioning',
+        description: 'How many young people with cancer find everyday physical activities harder after treatment',
         lastUpdated: 'August 2024',
         variable: 'pf',
         pageType: 'functioning',
@@ -1158,12 +1154,96 @@ const VISUALISATION_CONFIGS = {
     role_functioning: {
         dataUrl: '../data/rf_flashcard.csv',
         title: 'Role Functioning',
-        description: 'Percentage of AYA cancer patients with declined role functioning',
+        description: 'How many young people with cancer have more trouble with daily tasks after treatment',
         lastUpdated: 'August 2024',
         variable: 'rf',
         pageType: 'functioning',
         colorScheme: 'functioning',
         defaultView: 'iconArraySimple'
+    },
+    
+    // Mental health modules (HADS, EORTC QLQ-AYA and self-reported support)
+    anxiety: {
+        dataUrl: '../data/hads_anx_flashcard.csv',
+        title: 'Anxiety',
+        description: 'How many young people with cancer show signs of anxiety after treatment',
+        lastUpdated: 'August 2024',
+        variable: 'hads_anx',
+        pageType: 'mental_health',
+        colorScheme: 'default',
+        defaultView: 'iconArraySimple',
+        legend: {
+            simple: [
+                { id: 'signs', label: 'Signs of anxiety', color: BRAND_COLORS.primary, icons: ['person-magenta', 'person-orange', 'person-gold'], description: 'People whose HADS answers show signs of anxiety (score 8 or higher)' },
+                { id: 'noSigns', label: 'No signs', color: BRAND_COLORS.lightGray, icons: ['person-grey'], description: 'People whose HADS answers show no signs of anxiety (score 0 to 7)' }
+            ],
+            complex: [
+                { id: 'severe', label: 'Strong signs', color: COLORBLIND_SAFE.category2, icons: ['person-magenta'], description: 'People with strong signs of anxiety (HADS score 15 to 21)' },
+                { id: 'moderate', label: 'Clear signs', color: COLORBLIND_SAFE.category3, icons: ['person-orange'], description: 'People with clear signs of anxiety (HADS score 11 to 14)' },
+                { id: 'mild', label: 'Mild signs', color: COLORBLIND_SAFE.category4, icons: ['person-gold'], description: 'People with mild signs of anxiety (HADS score 8 to 10)' },
+                { id: 'none', label: 'No signs', color: BRAND_COLORS.lightGray, icons: ['person-grey'], description: 'People with no signs of anxiety (HADS score 0 to 7)' }
+            ]
+        }
+    },
+    depression: {
+        dataUrl: '../data/hads_dep_flashcard.csv',
+        title: 'Depression',
+        description: 'How many young people with cancer show signs of depression after treatment',
+        lastUpdated: 'August 2024',
+        variable: 'hads_dep',
+        pageType: 'mental_health',
+        colorScheme: 'default',
+        defaultView: 'iconArraySimple',
+        legend: {
+            simple: [
+                { id: 'signs', label: 'Signs of depression', color: BRAND_COLORS.primary, icons: ['person-magenta', 'person-orange', 'person-gold'], description: 'People whose HADS answers show signs of depression (score 8 or higher)' },
+                { id: 'noSigns', label: 'No signs', color: BRAND_COLORS.lightGray, icons: ['person-grey'], description: 'People whose HADS answers show no signs of depression (score 0 to 7)' }
+            ],
+            complex: [
+                { id: 'severe', label: 'Strong signs', color: COLORBLIND_SAFE.category2, icons: ['person-magenta'], description: 'People with strong signs of depression (HADS score 15 to 21)' },
+                { id: 'moderate', label: 'Clear signs', color: COLORBLIND_SAFE.category3, icons: ['person-orange'], description: 'People with clear signs of depression (HADS score 11 to 14)' },
+                { id: 'mild', label: 'Mild signs', color: COLORBLIND_SAFE.category4, icons: ['person-gold'], description: 'People with mild signs of depression (HADS score 8 to 10)' },
+                { id: 'none', label: 'No signs', color: BRAND_COLORS.lightGray, icons: ['person-grey'], description: 'People with no signs of depression (HADS score 0 to 7)' }
+            ]
+        }
+    },
+    worry: {
+        dataUrl: '../data/qlq_aya_worry_flashcard.csv',
+        title: 'Worry',
+        description: 'How many young people with cancer say they worry a lot',
+        lastUpdated: 'August 2024',
+        variable: 'qlq_aya_worry',
+        pageType: 'mental_health',
+        colorScheme: 'default',
+        defaultView: 'iconArraySimple',
+        legend: {
+            simple: [
+                { id: 'worryALot', label: 'Worry a lot', color: BRAND_COLORS.primary, icons: ['person-magenta', 'person-orange'], description: 'People who say they worry very much or quite a bit' },
+                { id: 'worryLittle', label: 'Worry a little or not', color: BRAND_COLORS.lightGray, icons: ['person-gold', 'person-grey'], description: 'People who say they worry a little or not at all' }
+            ],
+            complex: [
+                { id: 'veryMuch', label: 'Very much', color: COLORBLIND_SAFE.category2, icons: ['person-magenta'], description: 'People who say they worry very much' },
+                { id: 'quiteABit', label: 'Quite a bit', color: COLORBLIND_SAFE.category3, icons: ['person-orange'], description: 'People who say they worry quite a bit' },
+                { id: 'aLittle', label: 'A little', color: COLORBLIND_SAFE.category4, icons: ['person-gold'], description: 'People who say they worry a little' },
+                { id: 'notAtAll', label: 'Not at all', color: BRAND_COLORS.lightGray, icons: ['person-grey'], description: 'People who say they do not worry' }
+            ]
+        }
+    },
+    mental_health_support: {
+        dataUrl: '../data/mh_support_flashcard.csv',
+        title: 'Mental health support',
+        description: 'How many young people with cancer say they received mental health support',
+        lastUpdated: 'August 2024',
+        variable: 'mh_support',
+        pageType: 'mental_health',
+        colorScheme: 'default',
+        defaultView: 'iconArraySimple',
+        legend: {
+            simple: [
+                { id: 'received', label: 'Received support', color: BRAND_COLORS.primary, icons: ['person-orange'], description: 'People who say they received mental health support' },
+                { id: 'notReceived', label: 'No support', color: BRAND_COLORS.lightGray, icons: ['person-grey'], description: 'People who say they did not receive mental health support' }
+            ]
+        }
     }
 };
 
@@ -1215,11 +1295,11 @@ function initFilterDropdowns(vis) {
     });
 }
 
-// Initialize visualisations when DOM is loaded
+// Initialise visualisations when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     // Check if we're on a module page
     const path = window.location.pathname;
-    const moduleMatch = path.match(/(chemotherapy|radiotherapy|hormonetherapy|emotional_functioning|physical_functioning|role_functioning)/);
+    const moduleMatch = path.match(/(chemotherapy|radiotherapy|hormonetherapy|emotional_functioning|physical_functioning|role_functioning|anxiety|depression|worry|mental_health_support)/);
     
     if (moduleMatch) {
         const moduleType = moduleMatch[1];
@@ -1241,7 +1321,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             if (container) {
-                // Initialize visualisation
+                // Initialise visualisation
                 const vis = new StrongAyaVisualisation('visualisation-container', config);
                 initFilterDropdowns(vis);
             }

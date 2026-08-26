@@ -9,6 +9,7 @@
           href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,400&display=swap"/>
     <link rel="stylesheet" href="css/font-awesome-6.7.2.min.css"/>
     <link rel="stylesheet" href="css/portal.css"/>
+    <script src="js/portal.js" defer></script>
     <style>
         .login-card {
             max-width: 420px;
@@ -87,25 +88,25 @@
         </nav>
         <a class="contact-btn" href="https://strongaya.eu/contact/">CONTACT</a>
     </div>
-    <div class="accessibility-strip">
-        <div class="accessibility-bar">
-            <button class="access-btn"><i class="fas fa-volume-up"></i>Audio</button>
-            <button class="access-btn"><i class="fas fa-adjust"></i>Contrast</button>
-            <button class="access-btn"><i class="fas fa-moon"></i>Dark</button>
-            <button class="access-btn"><i class="fas fa-language"></i>Language</button>
-            <button class="access-btn"><i class="fas fa-text-height"></i>Size</button>
-        </div>
-    </div>
-    <div class="notice-banner"><b>Please note that display shown here is a proof of concept and is not a finalised
-        product.</b></div>
+    <div class="notice-banner"><b>Please note: this is a test version of the portal, not a finished product.</b></div>
 </header>
 
 <main id="main-content" class="page">
+    <div class="accessibility-strip">
+        <div class="accessibility-bar">
+            <button class="access-btn" data-tooltip="Coming soon"><i class="fas fa-volume-up"></i>Audio</button>
+            <button class="access-btn" data-access="contrast" aria-pressed="false"><i class="fas fa-adjust"></i>Contrast</button>
+            <button class="access-btn" data-access="dark" aria-pressed="false"><i class="fas fa-moon"></i>Dark</button>
+            <button class="access-btn" data-tooltip="Coming soon"><i class="fas fa-language"></i>Language</button>
+            <button class="access-btn" data-tooltip="Coming soon"><i class="fas fa-text-height"></i>Size</button>
+        </div>
+    </div>
+
     <div class="login-card">
-        <h1>Access insights</h1>
+        <h1>Log in</h1>
         <input placeholder="Username" type="text" aria-label="Username"/>
         <input placeholder="Password" type="password" aria-label="Password"/>
-        <button class="link-btn">Retrieve a lost password</button>
+        <button class="link-btn">Forgot your password?</button>
         <a class="login-btn" href="index.html">Login</a>
         <button class="link-btn">Request access</button>
     </div>
@@ -113,8 +114,8 @@
     <section class="context-block">
         <h2>Access suitable for you</h2>
         <ul>
-            <li>Our user accounts and login screens make it easy to determine your needs, based on your access level
-                and partner type, ensuring a personalised experience every time.
+            <li>When you log in, the portal shows information that fits your account and your role. This makes
+                your visit more personal.
             </li>
         </ul>
     </section>

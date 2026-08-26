@@ -9,6 +9,7 @@
           href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,400&display=swap"/>
     <link rel="stylesheet" href="css/font-awesome-6.7.2.min.css"/>
     <link rel="stylesheet" href="css/portal.css"/>
+    <script src="js/portal.js" defer></script>
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -38,44 +39,44 @@
         </nav>
         <a class="contact-btn" href="https://strongaya.eu/contact/">CONTACT</a>
     </div>
-    <div class="accessibility-strip">
-        <div class="accessibility-bar">
-            <button class="access-btn"><i class="fas fa-volume-up"></i>Audio</button>
-            <button class="access-btn"><i class="fas fa-adjust"></i>Contrast</button>
-            <button class="access-btn"><i class="fas fa-moon"></i>Dark</button>
-            <button class="access-btn"><i class="fas fa-language"></i>Language</button>
-            <button class="access-btn"><i class="fas fa-text-height"></i>Size</button>
-        </div>
-    </div>
-    <div class="notice-banner"><b>Please note that display shown here is a proof of concept and is not a finalised
-        product.</b></div>
+    <div class="notice-banner"><b>Please note: this is a test version of the portal, not a finished product.</b></div>
 </header>
 
 <main id="main-content" class="page">
+    <div class="accessibility-strip">
+        <div class="accessibility-bar">
+            <button class="access-btn" data-tooltip="Coming soon"><i class="fas fa-volume-up"></i>Audio</button>
+            <button class="access-btn" data-access="contrast" aria-pressed="false"><i class="fas fa-adjust"></i>Contrast</button>
+            <button class="access-btn" data-access="dark" aria-pressed="false"><i class="fas fa-moon"></i>Dark</button>
+            <button class="access-btn" data-tooltip="Coming soon"><i class="fas fa-language"></i>Language</button>
+            <button class="access-btn" data-tooltip="Coming soon"><i class="fas fa-text-height"></i>Size</button>
+        </div>
+    </div>
+
     <div class="profile-cards">
         <div class="profile-card">
-            <img src="images/firefly-abstract-icoon-van-tiener-patient-en-arts-die-elkaar-groeten-72470@2x.png"
-                 alt="Patient and doctor greeting each other"/>
+            <img src="images/doctor-greeting.png"
+                 alt="A young person and a doctor greeting each other"/>
             <h2>Before treatment</h2>
-            <p>Information that can help you at the time that you are diagnosed.</p>
+            <p>Information that can help you when you have just been diagnosed.</p>
             <a class="outline-btn" href="modules.html">Explore</a>
-            <button class="outline-btn secondary">Set as default</button>
+            <button class="outline-btn secondary" data-tooltip="Coming soon">Set as default</button>
         </div>
         <div class="profile-card">
-            <img src="images/firefly-abstract-icoon-van-tiener-met-telefoon-in-hand-92866@2x.png"
+            <img src="images/phone-in-hand.png"
                  alt="Young adult with phone in hand"/>
             <h2>Beyond treatment</h2>
-            <p>Information that can help you after you have been treated.</p>
+            <p>Information that can help you after your treatment.</p>
             <a class="outline-btn" href="modules.html">Explore</a>
-            <button class="outline-btn secondary">Set as default</button>
+            <button class="outline-btn secondary" data-tooltip="Coming soon">Set as default</button>
         </div>
     </div>
 
     <section class="context-block">
         <h2>What suits you best?</h2>
         <ul>
-            <li>You can pick a profile, and it will highlight specific info that you can check out.
-                You can always go back and pick another profile.
+            <li>Pick a profile to see information that fits your situation.
+                You can always go back and choose another profile.
             </li>
         </ul>
     </section>

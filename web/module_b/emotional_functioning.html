@@ -41,27 +41,27 @@
         </nav>
         <a class="contact-btn" href="https://strongaya.eu/contact/">CONTACT</a>
     </div>
-    <div class="accessibility-strip">
-        <div class="accessibility-bar">
-            <button class="access-btn"><i class="fas fa-volume-up"></i>Audio</button>
-            <button class="access-btn"><i class="fas fa-adjust"></i>Contrast</button>
-            <button class="access-btn"><i class="fas fa-moon"></i>Dark</button>
-            <button class="access-btn"><i class="fas fa-language"></i>Language</button>
-            <button class="access-btn"><i class="fas fa-text-height"></i>Size</button>
-        </div>
-    </div>
-    <div class="notice-banner"><b>Please note that display shown here is a proof of concept and is not a finalised
-        product.</b></div>
+    <div class="notice-banner"><b>Please note: this is a test version of the portal, not a finished product.</b></div>
 </header>
 
 <main id="main-content" class="page">
+    <div class="accessibility-strip">
+        <div class="accessibility-bar">
+            <button class="access-btn" data-tooltip="Coming soon"><i class="fas fa-volume-up"></i>Audio</button>
+            <button class="access-btn" data-access="contrast" aria-pressed="false"><i class="fas fa-adjust"></i>Contrast</button>
+            <button class="access-btn" data-access="dark" aria-pressed="false"><i class="fas fa-moon"></i>Dark</button>
+            <button class="access-btn" data-tooltip="Coming soon"><i class="fas fa-language"></i>Language</button>
+            <button class="access-btn" data-tooltip="Coming soon"><i class="fas fa-text-height"></i>Size</button>
+        </div>
+    </div>
+
     <section class="vis-card">
         <div class="page-toolbar">
             <a class="return-link" href="../modules.html"><i class="fas fa-chevron-left"></i> Return to subjects</a>
             <div class="tool-buttons">
-                <button class="tool-btn"><i class="fas fa-book"></i>Glossary</button>
-                <button class="tool-btn"><i class="fas fa-question-circle"></i>Help</button>
-                <button class="tool-btn"><i class="fas fa-columns"></i>Compare</button>
+                <button class="tool-btn" data-tool="glossary"><i class="fas fa-book"></i>Glossary</button>
+                <button class="tool-btn" data-tool="help"><i class="fas fa-question-circle"></i>Help</button>
+                <button class="tool-btn" data-tooltip="Coming soon"><i class="fas fa-columns"></i>Compare</button>
             </div>
         </div>
 
@@ -73,10 +73,10 @@
                         class="filter-value">All</span> <i class="fas fa-chevron-down"></i></button>
                 <div class="filter-dropdown" hidden>
                     <button type="button" data-value="all" class="current">All cancer types</button>
-                    <button type="button" data-value="blood">Blood cancers</button>
-                    <button type="button" data-value="solid">Solid tumours</button>
-                    <button type="button" data-value="brain">Brain &amp; nervous system</button>
-                    <button type="button" data-value="skin">Skin cancer</button>
+                    <button type="button" data-value="blood">Blood cancers (leukaemia and lymphoma)</button>
+                    <button type="button" data-value="solid">Solid tumours (such as breast or testicular cancer)</button>
+                    <button type="button" data-value="skin">Skin cancer (melanoma)</button>
+                    <button type="button" data-value="brain">Brain and nervous system tumours</button>
                 </div>
             </div>
             <div class="filter-wrap" data-filter="sex">
@@ -89,9 +89,9 @@
                     <button type="button" data-value="intersex">Intersex</button>
                 </div>
             </div>
-            <button class="filter-btn" data-tooltip="Work in progress">Time since diagnosis <i
+            <button class="filter-btn" data-tooltip="Coming soon">Time since diagnosis <i
                     class="fas fa-chevron-down"></i></button>
-            <button class="filter-btn strong" data-tooltip="Work in progress">All filters <i
+            <button class="filter-btn strong" data-tooltip="Coming soon">All filters <i
                     class="fas fa-sliders-h"></i></button>
         </div>
 
@@ -102,7 +102,7 @@
         <div class="statement-row">
             <a class="topic-link" href="role_functioning.html"><i class="fas fa-chevron-left"></i> Role functioning</a>
             <p class="vis-statement">5 out of 100 people aged 15 to 39 years old<br/>
-            experience declined <b>emotional functioning</b></p>
+            feel worse <b>emotionally</b> after treatment</p>
             <a class="topic-link" href="physical_functioning.html">Physical functioning <i class="fas fa-chevron-right"></i></a>
         </div>
 
@@ -120,10 +120,11 @@
         <div class="info-note">
             <i class="fas fa-info-circle"></i>
             <div>
-                <p>The information on these functioning scores are artificially derived from EORTC QLQ-C30 questionnaires filled in by AYA cancer survivors in the SURVAYA study.</p>
-                <p>The shown number was determined by combining scores of three artificially generated datasets amongst
-                    3300 AYAs that were treated in academic medical centres in the Netherlands, this information was last
-                    updated on the 5th of August 2024.</p>
+                <p>The numbers about these functioning scores are test data. They are based on EORTC QLQ-C30
+                    questionnaires filled in by young people with cancer in the SURVAYA study.</p>
+                <p>The number shown was calculated from three generated test datasets about 3300 young adults who were
+                    treated in university medical centres in the Netherlands. This information was last updated on
+                    5 August 2024.</p>
             </div>
         </div>
     </section>
@@ -131,11 +132,10 @@
     <section class="context-block">
         <h2>Feeling overwhelmed?</h2>
         <ul>
-            <li>Is the displayed information overwhelming for you, and does it trouble you? Or would you just like to
-                share your feelings with others? Talk about it with people close to you, or find people just like you
-                through the European Network of Youth Cancer Survivors at
-                <a href="https://beatcancer.eu/"><b>beatcancer.eu</b></a>!
-                Looking for professional guidance and help? Contact us.
+            <li>Is this information too much for you, or does it worry you? Would you like to share your feelings?
+                Talk with people close to you, or meet people with similar experiences through the European Network
+                of Youth Cancer Survivors at <a href="https://beatcancer.eu/"><b>beatcancer.eu</b></a>.
+                Do you need professional help or advice? Contact us.
             </li>
         </ul>
     </section>

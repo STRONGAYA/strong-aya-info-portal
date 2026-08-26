@@ -39,26 +39,26 @@
         </nav>
         <a class="contact-btn" href="https://strongaya.eu/contact/">CONTACT</a>
     </div>
-    <div class="accessibility-strip">
-        <div class="accessibility-bar">
-            <button class="access-btn"><i class="fas fa-volume-up"></i>Audio</button>
-            <button class="access-btn"><i class="fas fa-adjust"></i>Contrast</button>
-            <button class="access-btn"><i class="fas fa-moon"></i>Dark</button>
-            <button class="access-btn"><i class="fas fa-language"></i>Language</button>
-            <button class="access-btn"><i class="fas fa-text-height"></i>Size</button>
-        </div>
-    </div>
-    <div class="notice-banner"><b>Please note that display shown here is a proof of concept and is not a finalised
-        product.</b></div>
+    <div class="notice-banner"><b>Please note: this is a test version of the portal, not a finished product.</b></div>
 </header>
 
 <main id="main-content" class="page">
+    <div class="accessibility-strip">
+        <div class="accessibility-bar">
+            <button class="access-btn" data-tooltip="Coming soon"><i class="fas fa-volume-up"></i>Audio</button>
+            <button class="access-btn" data-access="contrast" aria-pressed="false"><i class="fas fa-adjust"></i>Contrast</button>
+            <button class="access-btn" data-access="dark" aria-pressed="false"><i class="fas fa-moon"></i>Dark</button>
+            <button class="access-btn" data-tooltip="Coming soon"><i class="fas fa-language"></i>Language</button>
+            <button class="access-btn" data-tooltip="Coming soon"><i class="fas fa-text-height"></i>Size</button>
+        </div>
+    </div>
+
     <div class="subjects-card">
         <div class="page-toolbar">
             <a class="return-link" href="index.html"><i class="fas fa-chevron-left"></i> Return to profiles</a>
             <div class="tool-buttons">
-                <button class="tool-btn"><i class="fas fa-book"></i>Glossary</button>
-                <button class="tool-btn"><i class="fas fa-question-circle"></i>Help</button>
+                <button class="tool-btn" data-tool="glossary"><i class="fas fa-book"></i>Glossary</button>
+                <button class="tool-btn" data-tool="help"><i class="fas fa-question-circle"></i>Help</button>
             </div>
         </div>
 
@@ -69,6 +69,10 @@
             <div class="topics-dropdown" hidden>
                 <a href="module_a/chemotherapy.html">Treatment information</a>
                 <a href="module_b/emotional_functioning.html">Functioning after treatment</a>
+                <a href="module_c/anxiety.html">Mental health</a>
+                <span class="disabled" data-tooltip="Coming soon">Fertility and parenthood</span>
+                <span class="disabled" data-tooltip="Coming soon">Long-term survival</span>
+                <span class="disabled" data-tooltip="Coming soon">Intimacy and romance</span>
             </div>
         </div>
 
@@ -77,45 +81,51 @@
                     class="fas fa-chevron-left"></i></button>
             <div class="subject-grid">
                 <a class="subject-card" href="module_a/chemotherapy.html">
-                    <img src="images/Firefly cartoon van een verpleeger die een infuus aanlegt bij een 28 jarige patient , geen achtergro.png"
-                         alt="Nurse administering an IV"/>
+                    <img src="images/treatment.png"
+                         alt="A young man being treated by a doctor"/>
                     <span class="subject-label">Treatment information</span>
                 </a>
                 <a class="subject-card" href="module_b/emotional_functioning.html">
-                    <img src="images/Firefly cartoon van een 28 jarige vrouw die aan het hardlopen is, geen achtergrond, geen backdrop 43.png"
+                    <img src="images/running.png"
                          alt="Young woman running"/>
                     <span class="subject-label">Functioning after treatment</span>
                 </a>
-                <div class="subject-card disabled">
-                    <img src="images/firefly-icoon-van-een-depressieve-20-jarige-met-een-vol-hoofd-en-psychische-klachten-geen-achtergron@2x.png"
-                         alt=""/>
-                    <span class="subject-label">Coming soon</span>
+                <a class="subject-card" href="module_c/anxiety.html">
+                    <img src="images/mental-health.png"
+                         alt="Young person with a lot on their mind"/>
+                    <span class="subject-label">Mental health</span>
+                </a>
+                <div class="subject-card disabled" data-tooltip="Coming soon">
+                    <img src="images/baby.png" alt=""/>
+                    <span class="subject-label">Fertility and parenthood</span>
                 </div>
-                <div class="subject-card disabled">
-                    <img src="images/firefly-abstract-icoon-van-kruipende-baby-blond-haar-19782@2x.png" alt=""/>
-                    <span class="subject-label">Coming soon</span>
+                <div class="subject-card disabled" data-tooltip="Coming soon">
+                    <img src="images/elderly-man.png" alt=""/>
+                    <span class="subject-label">Long-term survival</span>
+                </div>
+                <div class="subject-card disabled" data-tooltip="Coming soon">
+                    <img src="images/intimicy.png" alt=""/>
+                    <span class="subject-label">Intimacy and romance</span>
                 </div>
             </div>
             <button class="carousel-btn next" aria-label="Scroll subjects right"><i
                     class="fas fa-chevron-right"></i></button>
         </div>
 
-        <div class="own-data-card">
-            <img src="images/firefly-young-adult-waving-cartoon-5038@2x.png" alt="Young adult waving"/>
+        <div class="own-data-card" data-tooltip="Coming soon">
+            <img src="images/waving.png" alt="Young adult waving"/>
             <div>
                 <h3>Explore your own data</h3>
-                <p>As visitor, we cannot provide you with an overview of your own data and not able to provide you
-                    the ability to track certain aspects of your health. Are you interested in becoming a member,
-                    please reach out to us!</p>
+                <p>As a visitor, you cannot see or follow your own health data here. Would you like to become a
+                    member? Please contact us!</p>
             </div>
         </div>
     </div>
 
     <section class="context-block">
-        <h2>Dive into various subjects</h2>
+        <h2>Explore the subjects</h2>
         <ul>
-            <li>Pick a subject that you're curious about and explore as much of the information as you can find on
-                it.
+            <li>Pick a subject that you are curious about and explore the information about it.
             </li>
         </ul>
     </section>
@@ -133,6 +143,8 @@
                     purposes only. The content and outcomes presented are part of ongoing EU-funded research and may
                     be subject to scientific, technical, and ethical limitations. Information on this website is not
                     intended for clinical use and should not be interpreted as medical advice.</p>
+                <p class="research-disclaimer"><b>Image Disclaimer</b><br/>The illustrations on this subject
+                    selection page were generated with artificial intelligence (AI) tools.</p>
             </div>
             <div class="footer-col">
                 <h4>Other</h4>

@@ -482,21 +482,51 @@ html.mode-dark .page img {
     display: flex;
     align-items: center;
     gap: 12px;
+    position: relative;
+}
+
+/* soft fade at both ends of the scroll window (underneath the
+   prev/next buttons) so hidden tiles flow in and out smoothly */
+.subject-carousel::before,
+.subject-carousel::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 130px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.subject-carousel::before {
+    left: 0;
+    background: linear-gradient(to right, var(--bg-card) 56px, rgba(255, 255, 255, 0));
+}
+
+.subject-carousel::after {
+    right: 0;
+    background: linear-gradient(to left, var(--bg-card) 56px, rgba(255, 255, 255, 0));
 }
 
 .subject-grid {
     display: flex;
-    gap: 24px;
+    gap: 36px;
     overflow-x: auto;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
-    padding: 8px 4px 16px;
+    /* fallback horizontal padding keeping the first and last tile
+       clear of the edge fades; portal.js recomputes it so that two
+       tiles sit neatly centred and the next one peeks in at the edge */
+    padding: 8px 120px 16px;
+    scroll-padding: 0 120px;
     flex: 1;
     min-width: 0;
 }
 
 .carousel-btn {
     flex: 0 0 auto;
+    position: relative;
+    z-index: 2;
     width: 44px;
     height: 44px;
     border-radius: 50%;
@@ -525,8 +555,8 @@ html.mode-dark .page img {
     align-items: center;
     justify-content: flex-end;
     gap: 16px;
-    flex: 0 0 320px;
-    min-height: 340px;
+    flex: 0 0 350px;
+    min-height: 365px;
     scroll-snap-align: start;
     text-align: center;
     transition: box-shadow 0.2s ease, transform 0.2s ease;
@@ -538,7 +568,7 @@ html.mode-dark .page img {
 }
 
 .subject-card img {
-    height: 210px;
+    height: 225px;
     width: auto;
     object-fit: contain;
 }
@@ -1365,6 +1395,18 @@ html.mode-dark .page img {
     .subject-card {
         flex-basis: 260px;
         min-height: 280px;
+    }
+
+    /* narrower edge fades so they do not cover too much of the
+       visible tiles on small screens */
+    .subject-carousel::before,
+    .subject-carousel::after {
+        width: 80px;
+    }
+
+    .subject-grid {
+        padding: 8px 70px 16px;
+        scroll-padding: 0 70px;
     }
 
     .subject-card img {

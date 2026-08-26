@@ -105,10 +105,31 @@ document.addEventListener('DOMContentLoaded', function () {
         const nextBtn = carousel.querySelector('.carousel-btn.next');
         if (!track) return;
 
+        const gap = function () {
+            return parseFloat(getComputedStyle(track).gap) || 24;
+        };
+
         const step = function () {
             const card = track.querySelector('.subject-card');
-            return card ? card.offsetWidth + 24 : 320;
+            return card ? card.offsetWidth + gap() : 320;
         };
+
+        // Centre two full tiles in the scroll window: the side padding
+        // is sized so that two tiles (plus their gap) sit neatly in the
+        // middle and the next tile is just slightly visible at the edge,
+        // flowing in under the fade. Recomputed on resize.
+        const layoutTrack = function () {
+            const card = track.querySelector('.subject-card');
+            if (!card) return;
+            const twoTiles = 2 * card.offsetWidth + gap();
+            const pad = Math.max((track.clientWidth - twoTiles) / 2, gap());
+            track.style.paddingLeft = pad + 'px';
+            track.style.paddingRight = pad + 'px';
+            track.style.scrollPaddingLeft = pad + 'px';
+            track.style.scrollPaddingRight = pad + 'px';
+        };
+        layoutTrack();
+        window.addEventListener('resize', layoutTrack);
 
         if (prevBtn) {
             prevBtn.addEventListener('click', function () {

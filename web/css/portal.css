@@ -1139,21 +1139,19 @@ html.mode-dark .page img {
     color: var(--text-grey);
 }
 
-/* legend (narrow, vertically centred next to the figure; each item
-   shows its colour, label and the full explanation as plain text).
-   It is taken out of the flow so the figure itself stays exactly
-   centred in the tile. */
+/* legend: a fixed-width column next to the figure, vertically centred
+   on it; each item shows its colour, label and the full explanation as
+   plain text. It is a normal flex item (not absolutely positioned) so
+   the browser reserves room for it and it can never overlap the figure;
+   on narrow screens the wrapper wraps it underneath the figure. */
 .legend-container {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
+    flex: 0 0 200px;
+    align-self: center;
     background: #fff;
     border: 1px solid var(--border-grey);
     border-radius: 12px;
     padding: 12px 14px;
     min-width: 0;
-    max-width: 200px;
 }
 
 .legend-container h4 {
@@ -1196,7 +1194,8 @@ html.mode-dark .page img {
 /* data table */
 .data-table {
     border-collapse: collapse;
-    width: 100%;
+    flex: 1;
+    min-width: 320px;
     max-width: 640px;
     font-size: 14px;
 }

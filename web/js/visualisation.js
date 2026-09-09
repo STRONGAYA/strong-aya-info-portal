@@ -804,7 +804,8 @@ class StrongAyaVisualisation {
         // No textual header around the icon arrays: the statement below the
         // figure and the info note already provide the context and the
         // update date. Both views are presented as a large, centred figure
-        // with the legend middle-aligned next to it.
+        // with the legend as a separate column next to it (it wraps below
+        // the figure on narrow screens).
         return `
             <div class="visualisation-wrapper">
                 <div class="icon-array-visualisation">

@@ -759,15 +759,19 @@ class StrongAyaVisualisation {
         let iconRows = '';
         let combinedIcons = '';
         let legendItems = '';
+        const summaryParts = [];
         
         this.legendData.forEach(category => {
             const count = this.categoryCounts[category.id] || 0;
             const percentage = this.totalCount > 0 ? Math.round((count / this.totalCount) * 100) : 0;
+            summaryParts.push(`${category.label}: ${count} of ${this.totalCount}`);
             
             // Generate icons for this category
             const icons = this.generateIconHTML(count, category.color);
             
             if (isComplex) {
+                // The icons only repeat what the row header already says,
+                // so they are hidden from assistive technology
                 iconRows += `
                     <div class="icon-category-row">
                         <div class="icon-category-header">
@@ -775,7 +779,7 @@ class StrongAyaVisualisation {
                             <span class="icon-category-label">${category.label}</span>
                             <span class="icon-category-count">${count} (${percentage}%)</span>
                         </div>
-                        <div class="icon-category-icons">
+                        <div class="icon-category-icons" aria-hidden="true">
                             ${icons}
                         </div>
                     </div>
@@ -797,9 +801,12 @@ class StrongAyaVisualisation {
             `;
         });
         
+        // The simple grid is one image to a screen reader: a single
+        // description instead of 100 individual (decorative) icons
+        const summary = `Icon array of ${this.totalCount} people. ${summaryParts.join('. ')}.`;
         const iconArea = isComplex
             ? `<div class="icon-array-container">${iconRows}</div>`
-            : `<div class="icon-array-grid">${combinedIcons}</div>`;
+            : `<div class="icon-array-grid" role="img" aria-label="${summary}">${combinedIcons}</div>`;
         
         // No textual header around the icon arrays: the statement below the
         // figure and the info note already provide the context and the
@@ -826,7 +833,7 @@ class StrongAyaVisualisation {
         
         let html = '';
         for (let i = 0; i < count; i++) {
-            html += `<i class="fas fa-person person-icon" style="color: ${color};" aria-label="Person"></i>`;
+            html += `<i class="fas fa-person person-icon" style="color: ${color};" aria-hidden="true"></i>`;
         }
         return html;
     }

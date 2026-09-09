@@ -602,16 +602,22 @@ class StrongAyaVisualisation {
         
         grid.innerHTML = '';
         
+        // Real buttons, so keyboard users get tab focus and Enter/Space
+        // for free; aria-pressed tells screen readers which one is chosen
+        const markSelected = (card, selected) => {
+            card.style.borderColor = selected ? '#f7741e' : '#d7d7d7';
+            card.style.background = selected ? 'rgba(247, 116, 30, 0.05)' : 'white';
+            card.setAttribute('aria-pressed', String(selected));
+        };
+        
         availableViews.forEach(viewId => {
             const visType = VISUALISATION_TYPES[viewId];
             if (visType) {
-                const card = document.createElement('div');
+                const card = document.createElement('button');
+                card.type = 'button';
                 card.className = 'view-option-card';
-                card.style.cssText = 'background: white; border: 2px solid #d7d7d7; border-radius: 10px; padding: 15px; cursor: pointer; transition: all 0.3s ease; text-align: left;';
-                if (selectedView === viewId) {
-                    card.style.borderColor = '#f7741e';
-                    card.style.background = 'rgba(247, 116, 30, 0.05)';
-                }
+                card.style.cssText = 'background: white; border: 2px solid #d7d7d7; border-radius: 10px; padding: 15px; cursor: pointer; transition: all 0.3s ease; text-align: left; font-family: inherit; width: 100%;';
+                markSelected(card, selectedView === viewId);
                 
                 const name = document.createElement('div');
                 name.textContent = visType.name;
@@ -624,12 +630,8 @@ class StrongAyaVisualisation {
                 card.appendChild(desc);
                 
                 card.addEventListener('click', () => {
-                    grid.querySelectorAll('.view-option-card').forEach(d => {
-                        d.style.borderColor = '#d7d7d7';
-                        d.style.background = 'white';
-                    });
-                    card.style.borderColor = '#f7741e';
-                    card.style.background = 'rgba(247, 116, 30, 0.05)';
+                    grid.querySelectorAll('.view-option-card').forEach(d => markSelected(d, false));
+                    markSelected(card, true);
                     this.pendingView = viewId;
                 });
                 

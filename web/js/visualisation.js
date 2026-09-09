@@ -773,9 +773,9 @@ class StrongAyaVisualisation {
         
         // No textual header around the icon arrays: the statement below the
         // figure and the info note already provide the context and the
-        // update date. Both views are presented as a large, centred figure
-        // with the legend as a separate column next to it (it wraps below
-        // the figure on narrow screens).
+        // update date. Both views are presented as a large figure centred
+        // in the tile, with the legend in its own column next to it (the
+        // CSS moves it below the figure on narrow screens).
         return `
             <div class="visualisation-wrapper">
                 <div class="icon-array-visualisation">
@@ -933,8 +933,6 @@ class StrongAyaVisualisation {
         wrapper.className = 'visualisation-wrapper';
         
         const chartDiv = document.createElement('div');
-        chartDiv.style.flex = '1';
-        chartDiv.style.minWidth = '0';
         
         const legendDiv = document.createElement('div');
         legendDiv.className = 'legend-container';
@@ -1015,8 +1013,6 @@ class StrongAyaVisualisation {
         wrapper.className = 'visualisation-wrapper';
         
         const chartDiv = document.createElement('div');
-        chartDiv.style.flex = '1';
-        chartDiv.style.minWidth = '0';
         
         const legendDiv = document.createElement('div');
         legendDiv.className = 'legend-container';

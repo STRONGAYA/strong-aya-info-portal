@@ -1036,19 +1036,26 @@ html.mode-dark .page img {
     color: var(--text-grey);
 }
 
+/* figure + legend: a symmetric three-column grid (empty spacer |
+   figure | legend) with the two outer columns the same width as the
+   legend, so the figure is centred in the tile while the legend keeps
+   its own reserved column and can never overlap it. On narrow screens
+   (see RESPONSIVE) the grid collapses to one column, legend below. */
 .visualisation-wrapper {
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 200px minmax(0, 1fr) 200px;
     gap: 32px;
     align-items: center;
-    justify-content: center;
     margin: 16px 0 8px;
 }
 
-.icon-array-visualisation {
-    flex: 1;
-    min-width: 320px;
+.visualisation-wrapper > :first-child {
+    grid-column: 2;
+    min-width: 0;
+}
+
+.visualisation-wrapper > .legend-container {
+    grid-column: 3;
 }
 
 .vis-title {
@@ -1139,13 +1146,10 @@ html.mode-dark .page img {
     color: var(--text-grey);
 }
 
-/* legend: a fixed-width column next to the figure, vertically centred
-   on it; each item shows its colour, label and the full explanation as
-   plain text. It is a normal flex item (not absolutely positioned) so
-   the browser reserves room for it and it can never overlap the figure;
-   on narrow screens the wrapper wraps it underneath the figure. */
+/* legend: fills the right-hand column of the wrapper grid, vertically
+   centred on the figure; each item shows its colour, label and the
+   full explanation as plain text. */
 .legend-container {
-    flex: 0 0 200px;
     align-self: center;
     background: #fff;
     border: 1px solid var(--border-grey);
@@ -1194,9 +1198,9 @@ html.mode-dark .page img {
 /* data table */
 .data-table {
     border-collapse: collapse;
-    flex: 1;
-    min-width: 320px;
+    width: 100%;
     max-width: 640px;
+    margin: 0 auto;
     font-size: 14px;
 }
 
@@ -1346,12 +1350,21 @@ html.mode-dark .page img {
    ============================================================ */
 
 @media (max-width: 960px) {
-    /* on narrow screens the legend goes back into the flow, below
-       the figure, so it cannot overlap the icons */
+    /* on narrow screens there is no room for the side columns: the
+       figure takes the full width and the legend moves underneath it */
+    .visualisation-wrapper {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .visualisation-wrapper > :first-child,
+    .visualisation-wrapper > .legend-container {
+        grid-column: 1;
+    }
+
     .legend-container {
-        position: static;
-        transform: none;
-        margin: 16px auto 0;
+        width: 100%;
+        max-width: 420px;
+        justify-self: center;
     }
 }
 

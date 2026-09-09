@@ -6,7 +6,7 @@ import sys
 from vantage6.client import UserClient as Client
 
 
-def retrieve_categorical_descriptives(config, plotting_info):
+def retrieve_categorical_descriptives(config, variables):
     """
     Retrieve federated descriptive data.
 
@@ -24,21 +24,12 @@ def retrieve_categorical_descriptives(config, plotting_info):
         - password (str): The password for authentication.
         - organization_key (str): The private key of the user's organisation to set up end-to-end encryption.
         - mfa_token (str, optional): The MFA token for authentication, if required.
-    plotting_info (dict or str): Plotting information. If a string, it will be parsed as JSON.
+    variables (dict): The variables to describe (see data/variables.json); only its keys are used here.
         - Example structure:
             {
-              "variable_name": {
-                "variable_identifier": "variable_a",
-                "chart_id": null,
-                "chart_title": "A title of your chart",
-                "data_location": null,
-                "positive_strata": [
-                  "variable_b",
-                  "example_ontoloy:code_to_mark_as_positive"
-                ],
-                "negative_strata": [
-                  "example_ontoloy:code_to_mark_as_negative"
-                ]
+              "variable_a": {
+                "portal_category": ["example_ontology:code_in_this_category"],
+                "other_category": ["example_ontology:other_code"]
               }
             }
 
@@ -69,8 +60,8 @@ def retrieve_categorical_descriptives(config, plotting_info):
 
     # Prepare variables to describe
     variables_to_describe = {
-        info["variable_identifier"]: {"datatype": "categorical"}
-        for info in plotting_info.values()
+        variable: {"datatype": "categorical"}
+        for variable in variables
     }
 
     # Create a task for the client to retrieve the descriptive data
@@ -138,18 +129,18 @@ def _authenticate(config):
 
 
 if __name__ == "__main__":
-    # Read configuration and plotting information from command line arguments
+    # Read configuration and variables from command line arguments
     vantage6_config_path = sys.argv[1]
-    plotting_info_path = sys.argv[2]
+    variables_path = sys.argv[2]
 
-    # Attempt to retrieve the configuration and plotting information
+    # Attempt to retrieve the configuration and variables
     with open(vantage6_config_path, "r") as f:
         config = json.load(f)
 
-    with open(plotting_info_path, "r") as f:
-        plotting_info = json.load(f)
+    with open(variables_path, "r") as f:
+        variables = json.load(f)
 
-    result = retrieve_categorical_descriptives(config, plotting_info)
+    result = retrieve_categorical_descriptives(config, variables)
 
     # Check if the path exists or create it
     output_dir = os.path.join("data", "raw")

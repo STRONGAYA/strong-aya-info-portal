@@ -53,7 +53,7 @@ jobs:
         run: pip install -r scripts/requirements.txt
 
       - name: Run Vantage6 Python script with timeout
-        run: python scripts/vantage6_integration.py '${{ env.TEMP_DIR }}/config.json' plotting_info.json > /dev/null 2>&1
+        run: python scripts/vantage6_integration.py '${{ env.TEMP_DIR }}/config.json' data/variables.json > /dev/null 2>&1
         timeout-minutes: 10
         env:
           CONFIG_PATH: ${{ env.TEMP_DIR }}/config.json
@@ -62,35 +62,17 @@ jobs:
         if: always()
         run: rm -rf ${{ env.TEMP_DIR }}
 
-      - name: Get repository name
-        id: repo
-        run: echo "REPO_NAME=${GITHUB_REPOSITORY}" >> $GITHUB_ENV
-
-      - name: Set raw path URL
-        run: echo "RAW_PATH=https://raw.githubusercontent.com/${{ env.REPO_NAME }}/main/" >> $GITHUB_ENV
-
-      - name: Run Flashcard Construction Python script
-        run: python scripts/construct_flashcard.py data/raw/vantage6_result.json plotting_info.json "${{ env.RAW_PATH }}"
+      # Turns the raw result into the web/data/<variable>.csv count files the portal reads
+      - name: Run counts construction Python script
+        run: python scripts/construct_counts.py data/raw/vantage6_result.json data/variables.json
 
       - name: Configure Git
         run: |
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
           git config --global user.name "${{ github.actor }}"
 
-      # Commit of aggregate data is done separately to cater for Datawrapper's automatic updates
-      - name: Commit and push aggregate data
+      - name: Commit and push aggregate data and counts
         run: |
-          git add data/* 
-          git status --short | grep "plotting_info.json" && git add plotting_info.json
+          git add data/raw web/data
           git commit -m "Add/update Vantage6 result" || exit 0  # Exit gracefully if no changes
-          git push
-
-      - name: Run Datawrapper script
-        run: python scripts/datawrapper.py "${{ secrets.DATAWRAPPER_TOKEN }}" plotting_info.json
-
-      # Commit of plotting information is done separately so that Datawrapper chart id and embedding code can be updated
-      - name: Commit and push plotting information data
-        run: |
-          git status --short | grep "plotting_info.json" && git add plotting_info.json
-          git commit -m "Update plotting information" || exit 0  # Exit gracefully if no changes
           git push

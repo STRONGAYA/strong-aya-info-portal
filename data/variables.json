@@ -1,0 +1,14 @@
+{
+    "ther_rt": {
+        "received": [1.0],
+        "notReceived": [0.0]
+    },
+    "ther_chemo": {
+        "received": [1.0],
+        "notReceived": [0.0]
+    },
+    "ther_ht": {
+        "received": [1.0],
+        "notReceived": [0.0]
+    }
+}

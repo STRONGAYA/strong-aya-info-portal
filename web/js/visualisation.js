@@ -522,25 +522,23 @@ class StrongAyaVisualisation {
         // overlay) never leaves a half-committed view behind
         this.pendingView = this.currentView;
         
-        // Reuse the modal if it was created before; only the overlay's
-        // display is toggled (setting display: flex on the modal itself
-        // used to break its vertical layout on reopen)
-        const existingOverlay = document.getElementById('view-selector-overlay');
-        if (existingOverlay) {
+        // Reuse the modal if it was created before. It is a native
+        // <dialog>: showModal() moves focus inside, traps it there,
+        // closes on Escape and returns focus to the "View" button.
+        const existingModal = document.getElementById('view-selector-modal');
+        if (existingModal) {
             this.updateViewSelectorModal();
-            existingOverlay.style.display = 'flex';
+            existingModal.showModal();
             return;
         }
         
-        const overlay = document.createElement('div');
-        overlay.id = 'view-selector-overlay';
-        overlay.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 10000;';
-        
-        const modal = document.createElement('div');
+        const modal = document.createElement('dialog');
         modal.id = 'view-selector-modal';
-        modal.style.cssText = 'background: white; border-radius: 15px; padding: 25px; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; box-shadow: 0 10px 40px rgba(0,0,0,0.3);';
+        modal.className = 'portal-modal';
+        modal.setAttribute('aria-labelledby', 'view-selector-title');
         
         const title = document.createElement('h3');
+        title.id = 'view-selector-title';
         title.textContent = 'Choose how you want to see this information';
         title.style.cssText = 'margin: 0 0 20px 0; font-size: 24px; color: black; font-weight: 600; font-family: Poppins, sans-serif;';
         modal.appendChild(title);
@@ -559,35 +557,37 @@ class StrongAyaVisualisation {
         footer.style.cssText = 'display: flex; justify-content: flex-end; gap: 10px; border-top: 2px solid #d7d7d7; padding-top: 20px;';
         
         const cancelBtn = document.createElement('button');
+        cancelBtn.type = 'button';
         cancelBtn.textContent = 'Cancel';
         cancelBtn.style.cssText = 'padding: 12px 24px; border-radius: 8px; font-family: Poppins, sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; background: #d7d7d7; color: black; border: none;';
-        cancelBtn.addEventListener('click', () => {
-            overlay.style.display = 'none';
-        });
+        cancelBtn.addEventListener('click', () => modal.close());
         footer.appendChild(cancelBtn);
         
         const applyBtn = document.createElement('button');
+        applyBtn.type = 'button';
         applyBtn.textContent = 'Apply';
         applyBtn.style.cssText = 'padding: 12px 24px; border-radius: 8px; font-family: Poppins, sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; background: #f7741e; color: white; border: none;';
         applyBtn.addEventListener('click', () => {
             this.switchView(this.pendingView || this.currentView);
-            overlay.style.display = 'none';
+            modal.close();
         });
         footer.appendChild(applyBtn);
         modal.appendChild(footer);
         
-        overlay.appendChild(modal);
-        document.body.appendChild(overlay);
+        document.body.appendChild(modal);
         
-        // Close on overlay click
-        overlay.addEventListener('click', (e) => {
-            if (e.target === overlay) {
-                overlay.style.display = 'none';
+        // Close on backdrop click (the click then targets the dialog
+        // itself; the bounds check excludes clicks on its own padding)
+        modal.addEventListener('click', (e) => {
+            if (e.target !== modal) return;
+            const r = modal.getBoundingClientRect();
+            if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) {
+                modal.close();
             }
         });
         
         this.updateViewSelectorModal();
-        overlay.style.display = 'flex';
+        modal.showModal();
     }
     
     // (Re)build the option cards in the view-selector modal; the grid is

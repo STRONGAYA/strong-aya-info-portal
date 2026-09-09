@@ -253,9 +253,9 @@ html.mode-contrast .info-note a {
 /* Dark mode: invert the header and the main content and re-invert
    the images so they keep their natural colours — a simple, robust
    approach for this proof of concept. The filter is deliberately NOT
-   put on <body>: that would turn it into the containing block of the
-   position: fixed modals and break their placement. The photo-backed
-   footer and the (white) modals are left as they are. */
+   put on <body>: the modals are <dialog> elements in the top layer
+   and should stay unaffected. The photo-backed footer and the
+   (white) modals are left as they are. */
 html.mode-dark {
     background: #121212;
 }
@@ -773,21 +773,15 @@ html.mode-dark .page img {
 }
 
 /* ============================================================
-   GLOSSARY / HELP MODAL (portal.js)
+   MODALS: Glossary / Help (portal.js) and View selection
+   (visualisation.js). Native <dialog> elements opened with
+   showModal(), so focus handling and Escape come from the browser.
    ============================================================ */
-
-.portal-modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 10000;
-}
 
 .portal-modal {
     background: #fff;
+    color: var(--text-dark);
+    border: none;
     border-radius: 15px;
     padding: 25px 30px;
     max-width: 620px;
@@ -795,6 +789,10 @@ html.mode-dark .page img {
     max-height: 80vh;
     overflow-y: auto;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.portal-modal::backdrop {
+    background: rgba(0, 0, 0, 0.5);
 }
 
 .portal-modal h3 {

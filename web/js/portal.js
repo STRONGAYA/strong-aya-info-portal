@@ -207,34 +207,40 @@ document.addEventListener('DOMContentLoaded', function () {
     const pageId = (window.location.pathname.split('/').pop() || 'index.html').replace(/\.html$/, '') || 'index';
     const isModulePage = /module_[a-c]/.test(window.location.pathname);
 
+    // Native <dialog> + showModal(): the browser moves focus into the
+    // dialog, keeps it there, closes on Escape and returns focus to the
+    // button that opened it — no custom focus management needed.
     function openPortalModal(title, intro, bodyHtml) {
-        let overlay = document.getElementById('portal-modal-overlay');
-        if (!overlay) {
-            overlay = document.createElement('div');
-            overlay.id = 'portal-modal-overlay';
-            overlay.className = 'portal-modal-overlay';
-            overlay.innerHTML =
-                '<div class="portal-modal" role="dialog" aria-modal="true">' +
-                '<h3></h3><p class="modal-intro"></p>' +
+        let dialog = document.getElementById('portal-modal');
+        if (!dialog) {
+            dialog = document.createElement('dialog');
+            dialog.id = 'portal-modal';
+            dialog.className = 'portal-modal';
+            dialog.setAttribute('aria-labelledby', 'portal-modal-title');
+            dialog.innerHTML =
+                '<h3 id="portal-modal-title"></h3><p class="modal-intro"></p>' +
                 '<div class="modal-body"></div>' +
-                '<div class="modal-footer"><button class="modal-close">Close</button></div>' +
-                '</div>';
-            document.body.appendChild(overlay);
+                '<div class="modal-footer"><button type="button" class="modal-close">Close</button></div>';
+            document.body.appendChild(dialog);
 
-            overlay.addEventListener('click', function (e) {
-                if (e.target === overlay) overlay.style.display = 'none';
+            // A click on the backdrop targets the dialog element itself;
+            // the bounds check keeps clicks on the dialog's own padding
+            // from closing it
+            dialog.addEventListener('click', function (e) {
+                if (e.target !== dialog) return;
+                const r = dialog.getBoundingClientRect();
+                if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) {
+                    dialog.close();
+                }
             });
-            overlay.querySelector('.modal-close').addEventListener('click', function () {
-                overlay.style.display = 'none';
-            });
-            document.addEventListener('keydown', function (e) {
-                if (e.key === 'Escape') overlay.style.display = 'none';
+            dialog.querySelector('.modal-close').addEventListener('click', function () {
+                dialog.close();
             });
         }
-        overlay.querySelector('h3').textContent = title;
-        overlay.querySelector('.modal-intro').textContent = intro;
-        overlay.querySelector('.modal-body').innerHTML = bodyHtml;
-        overlay.style.display = 'flex';
+        dialog.querySelector('h3').textContent = title;
+        dialog.querySelector('.modal-intro').textContent = intro;
+        dialog.querySelector('.modal-body').innerHTML = bodyHtml;
+        dialog.showModal();
     }
 
     function openGlossary() {

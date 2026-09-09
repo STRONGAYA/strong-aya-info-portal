@@ -1139,10 +1139,10 @@ html.mode-dark .page img {
     color: var(--text-grey);
 }
 
-/* legend (simple and narrow, vertically centred next to the figure;
-   hovering an item shows the full explanation as a tooltip). It is
-   taken out of the flow so the figure itself stays exactly centred
-   in the tile. */
+/* legend (narrow, vertically centred next to the figure; each item
+   shows its colour, label and the full explanation as plain text).
+   It is taken out of the flow so the figure itself stays exactly
+   centred in the tile. */
 .legend-container {
     position: absolute;
     right: 0;
@@ -1153,7 +1153,7 @@ html.mode-dark .page img {
     border-radius: 12px;
     padding: 12px 14px;
     min-width: 0;
-    max-width: 140px;
+    max-width: 200px;
 }
 
 .legend-container h4 {
@@ -1169,10 +1169,9 @@ html.mode-dark .page img {
 
 .legend-item {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 10px;
     font-size: 13px;
-    cursor: help;
 }
 
 .legend-color-box {
@@ -1180,6 +1179,7 @@ html.mode-dark .page img {
     height: 16px;
     border-radius: 4px;
     flex-shrink: 0;
+    margin-top: 2px;
 }
 
 .legend-label {
@@ -1190,6 +1190,7 @@ html.mode-dark .page img {
 .legend-label span {
     color: var(--text-grey);
     font-size: 12px;
+    line-height: 1.4;
 }
 
 /* data table */

@@ -791,16 +791,7 @@ class StrongAyaVisualisation {
                 combinedIcons += icons;
             }
             
-            // Build legend item (kept simple: swatch + label; the full
-            // explanation is shown as a tooltip when hovering the item)
-            legendItems += `
-                <div class="legend-item" data-tooltip="${category.description || category.label}">
-                    <div class="legend-color-box" style="background: ${category.color};"></div>
-                    <div class="legend-label">
-                        <strong>${category.label}</strong>
-                    </div>
-                </div>
-            `;
+            legendItems += this.generateLegendItemHTML(category);
         });
         
         // The simple grid is one image to a screen reader: a single
@@ -840,6 +831,24 @@ class StrongAyaVisualisation {
         return html;
     }
     
+    // Legend item: swatch, label and the explanation written out in
+    // full. The explanation is essential, so it is plain text rather
+    // than a hover tooltip (which keyboard and screen-reader users miss).
+    generateLegendItemHTML(category) {
+        const description = category.description && category.description !== category.label
+            ? `<span>${category.description}</span>`
+            : '';
+        return `
+            <div class="legend-item">
+                <div class="legend-color-box" style="background: ${category.color};" aria-hidden="true"></div>
+                <div class="legend-label">
+                    <strong>${category.label}</strong>
+                    ${description}
+                </div>
+            </div>
+        `;
+    }
+    
     renderTable() {
         if (this.totalCount === 0) {
             this.visArea.innerHTML = '<p style="text-align: center; padding: 20px;">No data available.</p>';
@@ -862,12 +871,7 @@ class StrongAyaVisualisation {
                 </tr>
             `;
             
-            legendItems += `
-                <div class="legend-item">
-                    <div class="legend-color-box" style="background: ${category.color};"></div>
-                    <span><strong>${category.label}</strong></span>
-                </div>
-            `;
+            legendItems += this.generateLegendItemHTML(category);
         });
         
         // Add total row
@@ -966,12 +970,7 @@ class StrongAyaVisualisation {
         legendDiv.innerHTML = `
             <h4>Legend</h4>
             <div class="legend-items">
-                ${this.legendData.map(c => `
-                    <div class="legend-item">
-                        <div class="legend-color-box" style="background: ${c.color};"></div>
-                        <span><strong>${c.label}</strong></span>
-                    </div>
-                `).join('')}
+                ${this.legendData.map(c => this.generateLegendItemHTML(c)).join('')}
             </div>
         `;
         
@@ -1053,12 +1052,7 @@ class StrongAyaVisualisation {
         legendDiv.innerHTML = `
             <h4>Legend</h4>
             <div class="legend-items">
-                ${this.legendData.map(c => `
-                    <div class="legend-item">
-                        <div class="legend-color-box" style="background: ${c.color};"></div>
-                        <span><strong>${c.label}</strong></span>
-                    </div>
-                `).join('')}
+                ${this.legendData.map(c => this.generateLegendItemHTML(c)).join('')}
             </div>
         `;
         

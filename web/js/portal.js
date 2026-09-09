@@ -81,7 +81,7 @@ const HELP_CONTENT = {
         '<b>Return to subjects</b> (top left) brings you back to the list of subjects.',
         '<b>View</b> lets you choose how the data is shown: as person icons, a table, a pie chart or a bar chart.',
         '<b>Filters</b>: use <b>Cancer type</b> and <b>Sex</b> to see the numbers for one group only. The other filters are coming soon.',
-        'The <b>figure</b> shows 100 person icons; each icon stands for 1 out of 100 people. Move your mouse over a <b>legend</b> item to see what its colour means.',
+        'The <b>figure</b> shows 100 person icons; each icon stands for 1 out of 100 people. The <b>legend</b> next to it explains what each colour means.',
         'Use the <b>arrow buttons</b> left and right of the text to go to the topic before or after this one.',
         '<b>Explore all topics</b> opens a list of all topics in this subject.',
         '<b>Glossary</b> explains the words used on this page; <b>Compare</b> is coming soon.',

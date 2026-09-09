@@ -6,8 +6,8 @@ on:
   workflow_dispatch:
 
   # TEMPORARILY DISABLED: trigger on completion of the Vantage6 data-fetching
-  # integration. The site is currently built solely from the data committed in
-  # the repo (see the "Sync flashcard data into web" step below).
+  # integration. The site is currently built solely from the count CSVs
+  # committed in web/data.
   # Re-enable this block to couple deployments to the data updates again.
   # workflow_run:
   #   workflows: [ "Update data through Vantage6 integration" ]
@@ -48,13 +48,6 @@ jobs:
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
-
-      # The portal reads its flashcard CSVs from web/data; copy the latest
-      # generated flashcards (see update_data.yml) in before publishing
-      - name: Sync flashcard data into web
-        run: |
-          mkdir -p web/data
-          cp -f data/flashcards/*.csv web/data/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

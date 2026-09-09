@@ -1,7 +1,7 @@
 /**
  * STRONG-AYA Info Portal Visualisation Module
  * Handles icon array, table, and pie chart visualisations using Plotly.js
- * Loads data from GitHub CSV files
+ * Loads the counts per category from web/data/<variable>.csv
  * Supports multiple page types and visualisation variants
  * Uses brand colour theme and colour-blind-safe palettes
  */
@@ -182,11 +182,15 @@ const COLOR_SCHEMES = {
     }
 };
 
-// Legend configurations for different visualisation types
+// Legend configurations for different visualisation types.
+// The data CSVs (web/data/<variable>.csv) hold one `category,count` row
+// per category, named after the ids of the *complex* legend. A simple
+// legend entry covers its own id plus the finer categories listed in
+// `categories`, so both views are counted from the same rows.
 const LEGEND_CONFIGS = {
     treatment: {
         simple: [
-            { id: 'received', label: 'Received Treatment', color: COLOR_SCHEMES.treatment.received, description: 'People who receive this treatment' },
+            { id: 'received', label: 'Received Treatment', color: COLOR_SCHEMES.treatment.received, categories: ['partial', 'planned'], description: 'People who receive this treatment' },
             { id: 'notReceived', label: 'Did Not Receive', color: COLOR_SCHEMES.treatment.notReceived, description: 'People who do not receive this treatment' }
         ],
         complex: [
@@ -197,24 +201,21 @@ const LEGEND_CONFIGS = {
         ]
     },
     functioning: {
-        // The explicit icon lists keep both views working with today's
-        // two-colour flashcards and with the more granular flashcards
-        // (purple/magenta/gold/blue icons) that will become available
         simple: [
-            { id: 'declined', label: 'Declined', color: COLOR_SCHEMES.functioning.declined, icons: ['person-orange', 'person-purple', 'person-magenta'], description: 'People whose score got worse' },
-            { id: 'stable', label: 'Stable or improved', color: COLOR_SCHEMES.functioning.stable, icons: ['person-grey', 'person-gold', 'person-blue'], description: 'People whose score stayed about the same or got better' }
+            { id: 'declined', label: 'Declined', color: COLOR_SCHEMES.functioning.declined, categories: ['significantly_declined'], description: 'People whose score got worse' },
+            { id: 'stable', label: 'Stable or improved', color: COLOR_SCHEMES.functioning.stable, categories: ['improved'], description: 'People whose score stayed about the same or got better' }
         ],
         complex: [
-            { id: 'significantly_declined', label: 'Declined a lot', color: COLOR_SCHEMES.functioning.significantly_declined, icons: ['person-purple'], description: 'People whose score got much worse' },
-            { id: 'declined', label: 'Declined', color: COLOR_SCHEMES.functioning.declined, icons: ['person-orange', 'person-magenta'], description: 'People whose score got worse' },
-            { id: 'stable', label: 'Stable', color: COLOR_SCHEMES.functioning.stable, icons: ['person-grey', 'person-gold'], description: 'People whose score stayed about the same' },
-            { id: 'improved', label: 'Improved', color: COLOR_SCHEMES.functioning.improved, icons: ['person-blue'], description: 'People whose score got better' }
+            { id: 'significantly_declined', label: 'Declined a lot', color: COLOR_SCHEMES.functioning.significantly_declined, description: 'People whose score got much worse' },
+            { id: 'declined', label: 'Declined', color: COLOR_SCHEMES.functioning.declined, description: 'People whose score got worse' },
+            { id: 'stable', label: 'Stable', color: COLOR_SCHEMES.functioning.stable, description: 'People whose score stayed about the same' },
+            { id: 'improved', label: 'Improved', color: COLOR_SCHEMES.functioning.improved, description: 'People whose score got better' }
         ]
     },
     symptoms: {
         simple: [
-            { id: 'present', label: 'Present', color: COLOR_SCHEMES.symptoms.moderate, description: 'People who have this symptom' },
-            { id: 'absent', label: 'Absent', color: COLOR_SCHEMES.symptoms.none, description: 'People who do not have this symptom' }
+            { id: 'present', label: 'Present', color: COLOR_SCHEMES.symptoms.moderate, categories: ['severe', 'moderate', 'mild'], description: 'People who have this symptom' },
+            { id: 'absent', label: 'Absent', color: COLOR_SCHEMES.symptoms.none, categories: ['none'], description: 'People who do not have this symptom' }
         ],
         complex: [
             { id: 'severe', label: 'Severe', color: COLOR_SCHEMES.symptoms.severe, description: 'People with severe symptoms' },
@@ -247,12 +248,11 @@ class StrongAyaVisualisation {
         this.dataConfig = dataConfig;
         this.container = document.getElementById(containerId);
         this.currentView = dataConfig.defaultView || 'iconArraySimple';
-        this.data = null;
         this.filters = {};
         this.legendData = [];
         this.pageType = null;
         this.categoryCounts = {};
-        this.iconColourCounts = {};
+        this.rawCounts = {};
         this.activePlaceholder = null;
         this.totalCount = 0;
         
@@ -351,17 +351,18 @@ class StrongAyaVisualisation {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             
-            const csvText = await response.text();
-            this.data = this.parseCSV(csvText);
+            this.rawCounts = this.parseCSV(await response.text());
             
-            // Extract metadata from first line if present
-            if (this.data.length > 0) {
-                this.metadata = this.data[0];
-                this.data = this.data.slice(1);
-            }
+            // Flag rows that no legend knows about (typically a typo in the CSV)
+            const knownIds = new Set(this.allLegendEntries().flatMap(item => [item.id].concat(item.categories || [])));
+            Object.keys(this.rawCounts)
+                .filter(id => !knownIds.has(id))
+                .forEach(id => console.warn(`${this.dataConfig.dataUrl}: unknown category "${id}" is ignored`));
             
-            // Parse data to get counts for each category
-            this.parseDataCategories();
+            this.computeCountsForLegend();
+            
+            // Remember the unfiltered counts so filters can be reset
+            this.baseCounts = Object.assign({}, this.categoryCounts);
             
             this.render();
         } catch (error) {
@@ -370,79 +371,51 @@ class StrongAyaVisualisation {
         }
     }
     
+    // Data CSV format: a `category,count` header followed by one row per
+    // category, e.g. `received,1830`. Counts are plain numbers of people;
+    // they do not need to add up to 100.
     parseCSV(csvText) {
-        // Flashcard CSV format: first line is the variable name (header),
-        // subsequent lines contain the icon markdown (e.g. person-orange/person-grey images)
-        const lines = csvText.split('\n').filter(line => line.trim() !== '');
-        if (lines.length === 0) {
-            return [];
-        }
-        
-        const variable = lines[0].trim();
-        const icons = lines.slice(1).join('\n');
-        
-        return [
-            { variable: variable },
-            { variable: variable, icons: icons }
-        ];
-    }
-    
-    parseDataCategories() {
-        // Count how often each icon colour occurs in the CSV, then map
-        // the colours onto the categories of the current legend
-        this.iconColourCounts = {};
-        
-        const firstRow = this.data && this.data[0];
-        if (firstRow && firstRow.icons) {
-            (firstRow.icons.match(/person-[a-z]+/g) || []).forEach(token => {
-                this.iconColourCounts[token] = (this.iconColourCounts[token] || 0) + 1;
-            });
-        }
-        
-        this.computeCountsForLegend();
-        
-        // Remember the unfiltered counts so filters can be reset
-        this.baseCounts = Object.assign({}, this.categoryCounts);
-    }
-    
-    // Turn the raw icon colour counts into counts per legend category.
-    // A legend entry can list its own icon colours (icons: [...]);
-    // otherwise the default mapping is used: orange icons belong to the
-    // first legend entry (e.g. received/declined) and grey icons to the
-    // second (e.g. notReceived/stable).
-    computeCountsForLegend() {
-        const colourCounts = this.iconColourCounts || {};
-        this.categoryCounts = {};
-        this.legendData.forEach(item => {
-            this.categoryCounts[item.id] = 0;
+        const counts = {};
+        csvText.split('\n').slice(1).forEach(line => {
+            const [category, count] = line.split(',').map(part => part.trim());
+            if (category && !Number.isNaN(Number(count))) {
+                counts[category] = Number(count);
+            }
         });
-        
-        if (this.legendData.some(item => item.icons)) {
-            this.legendData.forEach(item => {
-                (item.icons || []).forEach(icon => {
-                    this.categoryCounts[item.id] += colourCounts[icon] || 0;
-                });
-            });
-        } else {
-            const positiveId = this.legendData[0] ? this.legendData[0].id : 'yes';
-            const negativeId = this.legendData[1] ? this.legendData[1].id : 'no';
-            
-            const iconMappings = {
-                'person-orange': positiveId,
-                'person-grey': negativeId,
-                'person-yellow': 'partial',
-                'person-gold': 'partial',
-                'person-blue': 'improved',
-                'person-magenta': 'declined',
-                'person-purple': 'significantly_declined'
-            };
-            
-            Object.entries(iconMappings).forEach(([iconType, category]) => {
-                if (this.categoryCounts[category] !== undefined) {
-                    this.categoryCounts[category] += colourCounts[iconType] || 0;
-                }
-            });
+        return counts;
+    }
+    
+    // Simple and complex legend entries for this page
+    allLegendEntries() {
+        const legend = this.dataConfig.legend || LEGEND_CONFIGS[this.pageType?.id] || {};
+        return (legend.simple || []).concat(legend.complex || []);
+    }
+    
+    // Raw number of people covered by a legend entry: its own category
+    // plus the finer categories it groups (categories: [...])
+    rawCountFor(item) {
+        return [item.id].concat(item.categories || [])
+            .reduce((sum, id) => sum + (this.rawCounts[id] || 0), 0);
+    }
+    
+    // Turn the raw counts into "people out of 100" per legend category
+    // (largest-remainder rounding, so the icons always add up to 100).
+    computeCountsForLegend() {
+        const raw = this.legendData.map(item => this.rawCountFor(item));
+        const rawTotal = raw.reduce((sum, count) => sum + count, 0);
+        const exact = raw.map(count => rawTotal > 0 ? (count / rawTotal) * 100 : 0);
+        const scaled = exact.map(Math.floor);
+        const remainders = exact.map((value, i) => ({ i, rest: value - scaled[i] }))
+            .sort((a, b) => b.rest - a.rest);
+        let left = rawTotal > 0 ? 100 - scaled.reduce((sum, count) => sum + count, 0) : 0;
+        for (let k = 0; left > 0 && k < remainders.length; k++, left--) {
+            scaled[remainders[k].i]++;
         }
+        
+        this.categoryCounts = {};
+        this.legendData.forEach((item, i) => {
+            this.categoryCounts[item.id] = scaled[i];
+        });
         
         // Placeholder filter data overrides the counts (two-group legends only)
         if (this.activePlaceholder !== null && this.activePlaceholder !== undefined &&
@@ -498,20 +471,17 @@ class StrongAyaVisualisation {
         return viewType ? viewType.name : this.currentView;
     }
     
-    // Views available for this page. The complex icon array needs a
-    // complex legend; when that legend maps icon colours explicitly
-    // (icons: [...]), more granular levels are (or will be) available,
-    // so the view is always offered. Without such a mapping it is only
-    // offered when the data actually has 3+ icon colours (two-colour
-    // data renders identically in the simple array).
+    // Views available for this page. The complex icon array is only
+    // offered when it actually shows more than the simple one, i.e. when
+    // the data has more non-empty groups in the complex legend than in
+    // the simple legend (e.g. received/not received data has nothing to
+    // gain from a completed/partial/planned/not received breakdown).
     getAvailableViews() {
         let views = this.pageType?.visualisationTypes ||
                     ['iconArraySimple', 'iconArrayComplex', 'table', 'pieChart', 'barChart'];
-        const distinctColours = Object.values(this.iconColourCounts || {}).filter(c => c > 0).length;
-        const complexLegend = (this.dataConfig.legend && this.dataConfig.legend.complex) ||
-                              (LEGEND_CONFIGS[this.pageType?.id] || {}).complex || null;
-        const hasIconMapping = !!complexLegend && complexLegend.some(item => item.icons);
-        if (!complexLegend || (!hasIconMapping && distinctColours > 0 && distinctColours < 3)) {
+        const legend = this.dataConfig.legend || LEGEND_CONFIGS[this.pageType?.id] || {};
+        const nonEmpty = entries => (entries || []).filter(item => this.rawCountFor(item) > 0).length;
+        if (!legend.complex || nonEmpty(legend.complex) <= nonEmpty(legend.simple)) {
             views = views.filter(v => v !== 'iconArrayComplex');
         }
         return views;
@@ -1111,7 +1081,7 @@ class StrongAyaVisualisation {
 const VISUALISATION_CONFIGS = {
     // Treatment modules
     chemotherapy: {
-        dataUrl: '../data/ther_chemo_flashcard.csv',
+        dataUrl: '../data/ther_chemo.csv',
         title: 'Chemotherapy Treatment',
         description: 'How many young people with cancer receive chemotherapy',
         lastUpdated: 'August 2024',
@@ -1121,7 +1091,7 @@ const VISUALISATION_CONFIGS = {
         defaultView: 'iconArraySimple'
     },
     radiotherapy: {
-        dataUrl: '../data/ther_rt_flashcard.csv',
+        dataUrl: '../data/ther_rt.csv',
         title: 'Radiotherapy Treatment',
         description: 'How many young people with cancer receive radiotherapy',
         lastUpdated: 'August 2024',
@@ -1131,7 +1101,7 @@ const VISUALISATION_CONFIGS = {
         defaultView: 'iconArraySimple'
     },
     hormonetherapy: {
-        dataUrl: '../data/ther_ht_flashcard.csv',
+        dataUrl: '../data/ther_ht.csv',
         title: 'Hormone Therapy',
         description: 'How many young people with cancer receive hormone therapy',
         lastUpdated: 'August 2024',
@@ -1143,7 +1113,7 @@ const VISUALISATION_CONFIGS = {
     
     // Functioning modules
     emotional_functioning: {
-        dataUrl: '../data/ef_flashcard.csv',
+        dataUrl: '../data/ef.csv',
         title: 'Emotional Functioning',
         description: 'How many young people with cancer feel worse emotionally after treatment',
         lastUpdated: 'August 2024',
@@ -1153,7 +1123,7 @@ const VISUALISATION_CONFIGS = {
         defaultView: 'iconArraySimple'
     },
     physical_functioning: {
-        dataUrl: '../data/pf_flashcard.csv',
+        dataUrl: '../data/pf.csv',
         title: 'Physical Functioning',
         description: 'How many young people with cancer find everyday physical activities harder after treatment',
         lastUpdated: 'August 2024',
@@ -1163,7 +1133,7 @@ const VISUALISATION_CONFIGS = {
         defaultView: 'iconArraySimple'
     },
     role_functioning: {
-        dataUrl: '../data/rf_flashcard.csv',
+        dataUrl: '../data/rf.csv',
         title: 'Role Functioning',
         description: 'How many young people with cancer have more trouble with daily tasks after treatment',
         lastUpdated: 'August 2024',
@@ -1175,7 +1145,7 @@ const VISUALISATION_CONFIGS = {
     
     // Mental health modules (HADS, EORTC QLQ-AYA and self-reported support)
     anxiety: {
-        dataUrl: '../data/hads_anx_flashcard.csv',
+        dataUrl: '../data/hads_anx.csv',
         title: 'Anxiety',
         description: 'How many young people with cancer show signs of anxiety after treatment',
         lastUpdated: 'August 2024',
@@ -1185,19 +1155,19 @@ const VISUALISATION_CONFIGS = {
         defaultView: 'iconArraySimple',
         legend: {
             simple: [
-                { id: 'signs', label: 'Signs of anxiety', color: BRAND_COLORS.primary, icons: ['person-magenta', 'person-orange', 'person-gold'], description: 'People whose HADS answers show signs of anxiety (score 8 or higher)' },
-                { id: 'noSigns', label: 'No signs', color: BRAND_COLORS.lightGray, icons: ['person-grey'], description: 'People whose HADS answers show no signs of anxiety (score 0 to 7)' }
+                { id: 'signs', label: 'Signs of anxiety', color: BRAND_COLORS.primary, categories: ['severe', 'moderate', 'mild'], description: 'People whose HADS answers show signs of anxiety (score 8 or higher)' },
+                { id: 'noSigns', label: 'No signs', color: BRAND_COLORS.lightGray, categories: ['none'], description: 'People whose HADS answers show no signs of anxiety (score 0 to 7)' }
             ],
             complex: [
-                { id: 'severe', label: 'Strong signs', color: COLORBLIND_SAFE.category2, icons: ['person-magenta'], description: 'People with strong signs of anxiety (HADS score 15 to 21)' },
-                { id: 'moderate', label: 'Clear signs', color: COLORBLIND_SAFE.category3, icons: ['person-orange'], description: 'People with clear signs of anxiety (HADS score 11 to 14)' },
-                { id: 'mild', label: 'Mild signs', color: COLORBLIND_SAFE.category4, icons: ['person-gold'], description: 'People with mild signs of anxiety (HADS score 8 to 10)' },
-                { id: 'none', label: 'No signs', color: BRAND_COLORS.lightGray, icons: ['person-grey'], description: 'People with no signs of anxiety (HADS score 0 to 7)' }
+                { id: 'severe', label: 'Strong signs', color: COLORBLIND_SAFE.category2, description: 'People with strong signs of anxiety (HADS score 15 to 21)' },
+                { id: 'moderate', label: 'Clear signs', color: COLORBLIND_SAFE.category3, description: 'People with clear signs of anxiety (HADS score 11 to 14)' },
+                { id: 'mild', label: 'Mild signs', color: COLORBLIND_SAFE.category4, description: 'People with mild signs of anxiety (HADS score 8 to 10)' },
+                { id: 'none', label: 'No signs', color: BRAND_COLORS.lightGray, description: 'People with no signs of anxiety (HADS score 0 to 7)' }
             ]
         }
     },
     depression: {
-        dataUrl: '../data/hads_dep_flashcard.csv',
+        dataUrl: '../data/hads_dep.csv',
         title: 'Depression',
         description: 'How many young people with cancer show signs of depression after treatment',
         lastUpdated: 'August 2024',
@@ -1207,19 +1177,19 @@ const VISUALISATION_CONFIGS = {
         defaultView: 'iconArraySimple',
         legend: {
             simple: [
-                { id: 'signs', label: 'Signs of depression', color: BRAND_COLORS.primary, icons: ['person-magenta', 'person-orange', 'person-gold'], description: 'People whose HADS answers show signs of depression (score 8 or higher)' },
-                { id: 'noSigns', label: 'No signs', color: BRAND_COLORS.lightGray, icons: ['person-grey'], description: 'People whose HADS answers show no signs of depression (score 0 to 7)' }
+                { id: 'signs', label: 'Signs of depression', color: BRAND_COLORS.primary, categories: ['severe', 'moderate', 'mild'], description: 'People whose HADS answers show signs of depression (score 8 or higher)' },
+                { id: 'noSigns', label: 'No signs', color: BRAND_COLORS.lightGray, categories: ['none'], description: 'People whose HADS answers show no signs of depression (score 0 to 7)' }
             ],
             complex: [
-                { id: 'severe', label: 'Strong signs', color: COLORBLIND_SAFE.category2, icons: ['person-magenta'], description: 'People with strong signs of depression (HADS score 15 to 21)' },
-                { id: 'moderate', label: 'Clear signs', color: COLORBLIND_SAFE.category3, icons: ['person-orange'], description: 'People with clear signs of depression (HADS score 11 to 14)' },
-                { id: 'mild', label: 'Mild signs', color: COLORBLIND_SAFE.category4, icons: ['person-gold'], description: 'People with mild signs of depression (HADS score 8 to 10)' },
-                { id: 'none', label: 'No signs', color: BRAND_COLORS.lightGray, icons: ['person-grey'], description: 'People with no signs of depression (HADS score 0 to 7)' }
+                { id: 'severe', label: 'Strong signs', color: COLORBLIND_SAFE.category2, description: 'People with strong signs of depression (HADS score 15 to 21)' },
+                { id: 'moderate', label: 'Clear signs', color: COLORBLIND_SAFE.category3, description: 'People with clear signs of depression (HADS score 11 to 14)' },
+                { id: 'mild', label: 'Mild signs', color: COLORBLIND_SAFE.category4, description: 'People with mild signs of depression (HADS score 8 to 10)' },
+                { id: 'none', label: 'No signs', color: BRAND_COLORS.lightGray, description: 'People with no signs of depression (HADS score 0 to 7)' }
             ]
         }
     },
     worry: {
-        dataUrl: '../data/qlq_aya_worry_flashcard.csv',
+        dataUrl: '../data/qlq_aya_worry.csv',
         title: 'Worry',
         description: 'How many young people with cancer say they worry a lot',
         lastUpdated: 'August 2024',
@@ -1229,19 +1199,19 @@ const VISUALISATION_CONFIGS = {
         defaultView: 'iconArraySimple',
         legend: {
             simple: [
-                { id: 'worryALot', label: 'Worry a lot', color: BRAND_COLORS.primary, icons: ['person-magenta', 'person-orange'], description: 'People who say they worry very much or quite a bit' },
-                { id: 'worryLittle', label: 'Worry a little or not', color: BRAND_COLORS.lightGray, icons: ['person-gold', 'person-grey'], description: 'People who say they worry a little or not at all' }
+                { id: 'worryALot', label: 'Worry a lot', color: BRAND_COLORS.primary, categories: ['veryMuch', 'quiteABit'], description: 'People who say they worry very much or quite a bit' },
+                { id: 'worryLittle', label: 'Worry a little or not', color: BRAND_COLORS.lightGray, categories: ['aLittle', 'notAtAll'], description: 'People who say they worry a little or not at all' }
             ],
             complex: [
-                { id: 'veryMuch', label: 'Very much', color: COLORBLIND_SAFE.category2, icons: ['person-magenta'], description: 'People who say they worry very much' },
-                { id: 'quiteABit', label: 'Quite a bit', color: COLORBLIND_SAFE.category3, icons: ['person-orange'], description: 'People who say they worry quite a bit' },
-                { id: 'aLittle', label: 'A little', color: COLORBLIND_SAFE.category4, icons: ['person-gold'], description: 'People who say they worry a little' },
-                { id: 'notAtAll', label: 'Not at all', color: BRAND_COLORS.lightGray, icons: ['person-grey'], description: 'People who say they do not worry' }
+                { id: 'veryMuch', label: 'Very much', color: COLORBLIND_SAFE.category2, description: 'People who say they worry very much' },
+                { id: 'quiteABit', label: 'Quite a bit', color: COLORBLIND_SAFE.category3, description: 'People who say they worry quite a bit' },
+                { id: 'aLittle', label: 'A little', color: COLORBLIND_SAFE.category4, description: 'People who say they worry a little' },
+                { id: 'notAtAll', label: 'Not at all', color: BRAND_COLORS.lightGray, description: 'People who say they do not worry' }
             ]
         }
     },
     mental_health_support: {
-        dataUrl: '../data/mh_support_flashcard.csv',
+        dataUrl: '../data/mh_support.csv',
         title: 'Mental health support',
         description: 'How many young people with cancer say they received mental health support',
         lastUpdated: 'August 2024',
@@ -1251,8 +1221,8 @@ const VISUALISATION_CONFIGS = {
         defaultView: 'iconArraySimple',
         legend: {
             simple: [
-                { id: 'received', label: 'Received support', color: BRAND_COLORS.primary, icons: ['person-orange'], description: 'People who say they received mental health support' },
-                { id: 'notReceived', label: 'No support', color: BRAND_COLORS.lightGray, icons: ['person-grey'], description: 'People who say they did not receive mental health support' }
+                { id: 'received', label: 'Received support', color: BRAND_COLORS.primary, description: 'People who say they received mental health support' },
+                { id: 'notReceived', label: 'No support', color: BRAND_COLORS.lightGray, description: 'People who say they did not receive mental health support' }
             ]
         }
     }

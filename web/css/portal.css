@@ -874,15 +874,21 @@ html.mode-dark .page img {
     padding: 0 32px;
 }
 
+/* the buttons and statement are pinned to their own columns, so the
+   buttons stay at the edges even when the statement is hidden (e.g.
+   when there is insufficient data to report a number) */
 .statement-row .topic-link:first-child {
+    grid-column: 1;
     justify-self: start;
 }
 
 .statement-row .topic-link:last-child {
+    grid-column: 3;
     justify-self: end;
 }
 
 .statement-row .vis-statement {
+    grid-column: 2;
     margin: 0;
 }
 
@@ -1431,7 +1437,9 @@ html.mode-dark .page img {
     }
 
     .statement-row .topic-link:first-child,
-    .statement-row .topic-link:last-child {
+    .statement-row .topic-link:last-child,
+    .statement-row .vis-statement {
+        grid-column: 1;
         justify-self: center;
     }
 

@@ -1097,6 +1097,7 @@ class StrongAyaVisualisation {
         
         this.computeCountsForLegend();
         this.render();
+        this.toggleInfoNote(!this.insufficientData);
         
         if (this.insufficientData) {
             this.updateStatement(null);
@@ -1124,6 +1125,13 @@ class StrongAyaVisualisation {
         }
         statement.hidden = false;
         statement.innerHTML = statement.innerHTML.replace(/^\s*\d+/, count);
+    }
+    
+    // The "this information is based on ..." note (and the divider above
+    // it) only makes sense when a figure is actually shown
+    toggleInfoNote(show) {
+        document.querySelectorAll('.vis-card .info-note, .vis-card .explore-topics-wrap + .tile-divider')
+            .forEach(el => { el.hidden = !show; });
     }
 }
 

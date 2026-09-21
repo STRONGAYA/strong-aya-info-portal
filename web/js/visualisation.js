@@ -231,15 +231,18 @@ const LEGEND_CONFIGS = {
 // Number of people out of 100 that fall in the *first* legend
 // category (e.g. "received treatment" / "declined functioning") for
 // each cancer type / sex combination. `null` means "use the real,
-// unfiltered CSV data". Simply update these numbers once the real
-// filtered figures become available.
+// unfiltered CSV data"; INSUFFICIENT_DATA means the group is too small
+// to show anything (the visualisation is replaced by a notice). Simply
+// update these values once the real filtered figures become available.
 // ------------------------------------------------------------------
+const INSUFFICIENT_DATA = 'insufficient';
+
 const FILTER_PLACEHOLDER_COUNTS = {
-    all:   { all: null, male: 48, female: 62, intersex: 55 },
-    blood: { all: 58,   male: 54, female: 61, intersex: 57 },
-    solid: { all: 52,   male: 49, female: 56, intersex: 53 },
-    skin:  { all: 41,   male: 38, female: 44, intersex: 42 },
-    brain: { all: 66,   male: 63, female: 68, intersex: 65 }
+    all:   { all: null, male: 48, female: 62, intersex: INSUFFICIENT_DATA },
+    blood: { all: 58,   male: 54, female: 61, intersex: INSUFFICIENT_DATA },
+    solid: { all: 52,   male: 49, female: 56, intersex: INSUFFICIENT_DATA },
+    skin:  { all: 41,   male: 38, female: 44, intersex: INSUFFICIENT_DATA },
+    brain: { all: 66,   male: 63, female: 68, intersex: INSUFFICIENT_DATA }
 };
 
 class StrongAyaVisualisation {
@@ -254,6 +257,7 @@ class StrongAyaVisualisation {
         this.categoryCounts = {};
         this.rawCounts = {};
         this.activePlaceholder = null;
+        this.insufficientData = false;
         this.totalCount = 0;
         
         this.init();
@@ -671,6 +675,13 @@ class StrongAyaVisualisation {
     render() {
         if (!this.visArea) return;
         
+        // Too few people in the selected group: show the notice instead
+        // of any visualisation, whatever view is selected
+        if (this.insufficientData) {
+            this.renderInsufficientData();
+            return;
+        }
+        
         switch (this.currentView) {
             case 'iconArrayComplex':
                 this.renderIconArrayComplex();
@@ -1036,6 +1047,36 @@ class StrongAyaVisualisation {
         }
     }
     
+    // Notice shown in place of the visualisation when the selected group
+    // is too small to report on. It names the active filter combination
+    // and the outcome so the reader knows exactly what is missing.
+    renderInsufficientData() {
+        const filterLabels = this.describeActiveFilters();
+        const outcome = this.dataConfig.title || 'this topic';
+        this.visArea.innerHTML = `
+            <div class="insufficient-data" role="status">
+                <i class="fas fa-info-circle" aria-hidden="true"></i>
+                <p>There is insufficient data for the filter combination
+                    <b>${filterLabels}</b> and the outcome <b>${outcome}</b> to display anything.</p>
+                <p>Please consider coming back later when more data is included.</p>
+            </div>
+        `;
+    }
+    
+    // Human-readable summary of the current filter bar selection, e.g.
+    // "Cancer type: All, Sex: Intersex" (read from the filter buttons so
+    // it always matches what the reader selected)
+    describeActiveFilters() {
+        const labels = [];
+        document.querySelectorAll('.filter-wrap .filter-toggle').forEach(toggle => {
+            labels.push(toggle.textContent.replace(/\s+/g, ' ').trim());
+        });
+        if (labels.length) return labels.join(', ');
+        return Object.keys(this.filters)
+            .map(key => `${key}: ${this.filters[key]}`)
+            .join(', ') || 'selected filters';
+    }
+    
     showError(message) {
         this.visArea.innerHTML = `<p style="text-align: center; padding: 20px; color: ${BRAND_COLORS.secondary};">${message}</p>`;
     }
@@ -1047,11 +1088,20 @@ class StrongAyaVisualisation {
         const sex = this.filters.sex || 'all';
         const placeholder = (FILTER_PLACEHOLDER_COUNTS[cancerType] || {})[sex];
         
+        // Too small a group to show: no counts, no statement, just the notice
+        this.insufficientData = placeholder === INSUFFICIENT_DATA;
+        
         // A null/undefined placeholder means: use the real CSV counts
-        this.activePlaceholder = (placeholder === null || placeholder === undefined) ? null : placeholder;
+        this.activePlaceholder = (this.insufficientData || placeholder === null || placeholder === undefined)
+            ? null : placeholder;
         
         this.computeCountsForLegend();
         this.render();
+        
+        if (this.insufficientData) {
+            this.updateStatement(null);
+            return;
+        }
         
         // The statement always follows the first group of the simple legend
         const simpleLegend = (this.dataConfig.legend && this.dataConfig.legend.simple) ||
@@ -1064,12 +1114,16 @@ class StrongAyaVisualisation {
     }
     
     // Keep the "N out of 100 people ..." statement below the figure in
-    // sync with the (filtered) data
+    // sync with the (filtered) data; `null` hides it (nothing to report)
     updateStatement(count) {
         const statement = document.querySelector('.vis-card .vis-statement');
-        if (statement) {
-            statement.innerHTML = statement.innerHTML.replace(/^\s*\d+/, count);
+        if (!statement) return;
+        if (count === null) {
+            statement.hidden = true;
+            return;
         }
+        statement.hidden = false;
+        statement.innerHTML = statement.innerHTML.replace(/^\s*\d+/, count);
     }
 }
 

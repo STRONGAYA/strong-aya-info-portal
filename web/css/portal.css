@@ -1146,6 +1146,38 @@ html.mode-dark .page img {
     color: var(--text-grey);
 }
 
+/* notice shown in place of the figure when the selected filter group
+   is too small to report on; centred in the same space the figure and
+   legend would otherwise occupy */
+.insufficient-data {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 12px;
+    max-width: 640px;
+    min-height: 260px;
+    margin: 0 auto;
+    padding: 32px 24px;
+    color: var(--text-grey);
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+.insufficient-data i {
+    font-size: 40px;
+    color: var(--brand-orange);
+}
+
+.insufficient-data p {
+    margin: 0;
+}
+
+.insufficient-data b {
+    color: var(--text-dark);
+}
+
 /* legend: fills the right-hand column of the wrapper grid, vertically
    centred on the figure; each item shows its colour, label and the
    full explanation as plain text. */

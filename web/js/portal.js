@@ -2,6 +2,7 @@
  * STRONG-AYA Info Portal — shared page behaviour
  * - Subject carousel: horizontal scrolling via prev/next buttons
  * - "Explore all topics" dropdown on module pages
+ * - Disabled header/footer links to strongaya.eu (with an explanation)
  * - Accessibility modes (contrast / dark), persisted in localStorage
  * - Page-specific Glossary and Help modals
  */
@@ -162,6 +163,38 @@ document.addEventListener('DOMContentLoaded', function () {
                 btn.setAttribute('aria-expanded', 'false');
             }
         });
+    });
+
+    // --- Disabled links to strongaya.eu ---
+    // This test portal is not linked from strongaya.eu, so visitors who
+    // follow a header/footer link there have no way back. Those links
+    // are disabled and explain this in a tooltip instead; the original
+    // address is kept in data-href.
+    const OFFSITE_NOTE = 'Link disabled. You can visit strongaya.eu yourself, but this test portal ' +
+        'cannot be reached from there, so you would not be able to come back.';
+    const TIP_WIDTH = 260; // width of .offsite-link[data-tooltip]::after
+    const TIP_MARGIN = 8;
+
+    document.querySelectorAll('.site-header a[href], .site-footer a[href]').forEach(function (link) {
+        if (!/(^|\.)strongaya\.eu$/.test(link.hostname)) return;
+        link.dataset.href = link.getAttribute('href');
+        link.removeAttribute('href');
+        link.classList.add('offsite-link');
+        link.setAttribute('role', 'link');
+        link.setAttribute('aria-disabled', 'true');
+        link.tabIndex = 0;
+        link.dataset.tooltip = OFFSITE_NOTE;
+
+        // Centre the tooltip on the link, but keep it inside the
+        // viewport (links sit at the edges of the header and footer)
+        const placeTooltip = function () {
+            const rect = link.getBoundingClientRect();
+            const maxLeft = document.documentElement.clientWidth - TIP_WIDTH - TIP_MARGIN;
+            const left = Math.max(TIP_MARGIN, Math.min(rect.left + (rect.width - TIP_WIDTH) / 2, maxLeft));
+            link.style.setProperty('--tip-left', (left - rect.left) + 'px');
+        };
+        link.addEventListener('mouseenter', placeTooltip);
+        link.addEventListener('focus', placeTooltip);
     });
 
     // --- Accessibility modes (contrast / dark) ---

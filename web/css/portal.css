@@ -768,6 +768,35 @@ html.mode-dark .page img {
     visibility: visible;
 }
 
+/* disabled header/footer links to strongaya.eu (portal.js): a wider
+   tooltip, which portal.js shifts sideways (--tip-left) to keep it
+   inside the viewport; below the link in the header, above it in the
+   footer. Hover effects are dropped, as nothing can be clicked. */
+.offsite-link {
+    cursor: not-allowed;
+}
+
+.offsite-link[data-tooltip]::after {
+    width: 260px;
+    max-width: none;
+    left: var(--tip-left, 0);
+    transform: none;
+}
+
+.site-header .offsite-link[data-tooltip]::after {
+    bottom: auto;
+    top: calc(100% + 8px);
+}
+
+.site-nav a.offsite-link:hover,
+.footer-col li a.offsite-link:hover {
+    color: inherit;
+}
+
+.contact-btn.offsite-link:hover {
+    background: var(--brand-orange);
+}
+
 .filter-spacer {
     flex: 1;
 }

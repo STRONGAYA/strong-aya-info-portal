@@ -434,18 +434,19 @@ class StrongAyaVisualisation {
     createVisualisationContainer() {
         this.container.innerHTML = '';
         
-        // Place the "View" selection button next to the other tool buttons
-        // (Glossary, Help, Compare) in the page toolbar when available;
+        // Place the "View" selection button at the right end of the filter
+        // row, just above the figure it changes, shaped like the filters;
         // fall back to a selector row above the visualisation otherwise.
-        const toolButtons = document.querySelector('.vis-card .tool-buttons');
-        if (toolButtons) {
-            if (!toolButtons.querySelector('.view-selection-btn')) {
+        const filterBar = document.querySelector('.vis-card .filter-bar');
+        if (filterBar) {
+            if (!filterBar.querySelector('.view-selection-btn')) {
                 const selectorBtn = document.createElement('button');
-                selectorBtn.className = 'tool-btn view-selection-btn';
-                selectorBtn.innerHTML = '<i class="fas fa-eye"></i>View';
+                selectorBtn.type = 'button';
+                selectorBtn.className = 'filter-btn view-selection-btn';
+                selectorBtn.innerHTML = this.getViewButtonLabel();
                 selectorBtn.title = 'Click to select visualisation type';
                 selectorBtn.addEventListener('click', () => this.openViewSelectorModal());
-                toolButtons.insertBefore(selectorBtn, toolButtons.firstChild);
+                filterBar.appendChild(selectorBtn);
             }
         } else {
             const viewSelector = document.createElement('div');
@@ -473,6 +474,12 @@ class StrongAyaVisualisation {
     getCurrentViewName() {
         const viewType = VISUALISATION_TYPES[this.currentView];
         return viewType ? viewType.name : this.currentView;
+    }
+
+    // "View: <current view>", in the same form as the filter buttons
+    getViewButtonLabel() {
+        return 'View: <span class="filter-value">' + this.getCurrentViewName() +
+            '</span> <i class="fas fa-eye"></i>';
     }
     
     // Views available for this page. The complex icon array is only
@@ -626,16 +633,16 @@ class StrongAyaVisualisation {
         // Update legend based on view type
         this.updateLegendForView(viewType);
         
-        // Update the view selection button text (fallback selector row only;
-        // the toolbar "View" tool button keeps its compact label)
+        // Update the view selection button text (filter row or fallback
+        // selector row) to show the chosen view
         const selectorBtn = this.container.querySelector('.visualisation-selector .view-selection-btn');
         if (selectorBtn) {
             selectorBtn.innerHTML = 'View Selection <span class="view-type-indicator">(' + this.getCurrentViewName() + ')</span>';
         }
-        const toolbarBtn = document.querySelector('.vis-card .tool-buttons .view-selection-btn');
-        if (toolbarBtn) {
-            toolbarBtn.innerHTML = '<i class="fas fa-eye"></i>View';
-            toolbarBtn.title = 'Current view: ' + this.getCurrentViewName() + ' — click to change';
+        const filterBarBtn = document.querySelector('.vis-card .filter-bar .view-selection-btn');
+        if (filterBarBtn) {
+            filterBarBtn.innerHTML = this.getViewButtonLabel();
+            filterBarBtn.title = 'Current view: ' + this.getCurrentViewName() + ' — click to change';
         }
         
         // Keep the modal cards in sync for the next open

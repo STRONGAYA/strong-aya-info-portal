@@ -677,6 +677,12 @@ html.mode-dark .page img {
     font-weight: 600;
 }
 
+/* the "View" button (visualisation.js) sits at the right end of the
+   filter row, right above the figure it changes */
+.filter-bar .view-selection-btn {
+    margin-left: auto;
+}
+
 /* working filter dropdowns (cancer type / sex) */
 .filter-wrap {
     position: relative;

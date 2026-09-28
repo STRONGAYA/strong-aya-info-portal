@@ -782,7 +782,7 @@ class StrongAyaVisualisation {
             ? `<div class="icon-array-container">${iconRows}</div>`
             : `<div class="icon-array-grid" role="img" aria-label="${summary}">${combinedIcons}</div>`;
         
-        // No textual header around the icon arrays: the statement below the
+        // No textual header around the icon arrays: the statement above the
         // figure and the info note already provide the context and the
         // update date. Both views are presented as a large figure centred
         // in the tile, with the legend in its own column next to it (the
@@ -1114,7 +1114,7 @@ class StrongAyaVisualisation {
         this.updateStatement(statementCount);
     }
     
-    // Keep the "N out of 100 people ..." statement below the figure in
+    // Keep the "N out of 100 people ..." statement above the figure in
     // sync with the (filtered) data; `null` hides it (nothing to report)
     updateStatement(count) {
         const statement = document.querySelector('.vis-card .vis-statement');

@@ -855,53 +855,26 @@ html.mode-dark .page img {
     border: none;
 }
 
+/* headline statement, placed above the figure it describes */
 .vis-statement {
     text-align: center;
     font-size: 17px;
-    margin: 24px 0 8px;
-}
-
-/* statement flanked by the previous/next topic buttons, which are
-   pushed to the left and right edges of the tile; the equal 1fr side
-   columns keep the statement truly centred, even when one button has
-   a much longer label than the other */
-.statement-row {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    gap: 28px;
-    margin: 24px 0 8px;
-    padding: 0 32px;
-}
-
-/* the buttons and statement are pinned to their own columns, so the
-   buttons stay at the edges even when the statement is hidden (e.g.
-   when there is insufficient data to report a number) */
-.statement-row .topic-link:first-child {
-    grid-column: 1;
-    justify-self: start;
-}
-
-.statement-row .topic-link:last-child {
-    grid-column: 3;
-    justify-self: end;
-}
-
-.statement-row .vis-statement {
-    grid-column: 2;
-    margin: 0;
+    margin: 24px 0 20px;
 }
 
 .vis-statement b {
     color: var(--brand-orange);
 }
 
+/* previous/next topic buttons below the figure, pushed to the left
+   and right edges of the tile */
 .topic-nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 16px;
     margin: 24px 0 8px;
+    padding: 0 32px;
 }
 
 .topic-link {
@@ -1429,18 +1402,11 @@ html.mode-dark .page img {
         font-size: 26px;
     }
 
-    /* stack the previous/next buttons around the statement */
-    .statement-row {
-        grid-template-columns: 1fr;
+    /* stack the previous/next buttons */
+    .topic-nav {
+        flex-direction: column;
         gap: 12px;
         padding: 0 8px;
-    }
-
-    .statement-row .topic-link:first-child,
-    .statement-row .topic-link:last-child,
-    .statement-row .vis-statement {
-        grid-column: 1;
-        justify-self: center;
     }
 
     .subject-card {

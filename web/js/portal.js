@@ -109,7 +109,7 @@ const HELP_CONTENT = {
         '<b>Explore all topics</b> opens a list of all topics in this subject.',
         '<b>Glossary</b> explains the words used on this page; <b>Compare</b> is coming soon.',
         '<b>Want to know more, or is it too much?</b> (near the bottom) tells you where to find support. It also shows articles about this topic from beatcancer.eu. They open in a new tab.',
-        'The note at the end of the page explains where the numbers come from.'
+        'The note at the end of the page explains where the numbers come from, and how to contact us.'
     ],
     modules: [
         '<b>Return to profiles</b> (top left) brings you back to the start page.',

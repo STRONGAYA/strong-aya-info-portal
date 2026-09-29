@@ -1241,10 +1241,10 @@ class StrongAyaVisualisation {
         statement.innerHTML = statement.innerHTML.replace(/^\s*\d+/, count);
     }
     
-    // The "this information is based on ..." note below the tile only
-    // makes sense when a figure is actually shown
+    // The "these numbers are based on ..." sentence of the note below the
+    // tile only makes sense when a figure is shown; "Contact us" stays
     toggleInfoNote(show) {
-        document.querySelectorAll('.info-note').forEach(el => { el.hidden = !show; });
+        document.querySelectorAll('.info-note-data').forEach(el => { el.hidden = !show; });
     }
 }
 

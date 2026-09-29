@@ -1107,20 +1107,11 @@ html.mode-dark .page img {
 
 .support-section > p a,
 .beatcancer-insert > a,
-.bc-insert-source a {
+.bc-insert-source a,
+.info-note a {
     font-weight: 600;
     text-decoration: underline;
     text-underline-offset: 2px;
-}
-
-/* "speak to a healthcare professional", just above the articles */
-.support-care {
-    font-size: 13px;
-}
-
-.support-care i {
-    color: var(--brand-pink);
-    margin-right: 8px;
 }
 
 /* framed block, so the articles read as content from another website */

@@ -1,0 +1,435 @@
+{
+  "source": "https://beatcancer.eu/resources/",
+  "pages": {
+    "chemotherapy": {
+      "topics": [
+        {
+          "label": "Late Effects of Treatment",
+          "url": "https://beatcancer.eu/resources/?topic=18",
+          "count": 7
+        },
+        {
+          "label": "Quality of Life",
+          "url": "https://beatcancer.eu/resources/?topic=1",
+          "count": 72
+        }
+      ],
+      "resources": [
+        {
+          "title": "Top Things Not to Do While on Chemotherapy: Essential Tips for Patients",
+          "url": "https://beatcancer.eu/resources/things-not-to-do-while-on-chemotherapy/",
+          "excerpt": "Navigate the complexities of chemotherapy with essential tips on what to avoid during treatment. From dietary choices to...",
+          "type": "Article",
+          "topic": "Quality of Life",
+          "date": "2026-08-18",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2024%2F10%2Fwhat-not-to-do-during-chemotherapy.webp&w=640&q=75"
+        },
+        {
+          "title": "How to Sleep with a Chemo Port: Comfort Tips That Actually Work",
+          "url": "https://beatcancer.eu/resources/how-to-sleep-with-a-chemo-port-comfort-tips-that-actually-work/",
+          "excerpt": "Nobody warns you about how hard it is to sleep with a chemo port. Your oncology team covered the medical basics — keep i...",
+          "type": "Article",
+          "topic": "Quality of Life",
+          "date": "2026-06-06",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2026%2F04%2F15-1-sleeping-mok3td9wdruh.jpg&w=640&q=75"
+        },
+        {
+          "title": "How Long Does Chemo Take? Timelines, Cycles, and What to Expect",
+          "url": "https://beatcancer.eu/resources/how-long-does-chemo-take-timelines-cycles-and-what-to-expect/",
+          "excerpt": "How long does chemo take? It's the first question patients ask when they're trying to plan the next six months of their...",
+          "type": "Article",
+          "topic": "Quality of Life",
+          "date": "2026-06-05",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2026%2F05%2F24-1-chemo-time-moslfmo27j0o.jpg&w=640&q=75"
+        }
+      ]
+    },
+    "radiotherapy": {
+      "topics": [
+        {
+          "label": "Late Effects of Treatment",
+          "url": "https://beatcancer.eu/resources/?topic=18",
+          "count": 7
+        },
+        {
+          "label": "Quality of Life",
+          "url": "https://beatcancer.eu/resources/?topic=1",
+          "count": 72
+        }
+      ],
+      "resources": [
+        {
+          "title": "Foods to Avoid During Radiation Therapy for Better Healing",
+          "url": "https://beatcancer.eu/resources/foods-to-avoid-during-radiation-therapy/",
+          "excerpt": "Discover which foods to avoid during radiation therapy to enhance your treatment experience and manage side effects effe...",
+          "type": "Article",
+          "topic": "Nutrition",
+          "date": "2024-11-06",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2024%2F10%2Ffoods-to-avoid-during-radiation-therapy.jpeg&w=640&q=75"
+        },
+        {
+          "title": "Nourishing Your Recovery: A Healthy Diet After Radiation Therapy",
+          "url": "https://beatcancer.eu/resources/nourishing-your-recovery-a-healthy-diet-after-radiation-therapy/",
+          "excerpt": "Radiation therapy is a common treatment for cancer patients. While it can be highly effective in destroying cancer cells...",
+          "type": "Article",
+          "topic": "Nutrition",
+          "date": "2023-07-21",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2023%2F07%2FProtein-healthy-diet-after-radiation-therapy.webp&w=640&q=75"
+        },
+        {
+          "title": "Effective Tips for Coping with Cancer Side Effects and Improving Your Well-Being",
+          "url": "https://beatcancer.eu/resources/coping-with-cancer-side-effects/",
+          "excerpt": "Navigating cancer treatment can be overwhelming, but managing side effects such as fatigue, nausea, pain, and emotional...",
+          "type": "Article",
+          "topic": "Quality of Life",
+          "date": "2025-05-21",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fman-practicing-mindfulness-outdoors.jpeg&w=640&q=75"
+        }
+      ]
+    },
+    "hormonetherapy": {
+      "topics": [
+        {
+          "label": "Late Effects of Treatment",
+          "url": "https://beatcancer.eu/resources/?topic=18",
+          "count": 7
+        },
+        {
+          "label": "Quality of Life",
+          "url": "https://beatcancer.eu/resources/?topic=1",
+          "count": 72
+        }
+      ],
+      "resources": [
+        {
+          "title": "Effective Tips for Coping with Cancer Side Effects and Improving Your Well-Being",
+          "url": "https://beatcancer.eu/resources/coping-with-cancer-side-effects/",
+          "excerpt": "Navigating cancer treatment can be overwhelming, but managing side effects such as fatigue, nausea, pain, and emotional...",
+          "type": "Article",
+          "topic": "Quality of Life",
+          "date": "2025-05-21",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fman-practicing-mindfulness-outdoors.jpeg&w=640&q=75"
+        },
+        {
+          "title": "Are There Medications to Manage Lingering Side Effects? Find Expert Tips for Relief",
+          "url": "https://beatcancer.eu/resources/are-there-medications-to-manage-lingering-side-effects/",
+          "excerpt": "Discover how to manage lingering side effects after illness or treatment with personalized approaches. Explore medicatio...",
+          "type": "Article",
+          "topic": "Late Effects of Treatment",
+          "date": "2025-03-19",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fbottles-of-medication-for-managing-side-effects.jpeg&w=640&q=75"
+        },
+        {
+          "title": "Long-Term Side Effects of Cancer Treatment: What Survivors Need to Know",
+          "url": "https://beatcancer.eu/resources/long-term-side-effects-of-cancer-treatment/",
+          "excerpt": "Discover the long-term side effects of cancer treatment, from physical challenges like fatigue, heart health issues, and...",
+          "type": "Article",
+          "topic": "Late Effects of Treatment",
+          "date": "2025-02-04",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fcancer-survivor-contemplating-recovery.jpeg&w=640&q=75"
+        }
+      ]
+    },
+    "emotional_functioning": {
+      "topics": [
+        {
+          "label": "Mental Health",
+          "url": "https://beatcancer.eu/resources/?topic=2",
+          "count": 43
+        },
+        {
+          "label": "Psychosocial Care",
+          "url": "https://beatcancer.eu/resources/?topic=9",
+          "count": 32
+        }
+      ],
+      "resources": [
+        {
+          "title": "Emotional Stages of a Cancer Diagnosis: What to Expect",
+          "url": "https://beatcancer.eu/resources/emotional-stages-of-a-cancer-diagnosis-what-to-expect/",
+          "excerpt": "The emotional stages of a cancer diagnosis don't follow a neat list — you might feel shock, anger, guilt, and unexpected...",
+          "type": "Article",
+          "topic": "Mental Health",
+          "date": "2026-04-23",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2026%2F04%2F06-1-emotion-stages-mo4an6qqw18z.jpg&w=640&q=75"
+        },
+        {
+          "title": "Fear of Cancer Recurrence and Survivor Guilt: The Emotions Nobody Warns You About",
+          "url": "https://beatcancer.eu/resources/fear-of-cancer-recurrence-and-survivor-guilt-the-emotions-nobody-warns-you-about/",
+          "excerpt": "Treatment ends, but the fear doesn't. Fear of cancer recurrence affects nearly 60% of survivors, and survivor guilt sits...",
+          "type": "Article",
+          "topic": "Mental Health",
+          "date": "2026-04-22",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2026%2F04%2F7-1-cancer-recurrencejpg-mo4i5lb7f150.jpg&w=640&q=75"
+        },
+        {
+          "title": "Emotional Healing After Cancer: Strategies to Rebuild Confidence and Find Joy Again",
+          "url": "https://beatcancer.eu/resources/emotional-healing-after-cancer/",
+          "excerpt": "Discover the journey of emotional healing after cancer. This article explores the psychological challenges faced by surv...",
+          "type": "Article",
+          "topic": "Psychosocial Care",
+          "date": "2025-04-27",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fsupport-and-comfort-in-healing.jpeg&w=640&q=75"
+        }
+      ]
+    },
+    "physical_functioning": {
+      "topics": [
+        {
+          "label": "Physical activity",
+          "url": "https://beatcancer.eu/resources/?topic=5",
+          "count": 7
+        },
+        {
+          "label": "Late Effects of Treatment",
+          "url": "https://beatcancer.eu/resources/?topic=18",
+          "count": 7
+        }
+      ],
+      "resources": [
+        {
+          "title": "Safe Mobility Exercises During Cancer Recovery",
+          "url": "https://beatcancer.eu/resources/safe-mobility-exercises-during-cancer-recovery/",
+          "excerpt": "Explore essential mobility exercises to enhance flexibility and reduce stiffness. Ideal for warm-ups, these routines are...",
+          "type": "Article",
+          "topic": "OACCUs",
+          "date": "2025-12-03",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Foaccus%2Fmobility-training-during-cancer-recovery.jpg&w=640&q=75"
+        },
+        {
+          "title": "Strength, Mobility & Core Exercise Library for Young Cancer Survivors",
+          "url": "https://beatcancer.eu/resources/strength-mobility-core-exercises-young-cancer-survivors/",
+          "excerpt": "Explore a series of exercises including Cat-camel and Good morning with a fitness stick, designed to enhance flexibility...",
+          "type": "Article",
+          "topic": "OACCUs",
+          "date": "2025-12-02",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Foaccus%2Fexercise-library-for-cancer-patients-and-survivors.jpg&w=640&q=75"
+        },
+        {
+          "title": "Endurance Training Exercises for Young Cancer Survivors",
+          "url": "https://beatcancer.eu/resources/endurance-training-exercises-young-cancer-survivors/",
+          "excerpt": "Engage in endurance training at least 3 times a week for 30-60 minutes per session. Combine aerobic exercises with activ...",
+          "type": "Article",
+          "topic": "OACCUs",
+          "date": "2025-12-01",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Foaccus%2Fendurance-training-guidelinessquat-jumppop-squatskaterboxing-front-punchesjumping-jackjumping-lungeskippingbutt-kicksscissor-drilltoe-tapalternating-toe-touchaerobics-cross-stepaerobics-v-step.jpg&w=640&q=75"
+        }
+      ]
+    },
+    "role_functioning": {
+      "topics": [
+        {
+          "label": "Career",
+          "url": "https://beatcancer.eu/resources/?topic=17",
+          "count": 5
+        },
+        {
+          "label": "Education",
+          "url": "https://beatcancer.eu/resources/?topic=3",
+          "count": 16
+        }
+      ],
+      "resources": [
+        {
+          "title": "Returning to Work After Cancer: Tips, Strategies, and Legal Rights for a Smooth Transition",
+          "url": "https://beatcancer.eu/resources/returning-to-work-after-cancer/",
+          "excerpt": "Navigating the return to work after cancer can be daunting. This article offers guidance on overcoming physical, emotion...",
+          "type": "Article",
+          "topic": "Transition",
+          "date": "2025-04-19",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fsupportive-resources-for-cancer-survivors-returning-to-work.jpeg&w=640&q=75"
+        },
+        {
+          "title": "Returning to Work or School After Cancer: A Comprehensive Guide",
+          "url": "https://beatcancer.eu/resources/returning-to-work-or-school-after-cancer-a-comprehensive-guide/",
+          "excerpt": "Returning to the professional or academic sphere post-cancer presents unique challenges. This guide provides a roadmap f...",
+          "type": "Article",
+          "topic": "Survivorship",
+          "date": "2023-11-25",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2023%2F11%2FReturning-to-Work-or-School-After-Cancer-A-Comprehensive-Guide.png&w=640&q=75"
+        },
+        {
+          "title": "Cancer and Employment Rights: Working During Treatment and What to Know",
+          "url": "https://beatcancer.eu/resources/cancer-and-employment-rights-working-during-treatment-and-what-to-know/",
+          "excerpt": "A cancer diagnosis raises questions your employer probably won't answer first: Can they dismiss you? Do you have to tell...",
+          "type": "Article",
+          "topic": "Policy",
+          "date": "2026-05-13",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2026%2F04%2F18-1-rights-mojyfh2pk7a4.jpg&w=640&q=75"
+        }
+      ]
+    },
+    "anxiety": {
+      "topics": [
+        {
+          "label": "Mental Health",
+          "url": "https://beatcancer.eu/resources/?topic=2",
+          "count": 43
+        },
+        {
+          "label": "Psychosocial Care",
+          "url": "https://beatcancer.eu/resources/?topic=9",
+          "count": 32
+        }
+      ],
+      "resources": [
+        {
+          "title": "How to Deal with Cancer Recurrence Anxiety: Tips for Emotional Resilience and Support",
+          "url": "https://beatcancer.eu/resources/how-to-deal-with-cancer-reccurence-anxiety/",
+          "excerpt": "Learn how to cope with cancer recurrence anxiety with practical strategies to regain balance and emotional resilience. F...",
+          "type": "Article",
+          "topic": "Mental Health",
+          "date": "2025-02-12",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fcoping-with-cancer-recurrence-anxiety.jpeg&w=640&q=75"
+        },
+        {
+          "title": "Effective Strategies to Manage Anxiety and Depression: Tips for Better Mental Health",
+          "url": "https://beatcancer.eu/resources/what-are-some-strategies-to-manage-anxiety-and-depression/",
+          "excerpt": "Discover effective strategies to manage anxiety and depression, from mindfulness practices and journaling to lifestyle a...",
+          "type": "Article",
+          "topic": "Mental Health",
+          "date": "2025-01-18",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fcontemplating-financial-concerns-and-mental-health.jpeg&w=640&q=75"
+        },
+        {
+          "title": "Tips to Cope with Visits/Scans/Tests Anxiety (Scanxiety)",
+          "url": "https://beatcancer.eu/resources/tips-to-cope-with-visits-scans-tests-anxiety-scanxiety/",
+          "excerpt": "\"Scanxiety\" is the unease many feel before medical tests, but navigating it becomes more manageable with preparation. Th...",
+          "type": "Article",
+          "topic": "Survivorship",
+          "date": "2023-11-27",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2023%2F11%2FTips-to-Cope-with-VisitsScansTests-Anxiety-Scanxiety.png&w=640&q=75"
+        }
+      ]
+    },
+    "depression": {
+      "topics": [
+        {
+          "label": "Mental Health",
+          "url": "https://beatcancer.eu/resources/?topic=2",
+          "count": 43
+        },
+        {
+          "label": "Psychosocial Care",
+          "url": "https://beatcancer.eu/resources/?topic=9",
+          "count": 32
+        }
+      ],
+      "resources": [
+        {
+          "title": "Dealing with Isolation and Depression During Recovery: Effective Tips for Emotional Healing",
+          "url": "https://beatcancer.eu/resources/dealing-with-isolation-and-depression-during-recover/",
+          "excerpt": "Struggling with isolation and depression during recovery? This article explores the causes, impact, and practical strate...",
+          "type": "Article",
+          "topic": "Mental Health",
+          "date": "2025-02-08",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Freflective-journey-during-recovery.jpeg&w=640&q=75"
+        },
+        {
+          "title": "Effective Strategies to Manage Anxiety and Depression: Tips for Better Mental Health",
+          "url": "https://beatcancer.eu/resources/what-are-some-strategies-to-manage-anxiety-and-depression/",
+          "excerpt": "Discover effective strategies to manage anxiety and depression, from mindfulness practices and journaling to lifestyle a...",
+          "type": "Article",
+          "topic": "Mental Health",
+          "date": "2025-01-18",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fcontemplating-financial-concerns-and-mental-health.jpeg&w=640&q=75"
+        },
+        {
+          "title": "FORGOTTEN BATTLE: How Facing Cancer in My Teens Plunged Me into a Deep Depression and a Battle with PTSD",
+          "url": "https://beatcancer.eu/resources/forgotten-battle-how-facing-cancer-in-my-teens-plunged-me-into-a-deep-depression-and-a-battle-with-ptsd/",
+          "excerpt": "Youth Cancer Europe’s Jaymz Goodman, from the UK, is the main subject of an article in The Sun that puts the mental heal...",
+          "type": "Article",
+          "topic": "Mental Health",
+          "date": "2021-02-04",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2022%2F12%2Froman-kraft-_Zua2hyvTBk-unsplash.jpg&w=640&q=75"
+        }
+      ]
+    },
+    "worry": {
+      "topics": [
+        {
+          "label": "Mental Health",
+          "url": "https://beatcancer.eu/resources/?topic=2",
+          "count": 43
+        },
+        {
+          "label": "Psychosocial Care",
+          "url": "https://beatcancer.eu/resources/?topic=9",
+          "count": 32
+        }
+      ],
+      "resources": [
+        {
+          "title": "Fear of Cancer Recurrence and Survivor Guilt: The Emotions Nobody Warns You About",
+          "url": "https://beatcancer.eu/resources/fear-of-cancer-recurrence-and-survivor-guilt-the-emotions-nobody-warns-you-about/",
+          "excerpt": "Treatment ends, but the fear doesn't. Fear of cancer recurrence affects nearly 60% of survivors, and survivor guilt sits...",
+          "type": "Article",
+          "topic": "Mental Health",
+          "date": "2026-04-22",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2026%2F04%2F7-1-cancer-recurrencejpg-mo4i5lb7f150.jpg&w=640&q=75"
+        },
+        {
+          "title": "How Do I Cope With the Fear of Cancer Coming Back? Tips for Survivors to Find Peace and Strength",
+          "url": "https://beatcancer.eu/resources/how-do-i-cope-with-the-fear-of-cancer-coming-back/",
+          "excerpt": "Coping with the fear of cancer recurrence can be overwhelming, but you're not alone. Discover practical strategies to ma...",
+          "type": "Article",
+          "topic": "Survivorship",
+          "date": "2025-03-17",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fcoping-with-cancer-recurrence-anxiety.jpeg&w=640&q=75"
+        },
+        {
+          "title": "From Fear to Empowerment",
+          "url": "https://beatcancer.eu/resources/from-fear-to-empowerment/",
+          "excerpt": "Explore therapeutic techniques to empower young cancer survivors in overcoming anxiety. Discover professional guidance,...",
+          "type": "Article",
+          "topic": "OACCUs",
+          "date": "2024-11-21",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Foaccus%2Ffrom-fear-to-empowerment.jpg&w=640&q=75"
+        }
+      ]
+    },
+    "mental_health_support": {
+      "topics": [
+        {
+          "label": "Mental Health",
+          "url": "https://beatcancer.eu/resources/?topic=2",
+          "count": 43
+        },
+        {
+          "label": "Psychosocial Care",
+          "url": "https://beatcancer.eu/resources/?topic=9",
+          "count": 32
+        }
+      ],
+      "resources": [
+        {
+          "title": "Cancer Support Groups: How They Help and How to Find One",
+          "url": "https://beatcancer.eu/resources/cancer-support-groups-how-they-help-and-how-to-find-one/",
+          "excerpt": "Cancer support groups rarely look like the stereotype — and they're not just for patients. This guide covers what actual...",
+          "type": "Article",
+          "topic": "Psychosocial Care",
+          "date": "2026-04-18",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2026%2F04%2F05-1-support-groups-mo3yfrs7izjh.jpg&w=640&q=75"
+        },
+        {
+          "title": "Find the Best Cancer Survivor Support Group Near Me for Encouragement & Recovery",
+          "url": "https://beatcancer.eu/resources/cancer-survivor-support-group-near-me/",
+          "excerpt": "Discover the transformative power of cancer survivor support groups near you. Learn how these safe spaces foster connect...",
+          "type": "Article",
+          "topic": "Survivorship",
+          "date": "2025-04-23",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fcancer-survivor-support-and-hope.jpeg&w=640&q=75"
+        },
+        {
+          "title": "Mental Health Support for Cancer Patients: Boost Emotional Well-Being During Treatment",
+          "url": "https://beatcancer.eu/resources/mental-health-support-for-cancer-patients/",
+          "excerpt": "Discover the vital role of mental health support for cancer patients in managing stress, anxiety, and emotional challeng...",
+          "type": "Article",
+          "topic": "Mental Health",
+          "date": "2025-03-11",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fexpressing-body-positivity-in-cancer-awareness.jpeg&w=640&q=75"
+        }
+      ]
+    }
+  }
+}

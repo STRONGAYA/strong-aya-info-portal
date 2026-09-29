@@ -1,0 +1,47 @@
+# Refreshes the beatcancer.eu articles shown at the bottom of the module pages
+name: Update beatcancer.eu resources
+
+on:
+  # Allows one to run this workflow manually from the repository's 'Actions' tab
+  workflow_dispatch:
+
+  # Schedule the workflow to run every Monday at 04:00
+  schedule:
+    - cron: '0 4 * * 1'
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  update-resources:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # Reads the beatcancer.eu resource listing and picks the articles per page (standard library only)
+      - name: Run beatcancer.eu resources Python script
+        run: python scripts/fetch_beatcancer_resources.py data/beatcancer_topics.json web/data/beatcancer_resources.json
+        timeout-minutes: 10
+
+      - name: Configure Git
+        run: |
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          git config --global user.name "${{ github.actor }}"
+
+      # A push made with the workflow token does not trigger the deployment workflow,
+      # so the site is redeployed explicitly when the articles changed
+      - name: Commit, push and redeploy
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git add web/data/beatcancer_resources.json
+          git commit -m "Update beatcancer.eu resources" || exit 0  # Exit gracefully if no changes
+          git push
+          gh workflow run publish_web.yml --ref main

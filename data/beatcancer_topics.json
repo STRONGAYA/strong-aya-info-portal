@@ -1,0 +1,53 @@
+{
+  "resources_per_page": 3,
+  "exclude_types": ["Publication", "Related Projects", "Report"],
+  "exclude_title_words": [
+    "hospice", "palliative", "dying", "end of life", "final months", "celebration of life", "no more chemo",
+    "caregiver", "caregivers", "someone", "loved one", "loved ones", "your child", "your sibling",
+    "care package", "gift", "gifts", "thank you"
+  ],
+  "pages": {
+    "chemotherapy": {
+      "topics": ["Late Effects of Treatment", "Quality of Life"],
+      "keywords": [["chemo", "chemotherapy"]]
+    },
+    "radiotherapy": {
+      "topics": ["Late Effects of Treatment", "Quality of Life"],
+      "keywords": [["radiotherapy", "radiation"], ["side effects", "late effects"]]
+    },
+    "hormonetherapy": {
+      "topics": ["Late Effects of Treatment", "Quality of Life"],
+      "keywords": [["hormone therapy", "hormonal therapy", "hormone", "hormones"], ["side effects", "late effects"]]
+    },
+    "emotional_functioning": {
+      "topics": ["Mental Health", "Psychosocial Care"],
+      "keywords": [["emotion", "emotions", "emotional"], ["confidence", "self-esteem", "loneliness", "isolation"]]
+    },
+    "physical_functioning": {
+      "topics": ["Physical activity", "Late Effects of Treatment"],
+      "keywords": [["exercise", "exercises", "physical activity"], ["strength", "fatigue", "energy", "rehabilitation"]]
+    },
+    "role_functioning": {
+      "topics": ["Career", "Education"],
+      "keywords": [["returning to work", "return to work", "returning to school", "back to work", "back to school"],
+                   ["career", "employment", "working", "school", "hobbies", "daily", "goals"]]
+    },
+    "anxiety": {
+      "topics": ["Mental Health", "Psychosocial Care"],
+      "keywords": [["anxiety", "anxious", "scanxiety"], ["fear", "fears", "stress", "worry"]]
+    },
+    "depression": {
+      "topics": ["Mental Health", "Psychosocial Care"],
+      "keywords": [["depression", "depressed"], ["loneliness", "isolation", "negative thoughts", "mental health"]]
+    },
+    "worry": {
+      "topics": ["Mental Health", "Psychosocial Care"],
+      "keywords": [["worry", "worries", "fear", "fears", "scanxiety"], ["anxiety", "stress"]]
+    },
+    "mental_health_support": {
+      "topics": ["Mental Health", "Psychosocial Care"],
+      "keywords": [["mental health support", "support group", "support groups", "counseling", "counselling",
+                    "psychologist"], ["mental health", "psychosocial"]]
+    }
+  }
+}

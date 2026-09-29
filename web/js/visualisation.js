@@ -1134,11 +1134,10 @@ class StrongAyaVisualisation {
         statement.innerHTML = statement.innerHTML.replace(/^\s*\d+/, count);
     }
     
-    // The "this information is based on ..." note (and the divider above
-    // it) only makes sense when a figure is actually shown
+    // The "this information is based on ..." note below the tile only
+    // makes sense when a figure is actually shown
     toggleInfoNote(show) {
-        document.querySelectorAll('.vis-card .info-note, .vis-card .explore-topics-wrap + .tile-divider')
-            .forEach(el => { el.hidden = !show; });
+        document.querySelectorAll('.info-note').forEach(el => { el.hidden = !show; });
     }
 }
 

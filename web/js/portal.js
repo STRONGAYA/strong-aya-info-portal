@@ -5,6 +5,7 @@
  * - Disabled header/footer links to strongaya.eu (with an explanation)
  * - Accessibility modes (contrast / dark), persisted in localStorage
  * - Page-specific Glossary and Help modals
+ * - Articles from beatcancer.eu about the topic of a module page
  */
 
 // ------------------------------------------------------------------
@@ -86,7 +87,8 @@ const HELP_CONTENT = {
         'Use the <b>arrow buttons</b> below the figure to go to the topic before or after this one.',
         '<b>Explore all topics</b> opens a list of all topics in this subject.',
         '<b>Glossary</b> explains the words used on this page; <b>Compare</b> is coming soon.',
-        'The note at the bottom explains where the information comes from.'
+        '<b>Feeling overwhelmed, or want to know more?</b> (bottom of the tile) tells you where to find support, with articles about this topic from beatcancer.eu. They open in a new tab.',
+        'The note below the tile explains where the numbers come from.'
     ],
     modules: [
         '<b>Return to profiles</b> (top left) brings you back to the start page.',
@@ -97,6 +99,77 @@ const HELP_CONTENT = {
         'Use the <b>accessibility buttons</b> below the purple banner to turn on contrast or dark mode.'
     ]
 };
+
+// ------------------------------------------------------------------
+// Articles from beatcancer.eu, the website of the European Network of
+// Youth Cancer Survivors, at the bottom of the module pages. The site
+// cannot be embedded, so web/data/beatcancer_resources.json (made by
+// scripts/fetch_beatcancer_resources.py) lists a few of its articles
+// per page. The text comes from another website: it is escaped, and
+// only beatcancer.eu addresses are used for links and images.
+// ------------------------------------------------------------------
+const BEATCANCER_URL = 'https://beatcancer.eu/';
+const NEW_TAB_NOTE = '<span class="visually-hidden"> (beatcancer.eu, opens in a new tab)</span>';
+const EXTERNAL_ICON = '<i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>';
+
+function escapeHtml(text) {
+    return String(text).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+}
+
+function isBeatcancerUrl(url) {
+    return typeof url === 'string' && url.indexOf(BEATCANCER_URL) === 0;
+}
+
+function beatcancerLink(url, content, className) {
+    return '<a' + (className ? ' class="' + className + '"' : '') + ' href="' + escapeHtml(url) +
+        '" target="_blank" rel="noopener">' + content + NEW_TAB_NOTE + '</a>';
+}
+
+// "2025-02-12" -> "February 2025"
+function formatMonth(date) {
+    const d = new Date(date + 'T00:00:00Z');
+    return isNaN(d) ? '' : d.toLocaleDateString('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+}
+
+// The framed "From beatcancer.eu" block: article cards (each opening the
+// article in a new tab) and links to the matching topics on the site;
+// '' when there is nothing to show
+function beatcancerInsertHtml(page) {
+    const cards = (page.resources || []).filter(function (r) {
+        return isBeatcancerUrl(r.url);
+    }).map(function (r) {
+        const image = isBeatcancerUrl(r.image)
+            ? '<img src="' + escapeHtml(r.image) + '" alt="" loading="lazy" referrerpolicy="no-referrer"/>'
+            : '';
+        const meta = [r.topic, formatMonth(r.date)].filter(Boolean).map(escapeHtml).join(' · ');
+        return '<li class="bc-card">' +
+            '<div class="bc-card-media">' + image + '</div>' +
+            '<div class="bc-card-body">' +
+            (r.type ? '<span class="bc-card-type">' + escapeHtml(r.type) + '</span>' : '') +
+            '<h3 class="bc-card-title">' + beatcancerLink(r.url, escapeHtml(r.title)) + '</h3>' +
+            (r.excerpt ? '<p class="bc-card-excerpt">' + escapeHtml(r.excerpt) + '</p>' : '') +
+            '<p class="bc-card-meta"><span>' + meta + '</span>' + EXTERNAL_ICON + '</p>' +
+            '</div></li>';
+    });
+    if (!cards.length) return '';
+
+    const topics = (page.topics || []).filter(function (t) {
+        return isBeatcancerUrl(t.url);
+    }).map(function (t) {
+        return beatcancerLink(t.url, escapeHtml(t.label) + ' <span class="bc-topic-count">' + escapeHtml(t.count) +
+            '<span class="visually-hidden"> articles</span></span>' + EXTERNAL_ICON, 'bc-topic-link');
+    });
+
+    return '<div class="bc-insert-head">' +
+        '<p class="bc-insert-source"><i class="fas fa-book-open" aria-hidden="true"></i>From <b>beatcancer.eu</b></p>' +
+        '<p class="bc-insert-note">Articles about this topic, picked automatically from the library of the ' +
+        'European Network of Youth Cancer Survivors. They open in a new tab.</p>' +
+        '</div>' +
+        '<ul class="bc-cards">' + cards.join('') + '</ul>' +
+        (topics.length ? '<p class="bc-insert-more"><span>More on beatcancer.eu:</span>' + topics.join('') + '</p>' : '');
+}
 
 document.addEventListener('DOMContentLoaded', function () {
     // --- Subject carousel buttons ---
@@ -312,4 +385,22 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.tool-btn[data-tool="help"]').forEach(function (btn) {
         btn.addEventListener('click', openHelp);
     });
+
+    // --- Articles from beatcancer.eu (module pages) ---
+    // Replaces the plain link to the beatcancer.eu library with a few
+    // articles about the page's topic; the link stays if the list
+    // cannot be loaded.
+    const beatcancerInsert = document.querySelector('.beatcancer-insert');
+    if (beatcancerInsert) {
+        fetch('../data/beatcancer_resources.json')
+            .then(function (response) {
+                if (!response.ok) throw new Error('HTTP ' + response.status);
+                return response.json();
+            })
+            .then(function (data) {
+                const html = data.pages && data.pages[pageId] ? beatcancerInsertHtml(data.pages[pageId]) : '';
+                if (html) beatcancerInsert.innerHTML = html;
+            })
+            .catch(function () { /* keep the plain link to beatcancer.eu */ });
+    }
 });

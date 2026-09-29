@@ -70,12 +70,12 @@
         <div class="explore-topics-wrap">
             <button class="explore-topics" aria-expanded="false">Explore all subjects <i class="fas fa-chevron-down"></i></button>
             <div class="topics-dropdown" hidden>
-                <a href="module_a/chemotherapy.html">Treatment information</a>
-                <a href="module_b/emotional_functioning.html">Functioning after treatment</a>
-                <a href="module_c/anxiety.html">Mental health</a>
-                <a href="module_d/romantic_life.html">Intimacy and relationships</a>
-                <span class="disabled" data-tooltip="Coming soon">Fertility and parenthood</span>
-                <span class="disabled" data-tooltip="Coming soon">Long-term survival</span>
+                <a href="module_a/chemotherapy.html" data-subject="treatment">Treatment information</a>
+                <a href="module_b/emotional_functioning.html" data-subject="functioning">Functioning after treatment</a>
+                <a href="module_c/anxiety.html" data-subject="mental-health">Mental health</a>
+                <a href="module_d/romantic_life.html" data-subject="relationships">Intimacy and relationships</a>
+                <span class="disabled" data-tooltip="Coming soon" data-subject="fertility">Fertility and parenthood</span>
+                <span class="disabled" data-tooltip="Coming soon" data-subject="survival">Long-term survival</span>
             </div>
         </div>
 
@@ -83,31 +83,31 @@
             <button class="carousel-btn prev" aria-label="Scroll subjects left"><i
                     class="fas fa-chevron-left"></i></button>
             <div class="subject-grid">
-                <a class="subject-card" href="module_a/chemotherapy.html">
+                <a class="subject-card" href="module_a/chemotherapy.html" data-subject="treatment">
                     <img src="images/treatment.png"
                          alt="A young man being treated by a doctor"/>
                     <span class="subject-label">Treatment information</span>
                 </a>
-                <a class="subject-card" href="module_b/emotional_functioning.html">
+                <a class="subject-card" href="module_b/emotional_functioning.html" data-subject="functioning">
                     <img src="images/running.png"
                          alt="Young woman running"/>
                     <span class="subject-label">Functioning after treatment</span>
                 </a>
-                <a class="subject-card" href="module_c/anxiety.html">
+                <a class="subject-card" href="module_c/anxiety.html" data-subject="mental-health">
                     <img src="images/mental-health.png"
                          alt="Young person with a lot on their mind"/>
                     <span class="subject-label">Mental health</span>
                 </a>
-                <a class="subject-card" href="module_d/romantic_life.html">
+                <a class="subject-card" href="module_d/romantic_life.html" data-subject="relationships">
                     <img src="images/intimicy.png"
                          alt="A young couple hugging"/>
                     <span class="subject-label">Intimacy and relationships</span>
                 </a>
-                <div class="subject-card disabled" data-tooltip="Coming soon">
+                <div class="subject-card disabled" data-tooltip="Coming soon" data-subject="fertility">
                     <img src="images/baby.png" alt=""/>
                     <span class="subject-label">Fertility and parenthood</span>
                 </div>
-                <div class="subject-card disabled" data-tooltip="Coming soon">
+                <div class="subject-card disabled" data-tooltip="Coming soon" data-subject="survival">
                     <img src="images/elderly-man.png" alt=""/>
                     <span class="subject-label">Long-term survival</span>
                 </div>

@@ -115,9 +115,20 @@ const HELP_CONTENT = {
         'Click a <b>subject card</b> to explore that subject; grey cards are coming soon.',
         'Use the <b>round arrow buttons</b> (or scroll sideways) to see more subject cards.',
         '<b>Explore all subjects</b> opens a list of all subjects.',
+        'The order of the subjects depends on the profile you chose on the start page.',
         '<b>Glossary</b> explains the words used on this page.',
         'Use the <b>accessibility buttons</b> below the purple banner to turn on contrast or dark mode.'
     ]
+};
+
+// ------------------------------------------------------------------
+// Order of the subjects on the subjects page for each profile of the
+// start page (modules.html?profile=...), the most relevant first. The
+// ids are the data-subject attributes of the subject cards.
+// ------------------------------------------------------------------
+const SUBJECT_ORDER = {
+    before: ['treatment', 'fertility', 'mental-health', 'relationships', 'functioning', 'survival'],
+    beyond: ['functioning', 'mental-health', 'relationships', 'fertility', 'survival', 'treatment']
 };
 
 // ------------------------------------------------------------------
@@ -196,6 +207,44 @@ function beatcancerInsertHtml(page) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+    // --- Subject order for the chosen profile ---
+    // The cards and the "Explore all subjects" list follow the profile's
+    // order; subjects that are not available yet stay after the available
+    // ones. The elements themselves are moved, so screen readers and the
+    // keyboard follow the same order. The profile is remembered during
+    // the visit, so "Return to subjects" on a topic page keeps the order.
+    const profile = (function () {
+        const fromUrl = new URLSearchParams(window.location.search).get('profile');
+        try {
+            if (SUBJECT_ORDER[fromUrl]) {
+                sessionStorage.setItem('aya-profile', fromUrl);
+                return fromUrl;
+            }
+            return sessionStorage.getItem('aya-profile');
+        } catch (e) {
+            return fromUrl; /* storage unavailable: only the link sets the order */
+        }
+    })();
+    const subjectOrder = SUBJECT_ORDER[profile];
+    if (subjectOrder) {
+        const rank = function (el) {
+            return (el.classList.contains('disabled') ? subjectOrder.length : 0) + subjectOrder.indexOf(el.dataset.subject);
+        };
+        document.querySelectorAll('.subject-grid, .subjects-card .topics-dropdown').forEach(function (list) {
+            Array.from(list.children)
+                .filter(function (el) { return el.dataset.subject; })
+                .sort(function (a, b) { return rank(a) - rank(b); })
+                .forEach(function (el) { list.appendChild(el); });
+            // Start the carousel at its (new) first card: with scroll
+            // snapping the browser would stay on the card it was showing
+            if (list.classList.contains('subject-grid')) {
+                list.style.scrollBehavior = 'auto';
+                list.scrollLeft = 0;
+                list.style.scrollBehavior = '';
+            }
+        });
+    }
+
     // --- Subject carousel buttons ---
     document.querySelectorAll('.subject-carousel').forEach(function (carousel) {
         const track = carousel.querySelector('.subject-grid');

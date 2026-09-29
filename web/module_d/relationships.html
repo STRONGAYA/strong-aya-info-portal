@@ -3,13 +3,15 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>STRONG-AYA Info Portal — Subjects to explore</title>
+    <title>STRONG-AYA Info Portal — Relationships</title>
 
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,400&display=swap"/>
-    <link rel="stylesheet" href="css/font-awesome-6.7.2.min.css"/>
-    <link rel="stylesheet" href="css/portal.css"/>
-    <script src="js/portal.js" defer></script>
+    <link rel="stylesheet" href="../css/font-awesome-6.7.2.min.css"/>
+    <link rel="stylesheet" href="../css/portal.css"/>
+    <script src="../js/plotly-2.28.0.min.js"></script>
+    <script src="../js/visualisation.js" defer></script>
+    <script src="../js/portal.js" defer></script>
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -27,7 +29,7 @@
     </div>
     <div class="header-main">
         <a class="site-logo" href="https://strongaya.eu/">
-            <img src="images/weblogo1@2x.png" alt="STRONG-AYA"/>
+            <img src="../images/weblogo1@2x.png" alt="STRONG-AYA"/>
         </a>
         <nav class="site-nav">
             <a href="https://strongaya.eu/">HOME</a>
@@ -56,90 +58,110 @@
         </div>
     </div>
 
-    <div class="subjects-card">
+    <section class="vis-card">
         <div class="page-toolbar">
-            <a class="return-link" href="index.html"><i class="fas fa-chevron-left"></i> Return to profiles</a>
+            <a class="return-link" href="../modules.html"><i class="fas fa-chevron-left"></i> Return to subjects</a>
             <div class="tool-buttons">
                 <button class="tool-btn" data-tool="glossary"><i class="fas fa-book"></i>Glossary</button>
                 <button class="tool-btn" data-tool="help"><i class="fas fa-question-circle"></i>Help</button>
+                <button class="tool-btn" data-tooltip="Coming soon"><i class="fas fa-columns"></i>Compare</button>
             </div>
         </div>
 
-        <h1 class="page-title">Subjects to explore</h1>
+        <h1 class="card-title">Relationships</h1>
+
+        <div class="filter-bar">
+            <div class="filter-wrap" data-filter="cancerType">
+                <button class="filter-btn filter-toggle" aria-expanded="false">Cancer type: <span
+                        class="filter-value">All</span> <i class="fas fa-chevron-down"></i></button>
+                <div class="filter-dropdown" hidden>
+                    <button type="button" data-value="all" class="current">All cancer types</button>
+                    <button type="button" data-value="blood">Blood cancers (such as leukaemia and lymphoma)</button>
+                    <button type="button" data-value="solid">Solid tumours (such as breast or testicular cancer)</button>
+                    <button type="button" data-value="skin">Skin cancer (such as melanoma)</button>
+                    <button type="button" data-value="brain">Brain and nervous system tumours (such as glioma)</button>
+                </div>
+            </div>
+            <div class="filter-wrap" data-filter="sex">
+                <button class="filter-btn filter-toggle" aria-expanded="false">Sex: <span
+                        class="filter-value">All</span> <i class="fas fa-chevron-down"></i></button>
+                <div class="filter-dropdown" hidden>
+                    <button type="button" data-value="all" class="current">All</button>
+                    <button type="button" data-value="male">Male</button>
+                    <button type="button" data-value="female">Female</button>
+                    <button type="button" data-value="intersex">Intersex</button>
+                </div>
+            </div>
+            <button class="filter-btn" data-tooltip="Coming soon">Time since diagnosis <i
+                    class="fas fa-chevron-down"></i></button>
+            <button class="filter-btn strong" data-tooltip="Coming soon">All filters <i
+                    class="fas fa-sliders-h"></i></button>
+        </div>
+
+        <hr class="tile-divider"/>
+
+        <p class="vis-statement" aria-live="polite">26 out of 100 people aged 15 to 39 years old<br/>
+        say their <b>relationships</b> have been affected a lot</p>
+
+        <div id="visualisation-container" class="visualisation-container"></div>
+
+        <div class="topic-nav">
+            <a class="topic-link" href="sex_life.html"><i class="fas fa-chevron-left"></i> Sex life</a>
+            <a class="topic-link" href="self_esteem.html">Self-esteem <i class="fas fa-chevron-right"></i></a>
+        </div>
 
         <div class="explore-topics-wrap">
-            <button class="explore-topics" aria-expanded="false">Explore all subjects <i class="fas fa-chevron-down"></i></button>
+            <button class="explore-topics" aria-expanded="false">Explore all topics <i class="fas fa-chevron-down"></i></button>
             <div class="topics-dropdown" hidden>
-                <a href="module_a/chemotherapy.html">Treatment information</a>
-                <a href="module_b/emotional_functioning.html">Functioning after treatment</a>
-                <a href="module_c/anxiety.html">Mental health</a>
-                <a href="module_d/romantic_life.html">Intimacy and relationships</a>
-                <span class="disabled" data-tooltip="Coming soon">Fertility and parenthood</span>
-                <span class="disabled" data-tooltip="Coming soon">Long-term survival</span>
+                <a href="romantic_life.html">Romantic life</a>
+                <a href="sex_life.html">Sex life</a>
+                <a href="relationships.html" class="current">Relationships</a>
+                <a href="self_esteem.html">Self-esteem</a>
             </div>
         </div>
 
-        <div class="subject-carousel">
-            <button class="carousel-btn prev" aria-label="Scroll subjects left"><i
-                    class="fas fa-chevron-left"></i></button>
-            <div class="subject-grid">
-                <a class="subject-card" href="module_a/chemotherapy.html">
-                    <img src="images/treatment.png"
-                         alt="A young man being treated by a doctor"/>
-                    <span class="subject-label">Treatment information</span>
-                </a>
-                <a class="subject-card" href="module_b/emotional_functioning.html">
-                    <img src="images/running.png"
-                         alt="Young woman running"/>
-                    <span class="subject-label">Functioning after treatment</span>
-                </a>
-                <a class="subject-card" href="module_c/anxiety.html">
-                    <img src="images/mental-health.png"
-                         alt="Young person with a lot on their mind"/>
-                    <span class="subject-label">Mental health</span>
-                </a>
-                <a class="subject-card" href="module_d/romantic_life.html">
-                    <img src="images/intimicy.png"
-                         alt="A young couple hugging"/>
-                    <span class="subject-label">Intimacy and relationships</span>
-                </a>
-                <div class="subject-card disabled" data-tooltip="Coming soon">
-                    <img src="images/baby.png" alt=""/>
-                    <span class="subject-label">Fertility and parenthood</span>
-                </div>
-                <div class="subject-card disabled" data-tooltip="Coming soon">
-                    <img src="images/elderly-man.png" alt=""/>
-                    <span class="subject-label">Long-term survival</span>
-                </div>
-            </div>
-            <button class="carousel-btn next" aria-label="Scroll subjects right"><i
-                    class="fas fa-chevron-right"></i></button>
-        </div>
+        <hr class="tile-divider"/>
 
-        <div class="own-data-card" data-tooltip="Coming soon">
-            <img src="images/waving.png" alt="Young adult waving"/>
-            <div>
-                <h3>Explore your own data</h3>
-                <p>As a visitor, you cannot see or follow your own health data here. Would you like to become a
-                    member? Please contact us!</p>
+        <section class="support-section" aria-labelledby="support-title">
+            <h2 id="support-title">Feeling overwhelmed, or want to know more?</h2>
+            <p>
+                <span class="support-line"><span>Is this information too much for you, or does it worry
+                    you?</span> <span>Would you like to share your feelings?</span></span>
+                <span class="support-line">Talk with people close to you, or meet young people with similar
+                    experiences through the European Youth Cancer Network (YARN) at <a
+                        href="https://beatcancer.eu/community/" target="_blank" rel="noopener">beatcancer.eu<span
+                            class="visually-hidden"> (opens in a new tab)</span></a>.</span>
+                <span class="support-line"><span>Do you have questions about this information?</span> <a
+                        href="mailto:info@strongaya.eu">Contact&nbsp;us<span class="visually-hidden"> by
+                        e-mail</span></a>.</span>
+            </p>
+            <p class="support-care"><i class="fas fa-user-doctor" aria-hidden="true"></i><span>If you would like
+                any form of assistance,</span> <span>please speak to a healthcare professional, such as your doctor
+                or nurse.</span></p>
+            <!-- filled with articles about this topic by portal.js -->
+            <div class="beatcancer-insert">
+                <a href="https://beatcancer.eu/resources/" target="_blank" rel="noopener">Browse the resource
+                    library on beatcancer.eu<span class="visually-hidden"> (opens in a new tab)</span></a>
             </div>
+        </section>
+    </section>
+
+    <div class="info-note">
+        <i class="fas fa-info-circle"></i>
+        <div>
+            <p>The numbers about relationships are test data. The real numbers will come from the EORTC QLQ-AYA
+                questionnaire, a list of questions made for young people with cancer.</p>
+            <p>The test numbers were made up to show how this page works; they do not come from real people.
+                This information was last updated on 29&nbsp;September&nbsp;2026.</p>
         </div>
     </div>
-
-    <section class="context-block">
-        <h2>Explore the subjects</h2>
-        <ul>
-            <li>Pick a subject that you are curious about and explore the information about it.
-            </li>
-        </ul>
-    </section>
 </main>
 
 <footer class="site-footer">
     <div class="footer-overlay">
         <div class="footer-content">
             <div class="footer-col footer-about">
-                <img src="images/footerlogo@2x.png" alt="STRONG-AYA"/>
+                <img src="../images/footerlogo@2x.png" alt="STRONG-AYA"/>
                 <p>STRONG-AYA is an interdisciplinary, multi-stakeholder European network to improve
                     healthcare services, research and outcomes for adolescents and young adults (AYAs) with
                     cancer.</p>
@@ -147,8 +169,6 @@
                     purposes only. The content and outcomes presented are part of ongoing EU-funded research and may
                     be subject to scientific, technical, and ethical limitations. Information on this website is not
                     intended for clinical use and should not be interpreted as medical advice.</p>
-                <p class="research-disclaimer"><b>Image Disclaimer</b><br/>The illustrations on this subject
-                    selection page were generated with artificial intelligence (AI) tools.</p>
             </div>
             <div class="footer-col">
                 <h4>Other</h4>
@@ -186,8 +206,8 @@
                 UK Research and Innovation and Innovate UK. Neither UKRI or the granting authority can be held
                 responsible for them.</p>
             <div class="funding-logos">
-                <img src="images/eu-logo-1.jpg" alt="Funded by the European Union"/>
-                <img src="images/9f432dd7298f8cda-800x800ar@2x.png" alt="UKRI Innovate UK"/>
+                <img src="../images/eu-logo-1.jpg" alt="Funded by the European Union"/>
+                <img src="../images/9f432dd7298f8cda-800x800ar@2x.png" alt="UKRI Innovate UK"/>
             </div>
         </div>
         <div class="copyright">© 2026 Strong Aya. All Rights Reserved.</div>

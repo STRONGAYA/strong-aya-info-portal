@@ -48,6 +48,23 @@
       "topics": ["Mental Health", "Psychosocial Care"],
       "keywords": [["mental health support", "support group", "support groups", "counseling", "counselling",
                     "psychologist"], ["mental health", "psychosocial"]]
+    },
+    "romantic_life": {
+      "topics": ["Quality of Life", "Survivorship"],
+      "keywords": [["romantic", "dating", "love life"], ["love", "partner", "intimacy"]]
+    },
+    "sex_life": {
+      "topics": ["Quality of Life", "Mental Health"],
+      "keywords": [["sexuality", "sexual", "sex life"], ["intimacy", "intimate"], ["body image"]]
+    },
+    "relationships": {
+      "topics": ["Psychosocial Care", "Mental Health"],
+      "keywords": [["friendship", "friendships", "loneliness", "lonely"], ["isolation", "social", "connection"]]
+    },
+    "self_esteem": {
+      "topics": ["Mental Health", "Psychosocial Care"],
+      "keywords": [["self-esteem", "self-worth", "self-love", "self-acceptance"], ["confidence", "body image",
+                                                                                   "appearance"]]
     }
   }
 }

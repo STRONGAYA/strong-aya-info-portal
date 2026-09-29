@@ -86,6 +86,14 @@ const PAGE_TYPES = {
         visualisationTypes: ['iconArraySimple', 'iconArrayComplex', 'table', 'pieChart', 'barChart'],
         colorScheme: 'default'
     },
+    relationships: {
+        id: 'relationships',
+        name: 'Intimacy & Relationships',
+        description: 'How much cancer has affected the romantic life, sex life, relationships and self-esteem of young people (EORTC QLQ-AYA)',
+        modules: ['romantic_life', 'sex_life', 'relationships', 'self_esteem'],
+        visualisationTypes: ['iconArraySimple', 'iconArrayComplex', 'table', 'pieChart', 'barChart'],
+        colorScheme: 'default'
+    },
     lifestyle: {
         id: 'lifestyle',
         name: 'Lifestyle Factors',
@@ -1141,6 +1149,30 @@ class StrongAyaVisualisation {
     }
 }
 
+// Legend of the EORTC QLQ-AYA intimacy and relationships pages. The
+// questions ask whether a part of life has been negatively affected: not
+// at all, a little, quite a bit or very much. Scored like the QLQ-C30
+// (0-100), a single question scores 0, 33, 67 or 100; a scale (the average
+// of a few questions) falls in the range of the nearest answer (0, up to
+// 33, up to 67, above 67). The QLQ-AYA has no thresholds for clinical
+// importance yet (its validation study runs until 2029), so "affected a
+// lot" is quite a bit or very much, as on the worry page.
+function qlqAyaLegend(subject, has) {
+    const said = `People who say ${subject} ${has} been affected`;
+    return {
+        simple: [
+            { id: 'affectedALot', label: 'Affected a lot', color: BRAND_COLORS.primary, categories: ['veryMuch', 'quiteABit'], description: `${said} quite a bit or very much` },
+            { id: 'affectedLittle', label: 'A little or not at all', color: BRAND_COLORS.lightGray, categories: ['aLittle', 'notAtAll'], description: `${said} a little or not at all` }
+        ],
+        complex: [
+            { id: 'veryMuch', label: 'Very much', color: COLORBLIND_SAFE.category2, description: `${said} very much` },
+            { id: 'quiteABit', label: 'Quite a bit', color: COLORBLIND_SAFE.category3, description: `${said} quite a bit` },
+            { id: 'aLittle', label: 'A little', color: COLORBLIND_SAFE.category4, description: `${said} a little` },
+            { id: 'notAtAll', label: 'Not at all', color: BRAND_COLORS.lightGray, description: `People who say ${subject} ${has} not been affected` }
+        ]
+    };
+}
+
 // Data configurations for different visualisations
 const VISUALISATION_CONFIGS = {
     // Treatment modules
@@ -1289,6 +1321,53 @@ const VISUALISATION_CONFIGS = {
                 { id: 'notReceived', label: 'No support', color: BRAND_COLORS.lightGray, description: 'People who say they did not receive mental health support' }
             ]
         }
+    },
+
+    // Intimacy and relationships modules (EORTC QLQ-AYA single questions
+    // on romantic life and sex life, and the relationships and self-esteem scales)
+    romantic_life: {
+        dataUrl: '../data/qlq_aya_romantic_life.csv',
+        title: 'Romantic life',
+        description: 'How many young people with cancer say their romantic life has been affected a lot',
+        lastUpdated: 'September 2026',
+        variable: 'qlq_aya_romantic_life',
+        pageType: 'relationships',
+        colorScheme: 'default',
+        defaultView: 'iconArraySimple',
+        legend: qlqAyaLegend('their romantic life', 'has')
+    },
+    sex_life: {
+        dataUrl: '../data/qlq_aya_sex_life.csv',
+        title: 'Sex life',
+        description: 'How many young people with cancer say their sex life has been affected a lot',
+        lastUpdated: 'September 2026',
+        variable: 'qlq_aya_sex_life',
+        pageType: 'relationships',
+        colorScheme: 'default',
+        defaultView: 'iconArraySimple',
+        legend: qlqAyaLegend('their sex life', 'has')
+    },
+    relationships: {
+        dataUrl: '../data/qlq_aya_relationships.csv',
+        title: 'Relationships',
+        description: 'How many young people with cancer say their relationships have been affected a lot',
+        lastUpdated: 'September 2026',
+        variable: 'qlq_aya_relationships',
+        pageType: 'relationships',
+        colorScheme: 'default',
+        defaultView: 'iconArraySimple',
+        legend: qlqAyaLegend('their relationships', 'have')
+    },
+    self_esteem: {
+        dataUrl: '../data/qlq_aya_self_esteem.csv',
+        title: 'Self-esteem',
+        description: 'How many young people with cancer say their self-esteem has been affected a lot',
+        lastUpdated: 'September 2026',
+        variable: 'qlq_aya_self_esteem',
+        pageType: 'relationships',
+        colorScheme: 'default',
+        defaultView: 'iconArraySimple',
+        legend: qlqAyaLegend('their self-esteem', 'has')
     }
 };
 
@@ -1344,7 +1423,7 @@ function initFilterDropdowns(vis) {
 document.addEventListener('DOMContentLoaded', function() {
     // Check if we're on a module page
     const path = window.location.pathname;
-    const moduleMatch = path.match(/(chemotherapy|radiotherapy|hormonetherapy|emotional_functioning|physical_functioning|role_functioning|anxiety|depression|worry|mental_health_support)/);
+    const moduleMatch = path.match(/(chemotherapy|radiotherapy|hormonetherapy|emotional_functioning|physical_functioning|role_functioning|anxiety|depression|worry|mental_health_support|romantic_life|sex_life|relationships|self_esteem)/);
     
     if (moduleMatch) {
         const moduleType = moduleMatch[1];

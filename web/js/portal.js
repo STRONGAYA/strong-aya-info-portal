@@ -69,6 +69,26 @@ const GLOSSARY_CONTENT = {
         { term: 'Mental health support', definition: 'Help for your feelings and thoughts, for example from a psychologist, a counsellor or a support group.' },
         { term: 'Self-reported', definition: 'People answered the question themselves. The answer was not checked in medical records.' }
     ],
+    romantic_life: [
+        { term: 'Romantic life', definition: 'Dating, falling in love and being in a relationship with a partner.' },
+        { term: 'Affected a lot', definition: 'Answering "quite a bit" or "very much" when asked whether your romantic life has been negatively affected.' },
+        { term: 'EORTC QLQ-AYA', definition: 'A list of questions made for young people with cancer. It asks about romantic life, sex life, relationships and other things that matter at a young age.' }
+    ],
+    sex_life: [
+        { term: 'Sex life', definition: 'Sexual activity and intimacy, and how someone feels about it.' },
+        { term: 'Affected a lot', definition: 'Answering "quite a bit" or "very much" when asked whether your sex life has been negatively affected.' },
+        { term: 'EORTC QLQ-AYA', definition: 'A list of questions made for young people with cancer. It asks about romantic life, sex life, relationships and other things that matter at a young age.' }
+    ],
+    relationships: [
+        { term: 'Relationships', definition: 'How someone gets on with other people. The questions ask, for example, about feeling isolated, being treated differently and having to depend on others.' },
+        { term: 'Affected a lot', definition: 'Answering these questions with "quite a bit" or "very much" on average.' },
+        { term: 'EORTC QLQ-AYA', definition: 'A list of questions made for young people with cancer. It asks about romantic life, sex life, relationships and other things that matter at a young age.' }
+    ],
+    self_esteem: [
+        { term: 'Self-esteem', definition: 'How someone sees and values themselves. The questions ask about self-confidence, feeling in control of your life and changes to your appearance.' },
+        { term: 'Affected a lot', definition: 'Answering these questions with "quite a bit" or "very much" on average.' },
+        { term: 'EORTC QLQ-AYA', definition: 'A list of questions made for young people with cancer. It asks about romantic life, sex life, relationships and other things that matter at a young age.' }
+    ],
     modules: [
         { term: 'Subject', definition: 'A theme you can explore, such as treatment information or functioning after treatment. Each subject has several topics.' },
         { term: 'Treatment information', definition: 'Numbers about how many AYAs receive treatments such as chemotherapy, radiotherapy and hormone therapy.' },
@@ -315,7 +335,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Content is page specific; the page id is the file name without
     // the extension (index.html and "/" fall back to "index").
     const pageId = (window.location.pathname.split('/').pop() || 'index.html').replace(/\.html$/, '') || 'index';
-    const isModulePage = /module_[a-c]/.test(window.location.pathname);
+    const isModulePage = /module_[a-d]/.test(window.location.pathname);
 
     // Native <dialog> + showModal(): the browser moves focus into the
     // dialog, keeps it there, closes on Escape and returns focus to the

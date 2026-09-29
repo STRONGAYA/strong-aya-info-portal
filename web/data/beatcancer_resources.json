@@ -430,6 +430,178 @@
           "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fexpressing-body-positivity-in-cancer-awareness.jpeg&w=640&q=75"
         }
       ]
+    },
+    "romantic_life": {
+      "topics": [
+        {
+          "label": "Quality of Life",
+          "url": "https://beatcancer.eu/resources/?topic=1",
+          "count": 72
+        },
+        {
+          "label": "Survivorship",
+          "url": "https://beatcancer.eu/resources/?topic=6",
+          "count": 121
+        }
+      ],
+      "resources": [
+        {
+          "title": "Dating as a Cancer Survivor: Overcoming Challenges, Building Connections, and Embracing Love",
+          "url": "https://beatcancer.eu/resources/dating-as-a-cancer-survivor/",
+          "excerpt": "Discover how cancer survivors navigate the complexities of dating, from rebuilding confidence to fostering deep…",
+          "type": "Article",
+          "topic": "Survivorship",
+          "date": "2025-05-20",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fembracing-love-a-couple-journey.jpeg&w=640&q=75"
+        },
+        {
+          "title": "Dating After Cancer Diagnosis: Building Confidence, Communication, and Meaningful Connections",
+          "url": "https://beatcancer.eu/resources/dating-after-cancer-diagnosis/",
+          "excerpt": "Discover how to confidently navigate dating after a cancer diagnosis with tips on open communication, self-acceptance…",
+          "type": "Article",
+          "topic": "Survivorship",
+          "date": "2025-04-17",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F04%2Fdating-after-cancer.jpg&w=640&q=75"
+        },
+        {
+          "title": "Navigating Sexuality and Romantic Relationships Among Adolescent and Young Cancer Survivors",
+          "url": "https://beatcancer.eu/resources/navigating-sexuality-and-romantic-relationships-among-adolescent-and-young-cancer-survivors/",
+          "excerpt": "Young cancer survivors face unique challenges in sexuality and romantic relationships. Support is crucial for their…",
+          "type": "Article",
+          "topic": "OACCUs",
+          "date": "2024-12-02",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Foaccus%2Fnavigating-sexuality-and-romantic-relationships-among-adolescent-and-young-cancer-survivors.jpg&w=640&q=75"
+        }
+      ]
+    },
+    "sex_life": {
+      "topics": [
+        {
+          "label": "Quality of Life",
+          "url": "https://beatcancer.eu/resources/?topic=1",
+          "count": 72
+        },
+        {
+          "label": "Mental Health",
+          "url": "https://beatcancer.eu/resources/?topic=2",
+          "count": 43
+        }
+      ],
+      "resources": [
+        {
+          "title": "Webinar: Sexuality and Intimacy and Young Cancer Survivors",
+          "url": "https://beatcancer.eu/resources/sexuality-and-intimacy-and-young-cancer-survivors/",
+          "excerpt": "For young cancer survivors, intimacy and sexuality often become silent casualties of treatment. While physical…",
+          "type": "Video",
+          "topic": "Survivorship",
+          "date": "2025-01-02",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fwebinar-sexuality-and-intimacy-for-young-cancer-survivors.png&w=640&q=75"
+        },
+        {
+          "title": "Navigating Sexuality and Romantic Relationships Among Adolescent and Young Cancer Survivors",
+          "url": "https://beatcancer.eu/resources/navigating-sexuality-and-romantic-relationships-among-adolescent-and-young-cancer-survivors/",
+          "excerpt": "Young cancer survivors face unique challenges in sexuality and romantic relationships. Support is crucial for their…",
+          "type": "Article",
+          "topic": "OACCUs",
+          "date": "2024-12-02",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Foaccus%2Fnavigating-sexuality-and-romantic-relationships-among-adolescent-and-young-cancer-survivors.jpg&w=640&q=75"
+        },
+        {
+          "title": "How Soon Can Intimacy Resume After an Orchiectomy? Recovery Timeline & Emotional Tips",
+          "url": "https://beatcancer.eu/resources/how-soon-can-intimacy-resume-after-an-orchiectomy/",
+          "excerpt": "Discover when and how to safely resume intimacy after an orchiectomy. This guide explores physical recovery, emotional…",
+          "type": "Article",
+          "topic": "Quality of Life",
+          "date": "2025-01-07",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fembracing-love-a-couple-journey.jpeg&w=640&q=75"
+        }
+      ]
+    },
+    "relationships": {
+      "topics": [
+        {
+          "label": "Psychosocial Care",
+          "url": "https://beatcancer.eu/resources/?topic=9",
+          "count": 32
+        },
+        {
+          "label": "Mental Health",
+          "url": "https://beatcancer.eu/resources/?topic=2",
+          "count": 43
+        }
+      ],
+      "resources": [
+        {
+          "title": "Understanding Cancer Survivorship Loneliness: Overcoming Isolation After Recovery",
+          "url": "https://beatcancer.eu/resources/cancer-survivorship-loneliness/",
+          "excerpt": "Explore the hidden struggles of cancer survivorship loneliness and its emotional toll. Learn about the challenges…",
+          "type": "Article",
+          "topic": "Survivorship",
+          "date": "2025-03-25",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Frecovering-cancer-patient-in-hospital-bed.jpeg&w=640&q=75"
+        },
+        {
+          "title": "Staying Connected: Nurturing Friendships Through Your Cancer Journey",
+          "url": "https://beatcancer.eu/resources/friendships-through-your-cancer-journey/",
+          "excerpt": "Navigate the complexities of maintaining friendships and a vibrant social life during cancer treatment with our…",
+          "type": "Article",
+          "topic": "Quality of Life",
+          "date": "2023-12-27",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2023%2F12%2FNurturing-Friendships-Through-Your-Cancer-Journey.png&w=640&q=75"
+        },
+        {
+          "title": "Cancer and the Accompanying Feeling of Loneliness",
+          "url": "https://beatcancer.eu/resources/cancer-and-the-accompanying-feeling-of-loneliness/",
+          "excerpt": "Feeling lonely on your cancer journey? You're not the only one—and it's okay to talk about it. Dive into our latest…",
+          "type": "Article",
+          "topic": "Mental Health",
+          "date": "2023-09-13",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2023%2F09%2FCancer-and-the-Accompanying-Feeling-of-Loneliness.png&w=640&q=75"
+        }
+      ]
+    },
+    "self_esteem": {
+      "topics": [
+        {
+          "label": "Mental Health",
+          "url": "https://beatcancer.eu/resources/?topic=2",
+          "count": 43
+        },
+        {
+          "label": "Psychosocial Care",
+          "url": "https://beatcancer.eu/resources/?topic=9",
+          "count": 32
+        }
+      ],
+      "resources": [
+        {
+          "title": "Body Image After Cancer: Embracing Change, Building Confidence, and Finding Self-Acceptance",
+          "url": "https://beatcancer.eu/resources/body-image-after-cancer/",
+          "excerpt": "Discover how cancer survivors can navigate body image changes with resilience, self-compassion, and empowerment. From…",
+          "type": "Article",
+          "topic": "Quality of Life",
+          "date": "2025-04-28",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fembracing-change-a-journey-of-body-image-after-cancer.jpeg&w=640&q=75"
+        },
+        {
+          "title": "How Do I Regain Confidence After Cancer? Tips to Rebuild Self-Esteem and Emotional Strength",
+          "url": "https://beatcancer.eu/resources/how-do-i-regain-confidence-after-cancer/",
+          "excerpt": "Discover practical steps to regain confidence after cancer. From embracing personal growth and setting achievable…",
+          "type": "Article",
+          "topic": "Survivorship",
+          "date": "2025-03-16",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fconfident-woman-pointing-forward.jpeg&w=640&q=75"
+        },
+        {
+          "title": "Relationship with Yourself: Navigating Self-Love Through a Cancer Diagnosis",
+          "url": "https://beatcancer.eu/resources/self-love-through-cancer-diagnosis/",
+          "excerpt": "After a cancer diagnosis, everything feels upside-down, especially how we see ourselves. This article is like your…",
+          "type": "Article",
+          "topic": "Quality of Life",
+          "date": "2023-09-05",
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2023%2F09%2FSelf-Love-Through-Cancer-Diagnosis.png&w=640&q=75"
+        }
+      ]
     }
   }
 }

@@ -116,31 +116,31 @@ const PAGE_TYPES = {
 const VISUALISATION_TYPES = {
     iconArraySimple: {
         id: 'iconArraySimple',
-        name: 'Simple Icon Array',
+        name: 'Simple icon array',
         description: 'Person icons in two groups — simple and clear',
         icon: '👥'
     },
     iconArrayComplex: {
         id: 'iconArrayComplex',
-        name: 'Complex Icon Array',
+        name: 'Complex icon array',
         description: 'Person icons in more groups — more detail',
         icon: '👥'
     },
     table: {
         id: 'table',
-        name: 'Data Table',
+        name: 'Data table',
         description: 'A table with all numbers and percentages',
         icon: '📊'
     },
     pieChart: {
         id: 'pieChart',
-        name: 'Pie Chart',
+        name: 'Pie chart',
         description: 'A circle chart that shows the share of each group',
         icon: '🥧'
     },
     barChart: {
         id: 'barChart',
-        name: 'Bar Chart',
+        name: 'Bar chart',
         description: 'Bars that make the groups easy to compare',
         icon: '📈'
     }

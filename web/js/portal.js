@@ -71,21 +71,21 @@ const GLOSSARY_CONTENT = {
     ],
     romantic_life: [
         { term: 'Romantic life', definition: 'Dating, falling in love and being in a relationship with a partner.' },
-        { term: 'Affected a lot', definition: 'Answering "quite a bit" or "very much" when asked whether your romantic life has been negatively affected.' },
+        { term: 'Affected a lot', definition: 'Answering "quite a bit" or "very much" when asked if cancer has had a bad effect on your romantic life.' },
         { term: 'EORTC QLQ-AYA', definition: 'A list of questions made for young people with cancer. It asks about romantic life, sex life, relationships and other things that matter at a young age.' }
     ],
     sex_life: [
-        { term: 'Sex life', definition: 'Sexual activity and intimacy, and how someone feels about it.' },
-        { term: 'Affected a lot', definition: 'Answering "quite a bit" or "very much" when asked whether your sex life has been negatively affected.' },
+        { term: 'Sex life', definition: 'Having sex and being physically close to someone, and how you feel about that.' },
+        { term: 'Affected a lot', definition: 'Answering "quite a bit" or "very much" when asked if cancer has had a bad effect on your sex life.' },
         { term: 'EORTC QLQ-AYA', definition: 'A list of questions made for young people with cancer. It asks about romantic life, sex life, relationships and other things that matter at a young age.' }
     ],
     relationships: [
-        { term: 'Relationships', definition: 'How someone gets on with other people. The questions ask, for example, about feeling isolated, being treated differently and having to depend on others.' },
+        { term: 'Relationships', definition: 'How you get on with other people. The questions ask, for example, about feeling alone, being treated differently and needing help from others.' },
         { term: 'Affected a lot', definition: 'Answering these questions with "quite a bit" or "very much" on average.' },
         { term: 'EORTC QLQ-AYA', definition: 'A list of questions made for young people with cancer. It asks about romantic life, sex life, relationships and other things that matter at a young age.' }
     ],
     self_esteem: [
-        { term: 'Self-esteem', definition: 'How someone sees and values themselves. The questions ask about self-confidence, feeling in control of your life and changes to your appearance.' },
+        { term: 'Self-esteem', definition: 'How you see yourself and how you feel about yourself. The questions ask about confidence, feeling in control of your life and changes to how you look.' },
         { term: 'Affected a lot', definition: 'Answering these questions with "quite a bit" or "very much" on average.' },
         { term: 'EORTC QLQ-AYA', definition: 'A list of questions made for young people with cancer. It asks about romantic life, sex life, relationships and other things that matter at a young age.' }
     ],
@@ -101,14 +101,14 @@ const GLOSSARY_CONTENT = {
 const HELP_CONTENT = {
     module: [
         '<b>Return to subjects</b> (top left) brings you back to the list of subjects.',
-        '<b>View</b> (right of the filters) lets you choose how the data is shown: as person icons, a table, a pie chart or a bar chart.',
+        '<b>View</b> (to the right of the filters) lets you choose how the data is shown: as person icons, a table, a pie chart or a bar chart.',
         '<b>Filters</b>: use <b>Cancer type</b> and <b>Sex</b> to see the numbers for one group only. The other filters are coming soon.',
         'The <b>figure</b> shows 100 person icons; each icon stands for 1 out of 100 people. The <b>legend</b> next to it explains what each colour means.',
         'Use the <b>arrow buttons</b> below the figure to go to the topic before or after this one.',
         '<b>Explore all topics</b> opens a list of all topics in this subject.',
         '<b>Glossary</b> explains the words used on this page; <b>Compare</b> is coming soon.',
-        '<b>Feeling overwhelmed, or want to know more?</b> (bottom of the tile) tells you where to find support, with articles about this topic from beatcancer.eu. They open in a new tab.',
-        'The note below the tile explains where the numbers come from.'
+        '<b>Want to know more, or is it too much?</b> (near the bottom) tells you where to find support. It also shows articles about this topic from beatcancer.eu. They open in a new tab.',
+        'The note at the end of the page explains where the numbers come from.'
     ],
     modules: [
         '<b>Return to profiles</b> (top left) brings you back to the start page.',
@@ -267,8 +267,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // follow a header/footer link there have no way back. Those links
     // are disabled and explain this in a tooltip instead; the original
     // address is kept in data-href.
-    const OFFSITE_NOTE = 'Link disabled. You can visit strongaya.eu yourself, but this test portal ' +
-        'cannot be reached from there, so you would not be able to come back.';
+    const OFFSITE_NOTE = 'This link does not work in this test version. You can visit strongaya.eu yourself, ' +
+        'but from there you cannot get back to this test portal.';
     const TIP_WIDTH = 260; // width of .offsite-link[data-tooltip]::after
     const TIP_MARGIN = 8;
 

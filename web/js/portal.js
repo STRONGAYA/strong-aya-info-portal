@@ -101,7 +101,7 @@ const GLOSSARY_CONTENT = {
 const HELP_CONTENT = {
     module: [
         '<b>Return to subjects</b> (top left) brings you back to the list of subjects.',
-        '<b>View</b> (to the right of the filters) lets you choose how the data is shown: as person icons, a table, a pie chart or a bar chart.',
+        '<b>View</b> (to the right of the filters) lets you choose how the data is shown: as person icons, a table with all topics of this subject, a pie chart or a bar chart.',
         '<b>Filters</b>: use <b>Cancer type</b> and <b>Sex</b> to see the numbers for one group only. The other filters are coming soon.',
         'The <b>figure</b> shows 100 person icons; each icon stands for 1 out of 100 people. The <b>legend</b> next to it explains what each colour means.',
         'Use the <b>arrow buttons</b> below the figure to go to the topic before or after this one.',

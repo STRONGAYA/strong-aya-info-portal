@@ -1528,13 +1528,24 @@ html.mode-dark .page img {
     line-height: 1.4;
 }
 
-/* data table */
+/* data table: every topic of the subject, two groups per topic; it
+   scrolls sideways on narrow screens rather than squeezing the text */
+.data-table-wrapper {
+    overflow-x: auto;
+}
+
 .data-table {
     border-collapse: collapse;
     width: 100%;
-    max-width: 640px;
+    max-width: 900px;
     margin: 0 auto;
     font-size: 14px;
+}
+
+.data-table caption {
+    text-align: left;
+    font-weight: 600;
+    margin-bottom: 10px;
 }
 
 .data-table th,
@@ -1544,12 +1555,81 @@ html.mode-dark .page img {
     text-align: left;
 }
 
-.data-table th {
+.data-table thead th {
     background: rgba(247, 116, 30, 0.08);
 }
 
-.table-total {
-    background: #fafafa;
+.data-table tbody th {
+    font-weight: 400;
+}
+
+.data-table td:last-child {
+    text-wrap: balance;
+}
+
+/* the explanation of a group: its own column on wider screens, a small
+   line under the group name on narrow ones (only one is ever shown) */
+.table-note {
+    display: none;
+}
+
+/* on wider screens, keep the headers and group names on one line */
+@media (min-width: 761px) {
+    .data-table thead th,
+    .data-table th[scope="row"] {
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 760px) {
+    .data-table .table-meaning {
+        display: none;
+    }
+
+    .table-note {
+        display: block;
+        margin-top: 4px;
+        font-size: 12px;
+        line-height: 1.4;
+        color: var(--text-grey);
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: 8px 10px;
+    }
+}
+
+.data-table th[scope="rowgroup"] {
+    font-weight: 600;
+    vertical-align: top;
+}
+
+.data-table th[scope="rowgroup"] a {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.data-table th[scope="rowgroup"] a:hover {
+    color: var(--brand-orange);
+}
+
+/* the topic of this page stands out */
+.table-current-topic {
+    background: rgba(247, 116, 30, 0.05);
+}
+
+.table-this-page {
+    display: block;
+    font-weight: 400;
+    font-size: 12px;
+    color: var(--text-grey);
+}
+
+.vis-loading {
+    text-align: center;
+    color: var(--text-grey);
+    padding: 20px;
 }
 
 .vis-info {

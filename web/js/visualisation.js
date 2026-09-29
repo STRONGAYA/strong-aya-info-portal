@@ -56,6 +56,7 @@ const COLORBLIND_SAFE = {
 const PAGE_TYPES = {
     treatment: {
         id: 'treatment',
+        subject: 'Treatment information',
         name: 'Treatment Information',
         description: 'Information about cancer treatments that young people with cancer receive',
         modules: ['chemotherapy', 'radiotherapy', 'hormonetherapy', 'surgery', 'immunotherapy'],
@@ -64,6 +65,7 @@ const PAGE_TYPES = {
     },
     functioning: {
         id: 'functioning',
+        subject: 'Functioning after treatment',
         name: 'Quality of Life & Functioning',
         description: 'Functioning scores and quality of life metrics from EORTC QLQ-C30 questionnaires',
         modules: ['emotional_functioning', 'physical_functioning', 'role_functioning', 'social_functioning', 'cognitive_functioning'],
@@ -80,6 +82,7 @@ const PAGE_TYPES = {
     },
     mental_health: {
         id: 'mental_health',
+        subject: 'Mental health',
         name: 'Mental Health',
         description: 'How young people with cancer feel mentally, and the support they get',
         modules: ['anxiety', 'depression', 'worry', 'mental_health_support'],
@@ -88,6 +91,7 @@ const PAGE_TYPES = {
     },
     relationships: {
         id: 'relationships',
+        subject: 'Intimacy and relationships',
         name: 'Intimacy & Relationships',
         description: 'How much cancer has affected the romantic life, sex life, relationships and self-esteem of young people (EORTC QLQ-AYA)',
         modules: ['romantic_life', 'sex_life', 'relationships', 'self_esteem'],
@@ -129,7 +133,7 @@ const VISUALISATION_TYPES = {
     table: {
         id: 'table',
         name: 'Data table',
-        description: 'A table with all numbers and percentages',
+        description: 'A table with the numbers of all topics in this subject',
         icon: '📊'
     },
     pieChart: {
@@ -198,14 +202,14 @@ const COLOR_SCHEMES = {
 const LEGEND_CONFIGS = {
     treatment: {
         simple: [
-            { id: 'received', label: 'Received Treatment', color: COLOR_SCHEMES.treatment.received, categories: ['partial', 'planned'], description: 'People who receive this treatment' },
-            { id: 'notReceived', label: 'Did Not Receive', color: COLOR_SCHEMES.treatment.notReceived, description: 'People who do not receive this treatment' }
+            { id: 'received', label: 'Received treatment', color: COLOR_SCHEMES.treatment.received, categories: ['partial', 'planned'], description: 'People who receive this treatment' },
+            { id: 'notReceived', label: 'Did not receive', color: COLOR_SCHEMES.treatment.notReceived, description: 'People who do not receive this treatment' }
         ],
         complex: [
-            { id: 'received', label: 'Completed Treatment', color: COLOR_SCHEMES.treatment.completed, description: 'People who completed the whole treatment' },
-            { id: 'partial', label: 'Partial Treatment', color: COLOR_SCHEMES.treatment.partial, description: 'People who received a part of the treatment' },
+            { id: 'received', label: 'Completed treatment', color: COLOR_SCHEMES.treatment.completed, description: 'People who completed the whole treatment' },
+            { id: 'partial', label: 'Partial treatment', color: COLOR_SCHEMES.treatment.partial, description: 'People who received a part of the treatment' },
             { id: 'planned', label: 'Planned', color: COLOR_SCHEMES.treatment.planned, description: 'People whose treatment is planned but has not started yet' },
-            { id: 'notReceived', label: 'Not Received', color: COLOR_SCHEMES.treatment.notReceived, description: 'People who did not receive the treatment' }
+            { id: 'notReceived', label: 'Not received', color: COLOR_SCHEMES.treatment.notReceived, description: 'People who did not receive the treatment' }
         ]
     },
     functioning: {
@@ -252,6 +256,39 @@ const FILTER_PLACEHOLDER_COUNTS = {
     skin:  { all: 41,   male: 38, female: 44, intersex: INSUFFICIENT_DATA },
     brain: { all: 66,   male: 63, female: 68, intersex: INSUFFICIENT_DATA }
 };
+
+// Raw number of people covered by a legend entry: its own category plus
+// the finer categories it groups (categories: [...])
+function rawCountForEntry(rawCounts, item) {
+    return [item.id].concat(item.categories || [])
+        .reduce((sum, id) => sum + (rawCounts[id] || 0), 0);
+}
+
+// Turn raw counts into "people out of 100" (largest-remainder rounding,
+// so the groups always add up to exactly 100)
+function peopleOutOf100(raw) {
+    const rawTotal = raw.reduce((sum, count) => sum + count, 0);
+    const exact = raw.map(count => rawTotal > 0 ? (count / rawTotal) * 100 : 0);
+    const scaled = exact.map(Math.floor);
+    const remainders = exact.map((value, i) => ({ i, rest: value - scaled[i] }))
+        .sort((a, b) => b.rest - a.rest);
+    let left = rawTotal > 0 ? 100 - scaled.reduce((sum, count) => sum + count, 0) : 0;
+    for (let k = 0; left > 0 && k < remainders.length; k++, left--) {
+        scaled[remainders[k].i]++;
+    }
+    return scaled;
+}
+
+// The two groups a topic is summarised in (its headline statement and
+// simple icon array)
+function simpleLegendFor(config) {
+    return (config.legend && config.legend.simple) || (LEGEND_CONFIGS[config.pageType] || {}).simple || [];
+}
+
+// The topics of a subject: the pages of its page type that exist, in order
+function subjectTopicIds(pageTypeId) {
+    return ((PAGE_TYPES[pageTypeId] || {}).modules || []).filter(id => VISUALISATION_CONFIGS[id]);
+}
 
 class StrongAyaVisualisation {
     constructor(containerId, dataConfig) {
@@ -403,27 +440,14 @@ class StrongAyaVisualisation {
         return (legend.simple || []).concat(legend.complex || []);
     }
     
-    // Raw number of people covered by a legend entry: its own category
-    // plus the finer categories it groups (categories: [...])
     rawCountFor(item) {
-        return [item.id].concat(item.categories || [])
-            .reduce((sum, id) => sum + (this.rawCounts[id] || 0), 0);
+        return rawCountForEntry(this.rawCounts, item);
     }
-    
+
     // Turn the raw counts into "people out of 100" per legend category
-    // (largest-remainder rounding, so the icons always add up to 100).
     computeCountsForLegend() {
-        const raw = this.legendData.map(item => this.rawCountFor(item));
-        const rawTotal = raw.reduce((sum, count) => sum + count, 0);
-        const exact = raw.map(count => rawTotal > 0 ? (count / rawTotal) * 100 : 0);
-        const scaled = exact.map(Math.floor);
-        const remainders = exact.map((value, i) => ({ i, rest: value - scaled[i] }))
-            .sort((a, b) => b.rest - a.rest);
-        let left = rawTotal > 0 ? 100 - scaled.reduce((sum, count) => sum + count, 0) : 0;
-        for (let k = 0; left > 0 && k < remainders.length; k++, left--) {
-            scaled[remainders[k].i]++;
-        }
-        
+        const scaled = peopleOutOf100(this.legendData.map(item => this.rawCountFor(item)));
+
         this.categoryCounts = {};
         this.legendData.forEach((item, i) => {
             this.categoryCounts[item.id] = scaled[i];
@@ -846,67 +870,91 @@ class StrongAyaVisualisation {
         `;
     }
     
+    // Table view: the numbers of every topic of this subject side by side,
+    // two groups per topic (as in their headline statements). The other
+    // topics' CSVs are loaded the first time the table is shown.
     renderTable() {
-        if (this.totalCount === 0) {
-            this.visArea.innerHTML = '<p style="text-align: center; padding: 20px;">No data available.</p>';
+        if (!this.subjectTopics) {
+            this.visArea.innerHTML = '<p class="vis-loading">Loading the table…</p>';
+            this.subjectTopicsRequest = this.subjectTopicsRequest || this.loadSubjectTopics().then(() => {
+                if (this.currentView === 'table') this.render();
+            });
             return;
         }
         
-        let tableRows = '';
-        let legendItems = '';
+        const rowGroups = this.subjectTopics.map(topic => {
+            const isCurrent = topic.config === this.dataConfig;
+            const legend = isCurrent ? this.legendData : simpleLegendFor(topic.config);
+            const counts = isCurrent
+                ? (this.totalCount > 0 ? legend.map(item => this.categoryCounts[item.id] || 0) : null)
+                : this.countsForTopic(topic, legend);
+            const name = isCurrent
+                ? `${topic.config.title} <span class="table-this-page">(this page)</span>`
+                : `<a href="${topic.id}.html">${topic.config.title}</a>`;
+            const rows = counts ? legend.map((item, i) => `
+                    <tr>
+                        ${i === 0 ? `<th scope="rowgroup" rowspan="${legend.length}">${name}</th>` : ''}
+                        <th scope="row">${item.label}<span class="table-note">${item.description || ''}</span></th>
+                        <td>${counts[i]}</td>
+                        <td class="table-meaning">${item.description || ''}</td>
+                    </tr>`).join('') : `
+                    <tr>
+                        <th scope="rowgroup">${name}</th>
+                        <td colspan="3">No data available</td>
+                    </tr>`;
+            return `<tbody${isCurrent ? ' class="table-current-topic"' : ''}>${rows}</tbody>`;
+        }).join('');
         
-        this.legendData.forEach(category => {
-            const count = this.categoryCounts[category.id] || 0;
-            const percentage = this.totalCount > 0 ? Math.round((count / this.totalCount) * 100) : 0;
-            
-            tableRows += `
-                <tr>
-                    <td><strong>${category.label}</strong></td>
-                    <td>${count}</td>
-                    <td>${percentage}%</td>
-                    <td>${category.description || '-'}</td>
-                </tr>
-            `;
-            
-            legendItems += this.generateLegendItemHTML(category);
-        });
-        
-        // Add total row
-        tableRows += `
-            <tr class="table-total">
-                <td><strong>Total</strong></td>
-                <td>${this.totalCount}</td>
-                <td>100%</td>
-                <td>All people together</td>
-            </tr>
-        `;
-        
-        const html = `
-            <div class="visualisation-wrapper">
+        this.visArea.innerHTML = `
+            <div class="data-table-wrapper">
                 <table class="data-table">
+                    <caption>${this.pageType?.subject || 'This subject'}: all topics</caption>
                     <thead>
                         <tr>
-                            <th>Group</th>
-                            <th>Number</th>
-                            <th>Percentage</th>
-                            <th>What it means</th>
+                            <th scope="col">Topic</th>
+                            <th scope="col">Group</th>
+                            <th scope="col">Out of 100 people</th>
+                            <th scope="col" class="table-meaning">What it means</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        ${tableRows}
-                    </tbody>
+                    ${rowGroups}
                 </table>
-                
-                <div class="legend-container">
-                    <h4>Legend</h4>
-                    <div class="legend-items">
-                        ${legendItems}
-                    </div>
-                </div>
             </div>
         `;
+    }
+    
+    // The raw counts of every topic of this subject, for the table view
+    async loadSubjectTopics() {
+        const ids = subjectTopicIds(this.pageType?.id);
+        const currentId = Object.keys(VISUALISATION_CONFIGS).find(id => VISUALISATION_CONFIGS[id] === this.dataConfig);
+        if (currentId && !ids.includes(currentId)) ids.unshift(currentId);
         
-        this.visArea.innerHTML = html;
+        this.subjectTopics = await Promise.all(ids.map(async id => {
+            const config = VISUALISATION_CONFIGS[id];
+            if (config === this.dataConfig) return { id, config };
+            try {
+                const response = await fetch(config.dataUrl);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return { id, config, rawCounts: this.parseCSV(await response.text()) };
+            } catch (error) {
+                console.error(`Error loading ${config.dataUrl}:`, error);
+                return { id, config, rawCounts: null };
+            }
+        }));
+    }
+    
+    // People out of 100 per group for another topic of this subject, with
+    // the same (placeholder) filters as this page; null without data
+    countsForTopic(topic, legend) {
+        if (!topic.rawCounts) return null;
+        const raw = legend.map(item => rawCountForEntry(topic.rawCounts, item));
+        if (raw.every(count => count === 0)) return null;
+        if (this.activePlaceholder !== null && this.activePlaceholder !== undefined && legend.length === 2) {
+            return [this.activePlaceholder, 100 - this.activePlaceholder];
+        }
+        return peopleOutOf100(raw);
     }
     
     renderPieChart() {
@@ -1178,7 +1226,7 @@ const VISUALISATION_CONFIGS = {
     // Treatment modules
     chemotherapy: {
         dataUrl: '../data/ther_chemo.csv',
-        title: 'Chemotherapy Treatment',
+        title: 'Chemotherapy',
         description: 'How many young people with cancer receive chemotherapy',
         lastUpdated: 'August 2024',
         variable: 'ther_chemo',
@@ -1188,7 +1236,7 @@ const VISUALISATION_CONFIGS = {
     },
     radiotherapy: {
         dataUrl: '../data/ther_rt.csv',
-        title: 'Radiotherapy Treatment',
+        title: 'Radiotherapy',
         description: 'How many young people with cancer receive radiotherapy',
         lastUpdated: 'August 2024',
         variable: 'ther_rt',
@@ -1198,7 +1246,7 @@ const VISUALISATION_CONFIGS = {
     },
     hormonetherapy: {
         dataUrl: '../data/ther_ht.csv',
-        title: 'Hormone Therapy',
+        title: 'Hormone therapy',
         description: 'How many young people with cancer receive hormone therapy',
         lastUpdated: 'August 2024',
         variable: 'ther_ht',
@@ -1210,7 +1258,7 @@ const VISUALISATION_CONFIGS = {
     // Functioning modules
     emotional_functioning: {
         dataUrl: '../data/ef.csv',
-        title: 'Emotional Functioning',
+        title: 'Emotional functioning',
         description: 'How many young people with cancer feel worse emotionally after treatment',
         lastUpdated: 'August 2024',
         variable: 'ef',
@@ -1220,7 +1268,7 @@ const VISUALISATION_CONFIGS = {
     },
     physical_functioning: {
         dataUrl: '../data/pf.csv',
-        title: 'Physical Functioning',
+        title: 'Physical functioning',
         description: 'How many young people with cancer find everyday physical activities harder after treatment',
         lastUpdated: 'August 2024',
         variable: 'pf',
@@ -1230,7 +1278,7 @@ const VISUALISATION_CONFIGS = {
     },
     role_functioning: {
         dataUrl: '../data/rf.csv',
-        title: 'Role Functioning',
+        title: 'Role functioning',
         description: 'How many young people with cancer have more trouble with daily tasks after treatment',
         lastUpdated: 'August 2024',
         variable: 'rf',

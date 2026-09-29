@@ -8,7 +8,7 @@ import urllib.request
 from html.parser import HTMLParser
 from urllib.parse import urljoin
 
-# beatcancer.eu, the website of the European Network of Youth Cancer Survivors, has no API
+# beatcancer.eu, the website of the European Youth Cancer Network (YARN), has no API
 # and cannot be embedded, so its resource listing is read page by page
 BASE_URL = 'https://beatcancer.eu'
 LISTING_URL = BASE_URL + '/resources/'
@@ -195,6 +195,18 @@ def _title_words(title):
     return {word.rstrip('s') for word in re.findall(r'[a-z]+', title.lower()) if len(word) > 3} - {'cancer'}
 
 
+def _tidy_excerpt(excerpt):
+    # The listing cuts its excerpts off mid-word ('... with preparation. Th...');
+    # end them at the last whole word (or sentence) instead
+    if not excerpt.endswith('...'):
+        return excerpt
+    text = excerpt[:-3]
+    if ' ' in text:
+        text = text[:text.rindex(' ')]
+    text = text.rstrip(' ,;:-–—')
+    return text if text.endswith(('.', '!', '?')) else text + '…'
+
+
 def build_resource_lists(resources, topic_ids, config):
     """
     :return: Per portal page, its beatcancer.eu topics (label, listing url, number of resources)
@@ -207,7 +219,7 @@ def build_resource_lists(resources, topic_ids, config):
         pages[page_id] = {
             'topics': [{'label': topic, 'url': f'{LISTING_URL}?topic={topic_ids[topic]}', 'count': counts[topic]}
                        for topic in page['topics']],
-            'resources': [{'title': r['title'], 'url': r['url'], 'excerpt': r['excerpt'], 'type': r['type'],
+            'resources': [{'title': r['title'], 'url': r['url'], 'excerpt': _tidy_excerpt(r['excerpt']), 'type': r['type'],
                            'topic': r['topics'][0] if r['topics'] else '', 'date': r['date'], 'image': r['image']}
                           for r in pick_resources(resources, page, config)],
         }

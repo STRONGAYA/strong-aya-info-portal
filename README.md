@@ -45,7 +45,7 @@ analysis provides those variables as well.
 
 ### Articles from beatcancer.eu
 The bottom of every topic page points to support and shows a few articles about the topic from
-[beatcancer.eu](https://beatcancer.eu/resources/), the website of the European Network of Youth Cancer Survivors;
+[beatcancer.eu](https://beatcancer.eu/resources/), the website of the European Youth Cancer Network (YARN);
 they open in a new tab. That website has no API and cannot be embedded, so
 `scripts/fetch_beatcancer_resources.py` reads its resource listing and writes the articles per page to
 `web/data/beatcancer_resources.json`. The `Update beatcancer.eu resources` workflow does this every Monday and

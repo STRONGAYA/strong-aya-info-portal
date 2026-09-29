@@ -101,8 +101,8 @@ const HELP_CONTENT = {
 };
 
 // ------------------------------------------------------------------
-// Articles from beatcancer.eu, the website of the European Network of
-// Youth Cancer Survivors, at the bottom of the module pages. The site
+// Articles from beatcancer.eu, the website of the European Youth Cancer
+// Network (YARN), at the bottom of the module pages. The site
 // cannot be embedded, so web/data/beatcancer_resources.json (made by
 // scripts/fetch_beatcancer_resources.py) lists a few of its articles
 // per page. The text comes from another website: it is escaped, and
@@ -163,10 +163,13 @@ function beatcancerInsertHtml(page) {
     });
 
     return '<div class="bc-insert-head">' +
-        '<p class="bc-insert-source"><i class="fas fa-book-open" aria-hidden="true"></i>From <b>beatcancer.eu</b></p>' +
+        '<img class="bc-insert-logo" src="../images/yarn-logo.png" alt="YARN – European Youth Cancer Network"' +
+        ' width="119" height="40"/>' +
+        '<div>' +
+        '<p class="bc-insert-source">From <b>beatcancer.eu</b></p>' +
         '<p class="bc-insert-note">Articles about this topic, picked automatically from the library of the ' +
-        'European Network of Youth Cancer Survivors. They open in a new tab.</p>' +
-        '</div>' +
+        'European Youth Cancer Network (YARN). They open in a new tab.</p>' +
+        '</div></div>' +
         '<ul class="bc-cards">' + cards.join('') + '</ul>' +
         (topics.length ? '<p class="bc-insert-more"><span>More on beatcancer.eu:</span>' + topics.join('') + '</p>' : '');
 }

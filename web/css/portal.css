@@ -64,6 +64,24 @@ a {
     text-decoration: none;
 }
 
+/* line breaks: headings and short texts get even line lengths, so no
+   word ends up alone on a line; other paragraphs avoid a very short
+   last line where the browser supports it */
+p,
+li {
+    text-wrap: pretty;
+}
+
+h1, h2, h3, h4,
+.notice-banner,
+.vis-statement,
+.support-section > p,
+.bc-insert-note,
+.legend-label span,
+.insufficient-data p {
+    text-wrap: balance;
+}
+
 button {
     font-family: var(--font-main);
     cursor: pointer;
@@ -307,8 +325,11 @@ html.mode-dark .page img {
     padding: 40px 24px 64px;
 }
 
+/* on narrow screens the tool buttons move below the return link
+   (kept on one line) instead of squeezing it */
 .page-toolbar {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     gap: 16px;
@@ -346,6 +367,7 @@ html.mode-dark .page img {
     font-size: 17px;
     color: var(--text-grey);
     padding: 10px 0;
+    white-space: nowrap;
 }
 
 .return-link:hover {
@@ -355,6 +377,7 @@ html.mode-dark .page img {
 .tool-buttons {
     display: flex;
     gap: 10px;
+    margin-left: auto;
 }
 
 .tool-btn {
@@ -1022,9 +1045,19 @@ html.mode-dark .page img {
     gap: 18px;
     align-items: flex-start;
     max-width: 900px;
-    margin: 32px auto 0;
+    margin: 48px auto 0;
     font-size: 13px;
     color: var(--text-grey);
+}
+
+/* the note ends the module page: the same space below it (to the
+   footer) as above it (to the tile) */
+.page:has(> .info-note:last-child:not([hidden])) {
+    padding-bottom: 0;
+}
+
+.page:has(> .info-note:last-child:not([hidden])) + .site-footer {
+    margin-top: 48px;
 }
 
 .info-note > i {
@@ -1035,6 +1068,10 @@ html.mode-dark .page img {
 
 .info-note p {
     margin: 0 0 10px;
+}
+
+.info-note p:last-child {
+    margin-bottom: 0;
 }
 
 /* --- Support section at the bottom of the module tile: where to find
@@ -1083,13 +1120,24 @@ html.mode-dark .page img {
     padding: 18px 20px;
 }
 
+/* YARN logo top left, with the source and note next to it (below it
+   on narrow screens) */
 .bc-insert-head {
     display: flex;
     flex-wrap: wrap;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 4px 16px;
-    margin-bottom: 14px;
+    align-items: center;
+    gap: 10px 18px;
+    margin-bottom: 16px;
+}
+
+.bc-insert-logo {
+    display: block;
+    height: 40px;
+    width: auto;
+}
+
+.bc-insert-head > div {
+    flex: 1 1 260px;
 }
 
 .bc-insert-source {
@@ -1097,14 +1145,9 @@ html.mode-dark .page img {
     font-size: 15px;
 }
 
-.bc-insert-source i {
-    color: var(--brand-orange);
-    margin-right: 8px;
-}
-
 .bc-insert-note {
-    margin: 0;
-    max-width: 520px;
+    margin: 2px 0 0;
+    max-width: 640px;
     font-size: 12px;
     color: var(--text-grey);
 }

@@ -1090,12 +1090,24 @@ html.mode-dark .page img {
 }
 
 .support-section > p {
-    max-width: 820px;
     margin: 0 0 10px;
 }
 
+/* one line per thought, using the full width; on narrow screens a line
+   breaks between its sentences (or clauses) first, and only within one
+   that is wider than the screen */
+.support-line {
+    display: block;
+}
+
+.support-line > span,
+.support-care > span {
+    display: inline-block;
+}
+
 .support-section > p a,
-.beatcancer-insert > a {
+.beatcancer-insert > a,
+.bc-insert-source a {
     font-weight: 600;
     text-decoration: underline;
     text-underline-offset: 2px;
@@ -1145,9 +1157,13 @@ html.mode-dark .page img {
     font-size: 15px;
 }
 
+.bc-insert-source a i {
+    margin-left: 6px;
+    font-size: 11px;
+}
+
 .bc-insert-note {
     margin: 2px 0 0;
-    max-width: 640px;
     font-size: 12px;
     color: var(--text-grey);
 }

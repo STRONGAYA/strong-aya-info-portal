@@ -166,7 +166,8 @@ function beatcancerInsertHtml(page) {
         '<img class="bc-insert-logo" src="../images/yarn-logo.png" alt="YARN – European Youth Cancer Network"' +
         ' width="119" height="40"/>' +
         '<div>' +
-        '<p class="bc-insert-source">From <b>beatcancer.eu</b></p>' +
+        '<p class="bc-insert-source">From <a href="' + BEATCANCER_URL + '" target="_blank" rel="noopener">' +
+        'beatcancer.eu' + EXTERNAL_ICON + '<span class="visually-hidden"> (opens in a new tab)</span></a></p>' +
         '<p class="bc-insert-note">Articles about this topic, picked automatically from the library of the ' +
         'European Youth Cancer Network (YARN). They open in a new tab.</p>' +
         '</div></div>' +

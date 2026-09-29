@@ -290,6 +290,24 @@ function subjectTopicIds(pageTypeId) {
     return ((PAGE_TYPES[pageTypeId] || {}).modules || []).filter(id => VISUALISATION_CONFIGS[id]);
 }
 
+// The chosen view and filters are kept during the visit (sessionStorage),
+// so every topic page opens the way the previous one was left
+const VIS_STATE_KEY = 'aya-visualisation-state';
+
+function loadVisState() {
+    try {
+        return JSON.parse(sessionStorage.getItem(VIS_STATE_KEY)) || {};
+    } catch (e) {
+        return {}; /* storage unavailable or unreadable: start with the defaults */
+    }
+}
+
+function saveVisState(changes) {
+    try {
+        sessionStorage.setItem(VIS_STATE_KEY, JSON.stringify(Object.assign(loadVisState(), changes)));
+    } catch (e) { /* storage unavailable: the choices are simply not kept */ }
+}
+
 class StrongAyaVisualisation {
     constructor(containerId, dataConfig) {
         this.containerId = containerId;
@@ -412,14 +430,34 @@ class StrongAyaVisualisation {
             
             // Remember the unfiltered counts so filters can be reset
             this.baseCounts = Object.assign({}, this.categoryCounts);
-            
-            this.render();
+
+            this.restoreState();
         } catch (error) {
             console.error('Error loading data:', error);
             this.showError('We could not load the data. Please try again later.');
         }
     }
     
+    // Open this topic the way the previous one was left: the same view
+    // and filters. A view this page cannot show (e.g. the complex icon
+    // array for two groups) falls back to the default; the choice is kept
+    // for the next page.
+    restoreState() {
+        const saved = loadVisState();
+        const filters = saved.filters || {};
+        let rendered = false;
+        if (saved.view && saved.view !== this.currentView) {
+            this.switchView(saved.view);
+            rendered = true;
+        }
+        if (Object.keys(filters).some(key => filters[key] && filters[key] !== 'all')) {
+            setFilterControls(filters);
+            this.applyFilters(filters);
+            rendered = true;
+        }
+        if (!rendered) this.render();
+    }
+
     // Data CSV format: a `category,count` header followed by one row per
     // category, e.g. `received,1830`. Counts are plain numbers of people;
     // they do not need to add up to 100.
@@ -582,6 +620,7 @@ class StrongAyaVisualisation {
         applyBtn.style.cssText = 'padding: 12px 24px; border-radius: 8px; font-family: Poppins, sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; background: #f7741e; color: white; border: none;';
         applyBtn.addEventListener('click', () => {
             this.switchView(this.pendingView || this.currentView);
+            saveVisState({ view: this.currentView });
             modal.close();
         });
         footer.appendChild(applyBtn);
@@ -1431,14 +1470,35 @@ const VISUALISATION_CONFIGS = {
     }
 };
 
+// Show an option as the chosen value of its filter in the filter bar
+function markFilterOption(wrap, option) {
+    wrap.querySelectorAll('.filter-dropdown button[data-value]').forEach(function (o) {
+        o.classList.remove('current');
+    });
+    option.classList.add('current');
+    const valueLabel = wrap.querySelector('.filter-toggle .filter-value');
+    if (valueLabel) {
+        valueLabel.textContent = option.dataset.value === 'all' ? 'All' : option.textContent.trim();
+    }
+}
+
+// Show saved filter values ({ cancerType: 'blood', sex: 'female' }) in the filter bar
+function setFilterControls(filters) {
+    Object.keys(filters).forEach(function (key) {
+        const wrap = document.querySelector(`.filter-wrap[data-filter="${key}"]`);
+        const option = wrap && wrap.querySelector(`.filter-dropdown button[data-value="${filters[key]}"]`);
+        if (option) markFilterOption(wrap, option);
+    });
+}
+
 // Wire up the working filter dropdowns (cancer type / sex) in the
 // filter bar; selecting an option updates the visualisation through
-// vis.applyFilters() using the placeholder data above
+// vis.applyFilters() using the placeholder data above, and is kept for
+// the other topic pages
 function initFilterDropdowns(vis) {
     document.querySelectorAll('.filter-wrap').forEach(function (wrap) {
         const toggle = wrap.querySelector('.filter-toggle');
         const dropdown = wrap.querySelector('.filter-dropdown');
-        const valueLabel = toggle ? toggle.querySelector('.filter-value') : null;
         if (!toggle || !dropdown) return;
         
         toggle.addEventListener('click', function (e) {
@@ -1454,19 +1514,14 @@ function initFilterDropdowns(vis) {
         
         dropdown.querySelectorAll('button[data-value]').forEach(function (option) {
             option.addEventListener('click', function () {
-                dropdown.querySelectorAll('button[data-value]').forEach(function (o) {
-                    o.classList.remove('current');
-                });
-                option.classList.add('current');
-                if (valueLabel) {
-                    valueLabel.textContent = option.dataset.value === 'all' ? 'All' : option.textContent.trim();
-                }
+                markFilterOption(wrap, option);
                 dropdown.hidden = true;
                 toggle.setAttribute('aria-expanded', 'false');
                 
                 const update = {};
                 update[wrap.dataset.filter] = option.dataset.value;
                 vis.applyFilters(update);
+                saveVisState({ filters: vis.filters });
             });
         });
         

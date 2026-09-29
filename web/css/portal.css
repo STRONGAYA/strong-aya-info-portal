@@ -1169,6 +1169,11 @@ html.mode-dark .page img {
     color: var(--text-grey);
 }
 
+/* the credit line breaks between its sentences first */
+.bc-insert-note > span {
+    display: inline-block;
+}
+
 .bc-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));

@@ -72,6 +72,11 @@ Which articles a page shows is set in `data/beatcancer_topics.json`. Per page (t
 `exclude_types` and `exclude_title_words` skip articles that do not suit the pages (e.g. research papers, or
 articles for caregivers or about the end of life), and `resources_per_page` sets the number of articles.
 
+The titles, summaries, images and YARN logo belong to beatcancer.eu, which is run by Pagalbos onkologiniams ligoniams
+asociacija (POLA), and the pages credit them as such. Its terms of use reserve all rights and ask for written
+permission to reuse its content and logos, so agree this use with them (info@beatcancer.eu) before the portal is
+published beyond testing.
+
 ## Prequisites for own application
 - ### When using the descriptive statistics algorithm (default)
   - Vantage6 server and collaboration with nodes running on version 4.x.x

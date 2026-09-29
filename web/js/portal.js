@@ -201,6 +201,8 @@ function beatcancerInsertHtml(page) {
         'beatcancer.eu' + EXTERNAL_ICON + '<span class="visually-hidden"> (opens in a new tab)</span></a></h3>' +
         '<p class="bc-insert-note">Articles about this topic, picked automatically from the library of the ' +
         'European Youth Cancer Network (YARN). They open in a new tab.</p>' +
+        '<p class="bc-insert-note"><span>Titles, summaries, images and&nbsp;logo: beatcancer.eu (YARN).</span> ' +
+        '<span>All rights belong to them.</span></p>' +
         '</div></div>' +
         '<ul class="bc-cards">' + cards.join('') + '</ul>' +
         (topics.length ? '<p class="bc-insert-more"><span>More on beatcancer.eu:</span>' + topics.join('') + '</p>' : '');

@@ -651,7 +651,7 @@ html.mode-dark .page img {
     flex-shrink: 0;
 }
 
-.own-data-card h3 {
+.own-data-card h2 {
     color: var(--brand-orange);
     font-size: 17px;
     font-weight: 600;
@@ -1155,6 +1155,7 @@ html.mode-dark .page img {
 .bc-insert-source {
     margin: 0;
     font-size: 15px;
+    font-weight: 400;
 }
 
 .bc-insert-source a i {
@@ -1223,7 +1224,7 @@ html.mode-dark .page img {
 .bc-card-type {
     align-self: flex-start;
     background: rgba(247, 116, 30, 0.1);
-    color: var(--brand-orange);
+    color: var(--text-dark);
     border-radius: 10px;
     padding: 1px 8px;
     font-size: 11px;
@@ -1491,7 +1492,7 @@ html.mode-dark .page img {
     min-width: 0;
 }
 
-.legend-container h4 {
+.legend-container h2 {
     margin: 0 0 10px;
     font-size: 14px;
 }
@@ -1680,7 +1681,7 @@ html.mode-dark .page img {
     margin-bottom: 0;
 }
 
-.footer-col h4 {
+.footer-col h2 {
     font-size: 14px;
     font-weight: 600;
     margin: 0 0 12px;

@@ -476,7 +476,7 @@ class StrongAyaVisualisation {
                 selectorBtn.type = 'button';
                 selectorBtn.className = 'filter-btn view-selection-btn';
                 selectorBtn.innerHTML = this.getViewButtonLabel();
-                selectorBtn.title = 'Click to select visualisation type';
+                selectorBtn.setAttribute('aria-haspopup', 'dialog');
                 selectorBtn.addEventListener('click', () => this.openViewSelectorModal());
                 filterBar.appendChild(selectorBtn);
             }
@@ -674,7 +674,6 @@ class StrongAyaVisualisation {
         const filterBarBtn = document.querySelector('.vis-card .filter-bar .view-selection-btn');
         if (filterBarBtn) {
             filterBarBtn.innerHTML = this.getViewButtonLabel();
-            filterBarBtn.title = 'Current view: ' + this.getCurrentViewName() + ' — click to change';
         }
         
         // Keep the modal cards in sync for the next open
@@ -781,12 +780,10 @@ class StrongAyaVisualisation {
         let iconRows = '';
         let combinedIcons = '';
         let legendItems = '';
-        const summaryParts = [];
         
         this.legendData.forEach(category => {
             const count = this.categoryCounts[category.id] || 0;
             const percentage = this.totalCount > 0 ? Math.round((count / this.totalCount) * 100) : 0;
-            summaryParts.push(`${category.label}: ${count} of ${this.totalCount}`);
             
             // Generate icons for this category
             const icons = this.generateIconHTML(count, category.color);
@@ -816,7 +813,7 @@ class StrongAyaVisualisation {
         
         // The simple grid is one image to a screen reader: a single
         // description instead of 100 individual (decorative) icons
-        const summary = `Icon array of ${this.totalCount} people. ${summaryParts.join('. ')}.`;
+        const summary = this.accessibleSummary('Icon array').replace(/"/g, '&quot;');
         const iconArea = isComplex
             ? `<div class="icon-array-container">${iconRows}</div>`
             : `<div class="icon-array-grid" role="img" aria-label="${summary}">${combinedIcons}</div>`;
@@ -833,13 +830,24 @@ class StrongAyaVisualisation {
                 </div>
                 
                 <div class="legend-container">
-                    <h4>Legend</h4>
+                    <h2>Legend</h2>
                     <div class="legend-items">
                         ${legendItems}
                     </div>
                 </div>
             </div>
         `;
+    }
+    
+    // One description of the whole figure for screen readers, e.g. "Icon
+    // array of 100 people. 27 out of 100: People who say ...". The icons,
+    // slices or bars themselves are hidden from assistive technology.
+    accessibleSummary(kind) {
+        const parts = this.legendData.map(category => {
+            const count = this.categoryCounts[category.id] || 0;
+            return `${count} out of ${this.totalCount}: ${category.description || category.label}`;
+        });
+        return `${kind} of ${this.totalCount} people. ${parts.join('. ')}.`;
     }
     
     generateIconHTML(count, color) {
@@ -875,7 +883,7 @@ class StrongAyaVisualisation {
     // topics' CSVs are loaded the first time the table is shown.
     renderTable() {
         if (!this.subjectTopics) {
-            this.visArea.innerHTML = '<p class="vis-loading">Loading the table…</p>';
+            this.visArea.innerHTML = '<p class="vis-loading" role="status">Loading the table…</p>';
             this.subjectTopicsRequest = this.subjectTopicsRequest || this.loadSubjectTopics().then(() => {
                 if (this.currentView === 'table') this.render();
             });
@@ -1007,11 +1015,13 @@ class StrongAyaVisualisation {
         wrapper.className = 'visualisation-wrapper';
         
         const chartDiv = document.createElement('div');
+        chartDiv.setAttribute('role', 'img');
+        chartDiv.setAttribute('aria-label', this.accessibleSummary('Pie chart'));
         
         const legendDiv = document.createElement('div');
         legendDiv.className = 'legend-container';
         legendDiv.innerHTML = `
-            <h4>Legend</h4>
+            <h2>Legend</h2>
             <div class="legend-items">
                 ${this.legendData.map(c => this.generateLegendItemHTML(c)).join('')}
             </div>
@@ -1087,11 +1097,13 @@ class StrongAyaVisualisation {
         wrapper.className = 'visualisation-wrapper';
         
         const chartDiv = document.createElement('div');
+        chartDiv.setAttribute('role', 'img');
+        chartDiv.setAttribute('aria-label', this.accessibleSummary('Bar chart'));
         
         const legendDiv = document.createElement('div');
         legendDiv.className = 'legend-container';
         legendDiv.innerHTML = `
-            <h4>Legend</h4>
+            <h2>Legend</h2>
             <div class="legend-items">
                 ${this.legendData.map(c => this.generateLegendItemHTML(c)).join('')}
             </div>

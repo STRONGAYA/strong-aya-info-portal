@@ -168,7 +168,7 @@ function beatcancerInsertHtml(page) {
             '<div class="bc-card-media">' + image + '</div>' +
             '<div class="bc-card-body">' +
             (r.type ? '<span class="bc-card-type">' + escapeHtml(r.type) + '</span>' : '') +
-            '<h3 class="bc-card-title">' + beatcancerLink(r.url, escapeHtml(r.title)) + '</h3>' +
+            '<h4 class="bc-card-title">' + beatcancerLink(r.url, escapeHtml(r.title)) + '</h4>' +
             (r.excerpt ? '<p class="bc-card-excerpt">' + escapeHtml(r.excerpt) + '</p>' : '') +
             '<p class="bc-card-meta"><span>' + meta + '</span>' + EXTERNAL_ICON + '</p>' +
             '</div></li>';
@@ -186,8 +186,8 @@ function beatcancerInsertHtml(page) {
         '<img class="bc-insert-logo" src="../images/yarn-logo.png" alt="YARN – European Youth Cancer Network"' +
         ' width="119" height="40"/>' +
         '<div>' +
-        '<p class="bc-insert-source">From <a href="' + BEATCANCER_URL + '" target="_blank" rel="noopener">' +
-        'beatcancer.eu' + EXTERNAL_ICON + '<span class="visually-hidden"> (opens in a new tab)</span></a></p>' +
+        '<h3 class="bc-insert-source">From <a href="' + BEATCANCER_URL + '" target="_blank" rel="noopener">' +
+        'beatcancer.eu' + EXTERNAL_ICON + '<span class="visually-hidden"> (opens in a new tab)</span></a></h3>' +
         '<p class="bc-insert-note">Articles about this topic, picked automatically from the library of the ' +
         'European Youth Cancer Network (YARN). They open in a new tab.</p>' +
         '</div></div>' +
@@ -292,6 +292,37 @@ document.addEventListener('DOMContentLoaded', function () {
         };
         link.addEventListener('mouseenter', placeTooltip);
         link.addEventListener('focus', placeTooltip);
+    });
+
+    // --- Tooltips for screen readers ---
+    // A tooltip (data-tooltip) only shows on hover or keyboard focus, so
+    // screen readers get its text too: as the description of a control
+    // or link, or as hidden text in other elements. "Coming soon"
+    // controls are marked as unavailable. The name stays the visible
+    // text, so the tooltip is not read twice.
+    const tooltipIds = {};
+    document.querySelectorAll('[data-tooltip]').forEach(function (el) {
+        const text = el.dataset.tooltip;
+        if (!el.matches('a[href], button, [tabindex]')) {
+            const hidden = document.createElement('span');
+            hidden.className = 'visually-hidden';
+            hidden.textContent = ' (' + text + ')';
+            el.appendChild(hidden);
+            return;
+        }
+        if (!tooltipIds[text]) {
+            const note = document.createElement('span');
+            note.id = 'tooltip-text-' + (Object.keys(tooltipIds).length + 1);
+            note.hidden = true;
+            note.textContent = text;
+            document.body.appendChild(note);
+            tooltipIds[text] = note.id;
+        }
+        el.setAttribute('aria-describedby', tooltipIds[text]);
+        const image = el.querySelector('img[alt]');
+        const name = el.textContent.trim() || (image ? image.alt : '');
+        if (name && !el.hasAttribute('aria-label')) el.setAttribute('aria-label', name);
+        if (text === 'Coming soon') el.setAttribute('aria-disabled', 'true');
     });
 
     // --- Accessibility modes (contrast / dark) ---

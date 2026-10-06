@@ -1784,6 +1784,23 @@ html.mode-dark .page img {
         padding-right: 16px;
     }
 
+    /* the strip's negative top margin is tuned for the 40px desktop
+       page padding; with the 16px padding below it would sit on top
+       of the purple notice banner, so keep clear of it and let the
+       buttons wrap instead of squeezing on one line */
+    .accessibility-strip {
+        margin: 0 0 12px;
+    }
+
+    .accessibility-bar {
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+
+    .access-btn {
+        padding: 4px 8px;
+    }
+
     .site-nav {
         gap: 14px;
     }

@@ -69,6 +69,10 @@ Which articles a page shows is set in `data/beatcancer_topics.json`. Per page (t
 - `keywords`: groups of whole words or phrases; articles with a word of the first group in their title come first,
   then those of the next group, and so on (the newest first).
 
+The article images come from beatcancer.eu's image service at 640 pixels wide (`image`). That service sometimes
+fails to make this size of an image; the page then loads the 384-pixel version its own cards use (`image_fallback`)
+instead, and leaves the image out if that fails too.
+
 `exclude_types` and `exclude_title_words` skip articles that do not suit the pages (e.g. research papers, or
 articles for caregivers or about the end of life), and `resources_per_page` sets the number of articles.
 

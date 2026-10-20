@@ -194,8 +194,12 @@ function beatcancerInsertHtml(page, national, country) {
     const articles = (page.resources || []).filter(function (r) {
         return isBeatcancerUrl(r.url);
     }).map(function (r) {
+        // the smaller version of the image, used only when this one fails (see watchArticleImages)
+        const fallback = isBeatcancerUrl(r.image_fallback) && r.image_fallback !== r.image
+            ? ' data-fallback="' + escapeHtml(r.image_fallback) + '"' : '';
         const image = isBeatcancerUrl(r.image)
-            ? '<img src="' + escapeHtml(r.image) + '" alt="" loading="lazy" referrerpolicy="no-referrer"/>'
+            ? '<img src="' + escapeHtml(r.image) + '" alt="" loading="lazy" referrerpolicy="no-referrer" data-article-image' +
+                fallback + '/>'
             : '';
         const meta = [r.topic, formatMonth(r.date)].filter(Boolean).map(escapeHtml).join(' · ');
         return '<li class="bc-card">' +
@@ -267,6 +271,51 @@ function supportNationalHtml(national) {
     return 'In ' + escapeHtml(national.countryInProse) + ', there is also ' +
         externalLink(national.url, nativeText(national.name, national.lang), hostOf(national.url)) +
         (national.organisation !== national.name ? ' (' + nativeText(national.organisation, national.lang) + ')' : '') + '.';
+}
+
+// Article images come from beatcancer.eu's image service, which sometimes
+// fails to make the 640-pixel version of an image: it answers with an
+// error, or not at all. The image is then loaded once more in the size
+// beatcancer.eu's own cards use (data-fallback), and left out when that
+// fails too, so the tile shows its plain background instead of a broken
+// image. "Not at all" means: not loaded IMAGE_TIMEOUT_MS after the image
+// came into view (the images load lazily, only near the screen).
+const IMAGE_TIMEOUT_MS = 10000;
+
+function watchArticleImages(root) {
+    root.querySelectorAll('img[data-article-image]').forEach(function (img) {
+        let timer = null;
+        let inView = false;
+        const wait = function () {
+            clearTimeout(timer);
+            timer = setTimeout(function () {
+                if (img.isConnected && !(img.complete && img.naturalWidth)) giveUp();
+            }, IMAGE_TIMEOUT_MS);
+        };
+        const giveUp = function () {
+            clearTimeout(timer);
+            if (!img.isConnected) return; // the block was drawn again meanwhile
+            const fallback = img.getAttribute('data-fallback');
+            if (fallback) {
+                img.removeAttribute('data-fallback');
+                img.src = fallback;
+                if (inView) wait();
+            } else {
+                img.remove();
+            }
+        };
+        img.addEventListener('error', giveUp);
+        img.addEventListener('load', function () { clearTimeout(timer); });
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver(function (entries) {
+                if (!entries.some(function (e) { return e.isIntersecting; })) return;
+                observer.disconnect();
+                inView = true;
+                if (!img.complete) wait();
+            });
+            observer.observe(img);
+        }
+    });
 }
 
 // A button in the beatcancer.eu block that opens the Country dialog
@@ -1078,7 +1127,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 const country = currentCountry();
                 const site = national && country.code ? pickNationalResource(national, country.code) : null;
                 const html = beatcancerInsertHtml(page, site, national ? country : null);
-                if (html) beatcancerInsert.innerHTML = html;
+                if (html) {
+                    beatcancerInsert.innerHTML = html;
+                    watchArticleImages(beatcancerInsert);
+                }
                 if (supportNational) {
                     supportNational.innerHTML = site ? supportNationalHtml(site) : '';
                     supportNational.hidden = !site;

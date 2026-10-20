@@ -16,6 +16,9 @@ USER_AGENT = 'STRONG-AYA-info-portal (+https://github.com/STRONGAYA/strong-aya-i
 REQUEST_DELAY = 1  # seconds between requests, to go easy on the website
 MAX_PAGES = 100
 THUMBNAIL_WIDTH = '640w'  # the resized image beatcancer.eu itself serves for its cards
+# beatcancer.eu's image service sometimes fails to make the 640-pixel version of an image (an error, or no
+# answer); the pages then load this smaller version, which its own cards use, instead
+FALLBACK_WIDTH = '384w'
 
 
 class ListingParser(HTMLParser):
@@ -48,7 +51,7 @@ class ListingParser(HTMLParser):
             self._link = href if re.fullmatch(r'/resources/[^/?#]+/', href) else None
         elif tag == 'article' and self._link:
             self._card = {'url': urljoin(BASE_URL, self._link), 'title': '', 'excerpt': '', 'type': '',
-                          'topics': [], 'date': '', 'image': ''}
+                          'topics': [], 'date': '', 'image': '', 'image_fallback': ''}
         elif self._card is not None:
             if tag == 'h3':
                 self._start_field(tag, 'title')
@@ -64,6 +67,7 @@ class ListingParser(HTMLParser):
                 self._card['date'] = (attrs.get('datetime') or '')[:10]
             elif tag == 'img':
                 self._card['image'] = _thumbnail(attrs)
+                self._card['image_fallback'] = _thumbnail(attrs, FALLBACK_WIDTH, use_src=False)
 
     def handle_endtag(self, tag):
         if self._field and tag == self._field[0]:
@@ -97,12 +101,13 @@ class ListingParser(HTMLParser):
             self._card[field] = text
 
 
-def _thumbnail(attrs):
+def _thumbnail(attrs, width=THUMBNAIL_WIDTH, use_src=True):
+    """The address of the card image in the given width from its srcset, else (use_src) its src, else ''."""
     for candidate in (attrs.get('srcset') or '').split(','):
         parts = candidate.split()
-        if len(parts) == 2 and parts[1] == THUMBNAIL_WIDTH:
+        if len(parts) == 2 and parts[1] == width:
             return urljoin(BASE_URL, parts[0])
-    return urljoin(BASE_URL, attrs['src']) if attrs.get('src') else ''
+    return urljoin(BASE_URL, attrs['src']) if use_src and attrs.get('src') else ''
 
 
 def fetch(url):
@@ -220,7 +225,8 @@ def build_resource_lists(resources, topic_ids, config):
             'topics': [{'label': topic, 'url': f'{LISTING_URL}?topic={topic_ids[topic]}', 'count': counts[topic]}
                        for topic in page['topics']],
             'resources': [{'title': r['title'], 'url': r['url'], 'excerpt': _tidy_excerpt(r['excerpt']), 'type': r['type'],
-                           'topic': r['topics'][0] if r['topics'] else '', 'date': r['date'], 'image': r['image']}
+                           'topic': r['topics'][0] if r['topics'] else '', 'date': r['date'], 'image': r['image'],
+                           'image_fallback': r['image_fallback']}
                           for r in pick_resources(resources, page, config)],
         }
     return {'source': LISTING_URL, 'pages': pages}

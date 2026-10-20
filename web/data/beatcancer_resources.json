@@ -22,7 +22,8 @@
           "type": "Article",
           "topic": "Quality of Life",
           "date": "2026-08-18",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2024%2F10%2Fwhat-not-to-do-during-chemotherapy.webp&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2024%2F10%2Fwhat-not-to-do-during-chemotherapy.webp&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2024%2F10%2Fwhat-not-to-do-during-chemotherapy.webp&w=384&q=75"
         },
         {
           "title": "How to Sleep with a Chemo Port: Comfort Tips That Actually Work",
@@ -31,7 +32,8 @@
           "type": "Article",
           "topic": "Quality of Life",
           "date": "2026-06-06",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2026%2F04%2F15-1-sleeping-mok3td9wdruh.jpg&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2026%2F04%2F15-1-sleeping-mok3td9wdruh.jpg&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2026%2F04%2F15-1-sleeping-mok3td9wdruh.jpg&w=384&q=75"
         },
         {
           "title": "How Long Does Chemo Take? Timelines, Cycles, and What to Expect",
@@ -40,7 +42,8 @@
           "type": "Article",
           "topic": "Quality of Life",
           "date": "2026-06-05",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2026%2F05%2F24-1-chemo-time-moslfmo27j0o.jpg&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2026%2F05%2F24-1-chemo-time-moslfmo27j0o.jpg&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2026%2F05%2F24-1-chemo-time-moslfmo27j0o.jpg&w=384&q=75"
         }
       ]
     },
@@ -65,7 +68,8 @@
           "type": "Article",
           "topic": "Nutrition",
           "date": "2024-11-06",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2024%2F10%2Ffoods-to-avoid-during-radiation-therapy.jpeg&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2024%2F10%2Ffoods-to-avoid-during-radiation-therapy.jpeg&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2024%2F10%2Ffoods-to-avoid-during-radiation-therapy.jpeg&w=384&q=75"
         },
         {
           "title": "Nourishing Your Recovery: A Healthy Diet After Radiation Therapy",
@@ -74,7 +78,8 @@
           "type": "Article",
           "topic": "Nutrition",
           "date": "2023-07-21",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2023%2F07%2FProtein-healthy-diet-after-radiation-therapy.webp&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2023%2F07%2FProtein-healthy-diet-after-radiation-therapy.webp&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2023%2F07%2FProtein-healthy-diet-after-radiation-therapy.webp&w=384&q=75"
         },
         {
           "title": "Effective Tips for Coping with Cancer Side Effects and Improving Your Well-Being",
@@ -83,7 +88,8 @@
           "type": "Article",
           "topic": "Quality of Life",
           "date": "2025-05-21",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fman-practicing-mindfulness-outdoors.jpeg&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fman-practicing-mindfulness-outdoors.jpeg&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fman-practicing-mindfulness-outdoors.jpeg&w=384&q=75"
         }
       ]
     },
@@ -108,7 +114,8 @@
           "type": "Article",
           "topic": "Quality of Life",
           "date": "2025-05-21",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fman-practicing-mindfulness-outdoors.jpeg&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fman-practicing-mindfulness-outdoors.jpeg&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fman-practicing-mindfulness-outdoors.jpeg&w=384&q=75"
         },
         {
           "title": "Are There Medications to Manage Lingering Side Effects? Find Expert Tips for Relief",
@@ -117,7 +124,8 @@
           "type": "Article",
           "topic": "Late Effects of Treatment",
           "date": "2025-03-19",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fbottles-of-medication-for-managing-side-effects.jpeg&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fbottles-of-medication-for-managing-side-effects.jpeg&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fbottles-of-medication-for-managing-side-effects.jpeg&w=384&q=75"
         },
         {
           "title": "Long-Term Side Effects of Cancer Treatment: What Survivors Need to Know",
@@ -126,7 +134,8 @@
           "type": "Article",
           "topic": "Late Effects of Treatment",
           "date": "2025-02-04",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fcancer-survivor-contemplating-recovery.jpeg&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fcancer-survivor-contemplating-recovery.jpeg&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fcancer-survivor-contemplating-recovery.jpeg&w=384&q=75"
         }
       ]
     },
@@ -151,7 +160,8 @@
           "type": "Article",
           "topic": "Mental Health",
           "date": "2026-04-23",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2026%2F04%2F06-1-emotion-stages-mo4an6qqw18z.jpg&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2026%2F04%2F06-1-emotion-stages-mo4an6qqw18z.jpg&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2026%2F04%2F06-1-emotion-stages-mo4an6qqw18z.jpg&w=384&q=75"
         },
         {
           "title": "Fear of Cancer Recurrence and Survivor Guilt: The Emotions Nobody Warns You About",
@@ -160,7 +170,8 @@
           "type": "Article",
           "topic": "Mental Health",
           "date": "2026-04-22",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2026%2F04%2F7-1-cancer-recurrencejpg-mo4i5lb7f150.jpg&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2026%2F04%2F7-1-cancer-recurrencejpg-mo4i5lb7f150.jpg&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2026%2F04%2F7-1-cancer-recurrencejpg-mo4i5lb7f150.jpg&w=384&q=75"
         },
         {
           "title": "Emotional Healing After Cancer: Strategies to Rebuild Confidence and Find Joy Again",
@@ -169,7 +180,8 @@
           "type": "Article",
           "topic": "Psychosocial Care",
           "date": "2025-04-27",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fsupport-and-comfort-in-healing.jpeg&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fsupport-and-comfort-in-healing.jpeg&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fsupport-and-comfort-in-healing.jpeg&w=384&q=75"
         }
       ]
     },
@@ -194,7 +206,8 @@
           "type": "Article",
           "topic": "OACCUs",
           "date": "2025-12-03",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Foaccus%2Fmobility-training-during-cancer-recovery.jpg&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Foaccus%2Fmobility-training-during-cancer-recovery.jpg&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Foaccus%2Fmobility-training-during-cancer-recovery.jpg&w=384&q=75"
         },
         {
           "title": "Strength, Mobility & Core Exercise Library for Young Cancer Survivors",
@@ -203,7 +216,8 @@
           "type": "Article",
           "topic": "OACCUs",
           "date": "2025-12-02",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Foaccus%2Fexercise-library-for-cancer-patients-and-survivors.jpg&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Foaccus%2Fexercise-library-for-cancer-patients-and-survivors.jpg&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Foaccus%2Fexercise-library-for-cancer-patients-and-survivors.jpg&w=384&q=75"
         },
         {
           "title": "Endurance Training Exercises for Young Cancer Survivors",
@@ -212,7 +226,8 @@
           "type": "Article",
           "topic": "OACCUs",
           "date": "2025-12-01",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Foaccus%2Fendurance-training-guidelinessquat-jumppop-squatskaterboxing-front-punchesjumping-jackjumping-lungeskippingbutt-kicksscissor-drilltoe-tapalternating-toe-touchaerobics-cross-stepaerobics-v-step.jpg&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Foaccus%2Fendurance-training-guidelinessquat-jumppop-squatskaterboxing-front-punchesjumping-jackjumping-lungeskippingbutt-kicksscissor-drilltoe-tapalternating-toe-touchaerobics-cross-stepaerobics-v-step.jpg&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Foaccus%2Fendurance-training-guidelinessquat-jumppop-squatskaterboxing-front-punchesjumping-jackjumping-lungeskippingbutt-kicksscissor-drilltoe-tapalternating-toe-touchaerobics-cross-stepaerobics-v-step.jpg&w=384&q=75"
         }
       ]
     },
@@ -237,7 +252,8 @@
           "type": "Article",
           "topic": "Transition",
           "date": "2025-04-19",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fsupportive-resources-for-cancer-survivors-returning-to-work.jpeg&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fsupportive-resources-for-cancer-survivors-returning-to-work.jpeg&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fsupportive-resources-for-cancer-survivors-returning-to-work.jpeg&w=384&q=75"
         },
         {
           "title": "Returning to Work or School After Cancer: A Comprehensive Guide",
@@ -246,7 +262,8 @@
           "type": "Article",
           "topic": "Survivorship",
           "date": "2023-11-25",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2023%2F11%2FReturning-to-Work-or-School-After-Cancer-A-Comprehensive-Guide.png&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2023%2F11%2FReturning-to-Work-or-School-After-Cancer-A-Comprehensive-Guide.png&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2023%2F11%2FReturning-to-Work-or-School-After-Cancer-A-Comprehensive-Guide.png&w=384&q=75"
         },
         {
           "title": "Cancer and Employment Rights: Working During Treatment and What to Know",
@@ -255,7 +272,8 @@
           "type": "Article",
           "topic": "Policy",
           "date": "2026-05-13",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2026%2F04%2F18-1-rights-mojyfh2pk7a4.jpg&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2026%2F04%2F18-1-rights-mojyfh2pk7a4.jpg&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2026%2F04%2F18-1-rights-mojyfh2pk7a4.jpg&w=384&q=75"
         }
       ]
     },
@@ -280,7 +298,8 @@
           "type": "Article",
           "topic": "Mental Health",
           "date": "2025-02-12",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fcoping-with-cancer-recurrence-anxiety.jpeg&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fcoping-with-cancer-recurrence-anxiety.jpeg&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fcoping-with-cancer-recurrence-anxiety.jpeg&w=384&q=75"
         },
         {
           "title": "Effective Strategies to Manage Anxiety and Depression: Tips for Better Mental Health",
@@ -289,7 +308,8 @@
           "type": "Article",
           "topic": "Mental Health",
           "date": "2025-01-18",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fcontemplating-financial-concerns-and-mental-health.jpeg&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fcontemplating-financial-concerns-and-mental-health.jpeg&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fcontemplating-financial-concerns-and-mental-health.jpeg&w=384&q=75"
         },
         {
           "title": "Tips to Cope with Visits/Scans/Tests Anxiety (Scanxiety)",
@@ -298,7 +318,8 @@
           "type": "Article",
           "topic": "Survivorship",
           "date": "2023-11-27",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2023%2F11%2FTips-to-Cope-with-VisitsScansTests-Anxiety-Scanxiety.png&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2023%2F11%2FTips-to-Cope-with-VisitsScansTests-Anxiety-Scanxiety.png&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2023%2F11%2FTips-to-Cope-with-VisitsScansTests-Anxiety-Scanxiety.png&w=384&q=75"
         }
       ]
     },
@@ -323,7 +344,8 @@
           "type": "Article",
           "topic": "Mental Health",
           "date": "2025-02-08",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Freflective-journey-during-recovery.jpeg&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Freflective-journey-during-recovery.jpeg&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Freflective-journey-during-recovery.jpeg&w=384&q=75"
         },
         {
           "title": "Effective Strategies to Manage Anxiety and Depression: Tips for Better Mental Health",
@@ -332,7 +354,8 @@
           "type": "Article",
           "topic": "Mental Health",
           "date": "2025-01-18",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fcontemplating-financial-concerns-and-mental-health.jpeg&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fcontemplating-financial-concerns-and-mental-health.jpeg&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fcontemplating-financial-concerns-and-mental-health.jpeg&w=384&q=75"
         },
         {
           "title": "FORGOTTEN BATTLE: How Facing Cancer in My Teens Plunged Me into a Deep Depression and a Battle with PTSD",
@@ -341,7 +364,8 @@
           "type": "Article",
           "topic": "Mental Health",
           "date": "2021-02-04",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2022%2F12%2Froman-kraft-_Zua2hyvTBk-unsplash.jpg&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2022%2F12%2Froman-kraft-_Zua2hyvTBk-unsplash.jpg&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2022%2F12%2Froman-kraft-_Zua2hyvTBk-unsplash.jpg&w=384&q=75"
         }
       ]
     },
@@ -366,7 +390,8 @@
           "type": "Article",
           "topic": "Mental Health",
           "date": "2026-04-22",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2026%2F04%2F7-1-cancer-recurrencejpg-mo4i5lb7f150.jpg&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2026%2F04%2F7-1-cancer-recurrencejpg-mo4i5lb7f150.jpg&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2026%2F04%2F7-1-cancer-recurrencejpg-mo4i5lb7f150.jpg&w=384&q=75"
         },
         {
           "title": "How Do I Cope With the Fear of Cancer Coming Back? Tips for Survivors to Find Peace and Strength",
@@ -375,7 +400,8 @@
           "type": "Article",
           "topic": "Survivorship",
           "date": "2025-03-17",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fcoping-with-cancer-recurrence-anxiety.jpeg&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fcoping-with-cancer-recurrence-anxiety.jpeg&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fcoping-with-cancer-recurrence-anxiety.jpeg&w=384&q=75"
         },
         {
           "title": "From Fear to Empowerment",
@@ -384,7 +410,8 @@
           "type": "Article",
           "topic": "OACCUs",
           "date": "2024-11-21",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Foaccus%2Ffrom-fear-to-empowerment.jpg&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Foaccus%2Ffrom-fear-to-empowerment.jpg&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Foaccus%2Ffrom-fear-to-empowerment.jpg&w=384&q=75"
         }
       ]
     },
@@ -409,7 +436,8 @@
           "type": "Article",
           "topic": "Psychosocial Care",
           "date": "2026-04-18",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2026%2F04%2F05-1-support-groups-mo3yfrs7izjh.jpg&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2026%2F04%2F05-1-support-groups-mo3yfrs7izjh.jpg&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2026%2F04%2F05-1-support-groups-mo3yfrs7izjh.jpg&w=384&q=75"
         },
         {
           "title": "Find the Best Cancer Survivor Support Group Near Me for Encouragement & Recovery",
@@ -418,7 +446,8 @@
           "type": "Article",
           "topic": "Survivorship",
           "date": "2025-04-23",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fcancer-survivor-support-and-hope.jpeg&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fcancer-survivor-support-and-hope.jpeg&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fcancer-survivor-support-and-hope.jpeg&w=384&q=75"
         },
         {
           "title": "Mental Health Support for Cancer Patients: Boost Emotional Well-Being During Treatment",
@@ -427,7 +456,8 @@
           "type": "Article",
           "topic": "Mental Health",
           "date": "2025-03-11",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fexpressing-body-positivity-in-cancer-awareness.jpeg&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fexpressing-body-positivity-in-cancer-awareness.jpeg&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fexpressing-body-positivity-in-cancer-awareness.jpeg&w=384&q=75"
         }
       ]
     },
@@ -452,7 +482,8 @@
           "type": "Article",
           "topic": "Survivorship",
           "date": "2025-05-20",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fembracing-love-a-couple-journey.jpeg&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fembracing-love-a-couple-journey.jpeg&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fembracing-love-a-couple-journey.jpeg&w=384&q=75"
         },
         {
           "title": "Dating After Cancer Diagnosis: Building Confidence, Communication, and Meaningful Connections",
@@ -461,7 +492,8 @@
           "type": "Article",
           "topic": "Survivorship",
           "date": "2025-04-17",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F04%2Fdating-after-cancer.jpg&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F04%2Fdating-after-cancer.jpg&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F04%2Fdating-after-cancer.jpg&w=384&q=75"
         },
         {
           "title": "Navigating Sexuality and Romantic Relationships Among Adolescent and Young Cancer Survivors",
@@ -470,7 +502,8 @@
           "type": "Article",
           "topic": "OACCUs",
           "date": "2024-12-02",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Foaccus%2Fnavigating-sexuality-and-romantic-relationships-among-adolescent-and-young-cancer-survivors.jpg&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Foaccus%2Fnavigating-sexuality-and-romantic-relationships-among-adolescent-and-young-cancer-survivors.jpg&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Foaccus%2Fnavigating-sexuality-and-romantic-relationships-among-adolescent-and-young-cancer-survivors.jpg&w=384&q=75"
         }
       ]
     },
@@ -495,7 +528,8 @@
           "type": "Video",
           "topic": "Survivorship",
           "date": "2025-01-02",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fwebinar-sexuality-and-intimacy-for-young-cancer-survivors.png&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fwebinar-sexuality-and-intimacy-for-young-cancer-survivors.png&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fwebinar-sexuality-and-intimacy-for-young-cancer-survivors.png&w=384&q=75"
         },
         {
           "title": "Navigating Sexuality and Romantic Relationships Among Adolescent and Young Cancer Survivors",
@@ -504,7 +538,8 @@
           "type": "Article",
           "topic": "OACCUs",
           "date": "2024-12-02",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Foaccus%2Fnavigating-sexuality-and-romantic-relationships-among-adolescent-and-young-cancer-survivors.jpg&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Foaccus%2Fnavigating-sexuality-and-romantic-relationships-among-adolescent-and-young-cancer-survivors.jpg&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Foaccus%2Fnavigating-sexuality-and-romantic-relationships-among-adolescent-and-young-cancer-survivors.jpg&w=384&q=75"
         },
         {
           "title": "How Soon Can Intimacy Resume After an Orchiectomy? Recovery Timeline & Emotional Tips",
@@ -513,7 +548,8 @@
           "type": "Article",
           "topic": "Quality of Life",
           "date": "2025-01-07",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fembracing-love-a-couple-journey.jpeg&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fembracing-love-a-couple-journey.jpeg&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fembracing-love-a-couple-journey.jpeg&w=384&q=75"
         }
       ]
     },
@@ -538,7 +574,8 @@
           "type": "Article",
           "topic": "Survivorship",
           "date": "2025-03-25",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Frecovering-cancer-patient-in-hospital-bed.jpeg&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Frecovering-cancer-patient-in-hospital-bed.jpeg&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Frecovering-cancer-patient-in-hospital-bed.jpeg&w=384&q=75"
         },
         {
           "title": "Staying Connected: Nurturing Friendships Through Your Cancer Journey",
@@ -547,7 +584,8 @@
           "type": "Article",
           "topic": "Quality of Life",
           "date": "2023-12-27",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2023%2F12%2FNurturing-Friendships-Through-Your-Cancer-Journey.png&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2023%2F12%2FNurturing-Friendships-Through-Your-Cancer-Journey.png&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2023%2F12%2FNurturing-Friendships-Through-Your-Cancer-Journey.png&w=384&q=75"
         },
         {
           "title": "Cancer and the Accompanying Feeling of Loneliness",
@@ -556,7 +594,8 @@
           "type": "Article",
           "topic": "Mental Health",
           "date": "2023-09-13",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2023%2F09%2FCancer-and-the-Accompanying-Feeling-of-Loneliness.png&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2023%2F09%2FCancer-and-the-Accompanying-Feeling-of-Loneliness.png&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2023%2F09%2FCancer-and-the-Accompanying-Feeling-of-Loneliness.png&w=384&q=75"
         }
       ]
     },
@@ -581,7 +620,8 @@
           "type": "Article",
           "topic": "Quality of Life",
           "date": "2025-04-28",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fembracing-change-a-journey-of-body-image-after-cancer.jpeg&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fembracing-change-a-journey-of-body-image-after-cancer.jpeg&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fembracing-change-a-journey-of-body-image-after-cancer.jpeg&w=384&q=75"
         },
         {
           "title": "How Do I Regain Confidence After Cancer? Tips to Rebuild Self-Esteem and Emotional Strength",
@@ -590,7 +630,8 @@
           "type": "Article",
           "topic": "Survivorship",
           "date": "2025-03-16",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fconfident-woman-pointing-forward.jpeg&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fconfident-woman-pointing-forward.jpeg&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2025%2F01%2Fconfident-woman-pointing-forward.jpeg&w=384&q=75"
         },
         {
           "title": "Relationship with Yourself: Navigating Self-Love Through a Cancer Diagnosis",
@@ -599,7 +640,8 @@
           "type": "Article",
           "topic": "Quality of Life",
           "date": "2023-09-05",
-          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2023%2F09%2FSelf-Love-Through-Cancer-Diagnosis.png&w=640&q=75"
+          "image": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2023%2F09%2FSelf-Love-Through-Cancer-Diagnosis.png&w=640&q=75",
+          "image_fallback": "https://beatcancer.eu/_next/image/?url=%2Fwp-content%2Fuploads%2F2023%2F09%2FSelf-Love-Through-Cancer-Diagnosis.png&w=384&q=75"
         }
       ]
     }

@@ -182,15 +182,16 @@ function formatMonth(date) {
     return isNaN(d) ? '' : d.toLocaleDateString('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' });
 }
 
-// The framed "From beatcancer.eu" block: article cards (each opening the
-// article in a new tab) and links to the matching topics on the site;
-// '' when there is nothing to show. national is the national website
-// for the visitor's country (see below), whose card takes the place of
-// the first article; country is the visitor's country ({ code, source },
-// see currentCountry), or null when the national websites could not be
-// loaded.
+// The framed block with articles from beatcancer.eu: article cards (each
+// opening the article in a new tab) and links to the matching topics on
+// the site; '' when there is nothing to show. national is the national
+// website for the visitor's country (see below): its card, with a short
+// heading of its own, takes the place of the first article, and the
+// beatcancer.eu heading moves above the other two. country is the
+// visitor's country ({ code, source }, see currentCountry), or null when
+// the national websites could not be loaded.
 function beatcancerInsertHtml(page, national, country) {
-    const cards = (page.resources || []).filter(function (r) {
+    const articles = (page.resources || []).filter(function (r) {
         return isBeatcancerUrl(r.url);
     }).map(function (r) {
         const image = isBeatcancerUrl(r.image)
@@ -206,11 +207,9 @@ function beatcancerInsertHtml(page, national, country) {
             '<p class="bc-card-meta"><span>' + meta + '</span>' + EXTERNAL_ICON + '</p>' +
             '</div></li>';
     });
-    if (!cards.length) return '';
-    if (national) {
-        cards.pop();
-        cards.unshift(nationalCardHtml(national));
-    }
+    if (!articles.length) return '';
+    if (national && articles.length > 1) articles.pop();
+    else national = null;
 
     const topics = (page.topics || []).filter(function (t) {
         return isBeatcancerUrl(t.url);
@@ -219,36 +218,55 @@ function beatcancerInsertHtml(page, national, country) {
             '<span class="visually-hidden"> articles</span></span>' + EXTERNAL_ICON, 'bc-topic-link');
     });
 
-    const sources = '<a href="' + BEATCANCER_URL + '" target="_blank" rel="noopener">beatcancer.eu' + EXTERNAL_ICON +
-        '<span class="visually-hidden"> (opens in a new tab)</span></a>' +
-        (national ? ' and ' + externalLink(national.url, nativeText(national.organisation, national.lang) +
-            EXTERNAL_ICON, hostOf(national.url)) : '');
-    let countryNote = '';
-    if (national) {
-        countryNote = ' <span>The first card is ' + nativeText(national.name, national.lang) +
-            ', for young people with cancer in ' + escapeHtml(national.countryInProse) + ' (' +
-            COUNTRY_SOURCE_NOTE[country.source] + ').</span> ' + countryChangeButton('Change country');
-    } else if (country && !country.code) {
-        countryNote = ' <span>Is there a website for young people with cancer in your country?</span> ' +
-            countryChangeButton('Choose your country');
-    }
-    const nationalCredit = national && national.logo
-        ? ' <span>' + (national.name !== national.organisation ? nativeText(national.name, national.lang) + ' logo' : 'Logo') +
-            ': ' + nativeText(national.organisation, national.lang) + '.</span>'
+    const hint = !national && country && !country.code
+        ? ' <span>Is there a website for young people with cancer in your country?</span> ' +
+            countryChangeButton('Choose your country')
         : '';
-
-    return '<div class="bc-insert-head">' +
-        '<img class="bc-insert-logo" src="../images/yarn-logo.png" alt="YARN – European Youth Cancer Network"' +
+    const yarnGroup = '<div class="bc-group bc-group-yarn">' +
+        '<div class="bc-insert-head">' +
+        '<img class="bc-insert-logo" src="' + SITE_ROOT + 'images/yarn-logo.png" alt="YARN – European Youth Cancer Network"' +
         ' width="119" height="40"/>' +
         '<div>' +
-        '<h3 class="bc-insert-source">From ' + sources + '</h3>' +
+        '<h3 class="bc-insert-source">From <a href="' + BEATCANCER_URL + '" target="_blank" rel="noopener">beatcancer.eu' +
+        EXTERNAL_ICON + '<span class="visually-hidden"> (opens in a new tab)</span></a></h3>' +
         '<p class="bc-insert-note"><span>Articles about this topic, picked automatically from the library of the ' +
-        'European Youth Cancer Network (YARN). They open in a new tab.</span>' + countryNote + '</p>' +
+        'European Youth Cancer Network (YARN). They open in a new tab.</span>' + hint + '</p>' +
         '<p class="bc-insert-note"><span>Titles, summaries, images and&nbsp;logo: beatcancer.eu (YARN).</span> ' +
-        '<span>All rights belong to them.</span>' + nationalCredit + '</p>' +
+        '<span>All rights belong to them.</span></p>' +
         '</div></div>' +
-        '<ul class="bc-cards">' + cards.join('') + '</ul>' +
+        '<ul class="bc-cards">' + articles.join('') + '</ul>' +
+        '</div>';
+
+    let nationalGroup = '';
+    if (national) {
+        const credit = national.logo
+            ? '<p class="bc-insert-note"><span>' + (national.name !== national.organisation
+                ? nativeText(national.name, national.lang) + ' logo' : 'Logo') + ': ' +
+                nativeText(national.organisation, national.lang) + '.</span></p>'
+            : '';
+        nationalGroup = '<div class="bc-group bc-group-national">' +
+            '<div class="bc-insert-head"><div>' +
+            '<h3 class="bc-insert-source">From ' + externalLink(national.url,
+                nativeText(national.organisation, national.lang) + EXTERNAL_ICON, hostOf(national.url)) + '</h3>' +
+            '<p class="bc-insert-note"><span>A website for young people with cancer in ' +
+            escapeHtml(national.countryInProse) + COUNTRY_SOURCE_NOTE[country.source] + ' (' +
+            countryChangeButton('change country') + ').</span></p>' +
+            credit +
+            '</div></div>' +
+            '<ul class="bc-cards">' + nationalCardHtml(national) + '</ul>' +
+            '</div>';
+    }
+
+    return '<div class="bc-groups' + (national ? ' has-national' : '') + '">' + nationalGroup + yarnGroup + '</div>' +
         (topics.length ? '<p class="bc-insert-more"><span>More on beatcancer.eu:</span>' + topics.join('') + '</p>' : '');
+}
+
+// The line after "You can also meet young people with the same
+// experience at ... beatcancer.eu." about the national website
+function supportNationalHtml(national) {
+    return 'In ' + escapeHtml(national.countryInProse) + ', there is also ' +
+        externalLink(national.url, nativeText(national.name, national.lang), hostOf(national.url)) +
+        (national.organisation !== national.name ? ' (' + nativeText(national.organisation, national.lang) + ')' : '') + '.';
 }
 
 // A button in the beatcancer.eu block that opens the Country dialog
@@ -345,11 +363,12 @@ const SINGLE_COUNTRY_LANGUAGES = {
 // Country names that take an article in running text
 const COUNTRY_IN_PROSE = { NL: 'the Netherlands', GB: 'the United Kingdom' };
 
-// How the country was found, in the note above the cards
+// How the country was found, after the country name in the heading of
+// the national card (nothing when the visitor chose it)
 const COUNTRY_SOURCE_NOTE = {
-    settings: 'your country, guessed from the settings of your browser',
-    chosen: 'the country you chose',
-    position: 'your country, found with your location'
+    settings: ', guessed from the settings of your browser',
+    chosen: '',
+    position: ', found with your location'
 };
 
 // "NL" -> "Netherlands", "nl" -> "Dutch" (English names from the browser)
@@ -786,7 +805,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // Native <dialog> + showModal(): the browser moves focus into the
     // dialog, keeps it there, closes on Escape and returns focus to the
     // button that opened it — no custom focus management needed.
-    function openPortalModal(title, intro, bodyHtml) {
+    // action: optional { label, run } for a dialog that changes a
+    // setting: its footer then has Cancel and an orange action button
+    // (as in the View dialog) instead of Close
+    function openPortalModal(title, intro, bodyHtml, action) {
         let dialog = document.getElementById('portal-modal');
         if (!dialog) {
             dialog = document.createElement('dialog');
@@ -803,16 +825,27 @@ document.addEventListener('DOMContentLoaded', function () {
             // the bounds check keeps clicks on the dialog's own padding
             // from closing it
             dialog.addEventListener('click', function (e) {
+                if (e.target.closest && e.target.closest('.modal-close')) {
+                    dialog.close();
+                    return;
+                }
+                if (e.target.closest && e.target.closest('.modal-action')) {
+                    if (dialog.portalAction) dialog.portalAction();
+                    dialog.close();
+                    return;
+                }
                 if (e.target !== dialog) return;
                 const r = dialog.getBoundingClientRect();
                 if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) {
                     dialog.close();
                 }
             });
-            dialog.querySelector('.modal-close').addEventListener('click', function () {
-                dialog.close();
-            });
         }
+        dialog.querySelector('.modal-footer').innerHTML = action
+            ? '<button type="button" class="modal-close modal-cancel">Cancel</button>' +
+                '<button type="button" class="modal-action">' + escapeHtml(action.label) + '</button>'
+            : '<button type="button" class="modal-close">Close</button>';
+        dialog.portalAction = action ? action.run : null;
         dialog.querySelector('h3').textContent = title;
         dialog.querySelector('.modal-intro').textContent = intro;
         dialog.querySelector('.modal-body').innerHTML = bodyHtml;
@@ -883,20 +916,25 @@ document.addEventListener('DOMContentLoaded', function () {
         document.dispatchEvent(new CustomEvent('aya-countrychange'));
     }
 
-    // What the country means for the topic pages (HTML)
-    function countryResultHtml(country, national) {
+    // What the country means for the topic pages (HTML); pending: the
+    // visitor picked it in the dialog but has not applied it yet
+    function countryResultHtml(country, national, pending) {
         if (!country.code) return 'Choose your country from the list.';
+        const show = pending ? 'will show' : 'show';
         const site = national && pickNationalResource(national, country.code);
+        let result;
         if (!site) {
-            return country.code === OUTSIDE_EUROPE || !national
-                ? 'The topic pages show the articles from beatcancer.eu.'
+            result = country.code === OUTSIDE_EUROPE || !national
+                ? 'The topic pages ' + show + ' the articles from beatcancer.eu.'
                 : 'There is no national website for ' + escapeHtml(countryInProse(country.code)) +
-                    ' that is referenced in this portal yet: the topic pages show the articles from beatcancer.eu.';
+                    ' that is referenced in this portal yet: the topic pages ' + show + ' the articles from beatcancer.eu.';
+        } else {
+            result = 'The topic pages ' + show + ' ' + nativeText(site.name, site.lang) +
+                (site.organisation && site.organisation !== site.name
+                    ? ' (' + nativeText(site.organisation, site.lang) + ')' : '') +
+                ' next to the articles from beatcancer.eu.';
         }
-        return 'The topic pages show ' + nativeText(site.name, site.lang) +
-            (site.organisation && site.organisation !== site.name
-                ? ' (' + nativeText(site.organisation, site.lang) + ')' : '') +
-            ' next to the articles from beatcancer.eu.';
+        return result + (pending ? ' <strong>Press Apply to use this country.</strong>' : '');
     }
 
     const COUNTRY_SOURCE_STATUS = {
@@ -933,17 +971,27 @@ document.addEventListener('DOMContentLoaded', function () {
                 'this device, to find your country, and does not send or store it.</p>' +
                 '</div>'
                 : '') +
-            '</div>'
+            '</div>',
+            { label: 'Apply', run: function () { applyChoice(); } }
         );
         const dialog = document.getElementById('portal-modal');
         const select = dialog.querySelector('.country-select');
         const status = dialog.querySelector('.country-status');
         const locateButton = dialog.querySelector('.country-locate-btn');
+        const applyButton = dialog.querySelector('.modal-action');
         if (country.code) select.value = country.code;
+        applyButton.disabled = !select.value;
+        // what Apply stores: the selected country, found with the
+        // location or chosen from the list
+        let pendingSource = country.source === 'settings' ? 'chosen' : country.source;
+        const applyChoice = function () {
+            const code = select.value === OUTSIDE_EUROPE ? OUTSIDE_EUROPE : europeanCountry(select.value);
+            if (code) setCountry(code, pendingSource);
+        };
 
-        const showStatus = function (lead, shown) {
+        const showStatus = function (lead, shown, pending) {
             const show = function (national) {
-                status.innerHTML = (lead ? escapeHtml(lead) + ' ' : '') + countryResultHtml(shown, national);
+                status.innerHTML = (lead ? escapeHtml(lead) + ' ' : '') + countryResultHtml(shown, national, pending);
             };
             loadJson(NATIONAL_RESOURCES_URL).then(show, function () { show(null); });
         };
@@ -956,8 +1004,9 @@ document.addEventListener('DOMContentLoaded', function () {
             const code = select.value === OUTSIDE_EUROPE ? OUTSIDE_EUROPE : europeanCountry(select.value);
             if (!code) return;
             choices += 1;
-            setCountry(code, 'chosen');
-            showStatus('', { code: code, source: 'chosen' });
+            pendingSource = 'chosen';
+            applyButton.disabled = false;
+            showStatus('', { code: code, source: 'chosen' }, true);
         });
 
         if (locateButton) {
@@ -969,11 +1018,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 const done = function () { locating = false; };
                 locateCountry().then(function (code) {
                     if (choices !== before) return; // the visitor chose a country meanwhile
-                    setCountry(code, 'position');
                     select.value = code;
+                    pendingSource = 'position';
+                    applyButton.disabled = false;
                     showStatus(code === OUTSIDE_EUROPE
                         ? 'Your location is outside Europe.'
-                        : 'Found with your location: ' + countryName(code) + '.', { code: code, source: 'position' });
+                        : 'Found with your location: ' + countryName(code) + '.', { code: code, source: 'position' }, true);
                 }, function (reason) {
                     if (choices !== before) return;
                     status.textContent = reason === 'denied'
@@ -1014,11 +1064,25 @@ document.addEventListener('DOMContentLoaded', function () {
             const page = results[0].pages && results[0].pages[pageId];
             const national = results[1];
             if (!page) return;
+            const community = document.querySelector('.support-section a[href^="https://beatcancer.eu/community"]');
+            const supportLine = community && community.closest('.support-line');
+            let supportNational = null;
+            if (supportLine) {
+                // its own line, right after the one about beatcancer.eu
+                supportNational = document.createElement('span');
+                supportNational.className = 'support-line support-national';
+                supportNational.hidden = true;
+                supportLine.after(supportNational);
+            }
             const render = function () {
                 const country = currentCountry();
                 const site = national && country.code ? pickNationalResource(national, country.code) : null;
                 const html = beatcancerInsertHtml(page, site, national ? country : null);
                 if (html) beatcancerInsert.innerHTML = html;
+                if (supportNational) {
+                    supportNational.innerHTML = site ? supportNationalHtml(site) : '';
+                    supportNational.hidden = !site;
+                }
             };
             render();
             document.addEventListener('aya-countrychange', render);

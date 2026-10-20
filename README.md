@@ -79,7 +79,8 @@ published beyond testing.
 
 ### National websites for young people with cancer
 When a visitor is in a European country that has a national website for young people with cancer, the first
-beatcancer.eu card on a topic page makes way for a card for that website, for example
+beatcancer.eu card on a topic page makes way for a card for that website, with a short heading of its own (the
+beatcancer.eu heading then sits above the other two cards), and the support text names the website too, for example
 [kanker.nl/jong](https://www.kanker.nl/jong) in the Netherlands. The websites are listed per country code in
 `web/data/national_resources.json`:
 
@@ -105,8 +106,8 @@ visitors outside Europe, see the beatcancer.eu articles only.
 The visitor's country is determined in the browser, without asking anything: from the browser language settings
 (a country in a language tag such as `nl-BE`), then from the time zone (such as `Europe/Amsterdam`), then from a
 language that is spoken mainly in one European country (such as `pl`). The **Country** button in the accessibility
-bar shows the result on every page and opens a dialog in which the visitor can choose another country (or "Outside
-Europe"), or click **Use my location**. Only then does the browser ask for permission to share the device position;
+bar opens a dialog in which the visitor can choose another country (or "Outside Europe"), or click **Use my
+location**, and confirm with **Apply**. Only the location button makes the browser ask for permission to share the device position;
 the coordinates are matched against the country outlines in `web/data/europe_countries.json` on the visitor's own
 device and are not sent or stored by the portal (the browser itself may use a location service of its maker to find
 the position). The topic pages never ask for the position on their own. A choice is kept for the visit only, in

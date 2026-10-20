@@ -257,9 +257,13 @@ button {
     border-color: var(--border-grey);
 }
 
-/* small gap between the accessibility buttons and Language / Country */
+/* thin line between the accessibility buttons and Language / Country */
 .access-sep {
-    width: 14px;
+    align-self: center;
+    width: 1px;
+    height: 26px;
+    margin: 0 6px;
+    background: var(--border-grey);
 }
 
 /* toggled accessibility mode (contrast / dark) */
@@ -939,6 +943,34 @@ html.mode-dark .page img {
     border: none;
 }
 
+/* Cancel and the action button (Apply) of a dialog that changes a
+   setting, as in the View dialog */
+.portal-modal .modal-footer {
+    gap: 10px;
+}
+
+.portal-modal .modal-cancel {
+    background: var(--border-grey);
+    color: var(--text-dark);
+}
+
+.portal-modal .modal-action {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    background: var(--brand-orange);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.portal-modal .modal-action:disabled {
+    background: var(--border-grey);
+    color: var(--text-grey);
+    cursor: not-allowed;
+}
+
 /* Country dialog (portal.js): the country for the national website */
 .country-form {
     display: flex;
@@ -1416,7 +1448,68 @@ html.mode-dark .bc-card-logo img {
     filter: none;
 }
 
-/* "Change country" / "Choose your country" in the beatcancer.eu block:
+/* the national website (one tile) and beatcancer.eu (two tiles) side by
+   side, each with its own heading right above its tiles; without a
+   national website beatcancer.eu takes the full width */
+.bc-groups {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.bc-group {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* the tiles of both groups start at the same height */
+@supports (grid-template-rows: subgrid) {
+    .bc-group {
+        display: grid;
+        grid-row: span 2;
+        grid-template-rows: subgrid;
+    }
+}
+
+.bc-group .bc-insert-head {
+    align-self: end;
+    margin-bottom: 0;
+}
+
+.has-national .bc-group-national {
+    grid-column: 1;
+}
+
+.has-national .bc-group-yarn {
+    grid-column: 2 / -1;
+}
+
+.has-national .bc-group-yarn .bc-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.has-national .bc-group-national .bc-cards {
+    grid-template-columns: minmax(0, 1fr);
+}
+
+@media (max-width: 860px) {
+    .bc-groups {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .has-national .bc-group-national,
+    .has-national .bc-group-yarn {
+        grid-column: 1;
+    }
+
+    .has-national .bc-group-yarn .bc-cards {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+}
+
+/* "change country" / "Choose your country" in the beatcancer.eu block:
    a button that reads as a link */
 .country-change {
     background: none;

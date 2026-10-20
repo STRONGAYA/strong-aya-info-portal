@@ -110,7 +110,7 @@ const HELP_CONTENT = {
         '<b>Explore all topics</b> opens a list of all topics in this subject.',
         '<b>Glossary</b> explains the words used on this page; <b>Compare</b> is coming soon.',
         '<b>Want to know more, or is it too much?</b> (near the bottom) tells you where to find support. It also shows articles about this topic from beatcancer.eu and, if your country has one, a national website for young people with cancer. They open in a new tab.',
-        '<b>Country</b> (in the accessibility bar at the top) shows the country for that national website. The portal guesses it from the settings of your browser. You can choose another country there, or let your browser find it with your location.',
+        '<b>Country</b> (in the accessibility bar at the top) sets the country for that national website. The portal guesses it from the settings of your browser. You can choose another country there, or let your browser find it with your location.',
         'The note at the end of the page explains where the numbers come from, and how to contact us.'
     ],
     modules: [
@@ -866,13 +866,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const canLocate = 'geolocation' in navigator && window.isSecureContext !== false;
     let locating = false;
 
+    // The label stays "Country"; the chosen country is in the
+    // accessible name and the tooltip (title)
     function updateCountryButtons() {
         const country = currentCountry();
-        const name = country.code ? countryName(country.code) : '';
+        const name = country.code ? countryName(country.code) : 'not chosen';
         countryButtons.forEach(function (btn) {
-            const label = btn.querySelector('.country-btn-label');
-            if (label) label.textContent = name || 'Country';
-            btn.setAttribute('aria-label', 'Country: ' + (name || 'not chosen'));
+            btn.setAttribute('aria-label', 'Country: ' + name);
+            btn.title = 'Country: ' + name;
         });
     }
 
@@ -890,7 +891,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return country.code === OUTSIDE_EUROPE || !national
                 ? 'The topic pages show the articles from beatcancer.eu.'
                 : 'There is no national website for ' + escapeHtml(countryInProse(country.code)) +
-                    ' in this portal yet: the topic pages show the articles from beatcancer.eu.';
+                    ' that is referenced in this portal yet: the topic pages show the articles from beatcancer.eu.';
         }
         return 'The topic pages show ' + nativeText(site.name, site.lang) +
             (site.organisation && site.organisation !== site.name

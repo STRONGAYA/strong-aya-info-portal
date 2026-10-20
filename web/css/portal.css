@@ -257,12 +257,9 @@ button {
     border-color: var(--border-grey);
 }
 
-/* Country button: shows the chosen country, long names are cut short */
-.country-btn-label {
-    max-width: 12em;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+/* small gap between the accessibility buttons and Language / Country */
+.access-sep {
+    width: 14px;
 }
 
 /* toggled accessibility mode (contrast / dark) */

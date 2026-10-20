@@ -77,6 +77,49 @@ asociacija (POLA), and the pages credit them as such. Its terms of use reserve a
 permission to reuse its content and logos, so agree this use with them (info@beatcancer.eu) before the portal is
 published beyond testing.
 
+### National websites for young people with cancer
+When a visitor is in a European country that has a national website for young people with cancer, the first
+beatcancer.eu card on a topic page makes way for a card for that website, for example
+[kanker.nl/jong](https://www.kanker.nl/jong) in the Netherlands. The websites are listed per country code in
+`web/data/national_resources.json`:
+
+```json
+"NL": {
+  "country": "Netherlands",
+  "resources": [
+    {"name": "Jong", "organisation": "kanker.nl", "url": "https://www.kanker.nl/jong", "lang": "nl",
+     "description": "One sentence for a young reader about what the website offers.", "logo": "NL-nl.png"}
+  ]
+}
+```
+
+`lang` is the language of the website; when a country lists several websites (e.g. Belgium in Dutch and in
+French), the one in the visitor's browser language is shown, else the first. `logo` names a file in
+`web/images/national/` (or is `null`: then an illustration of the portal is shown); a logo drawn in white gets a
+dark plate with `"logo_background": "#2d2d2d"`. The logos belong to the organisations: agree their use with them
+before the portal is published beyond testing, as for beatcancer.eu. `confidence` and `notes` are for the
+maintainers (how well the website fits young adults of 15 to 39, caveats) and are not shown; the websites that were
+considered and rejected per country are in `data/national_resources_research.md`. Countries without an entry, and
+visitors outside Europe, see the beatcancer.eu articles only.
+
+The visitor's country is determined in the browser, without asking anything: from the browser language settings
+(a country in a language tag such as `nl-BE`), then from the time zone (such as `Europe/Amsterdam`), then from a
+language that is spoken mainly in one European country (such as `pl`). The **Country** button in the accessibility
+bar shows the result on every page and opens a dialog in which the visitor can choose another country (or "Outside
+Europe"), or click **Use my location**. Only then does the browser ask for permission to share the device position;
+the coordinates are matched against the country outlines in `web/data/europe_countries.json` on the visitor's own
+device and are not sent or stored by the portal (the browser itself may use a location service of its maker to find
+the position). The topic pages never ask for the position on their own. A choice is kept for the visit only, in
+`sessionStorage`: the country code and how it was found.
+
+`web/data/europe_countries.json` holds simplified outlines of the European countries (Natural Earth, public
+domain). `scripts/fetch_europe_countries.py` (standard library only) regenerates it and checks the result against
+a list of European cities:
+
+```shell
+python scripts/fetch_europe_countries.py web/data/europe_countries.json
+```
+
 ## Prequisites for own application
 - ### When using the descriptive statistics algorithm (default)
   - Vantage6 server and collaboration with nodes running on version 4.x.x

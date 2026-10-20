@@ -1,0 +1,346 @@
+{
+  "note": "National websites for young people with cancer, one card per country on the topic pages; see README.md. Researched on 2026-10-20; confidence and notes are for the maintainers and are not shown. The logos belong to the organisations (web/images/national).",
+  "countries": {
+    "AT": {
+      "country": "Austria",
+      "resources": [
+        {
+          "name": "GenerationYZ: CancerClub",
+          "organisation": "Österreichische Krebshilfe",
+          "url": "https://www.krebshilfe.net/generationyz",
+          "lang": "de",
+          "description": "Austrian Cancer Aid's free, Austria-wide online CancerClub for 18-39-year-old patients, moderated by psycho-oncologists, plus regional Young Patients groups.",
+          "logo": "AT-de.png",
+          "confidence": "medium",
+          "notes": "Verified 2026-10-20 (sessions 3 Nov and 1 Dec 2026). No national AYA-specific organisation exists in Austria; this is the only Austria-wide AYA web page of the national cancer charity, hence 'medium'. https://www.krebshilfe.net/jung-und-krebs returns the generic umbrella homepage, not a dedicated page. A second logo file AT-de-cancerclub.png (the 'GenerationYZ #CancerClub' wordmark, 1919x982 transparent PNG, from https://www.krebshilfe.net/fileadmin/_processed_/d/4/csm_2023145_Logo_Cancer_Club_-_Generation_XY_caf9658c42.png) is provided if the maintainers prefer the programme brand over the organisation logo (JPEG, 600x107, white background)."
+        }
+      ]
+    },
+    "BE": {
+      "country": "Belgium",
+      "resources": [
+        {
+          "name": "Jong en kanker?!",
+          "organisation": "Kom op tegen Kanker",
+          "url": "https://www.allesoverkanker.be/jong-en-kanker",
+          "lang": "nl",
+          "description": "Flemish cancer charity's hub for young people with cancer: information, stories, peer contact, buddies, meeting days and a free youth holiday.",
+          "logo": "BE-nl.svg",
+          "confidence": "high",
+          "notes": "Verified 2026-10-20 (title 'Jong en kanker?! | Kom op tegen Kanker'; events dated 22 and 27 Oct 2026). Belgian AYA definition is 16-35. Kom op tegen Kanker is the cancer charity of the Dutch-speaking community (Flanders/Brussels), not a federal body; it is the most active AYA actor in Belgium (AYA Movement, AYA klankbordgroep). The logo served on allesoverkanker.be (/themes/custom/ocelot_aok/logo.svg) is byte-identical to the Kom op tegen Kanker logo, so one file covers both brands. A Facebook group 'Jong en Kanker?!' exists but has no website."
+        },
+        {
+          "name": "Je suis jeune et j'ai le cancer",
+          "organisation": "Fondation contre le Cancer",
+          "url": "https://cancer.be/vivre-avec-et-apres-le-cancer/je-suis-jeune-et-jai-le-cancer/",
+          "lang": "fr",
+          "description": "Belgian cancer foundation's guide for 16-35-year-olds: diagnosis, treatment, fertility, emotions, relationships, studies, practical questions and the CancerInfo helpline.",
+          "logo": "BE-fr.png",
+          "confidence": "high",
+          "notes": "Verified 2026-10-20; page opens with 'Tu es jeune (entre 16 et 35 ans)'. French-language site of the federal foundation (Dutch mirror on kanker.be, listed under the nl entry). Logo is the vertical FR logo, 600x331 PNG on white. No francophone Belgian AYA patient association with a website was found (KickCancer is a research-funding foundation, not checked in depth). Helpline CancerInfo 0800 15 801."
+        }
+      ]
+    },
+    "CH": {
+      "country": "Switzerland",
+      "resources": [
+        {
+          "name": "AYA Cancer Support CH",
+          "organisation": "AYA Cancer Support CH",
+          "url": "https://ayacancersupport.ch/",
+          "lang": "de",
+          "description": "Swiss association's platform for young adults with cancer: directory of AYA support programmes across Switzerland, events and a closed Facebook group.",
+          "logo": "CH-de.png",
+          "confidence": "medium",
+          "notes": "Verified 2026-10-20 (programme directory updated 6 May 2026; alpaca walk 27 Sep 2026). Small volunteer association founded 2021, created within an academic 'Fresh Ideas for Cancer Care' project with Swiss cancer organisations; German only; hence 'medium'. The only logo on the site is a round icon (512x512 PNG, teal/white). No French- or Italian-language national AYA resource was found (Lega ticinese has only parent groups; Romandie searches returned only hospital teams)."
+        }
+      ]
+    },
+    "CZ": {
+      "country": "Czechia",
+      "resources": [
+        {
+          "name": "Fuck Cancer",
+          "organisation": "Fuck Cancer, z.s.",
+          "url": "https://www.fuckcancer.cz/",
+          "lang": "cs",
+          "description": "Czech patient organisation started by young cancer patients: online community, stories, podcasts, financial help, awareness and a map of support contacts.",
+          "logo": "CZ-cs.svg",
+          "confidence": "medium",
+          "notes": "Not formally age-restricted: a Ministry-of-Health-listed patient organisation founded and run by young (former) cancer patients; awareness work 'primarily among young patients'; patron is a paediatric/AYA oncologist. News dated Aug 2026; English version at /en. Maintainers should decide whether the organisation's name is acceptable for the portal's audience. Logo is SVG (viewBox 222x89)."
+        }
+      ]
+    },
+    "DE": {
+      "country": "Germany",
+      "resources": [
+        {
+          "name": "Deutsche Stiftung für junge Erwachsene mit Krebs",
+          "organisation": "Deutsche Stiftung für junge Erwachsene mit Krebs",
+          "url": "https://junge-erwachsene-mit-krebs.de/",
+          "lang": "de",
+          "description": "National foundation for 18-39-year-olds with cancer: first-aid guide, Junges Krebsportal expert advice, local meet-ups, podcast and personal stories.",
+          "logo": "DE-de.png",
+          "confidence": "high",
+          "notes": "Verified 2026-10-20 (events 21 and 26 Oct listed, uploads from July 2026). Age range 18-39 per the foundation's materials. The header logo file is named '4c_weiss' but is the full-colour logo on an opaque white background (1625x1004 PNG) - checked visually. An English site version exists at /en/. The site is also reachable as www.junge-erwachsene-mit-krebs.de (redirects to the non-www host)."
+        }
+      ]
+    },
+    "DK": {
+      "country": "Denmark",
+      "resources": [
+        {
+          "name": "Ung Kræft",
+          "organisation": "Kræftens Bekæmpelse",
+          "url": "https://www.cancer.dk/ungkraeft/",
+          "lang": "da",
+          "description": "Danish Cancer Society's community for 18-39-year-olds with or after cancer and young relatives: information, meet-ups, personal stories and counselling links.",
+          "logo": "DK-da.svg",
+          "confidence": "high",
+          "notes": "Verified 2026-10-20 (title 'Ung Kræft - fællesskab for unge kræftpatienter og pårørende'; featured story 1 Nov 2025). Ung Kræft has no separate logo image on the page (the sub-brand header is text only); DK-da.svg is the red Kræftens Bekæmpelse wordmark extracted from the inline SVG in the page footer (viewBox 1580x116), so logo_url is null. The Facebook group 'UNG KRÆFT - UNGE MED OG EFTER KRÆFT' is the nationwide community."
+        }
+      ]
+    },
+    "ES": {
+      "country": "Spain",
+      "resources": [
+        {
+          "name": "Adolescentes y jóvenes con cáncer",
+          "organisation": "Fundación Caíco",
+          "url": "https://adolescentesyjovenesconcancer.com/",
+          "lang": "es",
+          "description": "Spanish information and support site for adolescents and young adults with cancer: treatments, emotions, studies and work, social life, rights, FAQs and testimonials.",
+          "logo": "ES-es.png",
+          "confidence": "medium",
+          "notes": "Site run by Fundación Caíco (Calle José Abascal 52, Madrid); active (copyright 2026, media uploads to July 2026), no advertising, shows an EU co-funding logo; collaborating entities Hospital Infantil Universitario Niño Jesús and SEHOP (Spanish paediatric haematology-oncology society); content by named authors. Fundación Caíco itself is little documented online (it appears alongside GEPAC and Fundación Aladina in the AAA 'kit'), hence medium confidence - maintainers may want to confirm its registration. Testimonials cover ages about 12-34; no formal age range stated. Logo: transparent PNG 2172x724, dark text with green emblem (fine on light backgrounds); rights Fundación Caíco."
+        }
+      ]
+    },
+    "FI": {
+      "country": "Finland",
+      "resources": [
+        {
+          "name": "Nuorelle aikuiselle",
+          "organisation": "Sylva ry",
+          "url": "https://www.sylva.fi/tietoa-ja-tukea/nuorelle-aikuiselle/",
+          "lang": "fi",
+          "description": "Sylva, Finland's cancer association for children and young people, offers 18-35-year-olds peer support, VOIMA weekends, events, everyday help and information.",
+          "logo": "FI-fi.svg",
+          "confidence": "medium",
+          "notes": "Verified 2026-10-20 (title 'Syöpää sairastavalle nuorelle aikuiselle - Sylva ry'; VOIMA weekend for 18-35-year-olds 2-4 Oct 2026). Sylva is a national organisation for children AND young people with cancer, with an explicit young-adult (18-35) programme, which qualifies under the brief's rule for paediatric organisations with a clear young-adult programme. The section page itself does not state the age range (the events do), hence 'medium'. Finnish only - see the separate sv entry."
+        }
+      ]
+    },
+    "FR": {
+      "country": "France",
+      "resources": [
+        {
+          "name": "Adolescent / Jeune adulte",
+          "organisation": "Institut national du cancer (INCa)",
+          "url": "https://pediatrie.cancer.fr/adolescent-jeune-adulte",
+          "lang": "fr",
+          "description": "The national cancer institute's section written for adolescents and young adults: understanding your cancer, hospital, sexuality, studies, work, friends and life after.",
+          "logo": "FR-fr.png",
+          "confidence": "high",
+          "notes": "INCa is the French national cancer institute (public authority); this is the dedicated adolescent/young-adult part of its paediatric site, written in the informal 'tu' form, with dossiers on cancers and treatments, hospital, sexuality and fertility, health and wellbeing, school and work, friends and family, life after cancer, plus maps of associations and specialised care units. Chosen because, like kanker.nl/jong, it is the national cancer information site's young-adult section; Aïda is the most established AYA-specific association if the maintainers prefer an organisation. AJA in France usually means 15-24/25, so visitors aged 25-39 may prefer the general cancer.fr. Logo: INCa logo (page og:image), PNG 219x114, transparent background; rights INCa."
+        }
+      ]
+    },
+    "GB": {
+      "country": "United Kingdom",
+      "resources": [
+        {
+          "name": "Teenage Cancer Trust",
+          "organisation": "Teenage Cancer Trust",
+          "url": "https://www.teenagecancertrust.org/information-about-cancer",
+          "lang": "en",
+          "description": "Expert-written, young-people-reviewed information on cancer signs, diagnosis, treatment, feelings and life after cancer for 13 to 24 year olds.",
+          "logo": "GB-en.svg",
+          "confidence": "high",
+          "notes": "Teenage Cancer Trust is the UK's established national AYA charity, but it covers ages 13-24 only; for visitors aged 25-39 Trekstock or Shine fit better. The information section carries the PIF TICK health-information quality mark. The site returns HTTP 403 to non-browser fetchers (WebFetch failed; curl with a browser User-Agent works) and /information redirects to /information-about-cancer. Logo: site header SVG, coloured blocks on a transparent background, 156x60 viewBox; rights Teenage Cancer Trust - ask permission before use."
+        }
+      ]
+    },
+    "GR": {
+      "country": "Greece",
+      "resources": [
+        {
+          "name": "Κύτταρο",
+          "organisation": "Κύτταρο",
+          "url": "https://tokyttaro.gr/",
+          "lang": "el",
+          "description": "Greek association run by young people who had cancer as children or teenagers: information events, support and contacts for fellow survivors.",
+          "logo": "GR-el.png",
+          "confidence": "medium",
+          "notes": "Pan-Hellenic survivors' association founded and run by people who had cancer in childhood or adolescence (board members diagnosed at ages 2-15); offers information events, seminars, awareness of late effects, hospital visits and volunteering. It is the closest to an AYA-specific organisation in Greece but is not a service for people diagnosed at 18-39. Site in Greek only; newest post 28 July 2025. YARN associated partner. Logo: 414x199 PNG (RGBA) from the site header."
+        }
+      ]
+    },
+    "HR": {
+      "country": "Croatia",
+      "resources": [
+        {
+          "name": "Mladi Krijesnice",
+          "organisation": "Udruga Krijesnica",
+          "url": "https://krijesnica.hr/mladi-krijesnice/",
+          "lang": "hr",
+          "description": "Croatian group of young people (16+) who had cancer in childhood or early adulthood: monthly meetups, psychological support, education, camps and advocacy.",
+          "logo": "HR-hr.png",
+          "confidence": "medium",
+          "notes": "Krijesnica is a children-and-families cancer association (Zagreb, national scope, YARN associated partner, CCI member); the 'Kutak za mlade Krijesnice' section is a dedicated programme for members over 16 who were treated for a malignant disease in childhood or early adulthood ('tijekom djetinjstva ili rane odrasle dobi'). The programme page is undated but the site is active (posts dated Oct 2026). Site in Croatian only. Logo is the association's logo (400x283 PNG, palette), not a separate youth-group mark."
+        }
+      ]
+    },
+    "IE": {
+      "country": "Ireland",
+      "resources": [
+        {
+          "name": "Adolescents and young adult support",
+          "organisation": "Irish Cancer Society",
+          "url": "https://www.cancer.ie/adolescents-and-young-adult-support",
+          "lang": "en",
+          "description": "Irish Cancer Society hub for teens and young adults: support line, counselling, transport and travel grants, fertility service, free guide and AYA units.",
+          "logo": "IE-en.svg",
+          "logo_background": "#2d2d2d",
+          "confidence": "medium",
+          "notes": "Irish Cancer Society page aimed at teens and young adults; most listed services are capped around 24-25 (free guide 16-24, fertility project up to 24, creative arts therapy 0-24) while the support line has no age limit. Lists the three AYA shared-care centres (Cork, St James's Dublin, Galway). Chosen over CanTeen Ireland because CanTeen's site fails the 'updated within about two years' criterion. Logo: the only logo served as a file is white-on-transparent (SVG with fill='white' plus one #FFBC00 accent, 204x114); it needs a coloured background or a fill change - request a colour version from the Society. Rights Irish Cancer Society."
+        }
+      ]
+    },
+    "IS": {
+      "country": "Iceland",
+      "resources": [
+        {
+          "name": "Kraftur",
+          "organisation": "Kraftur",
+          "url": "https://kraftur.org/",
+          "lang": "is",
+          "description": "Icelandic support association for people aged 18-40 diagnosed with cancer and relatives: peer support, counselling, grants, support groups, education, English pages.",
+          "logo": "IS-is.svg",
+          "confidence": "high",
+          "notes": "Verified 2026-10-20 (news 19 Oct 2026). Age range 18-40 per the English page; services nationwide. www.kraftur.org redirects to kraftur.org. Logo is the orange wordmark SVG from the site header (white variant kraftur-logo-white.svg also exists)."
+        }
+      ]
+    },
+    "NL": {
+      "country": "Netherlands",
+      "resources": [
+        {
+          "name": "Jong & kanker",
+          "organisation": "Kanker.nl",
+          "url": "https://www.kanker.nl/jong",
+          "lang": "nl",
+          "description": "Reliable information for people under 40 with cancer: studying, work, relationships, fertility, money, plus peer contact, discussion groups and blogs.",
+          "logo": "NL-nl.svg",
+          "confidence": "high",
+          "notes": "Verified 2026-10-20 (HTTP 200, title 'Jong & kanker | Kanker.nl', menu label 'Jong & kanker (16 t/m 39)', text 'Ben je jonger dan 40'). kanker.nl is protected by a Bunny Shield browser challenge: plain bots get HTTP 403, normal browsers are fine. The site has no standalone logo file; the kanker.nl wordmark is a <symbol id=\"logo\"> in the site's SVG sprite, which I extracted into NL-nl.svg (177x40 viewBox, brand blues/purples). No SVG renderer was available here, so please eyeball it once. The maintainers' preference for kanker.nl/jong is confirmed: it is the information hub and links out to AYA Zorg Nederland, the lotgenotenzoeker and the Jong & kanker discussion groups."
+        }
+      ]
+    },
+    "NO": {
+      "country": "Norway",
+      "resources": [
+        {
+          "name": "Ung Kreft",
+          "organisation": "Ung Kreft",
+          "url": "https://ungkreft.no/",
+          "lang": "no",
+          "description": "Norwegian organisation for people aged 15-35 with cancer and young relatives: peer supporters, regional groups, events, Ung Kreft-rommet community and stories.",
+          "logo": "NO-no.svg",
+          "confidence": "high",
+          "notes": "Verified 2026-10-20 (events through 26 Oct 2026, news June 2026). Established independent AYA organisation with county groups across Norway. A white logo variant exists at /images/general/logo/ungkreft-white.svg. Language code 'no' (Bokmål)."
+        }
+      ]
+    },
+    "PL": {
+      "country": "Poland",
+      "resources": [
+        {
+          "name": "Fundacja Pani Ani",
+          "organisation": "Fundacja Pani Ani",
+          "url": "https://fundacjapaniani.org/",
+          "lang": "pl",
+          "description": "Peer-led Polish network for teenagers and young adults after cancer: workshops, camps, group sessions, mentoring and advocacy, run by survivors since 2004.",
+          "logo": "PL-pl.jpg",
+          "confidence": "medium",
+          "notes": "Single-page site with PL/EN toggle (html lang=pl); HTTP Last-Modified 6 Aug 2026, so actively maintained. Focus is survivors ('nastolatki i młodzi dorośli po chorobie nowotworowej'), no explicit age range, support for people still in treatment not stated. Associated partner of EU-CAYAS-NET; presented 'A'YA?! Polish Network for AYA Survivors' on the YARN platform (June 2024). Facebook: https://www.facebook.com/FundacjaPaniAni. Logo only available as JPEG (1244x1134, white background); og:image is a campaign photo, not a logo."
+        }
+      ]
+    },
+    "RO": {
+      "country": "Romania",
+      "resources": [
+        {
+          "name": "Clubul Temerarii",
+          "organisation": "Asociația Little People România",
+          "url": "https://www.thelittlepeople.ro/ro/despre-noi/cum-facem/temerarii/",
+          "lang": "ro",
+          "description": "Clubul Temerarii: Little People's community for teenage and young adult cancer survivors in Romania, with outings, a summer camp, a Christmas gala and career support.",
+          "logo": "RO-ro.png",
+          "confidence": "high",
+          "notes": "Members are adolescent and young-adult survivors treated in paediatric oncology (club page: 300+ members from 85+ localities; 'Ce facem' page: ages 14-29; press: 18-35); young adults diagnosed in adult oncology are not the core group. Smaller groups from Moldova, Czechia and Poland join annual events; coordinator listed in Chișinău. Site also has EN (/en/) and RU (/ru/) versions; latest news May 2026 (YARN partner, Temerarii camp 2026 announced). Logo is the 140x73 transparent header PNG – no larger version found on the site."
+        }
+      ]
+    },
+    "RS": {
+      "country": "Serbia",
+      "resources": [
+        {
+          "name": "MladiCe",
+          "organisation": "MladiCe",
+          "url": "https://info.mladice.org/",
+          "lang": "sr",
+          "description": "Serbian network of young people who beat cancer: plain-language publications on treatment, mental health, life after cancer, school and career.",
+          "logo": "RS-sr.png",
+          "confidence": "medium",
+          "notes": "www.mladice.org redirects (301) to info.mladice.org, a publications site 'for young people, their families and everyone who wants to support them' with 44 texts in four areas (during treatment, psychological health, after treatment, education and career). MladiCe is a network (founded 2011) of people treated for cancer in childhood/adolescence, part of the Serbian childhood-cancer organisations network. Pages carry no dates; media uploaded 2025-2026. Serbian in Latin script. Logo: 512x512 square PNG (palette) used as header logo/site icon."
+        }
+      ]
+    },
+    "SE": {
+      "country": "Sweden",
+      "resources": [
+        {
+          "name": "Ung Cancer",
+          "organisation": "Ung Cancer",
+          "url": "https://ungcancer.se/",
+          "lang": "sv",
+          "description": "Independent Swedish non-profit for 16-35-year-olds affected by cancer: free membership, peer meet-ups, rehabilitation, financial and psychosocial support, cancer information.",
+          "logo": "SE-sv.svg",
+          "confidence": "high",
+          "notes": "Verified 2026-10-20 (Pärldagar Oct 2026, copyright 2026). Covers patients, relatives and bereaved aged 16-35; founded 2010. www.ungcancer.se redirects to ungcancer.se. Logo is the dark wordmark SVG from the site's Shopify CDN; the og:image is a share graphic, not a logo."
+        }
+      ]
+    },
+    "SI": {
+      "country": "Slovenia",
+      "resources": [
+        {
+          "name": "Ustanova Mali vitez",
+          "organisation": "Ustanova Mali vitez",
+          "url": "https://ustanova-malivitez.si/",
+          "lang": "sl",
+          "description": "Slovenian foundation for young people cured of cancer: counselling, late-effects advice, self-help groups, scholarships, camps and peer activities.",
+          "logo": "SI-sl.png",
+          "confidence": "medium",
+          "notes": "Describes itself as the only Slovenian NGO dealing with late effects of childhood cancer; beneficiaries are young people (teens and young adults) who were treated for cancer as children; no age range stated. Not a service for people first diagnosed at 18-39; no such Slovenian resource was found. Site in Slovenian only; newest post 13 Oct 2026. YARN associated partner ('Foundation Little Knight'). Logo: 1250x271 PNG (RGBA, horizontal) from the site header."
+        }
+      ]
+    },
+    "SK": {
+      "country": "Slovakia",
+      "resources": [
+        {
+          "name": "Liga 18-25",
+          "organisation": "Liga proti rakovine SR",
+          "url": "https://www.lpr.sk/liga-18-25/",
+          "lang": "sk",
+          "description": "Liga 18-25: the Slovak Cancer League's monthly meet-up group in Bratislava for people aged 18-25 who have or had cancer.",
+          "logo": "SK-sk.png",
+          "confidence": "high",
+          "notes": "New group: first meeting 5 Oct 2026, then every first Monday at Centrum pomoci, Brestová 6, Bratislava; in-person only; age range 18-25 is narrower than 15-39. Run by the national cancer league, so the page may change – the LPR home page is the fallback. Logo PNG 200x71 transparent."
+        }
+      ]
+    }
+  }
+}

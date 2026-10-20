@@ -109,7 +109,7 @@ const HELP_CONTENT = {
         'Use the <b>arrow buttons</b> below the figure to go to the topic before or after this one.',
         '<b>Explore all topics</b> opens a list of all topics in this subject.',
         '<b>Glossary</b> explains the words used on this page; <b>Compare</b> is coming soon.',
-        '<b>Want to know more, or is it too much?</b> (near the bottom) tells you where to find support. It also shows articles about this topic from beatcancer.eu and, if your country has one, a national website for young people with cancer. They open in a new tab.',
+        '<b>Want to know more, or is it overwhelming?</b> (near the bottom) tells you where to find support. It also shows articles about this topic from beatcancer.eu and, if your country has one, a national website for young people with cancer. They open in a new tab.',
         '<b>Country</b> (in the accessibility bar at the top) sets the country for that national website. The portal guesses it from the settings of your browser. You can choose another country there, or let your browser find it with your location.',
         'The note at the end of the page explains where the numbers come from, and how to contact us.'
     ],

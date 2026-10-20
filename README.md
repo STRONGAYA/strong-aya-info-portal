@@ -257,3 +257,5 @@ need a font with those scripts, as Poppins has no Greek or Cyrillic subset (Noto
   the files in https://github.com/google/fonts/tree/main/ofl/poppins, under the SIL Open Font License 1.1
   (`web/webfonts/poppins/OFL.txt`), so that visitors' browsers do not contact Google Fonts.
 - Images present in this repository were generated using Adobe Firefly generative artificial intelligence.
+- The favicon (`web/images/favicon.png`), the footer photo and the small footer arrow are those of https://strongaya.eu/,
+  the website of the STRONG-AYA project, so that the portal looks like the project website.

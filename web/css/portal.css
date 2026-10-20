@@ -2248,16 +2248,22 @@ html.mode-dark .bc-card-logo img {
 
 /* ============================================================
    FOOTER
+   As on strongaya.eu: the same dark photo, white text, orange
+   headings, a white dashed "Quick contact" box, the funding texts
+   in a translucent dark box and the copyright line under a thin
+   rule. The photo gets a light dark tint (not a white wash): on the
+   bare photo white text reaches 3.5:1 at its lightest spots, with
+   the tint over 8:1, as EN 301 549 / WCAG 1.4.3 require 4.5:1.
    ============================================================ */
 
 .site-footer {
     margin-top: 64px;
-    background: url('../images/footer@3x.png') center/cover no-repeat, #4a4a4a;
-    color: var(--text-dark);
+    background: url('../images/footer@3x.png') center/cover no-repeat, #2a2a2a;
+    color: #fff;
 }
 
 .footer-overlay {
-    background: rgba(255, 255, 255, 0.88);
+    background: rgba(0, 0, 0, 0.5);
     padding: 48px 40px 24px;
 }
 
@@ -2288,9 +2294,13 @@ html.mode-dark .bc-card-logo img {
     margin-bottom: 0;
 }
 
+/* the brand orange, lightened a little so that it keeps 4.5:1 on the
+   dark photo (strongaya.eu uses the plain orange here) */
 .footer-col h2 {
-    font-size: 0.9333rem;
-    font-weight: 600;
+    font-size: 1.0667rem;
+    font-weight: 500;
+    letter-spacing: 0.6px;
+    color: #ffa35c;
     margin: 0 0 12px;
 }
 
@@ -2300,29 +2310,43 @@ html.mode-dark .bc-card-logo img {
     padding: 0;
 }
 
+/* each link with the small arrow of strongaya.eu in front of it */
 .footer-col li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
     margin-bottom: 8px;
+}
+
+.footer-col li::before {
+    content: url('../images/footer-arrow.png');
+    flex: 0 0 auto;
+    line-height: 1;
+    margin-top: 5px;
 }
 
 .footer-col li a {
     font-size: 0.8rem;
     letter-spacing: 0.3px;
     text-transform: uppercase;
+    color: #fff;
 }
 
 .footer-col li a:hover {
-    color: var(--brand-orange-text);
+    color: #ffa35c;
 }
 
+/* the white box keeps dark text and its purple heading, as on strongaya.eu */
 .quick-contact {
     background: #fff;
+    color: var(--text-dark);
     border: 1px dashed var(--brand-orange);
     border-radius: 8px;
     padding: 18px 22px;
     margin-left: auto;
 }
 
-.quick-contact h4 {
+.quick-contact h2 {
     color: var(--brand-purple);
 }
 
@@ -2334,8 +2358,7 @@ html.mode-dark .bc-card-logo img {
 .funding-statement {
     max-width: 1200px;
     margin: 0 auto;
-    /* dark enough for the small white text (6:1) */
-    background: rgba(80, 80, 80, 0.92);
+    background: rgba(0, 0, 0, 0.35);
     color: #fff;
     border-radius: 8px;
     padding: 20px 26px;
@@ -2362,10 +2385,14 @@ html.mode-dark .bc-card-logo img {
 }
 
 .copyright {
+    max-width: 1200px;
+    margin: 24px auto 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
     text-align: center;
     font-size: 0.8rem;
-    color: var(--text-dark);
-    padding-top: 24px;
+    letter-spacing: 0.6px;
+    color: #fff;
+    padding-top: 12px;
 }
 
 /* ============================================================

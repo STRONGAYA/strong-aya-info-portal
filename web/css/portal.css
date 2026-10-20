@@ -72,6 +72,18 @@ li {
     text-wrap: pretty;
 }
 
+/* on the pages in other languages, long words (German, Dutch,
+   Finnish...) break with a hyphen rather than overflow; the dictionary
+   follows the lang attribute of the page. The English pages are left
+   as they are. */
+html:not([lang^="en"]) p,
+html:not([lang^="en"]) li,
+html:not([lang^="en"]) dd,
+html:not([lang^="en"]) .legend-label span,
+html:not([lang^="en"]) .bc-card-excerpt {
+    hyphens: auto;
+}
+
 h1, h2, h3, h4,
 .notice-banner,
 .vis-statement,
@@ -158,6 +170,37 @@ button {
     font-size: 13px;
 }
 
+/* notice on a translated page, under the purple banner: filled by
+   scripts/translate_site.py (DeepL) or by js/i18n.js when the browser
+   translates the page; hidden on the English pages */
+.translation-notice {
+    width: 100%;
+    background: var(--bg-cream);
+    color: var(--text-dark);
+    border-top: 1px solid var(--border-grey);
+    text-align: center;
+    padding: 6px 16px;
+    font-size: 13px;
+}
+
+.translation-notice a,
+.translation-notice-link {
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    font-weight: 600;
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    cursor: pointer;
+}
+
+.translation-notice a:hover,
+.translation-notice-link:hover {
+    color: var(--brand-orange);
+}
+
 .header-main {
     display: flex;
     align-items: center;
@@ -175,6 +218,9 @@ button {
     display: block;
 }
 
+/* the labels are written in normal case in the HTML (real words for
+   translation and screen readers) and shown in capitals, as on
+   strongaya.eu */
 .site-nav {
     display: flex;
     flex-wrap: wrap;
@@ -184,6 +230,7 @@ button {
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 0.5px;
+    text-transform: uppercase;
 }
 
 .site-nav a {
@@ -213,6 +260,7 @@ button {
     padding: 0 30px;
     margin: -10px 0;
     letter-spacing: 0.5px;
+    text-transform: uppercase;
 }
 
 .contact-btn:hover {
@@ -1038,6 +1086,115 @@ html.mode-dark .page img {
     font-size: 12px;
     line-height: 1.5;
     color: var(--text-grey);
+}
+
+/* Language dialog (portal.js): the languages of the portal, and
+   translation by the browser for the others */
+.language-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px;
+}
+
+.language-option {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    width: 100%;
+    padding: 10px 14px;
+    background: #fff;
+    border: 2px solid var(--border-grey);
+    border-radius: 10px;
+    text-align: left;
+    color: var(--text-dark);
+}
+
+.language-option:hover {
+    border-color: var(--brand-orange);
+}
+
+.language-option[aria-current="true"] {
+    border-color: var(--brand-orange);
+    background: rgba(247, 116, 30, 0.05);
+}
+
+.language-name {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.language-status {
+    font-size: 12px;
+    line-height: 1.4;
+    color: var(--text-grey);
+}
+
+.language-browser {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-grey);
+}
+
+.language-browser h4 {
+    margin: 0 0 6px;
+    font-size: 15px;
+}
+
+.language-browser p {
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-grey);
+}
+
+.language-browser-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.language-browser-select {
+    flex: 1 1 160px;
+    max-width: 260px;
+    padding: 10px 12px;
+    border: 1px solid var(--border-grey);
+    border-radius: 8px;
+    background: #fff;
+    font: inherit;
+    font-size: 14px;
+    color: var(--text-dark);
+}
+
+.language-browser-btn {
+    padding: 10px 16px;
+    border: 1px solid var(--brand-orange);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--text-dark);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.language-browser-btn:hover {
+    background: rgba(247, 116, 30, 0.08);
+}
+
+.language-browser-btn:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+.language-browser-status {
+    min-height: 1.6em;
+    margin: 10px 0 0;
 }
 
 /* headline statement, placed above the figure it describes */
@@ -1957,6 +2114,7 @@ html.mode-dark .bc-card-logo img {
 .footer-col li a {
     font-size: 12px;
     letter-spacing: 0.3px;
+    text-transform: uppercase;
 }
 
 .footer-col li a:hover {

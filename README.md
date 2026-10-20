@@ -125,6 +125,92 @@ a list of European cities:
 python scripts/fetch_europe_countries.py web/data/europe_countries.json
 ```
 
+## Languages
+English is the only language that is written by hand. The portal is translated at build time with
+[DeepL](https://www.deepl.com/pro-api), never in the browser: `scripts/translate_site.py` (standard library only)
+writes one static page tree per language (`web/nl/module_a/chemotherapy.html`, ...) plus one strings file per
+language (`web/i18n/nl.js`) for the text the scripts generate (glossary, help, dialogs, legends, table and chart
+labels, the beatcancer.eu block, the national website card). These files are generated output, committed like
+`web/data/beatcancer_resources.json`: do not edit them, edit the English page or the translation cache instead.
+The plan behind this, with the DeepL facts, costs and open questions, is `docs/plan_deepl_translation.md`.
+
+### How the pages are translated
+- The English sources are the 17 pages in `web/` and `web/i18n/en.js`. In the pages, a translation unit is the
+  inner HTML of a block element (title, headings, paragraphs, list items, buttons, links that stand on their own)
+  plus the attributes that are read out (`alt`, `aria-label`, `title`, `placeholder`, `data-tooltip`), so links,
+  bold words and hidden notes inside a sentence stay where they are. Elements marked `translate="no"` (the
+  e-mail address, phone number, address and logos) and text in another language (`lang="nl"` on a national
+  website's name) are left as they are. In `en.js`, every string is a unit; `{name}` placeholders are protected.
+  The one-sentence descriptions of the national websites (`web/data/national_resources.json`) are units too:
+  they land in the strings file of a language under `national.descriptions`, keyed by country code and
+  position (`"NL/0"`), and the card shows that text instead of the English one.
+- Every unit is cached in `translations/<lang>.json` under the SHA-256 of its English text, with the DeepL result,
+  a `status` (`machine` or `reviewed`), the glossary version and the billed characters. The same sentence on all
+  17 pages is one entry; unchanged text is never sent to DeepL again, and a `reviewed` entry is never overwritten.
+  A changed English sentence is a new entry (the old one becomes an orphan that `--prune` lists).
+- Terms that must stay the same (STRONG-AYA, AYA, HADS, EORTC QLQ-C30, ...) and terms the reviewers want
+  translated in a fixed way are in `translations/glossary.tsv` (one column per language, `*` for "the same in every
+  language"); `--sync-glossary` uploads it as one DeepL glossary. DeepL's settings (the next-generation model,
+  informal address, plain-language instructions, the context sentence) are in `translations/config.json`.
+- A generated page gets `<html lang="nl" data-translation="machine|reviewed">`, asset paths one level deeper,
+  `hreflang` links to the same page in every language (also kept up to date in the English pages, between the
+  `hreflang:start` and `hreflang:end` comments), and a notice under the purple banner that says the page was
+  translated automatically (or by whom it was checked), with a link to the English page. `web/i18n/languages.js`
+  lists the languages that exist, with their status, for the language switcher.
+
+```shell
+export DEEPL_AUTH_KEY=...                                 # a DeepL API key (ending in :fx on the free plan)
+python scripts/translate_site.py --languages nl --dry-run  # what a run would send to DeepL (characters per language)
+python scripts/translate_site.py --languages nl            # translate the cache misses and write web/nl/, web/i18n/nl.js
+python scripts/translate_site.py --check                   # no key needed: are the generated files up to date and untouched?
+python scripts/translate_site.py --export-review nl        # translations/review/nl.csv for a reviewer; --import-review nl reads it back
+```
+
+A language is enabled by the existence of its cache file: the first `--languages nl` run with the key creates
+`translations/nl.json`; later runs without `--languages` cover every language that has one. **Without a DeepL
+key** the script does not call the API: it regenerates the pages of the languages whose text is fully cached and
+leaves the others as they are, and the visitors of a language the portal does not have can translate the English
+pages with their browser (see below). Reviewing happens in the pull request or in the exported CSV: change
+`target`, set `status` to `reviewed` and name yourself in `reviewer`; the pages are regenerated from the cache.
+Named reviewers and the month of the review per language go in `translations/config.json` under `languages`, for
+the notice on the pages.
+
+The `Translate the portal` workflow (`.github/workflows/translate_site.yml`) runs the script on GitHub: by hand
+from the Actions tab (with the languages to add and the mode), and after every push to `main` that changes `web/**`
+or `translations/**`. It needs the repository secret `DEEPL_AUTH_KEY`; the key exists only inside the job, and the
+cache holds text only. New machine translations are opened as a pull request on a `translations/<date>` branch for
+review; when only already-cached text was regenerated, the workflow commits directly and redeploys the site. On
+pull requests, a second job runs `--check` without the key, so that hand edits of generated files are noticed
+(GitHub does not run `pull_request` workflows for a pull request that a workflow opened with its own token, so
+the review pull requests are regenerated by the translate job on every push to their branch instead).
+`scripts/test_translate_site.py` tests the extractor, the page generation and the checks against the real pages.
+
+### Choosing a language in the browser
+`web/js/i18n.js` is loaded first on every page. A visitor who opens an English page is sent to the same page in
+the first language of their browser settings that the portal has (`nl-BE` counts as `nl`); a page in another
+language that a visitor opens directly (a shared link) is shown as it is. The **Language** button in the
+accessibility bar lists the languages with their status (original, translated automatically, checked by a
+person); a choice made there, or `?lang=nl` in the address (for links in a newsletter), is kept in `localStorage`
+like the contrast and dark modes, and followed on every page from then on. English is never implied by a country,
+and a country never by a language: the **Country** choice for the national website is separate.
+
+When the portal does not have the visitor's language, the browser can translate the page itself. In Chrome and
+Edge 138 or later the Language dialog offers **Translate with your browser**: the [Translator
+API](https://developer.mozilla.org/en-US/docs/Web/API/Translator_and_Language_Detector_APIs) translates the text
+of the page on the device with a language model the browser downloads once (the portal sends nothing anywhere for
+it), the text the scripts add later (dialogs, the figure, the article cards) included; that choice is remembered
+and applied again on the next page, and the notice under the banner says the browser made the translation. Other
+browsers get a short explanation of their own translate feature (the address bar or the right-click menu); the
+pages carry `lang` and `translate="no"` where needed so that those features work well, and the notice is shown
+when Chrome's own feature has translated the page. The text that the scripts generate is in `web/i18n/en.js`;
+`t('group.key', { name: value })` reads it, with `{name}` placeholders and, for entries with `one`/`other` forms,
+the plural rules of the page language.
+
+The beatcancer.eu articles stay in English on the pages in other languages (the linked articles are English, and
+beatcancer.eu's terms reserve all rights); their titles are marked `lang="en"` and a note says so. Dutch comes
+first (reviewers at NKI, Maastricht and IKNL), then the consortium languages; Greek, Bulgarian and Ukrainian also
+need a font with those scripts (Poppins has none), see `docs/plan_deepl_translation.md` §9.
+
 ## Prequisites for own application
 - ### When using the descriptive statistics algorithm (default)
   - Vantage6 server and collaboration with nodes running on version 4.x.x

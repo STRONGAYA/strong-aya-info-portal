@@ -4,7 +4,34 @@
  * Loads the counts per category from web/data/<variable>.csv
  * Supports multiple page types and visualisation variants
  * Uses brand colour theme and colour-blind-safe palettes
+ * The text it generates (view names, legends, table, charts, notices)
+ * comes from web/i18n/<lang>.js through t() (js/i18n.js), so the
+ * generated pages in other languages show it in their own language
  */
+
+// The site root (web/), from data-site-root on <html> (set per page:
+// the generated pages in other languages are one level deeper), else
+// from the address of this script, so that every page finds the data
+const SITE_ROOT = (function () {
+    const declared = document.documentElement.getAttribute('data-site-root');
+    try {
+        if (declared) return new URL(declared, window.location.href).href;
+        const script = document.currentScript || document.querySelector('script[src*="js/visualisation.js"]');
+        return new URL('../', script.src).href;
+    } catch (e) {
+        return '../';
+    }
+})();
+const DATA_DIR = SITE_ROOT + 'data/';
+
+// The font of the page (Poppins, self-hosted), for the Plotly charts
+function pageFontFamily() {
+    try {
+        return getComputedStyle(document.body).fontFamily || 'Poppins, sans-serif';
+    } catch (e) {
+        return 'Poppins, sans-serif';
+    }
+}
 
 // Brand colour theme from existing CSS
 const BRAND_COLORS = {
@@ -52,102 +79,62 @@ const COLORBLIND_SAFE = {
     ongoing: '#FFB000'       // Gold
 };
 
-// Page type configurations
+// Page type configurations: the name of the subject (table caption) is
+// t('subjects.<id>'), filled in by localiseConfigs() below
 const PAGE_TYPES = {
     treatment: {
         id: 'treatment',
-        subject: 'Treatment information',
-        name: 'Treatment Information',
-        description: 'Information about cancer treatments that young people with cancer receive',
         modules: ['chemotherapy', 'radiotherapy', 'hormonetherapy', 'surgery', 'immunotherapy'],
         visualisationTypes: ['iconArraySimple', 'iconArrayComplex', 'table', 'pieChart', 'barChart'],
         colorScheme: 'treatment'
     },
     functioning: {
         id: 'functioning',
-        subject: 'Functioning after treatment',
-        name: 'Quality of Life & Functioning',
-        description: 'Functioning scores and quality of life metrics from EORTC QLQ-C30 questionnaires',
         modules: ['emotional_functioning', 'physical_functioning', 'role_functioning', 'social_functioning', 'cognitive_functioning'],
         visualisationTypes: ['iconArraySimple', 'iconArrayComplex', 'table', 'pieChart', 'barChart'],
         colorScheme: 'functioning'
     },
     symptoms: {
         id: 'symptoms',
-        name: 'Symptoms & Side Effects',
-        description: 'Common symptoms and treatment side effects reported by young people with cancer',
         modules: ['fatigue', 'pain', 'nausea', 'anxiety', 'depression'],
         visualisationTypes: ['iconArraySimple', 'iconArrayComplex', 'table', 'pieChart', 'barChart'],
         colorScheme: 'symptoms'
     },
     mental_health: {
         id: 'mental_health',
-        subject: 'Mental health',
-        name: 'Mental Health',
-        description: 'How young people with cancer feel mentally, and the support they get',
         modules: ['anxiety', 'depression', 'worry', 'mental_health_support'],
         visualisationTypes: ['iconArraySimple', 'iconArrayComplex', 'table', 'pieChart', 'barChart'],
         colorScheme: 'default'
     },
     relationships: {
         id: 'relationships',
-        subject: 'Intimacy and relationships',
-        name: 'Intimacy & Relationships',
-        description: 'How much cancer has affected the romantic life, sex life, relationships and self-esteem of young people (EORTC QLQ-AYA)',
         modules: ['romantic_life', 'sex_life', 'relationships', 'self_esteem'],
         visualisationTypes: ['iconArraySimple', 'iconArrayComplex', 'table', 'pieChart', 'barChart'],
         colorScheme: 'default'
     },
     lifestyle: {
         id: 'lifestyle',
-        name: 'Lifestyle Factors',
-        description: 'Lifestyle factors that affect young people with cancer',
         modules: ['physical_activity', 'diet', 'sleep', 'smoking', 'alcohol'],
         visualisationTypes: ['iconArraySimple', 'table', 'pieChart', 'barChart'],
         colorScheme: 'default'
     },
     demographics: {
         id: 'demographics',
-        name: 'Demographic Information',
-        description: 'Background information about young people with cancer',
         modules: ['age', 'sex', 'education', 'employment', 'relationship_status'],
         visualisationTypes: ['table', 'pieChart', 'barChart'],
         colorScheme: 'default'
     }
 };
 
-// Visualisation type configurations
+// Visualisation type configurations: name and description are
+// t('views.<id>.name') and t('views.<id>.description'), filled in by
+// localiseConfigs() below
 const VISUALISATION_TYPES = {
-    iconArraySimple: {
-        id: 'iconArraySimple',
-        name: 'Simple icon array',
-        description: 'Person icons in two groups — simple and clear',
-        icon: '👥'
-    },
-    iconArrayComplex: {
-        id: 'iconArrayComplex',
-        name: 'Complex icon array',
-        description: 'Person icons in more groups — more detail',
-        icon: '👥'
-    },
-    table: {
-        id: 'table',
-        name: 'Data table',
-        description: 'A table with the numbers of all topics in this subject',
-        icon: '📊'
-    },
-    pieChart: {
-        id: 'pieChart',
-        name: 'Pie chart',
-        description: 'A circle chart that shows the share of each group',
-        icon: '🥧'
-    },
-    barChart: {
-        id: 'barChart',
-        name: 'Bar chart',
-        description: 'Bars that make the groups easy to compare',
-        icon: '📈'
-    }
+    iconArraySimple: { id: 'iconArraySimple', icon: '👥' },
+    iconArrayComplex: { id: 'iconArrayComplex', icon: '👥' },
+    table: { id: 'table', icon: '📊' },
+    pieChart: { id: 'pieChart', icon: '🥧' },
+    barChart: { id: 'barChart', icon: '📈' }
 };
 
 // Colour schemes for different data types (using brand and colour-blind-safe colours)
@@ -198,42 +185,32 @@ const COLOR_SCHEMES = {
 // The data CSVs (web/data/<variable>.csv) hold one `category,count` row
 // per category, named after the ids of the *complex* legend. A simple
 // legend entry covers its own id plus the finer categories listed in
-// `categories`, so both views are counted from the same rows.
+// `categories`, so both views are counted from the same rows. The label
+// and description of an entry are t('legends.<page type>.<simple or
+// complex>.<id>.label' / '.description'), filled in by localiseConfigs().
 const LEGEND_CONFIGS = {
     treatment: {
         simple: [
-            { id: 'received', label: 'Received treatment', color: COLOR_SCHEMES.treatment.received, categories: ['partial', 'planned'], description: 'People who receive this treatment' },
-            { id: 'notReceived', label: 'Did not receive', color: COLOR_SCHEMES.treatment.notReceived, description: 'People who do not receive this treatment' }
+            { id: 'received', color: COLOR_SCHEMES.treatment.received, categories: ['partial', 'planned'] },
+            { id: 'notReceived', color: COLOR_SCHEMES.treatment.notReceived }
         ],
         complex: [
-            { id: 'received', label: 'Completed treatment', color: COLOR_SCHEMES.treatment.completed, description: 'People who completed the whole treatment' },
-            { id: 'partial', label: 'Partial treatment', color: COLOR_SCHEMES.treatment.partial, description: 'People who received a part of the treatment' },
-            { id: 'planned', label: 'Planned', color: COLOR_SCHEMES.treatment.planned, description: 'People whose treatment is planned but has not started yet' },
-            { id: 'notReceived', label: 'Not received', color: COLOR_SCHEMES.treatment.notReceived, description: 'People who did not receive the treatment' }
+            { id: 'received', color: COLOR_SCHEMES.treatment.completed },
+            { id: 'partial', color: COLOR_SCHEMES.treatment.partial },
+            { id: 'planned', color: COLOR_SCHEMES.treatment.planned },
+            { id: 'notReceived', color: COLOR_SCHEMES.treatment.notReceived }
         ]
     },
     functioning: {
         simple: [
-            { id: 'declined', label: 'Declined', color: COLOR_SCHEMES.functioning.declined, categories: ['significantly_declined'], description: 'People whose score got worse' },
-            { id: 'stable', label: 'Stable or improved', color: COLOR_SCHEMES.functioning.stable, categories: ['improved'], description: 'People whose score stayed about the same or got better' }
+            { id: 'declined', color: COLOR_SCHEMES.functioning.declined, categories: ['significantly_declined'] },
+            { id: 'stable', color: COLOR_SCHEMES.functioning.stable, categories: ['improved'] }
         ],
         complex: [
-            { id: 'significantly_declined', label: 'Declined a lot', color: COLOR_SCHEMES.functioning.significantly_declined, description: 'People whose score got much worse' },
-            { id: 'declined', label: 'Declined', color: COLOR_SCHEMES.functioning.declined, description: 'People whose score got worse' },
-            { id: 'stable', label: 'Stable', color: COLOR_SCHEMES.functioning.stable, description: 'People whose score stayed about the same' },
-            { id: 'improved', label: 'Improved', color: COLOR_SCHEMES.functioning.improved, description: 'People whose score got better' }
-        ]
-    },
-    symptoms: {
-        simple: [
-            { id: 'present', label: 'Present', color: COLOR_SCHEMES.symptoms.moderate, categories: ['severe', 'moderate', 'mild'], description: 'People who have this symptom' },
-            { id: 'absent', label: 'Absent', color: COLOR_SCHEMES.symptoms.none, categories: ['none'], description: 'People who do not have this symptom' }
-        ],
-        complex: [
-            { id: 'severe', label: 'Severe', color: COLOR_SCHEMES.symptoms.severe, description: 'People with severe symptoms' },
-            { id: 'moderate', label: 'Moderate', color: COLOR_SCHEMES.symptoms.moderate, description: 'People with moderate symptoms' },
-            { id: 'mild', label: 'Mild', color: COLOR_SCHEMES.symptoms.mild, description: 'People with mild symptoms' },
-            { id: 'none', label: 'None', color: COLOR_SCHEMES.symptoms.none, description: 'People without symptoms' }
+            { id: 'significantly_declined', color: COLOR_SCHEMES.functioning.significantly_declined },
+            { id: 'declined', color: COLOR_SCHEMES.functioning.declined },
+            { id: 'stable', color: COLOR_SCHEMES.functioning.stable },
+            { id: 'improved', color: COLOR_SCHEMES.functioning.improved }
         ]
     }
 };
@@ -256,6 +233,14 @@ const FILTER_PLACEHOLDER_COUNTS = {
     skin:  { all: 41,   male: 38, female: 44, intersex: INSUFFICIENT_DATA },
     brain: { all: 66,   male: 63, female: 68, intersex: INSUFFICIENT_DATA }
 };
+
+// A yes/no legend for a page without a legend configuration
+function defaultLegend() {
+    return localisedLegendEntries([
+        { id: 'yes', color: COLOR_SCHEMES.default.yes },
+        { id: 'no', color: COLOR_SCHEMES.default.no }
+    ], 'legends.default.simple');
+}
 
 // Raw number of people covered by a legend entry: its own category plus
 // the finer categories it groups (categories: [...])
@@ -388,18 +373,12 @@ class StrongAyaVisualisation {
                 this.colorScheme = COLOR_SCHEMES[colorScheme];
             } else {
                 // Fallback to default
-                this.legendData = [
-                    { id: 'yes', label: 'Yes', color: COLOR_SCHEMES.default.yes, description: 'Positive/Yes' },
-                    { id: 'no', label: 'No', color: COLOR_SCHEMES.default.no, description: 'Negative/No' }
-                ];
+                this.legendData = defaultLegend();
                 this.colorScheme = COLOR_SCHEMES.default;
             }
         } else {
             // Default legend
-            this.legendData = [
-                { id: 'yes', label: 'Yes', color: COLOR_SCHEMES.default.yes, description: 'Positive/Yes' },
-                { id: 'no', label: 'No', color: COLOR_SCHEMES.default.no, description: 'Negative/No' }
-            ];
+            this.legendData = defaultLegend();
             this.colorScheme = COLOR_SCHEMES.default;
         }
         
@@ -434,7 +413,7 @@ class StrongAyaVisualisation {
             this.restoreState();
         } catch (error) {
             console.error('Error loading data:', error);
-            this.showError('We could not load the data. Please try again later.');
+            this.showError(t('messages.loadError'));
         }
     }
     
@@ -524,8 +503,8 @@ class StrongAyaVisualisation {
             
             const selectorBtn = document.createElement('button');
             selectorBtn.className = 'vis-btn view-selection-btn';
-            selectorBtn.innerHTML = 'View Selection <span class="view-type-indicator">(' + this.getCurrentViewName() + ')</span>';
-            selectorBtn.title = 'Click to select visualisation type';
+            selectorBtn.innerHTML = t('ui.viewSelection') + ' <span class="view-type-indicator">(' + this.getCurrentViewName() + ')</span>';
+            selectorBtn.title = t('ui.viewSelectionHint');
             selectorBtn.addEventListener('click', () => this.openViewSelectorModal());
             viewSelector.appendChild(selectorBtn);
             
@@ -548,8 +527,8 @@ class StrongAyaVisualisation {
 
     // "View: <current view>", in the same form as the filter buttons
     getViewButtonLabel() {
-        return 'View: <span class="filter-value">' + this.getCurrentViewName() +
-            '</span> <i class="fas fa-eye"></i>';
+        return t('ui.viewButton', { view: '<span class="filter-value">' + this.getCurrentViewName() + '</span>' }) +
+            ' <i class="fas fa-eye"></i>';
     }
     
     // Views available for this page. The complex icon array is only
@@ -590,12 +569,12 @@ class StrongAyaVisualisation {
         
         const title = document.createElement('h3');
         title.id = 'view-selector-title';
-        title.textContent = 'Choose how you want to see this information';
-        title.style.cssText = 'margin: 0 0 20px 0; font-size: 24px; color: black; font-weight: 600; font-family: Poppins, sans-serif;';
+        title.textContent = t('ui.viewTitle');
+        title.style.cssText = 'margin: 0 0 20px 0; font-size: 24px; color: black; font-weight: 600; font-family: inherit;';
         modal.appendChild(title);
         
         const description = document.createElement('p');
-        description.textContent = 'Pick the option that works best for you.';
+        description.textContent = t('ui.viewIntro');
         description.style.cssText = 'font-size: 14px; color: #a2a2a2; margin: 0 0 25px 0; line-height: 1.6;';
         modal.appendChild(description);
         
@@ -609,15 +588,15 @@ class StrongAyaVisualisation {
         
         const cancelBtn = document.createElement('button');
         cancelBtn.type = 'button';
-        cancelBtn.textContent = 'Cancel';
-        cancelBtn.style.cssText = 'padding: 12px 24px; border-radius: 8px; font-family: Poppins, sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; background: #d7d7d7; color: black; border: none;';
+        cancelBtn.textContent = t('ui.cancel');
+        cancelBtn.style.cssText = 'padding: 12px 24px; border-radius: 8px; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer; background: #d7d7d7; color: black; border: none;';
         cancelBtn.addEventListener('click', () => modal.close());
         footer.appendChild(cancelBtn);
         
         const applyBtn = document.createElement('button');
         applyBtn.type = 'button';
-        applyBtn.textContent = 'Apply';
-        applyBtn.style.cssText = 'padding: 12px 24px; border-radius: 8px; font-family: Poppins, sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; background: #f7741e; color: white; border: none;';
+        applyBtn.textContent = t('ui.apply');
+        applyBtn.style.cssText = 'padding: 12px 24px; border-radius: 8px; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer; background: #f7741e; color: white; border: none;';
         applyBtn.addEventListener('click', () => {
             this.switchView(this.pendingView || this.currentView);
             saveVisState({ view: this.currentView });
@@ -708,7 +687,7 @@ class StrongAyaVisualisation {
         // selector row) to show the chosen view
         const selectorBtn = this.container.querySelector('.visualisation-selector .view-selection-btn');
         if (selectorBtn) {
-            selectorBtn.innerHTML = 'View Selection <span class="view-type-indicator">(' + this.getCurrentViewName() + ')</span>';
+            selectorBtn.innerHTML = t('ui.viewSelection') + ' <span class="view-type-indicator">(' + this.getCurrentViewName() + ')</span>';
         }
         const filterBarBtn = document.querySelector('.vis-card .filter-bar .view-selection-btn');
         if (filterBarBtn) {
@@ -781,7 +760,7 @@ class StrongAyaVisualisation {
     
     renderIconArraySimple() {
         if (this.totalCount === 0) {
-            this.visArea.innerHTML = '<p style="text-align: center; padding: 20px;">No data available.</p>';
+            this.visArea.innerHTML = '<p style="text-align: center; padding: 20px;">' + t('messages.noData') + '</p>';
             return;
         }
         
@@ -794,15 +773,14 @@ class StrongAyaVisualisation {
         const hasEnoughCategories = Object.keys(this.categoryCounts).length >= 3;
         
         if (this.totalCount === 0) {
-            this.visArea.innerHTML = '<p style="text-align: center; padding: 20px;">No data available.</p>';
+            this.visArea.innerHTML = '<p style="text-align: center; padding: 20px;">' + t('messages.noData') + '</p>';
             return;
         }
         
         if (!hasEnoughCategories) {
             this.visArea.innerHTML = `
                 <p style="text-align: center; padding: 20px; color: #666;">
-                    This detailed view needs data with at least 3 groups.
-                    This data has ${Object.keys(this.categoryCounts).length}.
+                    ${t('messages.needsGroups', { count: Object.keys(this.categoryCounts).length })}
                 </p>
             `;
             return;
@@ -852,7 +830,7 @@ class StrongAyaVisualisation {
         
         // The simple grid is one image to a screen reader: a single
         // description instead of 100 individual (decorative) icons
-        const summary = this.accessibleSummary('Icon array').replace(/"/g, '&quot;');
+        const summary = this.accessibleSummary(t('ui.iconArray')).replace(/"/g, '&quot;');
         const iconArea = isComplex
             ? `<div class="icon-array-container">${iconRows}</div>`
             : `<div class="icon-array-grid" role="img" aria-label="${summary}">${combinedIcons}</div>`;
@@ -869,7 +847,7 @@ class StrongAyaVisualisation {
                 </div>
                 
                 <div class="legend-container">
-                    <h2>Legend</h2>
+                    <h2>${t('ui.legend')}</h2>
                     <div class="legend-items">
                         ${legendItems}
                     </div>
@@ -884,9 +862,11 @@ class StrongAyaVisualisation {
     accessibleSummary(kind) {
         const parts = this.legendData.map(category => {
             const count = this.categoryCounts[category.id] || 0;
-            return `${count} out of ${this.totalCount}: ${category.description || category.label}`;
+            return t('messages.summaryPart', {
+                count: count, total: this.totalCount, description: category.description || category.label
+            });
         });
-        return `${kind} of ${this.totalCount} people. ${parts.join('. ')}.`;
+        return t('messages.summary', { kind: kind, total: this.totalCount, parts: parts.join('. ') });
     }
     
     generateIconHTML(count, color) {
@@ -922,7 +902,7 @@ class StrongAyaVisualisation {
     // topics' CSVs are loaded the first time the table is shown.
     renderTable() {
         if (!this.subjectTopics) {
-            this.visArea.innerHTML = '<p class="vis-loading" role="status">Loading the table…</p>';
+            this.visArea.innerHTML = '<p class="vis-loading" role="status">' + t('ui.loadingTable') + '</p>';
             this.subjectTopicsRequest = this.subjectTopicsRequest || this.loadSubjectTopics().then(() => {
                 if (this.currentView === 'table') this.render();
             });
@@ -936,7 +916,7 @@ class StrongAyaVisualisation {
                 ? (this.totalCount > 0 ? legend.map(item => this.categoryCounts[item.id] || 0) : null)
                 : this.countsForTopic(topic, legend);
             const name = isCurrent
-                ? `${topic.config.title} <span class="table-this-page">(this page)</span>`
+                ? `${topic.config.title} <span class="table-this-page">${t('ui.tableThisPage')}</span>`
                 : `<a href="${topic.id}.html">${topic.config.title}</a>`;
             const rows = counts ? legend.map((item, i) => `
                     <tr>
@@ -947,7 +927,7 @@ class StrongAyaVisualisation {
                     </tr>`).join('') : `
                     <tr>
                         <th scope="rowgroup">${name}</th>
-                        <td colspan="3">No data available</td>
+                        <td colspan="3">${t('ui.tableNoData')}</td>
                     </tr>`;
             return `<tbody${isCurrent ? ' class="table-current-topic"' : ''}>${rows}</tbody>`;
         }).join('');
@@ -955,13 +935,13 @@ class StrongAyaVisualisation {
         this.visArea.innerHTML = `
             <div class="data-table-wrapper">
                 <table class="data-table">
-                    <caption>${this.pageType?.subject || 'This subject'}: all topics</caption>
+                    <caption>${t('ui.tableCaption', { subject: this.pageType?.subject || t('ui.thisSubject') })}</caption>
                     <thead>
                         <tr>
-                            <th scope="col">Topic</th>
-                            <th scope="col">Group</th>
-                            <th scope="col">Out of 100 people</th>
-                            <th scope="col" class="table-meaning">What it means</th>
+                            <th scope="col">${t('ui.tableTopic')}</th>
+                            <th scope="col">${t('ui.tableGroup')}</th>
+                            <th scope="col">${t('ui.tableOutOf100')}</th>
+                            <th scope="col" class="table-meaning">${t('ui.tableMeaning')}</th>
                         </tr>
                     </thead>
                     ${rowGroups}
@@ -1006,7 +986,7 @@ class StrongAyaVisualisation {
     
     renderPieChart() {
         if (this.totalCount === 0) {
-            this.visArea.innerHTML = '<p style="text-align: center; padding: 20px;">No data available.</p>';
+            this.visArea.innerHTML = '<p style="text-align: center; padding: 20px;">' + t('messages.noData') + '</p>';
             return;
         }
         
@@ -1029,12 +1009,12 @@ class StrongAyaVisualisation {
         
         const layout = {
             title: {
-                text: `${this.dataConfig.title || 'Distribution'} (n=${this.totalCount})`,
+                text: t('ui.pieTitle', { title: this.dataConfig.title || t('ui.distribution'), total: this.totalCount }),
                 x: 0.5,
                 xanchor: 'center',
                 font: {
                     size: 18,
-                    family: 'Poppins, sans-serif'
+                    family: pageFontFamily()
                 }
             },
             showlegend: false,
@@ -1055,12 +1035,12 @@ class StrongAyaVisualisation {
         
         const chartDiv = document.createElement('div');
         chartDiv.setAttribute('role', 'img');
-        chartDiv.setAttribute('aria-label', this.accessibleSummary('Pie chart'));
+        chartDiv.setAttribute('aria-label', this.accessibleSummary(t('ui.pieChart')));
         
         const legendDiv = document.createElement('div');
         legendDiv.className = 'legend-container';
         legendDiv.innerHTML = `
-            <h2>Legend</h2>
+            <h2>${t('ui.legend')}</h2>
             <div class="legend-items">
                 ${this.legendData.map(c => this.generateLegendItemHTML(c)).join('')}
             </div>
@@ -1075,13 +1055,13 @@ class StrongAyaVisualisation {
             Plotly.newPlot(chartDiv, data, layout, config);
         } catch (error) {
             console.error('Error rendering Plotly chart:', error);
-            this.visArea.innerHTML = '<p style="text-align: center; padding: 20px;">We could not show the chart. Please reload the page.</p>';
+            this.visArea.innerHTML = '<p style="text-align: center; padding: 20px;">' + t('messages.chartError') + '</p>';
         }
     }
     
     renderBarChart() {
         if (this.totalCount === 0) {
-            this.visArea.innerHTML = '<p style="text-align: center; padding: 20px;">No data available.</p>';
+            this.visArea.innerHTML = '<p style="text-align: center; padding: 20px;">' + t('messages.noData') + '</p>';
             return;
         }
         
@@ -1103,21 +1083,21 @@ class StrongAyaVisualisation {
         
         const layout = {
             title: {
-                text: `${this.dataConfig.title || 'Numbers by group'} (Total: ${this.totalCount})`,
+                text: t('ui.barTitle', { title: this.dataConfig.title || t('ui.numbersByGroup'), total: this.totalCount }),
                 x: 0.5,
                 xanchor: 'center',
                 font: {
                     size: 18,
-                    family: 'Poppins, sans-serif'
+                    family: pageFontFamily()
                 }
             },
             xaxis: { 
-                title: 'Group',
-                tickfont: { family: 'Poppins, sans-serif' }
+                title: t('ui.barXAxis'),
+                tickfont: { family: pageFontFamily() }
             },
             yaxis: { 
-                title: 'Number of people',
-                tickfont: { family: 'Poppins, sans-serif' }
+                title: t('ui.barYAxis'),
+                tickfont: { family: pageFontFamily() }
             },
             showlegend: false,
             height: 450,
@@ -1137,12 +1117,12 @@ class StrongAyaVisualisation {
         
         const chartDiv = document.createElement('div');
         chartDiv.setAttribute('role', 'img');
-        chartDiv.setAttribute('aria-label', this.accessibleSummary('Bar chart'));
+        chartDiv.setAttribute('aria-label', this.accessibleSummary(t('ui.barChart')));
         
         const legendDiv = document.createElement('div');
         legendDiv.className = 'legend-container';
         legendDiv.innerHTML = `
-            <h2>Legend</h2>
+            <h2>${t('ui.legend')}</h2>
             <div class="legend-items">
                 ${this.legendData.map(c => this.generateLegendItemHTML(c)).join('')}
             </div>
@@ -1157,7 +1137,7 @@ class StrongAyaVisualisation {
             Plotly.newPlot(chartDiv, data, layout, config);
         } catch (error) {
             console.error('Error rendering Plotly chart:', error);
-            this.visArea.innerHTML = '<p style="text-align: center; padding: 20px;">We could not show the chart. Please reload the page.</p>';
+            this.visArea.innerHTML = '<p style="text-align: center; padding: 20px;">' + t('messages.chartError') + '</p>';
         }
     }
     
@@ -1166,13 +1146,12 @@ class StrongAyaVisualisation {
     // and the outcome so the reader knows exactly what is missing.
     renderInsufficientData() {
         const filterLabels = this.describeActiveFilters();
-        const outcome = this.dataConfig.title || 'this topic';
+        const outcome = this.dataConfig.title || t('ui.thisTopic');
         this.visArea.innerHTML = `
             <div class="insufficient-data" role="status">
                 <i class="fas fa-info-circle" aria-hidden="true"></i>
-                <p>There is insufficient data for the filter combination
-                    <b>${filterLabels}</b> and the outcome <b>${outcome}</b> to display anything.</p>
-                <p>Please consider coming back later when more data is included.</p>
+                <p>${t('messages.insufficient', { filters: filterLabels, outcome: outcome })}</p>
+                <p>${t('messages.comeBack')}</p>
             </div>
         `;
     }
@@ -1188,7 +1167,7 @@ class StrongAyaVisualisation {
         if (labels.length) return labels.join(', ');
         return Object.keys(this.filters)
             .map(key => `${key}: ${this.filters[key]}`)
-            .join(', ') || 'selected filters';
+            .join(', ') || t('ui.selectedFilters');
     }
     
     showError(message) {
@@ -1229,7 +1208,9 @@ class StrongAyaVisualisation {
     }
     
     // Keep the "N out of 100 people ..." statement above the figure in
-    // sync with the (filtered) data; `null` hides it (nothing to report)
+    // sync with the (filtered) data; `null` hides it (nothing to report).
+    // The number sits in its own span (.vis-count), so a translation
+    // can put it anywhere in the sentence.
     updateStatement(count) {
         const statement = document.querySelector('.vis-card .vis-statement');
         if (!statement) return;
@@ -1238,7 +1219,12 @@ class StrongAyaVisualisation {
             return;
         }
         statement.hidden = false;
-        statement.innerHTML = statement.innerHTML.replace(/^\s*\d+/, count);
+        const number = statement.querySelector('.vis-count');
+        if (number) {
+            number.textContent = String(count);
+        } else {
+            statement.innerHTML = statement.innerHTML.replace(/^\s*\d+/, count);
+        }
     }
     
     // The "these numbers are based on ..." sentence of the note below the
@@ -1255,30 +1241,33 @@ class StrongAyaVisualisation {
 // of a few questions) falls in the range of the nearest answer (0, up to
 // 33, up to 67, above 67). The QLQ-AYA has no thresholds for clinical
 // importance yet (its validation study runs until 2029), so "affected a
-// lot" is quite a bit or very much, as on the worry page.
-function qlqAyaLegend(subject, has) {
-    const said = `People who say ${subject} ${has} been affected`;
+// lot" is quite a bit or very much, as on the worry page. The labels
+// and descriptions are complete sentences per topic in the strings file
+// (legends.<topic>), as "has/have been affected" does not carry over
+// into other languages.
+function qlqAyaLegend() {
     return {
         simple: [
-            { id: 'affectedALot', label: 'Affected a lot', color: BRAND_COLORS.primary, categories: ['veryMuch', 'quiteABit'], description: `${said} quite a bit or very much` },
-            { id: 'affectedLittle', label: 'A little or not at all', color: BRAND_COLORS.lightGray, categories: ['aLittle', 'notAtAll'], description: `${said} a little or not at all` }
+            { id: 'affectedALot', color: BRAND_COLORS.primary, categories: ['veryMuch', 'quiteABit'] },
+            { id: 'affectedLittle', color: BRAND_COLORS.lightGray, categories: ['aLittle', 'notAtAll'] }
         ],
         complex: [
-            { id: 'veryMuch', label: 'Very much', color: COLORBLIND_SAFE.category2, description: `${said} very much` },
-            { id: 'quiteABit', label: 'Quite a bit', color: COLORBLIND_SAFE.category3, description: `${said} quite a bit` },
-            { id: 'aLittle', label: 'A little', color: COLORBLIND_SAFE.category4, description: `${said} a little` },
-            { id: 'notAtAll', label: 'Not at all', color: BRAND_COLORS.lightGray, description: `People who say ${subject} ${has} not been affected` }
+            { id: 'veryMuch', color: COLORBLIND_SAFE.category2 },
+            { id: 'quiteABit', color: COLORBLIND_SAFE.category3 },
+            { id: 'aLittle', color: COLORBLIND_SAFE.category4 },
+            { id: 'notAtAll', color: BRAND_COLORS.lightGray }
         ]
     };
 }
 
-// Data configurations for different visualisations
+// Data configurations for different visualisations. The title of a
+// topic is t('topics.<id>'); the label and description of a legend
+// entry are t('legends.<id>.<simple or complex>.<entry id>.label' /
+// '.description'); localiseConfigs() below fills them in.
 const VISUALISATION_CONFIGS = {
     // Treatment modules
     chemotherapy: {
-        dataUrl: '../data/ther_chemo.csv',
-        title: 'Chemotherapy',
-        description: 'How many young people with cancer receive chemotherapy',
+        dataUrl: DATA_DIR + 'ther_chemo.csv',
         lastUpdated: 'August 2024',
         variable: 'ther_chemo',
         pageType: 'treatment',
@@ -1286,9 +1275,7 @@ const VISUALISATION_CONFIGS = {
         defaultView: 'iconArraySimple'
     },
     radiotherapy: {
-        dataUrl: '../data/ther_rt.csv',
-        title: 'Radiotherapy',
-        description: 'How many young people with cancer receive radiotherapy',
+        dataUrl: DATA_DIR + 'ther_rt.csv',
         lastUpdated: 'August 2024',
         variable: 'ther_rt',
         pageType: 'treatment',
@@ -1296,9 +1283,7 @@ const VISUALISATION_CONFIGS = {
         defaultView: 'iconArraySimple'
     },
     hormonetherapy: {
-        dataUrl: '../data/ther_ht.csv',
-        title: 'Hormone therapy',
-        description: 'How many young people with cancer receive hormone therapy',
+        dataUrl: DATA_DIR + 'ther_ht.csv',
         lastUpdated: 'August 2024',
         variable: 'ther_ht',
         pageType: 'treatment',
@@ -1308,9 +1293,7 @@ const VISUALISATION_CONFIGS = {
     
     // Functioning modules
     emotional_functioning: {
-        dataUrl: '../data/ef.csv',
-        title: 'Emotional functioning',
-        description: 'How many young people with cancer feel worse emotionally after treatment',
+        dataUrl: DATA_DIR + 'ef.csv',
         lastUpdated: 'August 2024',
         variable: 'ef',
         pageType: 'functioning',
@@ -1318,9 +1301,7 @@ const VISUALISATION_CONFIGS = {
         defaultView: 'iconArraySimple'
     },
     physical_functioning: {
-        dataUrl: '../data/pf.csv',
-        title: 'Physical functioning',
-        description: 'How many young people with cancer find everyday physical activities harder after treatment',
+        dataUrl: DATA_DIR + 'pf.csv',
         lastUpdated: 'August 2024',
         variable: 'pf',
         pageType: 'functioning',
@@ -1328,9 +1309,7 @@ const VISUALISATION_CONFIGS = {
         defaultView: 'iconArraySimple'
     },
     role_functioning: {
-        dataUrl: '../data/rf.csv',
-        title: 'Role functioning',
-        description: 'How many young people with cancer have more trouble with daily tasks after treatment',
+        dataUrl: DATA_DIR + 'rf.csv',
         lastUpdated: 'August 2024',
         variable: 'rf',
         pageType: 'functioning',
@@ -1340,9 +1319,7 @@ const VISUALISATION_CONFIGS = {
     
     // Mental health modules (HADS, EORTC QLQ-AYA and self-reported support)
     anxiety: {
-        dataUrl: '../data/hads_anx.csv',
-        title: 'Anxiety',
-        description: 'How many young people with cancer show signs of anxiety after treatment',
+        dataUrl: DATA_DIR + 'hads_anx.csv',
         lastUpdated: 'August 2024',
         variable: 'hads_anx',
         pageType: 'mental_health',
@@ -1350,21 +1327,19 @@ const VISUALISATION_CONFIGS = {
         defaultView: 'iconArraySimple',
         legend: {
             simple: [
-                { id: 'signs', label: 'Signs of anxiety', color: BRAND_COLORS.primary, categories: ['severe', 'moderate', 'mild'], description: 'People whose HADS answers show signs of anxiety (score 8 or higher)' },
-                { id: 'noSigns', label: 'No signs', color: BRAND_COLORS.lightGray, categories: ['none'], description: 'People whose HADS answers show no signs of anxiety (score 0 to 7)' }
+                { id: 'signs', color: BRAND_COLORS.primary, categories: ['severe', 'moderate', 'mild'] },
+                { id: 'noSigns', color: BRAND_COLORS.lightGray, categories: ['none'] }
             ],
             complex: [
-                { id: 'severe', label: 'Strong signs', color: COLORBLIND_SAFE.category2, description: 'People with strong signs of anxiety (HADS score 15 to 21)' },
-                { id: 'moderate', label: 'Clear signs', color: COLORBLIND_SAFE.category3, description: 'People with clear signs of anxiety (HADS score 11 to 14)' },
-                { id: 'mild', label: 'Mild signs', color: COLORBLIND_SAFE.category4, description: 'People with mild signs of anxiety (HADS score 8 to 10)' },
-                { id: 'none', label: 'No signs', color: BRAND_COLORS.lightGray, description: 'People with no signs of anxiety (HADS score 0 to 7)' }
+                { id: 'severe', color: COLORBLIND_SAFE.category2 },
+                { id: 'moderate', color: COLORBLIND_SAFE.category3 },
+                { id: 'mild', color: COLORBLIND_SAFE.category4 },
+                { id: 'none', color: BRAND_COLORS.lightGray }
             ]
         }
     },
     depression: {
-        dataUrl: '../data/hads_dep.csv',
-        title: 'Depression',
-        description: 'How many young people with cancer show signs of depression after treatment',
+        dataUrl: DATA_DIR + 'hads_dep.csv',
         lastUpdated: 'August 2024',
         variable: 'hads_dep',
         pageType: 'mental_health',
@@ -1372,21 +1347,19 @@ const VISUALISATION_CONFIGS = {
         defaultView: 'iconArraySimple',
         legend: {
             simple: [
-                { id: 'signs', label: 'Signs of depression', color: BRAND_COLORS.primary, categories: ['severe', 'moderate', 'mild'], description: 'People whose HADS answers show signs of depression (score 8 or higher)' },
-                { id: 'noSigns', label: 'No signs', color: BRAND_COLORS.lightGray, categories: ['none'], description: 'People whose HADS answers show no signs of depression (score 0 to 7)' }
+                { id: 'signs', color: BRAND_COLORS.primary, categories: ['severe', 'moderate', 'mild'] },
+                { id: 'noSigns', color: BRAND_COLORS.lightGray, categories: ['none'] }
             ],
             complex: [
-                { id: 'severe', label: 'Strong signs', color: COLORBLIND_SAFE.category2, description: 'People with strong signs of depression (HADS score 15 to 21)' },
-                { id: 'moderate', label: 'Clear signs', color: COLORBLIND_SAFE.category3, description: 'People with clear signs of depression (HADS score 11 to 14)' },
-                { id: 'mild', label: 'Mild signs', color: COLORBLIND_SAFE.category4, description: 'People with mild signs of depression (HADS score 8 to 10)' },
-                { id: 'none', label: 'No signs', color: BRAND_COLORS.lightGray, description: 'People with no signs of depression (HADS score 0 to 7)' }
+                { id: 'severe', color: COLORBLIND_SAFE.category2 },
+                { id: 'moderate', color: COLORBLIND_SAFE.category3 },
+                { id: 'mild', color: COLORBLIND_SAFE.category4 },
+                { id: 'none', color: BRAND_COLORS.lightGray }
             ]
         }
     },
     worry: {
-        dataUrl: '../data/qlq_aya_worry.csv',
-        title: 'Worry',
-        description: 'How many young people with cancer say they worry a lot',
+        dataUrl: DATA_DIR + 'qlq_aya_worry.csv',
         lastUpdated: 'August 2024',
         variable: 'qlq_aya_worry',
         pageType: 'mental_health',
@@ -1394,21 +1367,19 @@ const VISUALISATION_CONFIGS = {
         defaultView: 'iconArraySimple',
         legend: {
             simple: [
-                { id: 'worryALot', label: 'Worry a lot', color: BRAND_COLORS.primary, categories: ['veryMuch', 'quiteABit'], description: 'People who say they worry very much or quite a bit' },
-                { id: 'worryLittle', label: 'Worry a little or not', color: BRAND_COLORS.lightGray, categories: ['aLittle', 'notAtAll'], description: 'People who say they worry a little or not at all' }
+                { id: 'worryALot', color: BRAND_COLORS.primary, categories: ['veryMuch', 'quiteABit'] },
+                { id: 'worryLittle', color: BRAND_COLORS.lightGray, categories: ['aLittle', 'notAtAll'] }
             ],
             complex: [
-                { id: 'veryMuch', label: 'Very much', color: COLORBLIND_SAFE.category2, description: 'People who say they worry very much' },
-                { id: 'quiteABit', label: 'Quite a bit', color: COLORBLIND_SAFE.category3, description: 'People who say they worry quite a bit' },
-                { id: 'aLittle', label: 'A little', color: COLORBLIND_SAFE.category4, description: 'People who say they worry a little' },
-                { id: 'notAtAll', label: 'Not at all', color: BRAND_COLORS.lightGray, description: 'People who say they do not worry' }
+                { id: 'veryMuch', color: COLORBLIND_SAFE.category2 },
+                { id: 'quiteABit', color: COLORBLIND_SAFE.category3 },
+                { id: 'aLittle', color: COLORBLIND_SAFE.category4 },
+                { id: 'notAtAll', color: BRAND_COLORS.lightGray }
             ]
         }
     },
     mental_health_support: {
-        dataUrl: '../data/mh_support.csv',
-        title: 'Mental health support',
-        description: 'How many young people with cancer say they received mental health support',
+        dataUrl: DATA_DIR + 'mh_support.csv',
         lastUpdated: 'August 2024',
         variable: 'mh_support',
         pageType: 'mental_health',
@@ -1416,8 +1387,8 @@ const VISUALISATION_CONFIGS = {
         defaultView: 'iconArraySimple',
         legend: {
             simple: [
-                { id: 'received', label: 'Received support', color: BRAND_COLORS.primary, description: 'People who say they received mental health support' },
-                { id: 'notReceived', label: 'No support', color: BRAND_COLORS.lightGray, description: 'People who say they did not receive mental health support' }
+                { id: 'received', color: BRAND_COLORS.primary },
+                { id: 'notReceived', color: BRAND_COLORS.lightGray }
             ]
         }
     },
@@ -1425,50 +1396,76 @@ const VISUALISATION_CONFIGS = {
     // Intimacy and relationships modules (EORTC QLQ-AYA single questions
     // on romantic life and sex life, and the relationships and self-esteem scales)
     romantic_life: {
-        dataUrl: '../data/qlq_aya_romantic_life.csv',
-        title: 'Romantic life',
-        description: 'How many young people with cancer say their romantic life has been affected a lot',
+        dataUrl: DATA_DIR + 'qlq_aya_romantic_life.csv',
         lastUpdated: 'September 2026',
         variable: 'qlq_aya_romantic_life',
         pageType: 'relationships',
         colorScheme: 'default',
         defaultView: 'iconArraySimple',
-        legend: qlqAyaLegend('their romantic life', 'has')
+        legend: qlqAyaLegend()
     },
     sex_life: {
-        dataUrl: '../data/qlq_aya_sex_life.csv',
-        title: 'Sex life',
-        description: 'How many young people with cancer say their sex life has been affected a lot',
+        dataUrl: DATA_DIR + 'qlq_aya_sex_life.csv',
         lastUpdated: 'September 2026',
         variable: 'qlq_aya_sex_life',
         pageType: 'relationships',
         colorScheme: 'default',
         defaultView: 'iconArraySimple',
-        legend: qlqAyaLegend('their sex life', 'has')
+        legend: qlqAyaLegend()
     },
     relationships: {
-        dataUrl: '../data/qlq_aya_relationships.csv',
-        title: 'Relationships',
-        description: 'How many young people with cancer say their relationships have been affected a lot',
+        dataUrl: DATA_DIR + 'qlq_aya_relationships.csv',
         lastUpdated: 'September 2026',
         variable: 'qlq_aya_relationships',
         pageType: 'relationships',
         colorScheme: 'default',
         defaultView: 'iconArraySimple',
-        legend: qlqAyaLegend('their relationships', 'have')
+        legend: qlqAyaLegend()
     },
     self_esteem: {
-        dataUrl: '../data/qlq_aya_self_esteem.csv',
-        title: 'Self-esteem',
-        description: 'How many young people with cancer say their self-esteem has been affected a lot',
+        dataUrl: DATA_DIR + 'qlq_aya_self_esteem.csv',
         lastUpdated: 'September 2026',
         variable: 'qlq_aya_self_esteem',
         pageType: 'relationships',
         colorScheme: 'default',
         defaultView: 'iconArraySimple',
-        legend: qlqAyaLegend('their self-esteem', 'has')
+        legend: qlqAyaLegend()
     }
 };
+
+// The label and description of legend entries from the strings file
+// (web/i18n/<lang>.js), under the given key ('legends.treatment.simple');
+// a missing text shows its key, so it is noticed
+function localisedLegendEntries(entries, key) {
+    entries.forEach(entry => {
+        const path = key + '.' + entry.id;
+        entry.label = t(path + '.label');
+        entry.description = t(path + '.description');
+    });
+    return entries;
+}
+
+// Fill the configurations above with the text of the page language
+function localiseConfigs() {
+    Object.keys(PAGE_TYPES).forEach(id => {
+        PAGE_TYPES[id].subject = t('subjects.' + id);
+    });
+    Object.keys(VISUALISATION_TYPES).forEach(id => {
+        VISUALISATION_TYPES[id].name = t('views.' + id + '.name');
+        VISUALISATION_TYPES[id].description = t('views.' + id + '.description');
+    });
+    const localiseLegend = (legend, key) => {
+        ['simple', 'complex'].forEach(kind => {
+            if (legend && legend[kind]) localisedLegendEntries(legend[kind], key + '.' + kind);
+        });
+    };
+    Object.keys(LEGEND_CONFIGS).forEach(id => localiseLegend(LEGEND_CONFIGS[id], 'legends.' + id));
+    Object.keys(VISUALISATION_CONFIGS).forEach(id => {
+        VISUALISATION_CONFIGS[id].title = t('topics.' + id);
+        localiseLegend(VISUALISATION_CONFIGS[id].legend, 'legends.' + id);
+    });
+}
+localiseConfigs();
 
 // Show an option as the chosen value of its filter in the filter bar
 function markFilterOption(wrap, option) {
@@ -1478,7 +1475,7 @@ function markFilterOption(wrap, option) {
     option.classList.add('current');
     const valueLabel = wrap.querySelector('.filter-toggle .filter-value');
     if (valueLabel) {
-        valueLabel.textContent = option.dataset.value === 'all' ? 'All' : option.textContent.trim();
+        valueLabel.textContent = option.dataset.value === 'all' ? t('ui.all') : option.textContent.trim();
     }
 }
 

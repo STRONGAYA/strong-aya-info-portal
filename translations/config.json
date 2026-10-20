@@ -1,0 +1,26 @@
+{
+  "note": "Settings of scripts/translate_site.py (see README.md). deepl_parameters are sent with every translation request as they are: remove a key here if DeepL rejects it (the script prints DeepL's message). languages: per language code, the reviewer and the month (YYYY-MM) named in the notice on reviewed pages.",
+  "base_url": "https://strongaya.github.io/strong-aya-info-portal/",
+  "deepl_parameters": {
+    "tag_handling_version": "v2",
+    "model_type": "quality_optimized",
+    "formality": "prefer_less",
+    "preserve_formatting": true,
+    "show_billed_characters": true,
+    "context": "Health information website for adolescents and young adults aged 15-39 with cancer. Plain language, informal address."
+  },
+  "custom_instructions": [
+    "Use plain language at CEFR level B1 that a 15 to 39 year old without medical training understands.",
+    "Address the reader informally (for example 'je' in Dutch, 'du' in German, 'tu' in French): the portal is for young people."
+  ],
+  "html_lang": {
+    "pt": "pt-PT"
+  },
+  "deepl_targets": {
+    "pt": "PT-PT",
+    "en": "EN-GB"
+  },
+  "beta_languages": ["hr", "ga", "mt"],
+  "no_glossary_languages": ["hr", "ga", "mt", "is", "lb", "ca", "eu", "cy", "sr", "sq"],
+  "languages": {}
+}

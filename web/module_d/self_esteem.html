@@ -1,14 +1,23 @@
 <!DOCTYPE html>
-<html lang="en-GB">
+<html lang="en-GB" data-site-root="../">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>STRONG-AYA Info Portal — Self-esteem</title>
+    <!-- the same page in the other languages of the portal; kept up to date by scripts/translate_site.py -->
+    <!-- hreflang:start -->
+    <link rel="alternate" hreflang="x-default" href="https://strongaya.github.io/strong-aya-info-portal/module_d/self_esteem.html"/>
+    <link rel="alternate" hreflang="en" href="https://strongaya.github.io/strong-aya-info-portal/module_d/self_esteem.html"/>
+    <!-- hreflang:end -->
+    <!-- the languages of the portal and the choice of language, before anything is drawn -->
+    <script src="../i18n/languages.js"></script>
+    <script src="../js/i18n.js"></script>
 
     <link rel="preload" href="../webfonts/poppins/poppins-400-latin.woff2" as="font" type="font/woff2" crossorigin/>
     <link rel="stylesheet" href="../css/poppins-4.004.css"/>
     <link rel="stylesheet" href="../css/font-awesome-6.7.2.min.css"/>
     <link rel="stylesheet" href="../css/portal.css"/>
+    <script src="../i18n/en.js" defer></script>
     <script src="../js/plotly-2.28.0.min.js"></script>
     <script src="../js/visualisation.js" defer></script>
     <script src="../js/portal.js" defer></script>
@@ -18,33 +27,36 @@
 
 <header class="site-header">
     <div class="header-topbar">
-        <div class="topbar-social">
+        <div class="topbar-social" translate="no">
             <a href="https://www.linkedin.com/company/strong-aya/" aria-label="LinkedIn"><i
                     class="fab fa-linkedin-in"></i></a>
             <a href="https://bsky.app/profile/strongaya.eu" aria-label="Bluesky"><i class="fab fa-bluesky"></i></a>
             <a href="https://www.instagram.com/strongaya_eu/" aria-label="Instagram"><i
                     class="fab fa-instagram"></i></a>
         </div>
-        <a class="topbar-mail" href="mailto:info@strongaya.eu"><i class="fas fa-envelope"></i>INFO@STRONGAYA.EU</a>
+        <a class="topbar-mail" href="mailto:info@strongaya.eu" translate="no"><i class="fas fa-envelope"></i>INFO@STRONGAYA.EU</a>
     </div>
     <div class="header-main">
         <a class="site-logo" href="https://strongaya.eu/">
-            <img src="../images/weblogo1@2x.png" alt="STRONG-AYA"/>
+            <img src="../images/weblogo1@2x.png" alt="STRONG-AYA" translate="no"/>
         </a>
         <nav class="site-nav">
-            <a href="https://strongaya.eu/">HOME</a>
-            <a href="https://strongaya.eu/about-us/">ABOUT US <i class="fas fa-chevron-down"></i></a>
-            <a href="https://strongaya.eu/our-consortium/">OUR CONSORTIUM</a>
-            <a href="https://strongaya.eu/what-is-ecosystem/">ECOSYSTEMS <i class="fas fa-chevron-down"></i></a>
-            <a href="https://strongaya.eu/publications/">RESOURCES <i class="fas fa-chevron-down"></i></a>
-            <a href="https://strongaya.eu/news/">NEWS &amp; MEDIA <i class="fas fa-chevron-down"></i></a>
+            <a href="https://strongaya.eu/">Home</a>
+            <a href="https://strongaya.eu/about-us/">About us <i class="fas fa-chevron-down"></i></a>
+            <a href="https://strongaya.eu/our-consortium/">Our consortium</a>
+            <a href="https://strongaya.eu/what-is-ecosystem/">Ecosystems <i class="fas fa-chevron-down"></i></a>
+            <a href="https://strongaya.eu/publications/">Resources <i class="fas fa-chevron-down"></i></a>
+            <a href="https://strongaya.eu/news/">News &amp; media <i class="fas fa-chevron-down"></i></a>
         </nav>
-        <a class="contact-btn" href="https://strongaya.eu/contact/">CONTACT</a>
+        <a class="contact-btn" href="https://strongaya.eu/contact/">Contact</a>
     </div>
     <div class="notice-banner"><b>Please note: this is a test version of the portal, not a finished product.</b>
         The information shown is part of ongoing research and is not medical advice — please read the full Research
         Disclaimer at the bottom of this page.
     </div>
+    <!-- on translated pages: the notice about the translation (scripts/translate_site.py, or js/i18n.js
+         when the browser translates the page) -->
+    <div class="translation-notice" hidden></div>
 </header>
 
 <main id="main-content" class="page">
@@ -55,7 +67,7 @@
             <button class="access-btn" data-access="dark" aria-pressed="false"><i class="fas fa-moon"></i>Dark</button>
             <button class="access-btn" data-tooltip="Coming soon"><i class="fas fa-text-height"></i>Size</button>
             <span class="access-sep" aria-hidden="true"></span>
-            <button class="access-btn" data-tooltip="Coming soon"><i class="fas fa-language"></i>Language</button>
+            <button class="access-btn language-btn" type="button" aria-haspopup="dialog"><i class="fas fa-language" aria-hidden="true"></i><span class="language-btn-label">Language</span></button>
             <button class="access-btn country-btn" type="button" aria-haspopup="dialog"><i class="fas fa-earth-europe" aria-hidden="true"></i><span class="country-btn-label">Country</span></button>
         </div>
     </div>
@@ -102,7 +114,7 @@
 
         <hr class="tile-divider"/>
 
-        <p class="vis-statement" aria-live="polite">35 out of 100 people aged 15 to 39 years old<br/>
+        <p class="vis-statement" aria-live="polite"><span class="vis-count">35</span> out of 100 people aged 15 to 39 years old<br/>
         say their <b>self-esteem</b> has been affected a lot</p>
 
         <div id="visualisation-container" class="visualisation-container"></div>
@@ -131,7 +143,7 @@
                     with the people close to you.</span></span>
                 <span class="support-line">You can also meet young people with the same experience at the European
                     Youth Cancer Network (YARN): <a href="https://beatcancer.eu/community/" target="_blank"
-                        rel="noopener">beatcancer.eu<span class="visually-hidden"> (opens in a new
+                        rel="noopener"><span translate="no">beatcancer.eu</span><span class="visually-hidden"> (opens in a new
                             tab)</span></a>.</span>
             </p>
             <p class="support-care"><span>If you need help,</span> <span>talk to a health professional such as your
@@ -139,7 +151,7 @@
             <!-- filled with articles about this topic by portal.js -->
             <div class="beatcancer-insert">
                 <a href="https://beatcancer.eu/resources/" target="_blank" rel="noopener">Find articles on
-                    beatcancer.eu<span class="visually-hidden"> (opens in a new tab)</span></a>
+                    <span translate="no">beatcancer.eu</span><span class="visually-hidden"> (opens in a new tab)</span></a>
             </div>
         </section>
     </section>
@@ -159,7 +171,7 @@
     <div class="footer-overlay">
         <div class="footer-content">
             <div class="footer-col footer-about">
-                <img src="../images/footerlogo@2x.png" alt="STRONG-AYA"/>
+                <img src="../images/footerlogo@2x.png" alt="STRONG-AYA" translate="no"/>
                 <p>STRONG-AYA is an interdisciplinary, multi-stakeholder European network to improve
                     healthcare services, research and outcomes for adolescents and young adults (AYAs) with
                     cancer.</p>
@@ -171,27 +183,27 @@
             <div class="footer-col">
                 <h2>Other</h2>
                 <ul>
-                    <li><a href="https://strongaya.eu/our-consortium/">OUR CONSORTIUM</a></li>
-                    <li><a href="https://strongaya.eu/ethics-and-governance/">ETHICS AND GOVERNANCE</a></li>
-                    <li><a href="https://strongaya.eu/what-is-ecosystem/">ECOSYSTEMS</a></li>
-                    <li><a href="https://strongaya.eu/project/">PROJECT</a></li>
+                    <li><a href="https://strongaya.eu/our-consortium/">Our consortium</a></li>
+                    <li><a href="https://strongaya.eu/ethics-and-governance/">Ethics and governance</a></li>
+                    <li><a href="https://strongaya.eu/what-is-ecosystem/">Ecosystems</a></li>
+                    <li><a href="https://strongaya.eu/project/">Project</a></li>
                 </ul>
             </div>
             <div class="footer-col">
                 <h2>Links</h2>
                 <ul>
-                    <li><a href="https://strongaya.eu/what-is-ecosystem/">HOW DO THE ECOSYSTEMS WORK?</a></li>
-                    <li><a href="https://strongaya.eu/vision-and-objectives/">VISION AND OBJECTIVES</a></li>
-                    <li><a href="https://strongaya.eu/privacy-declaration/">PRIVACY DECLARATION</a></li>
-                    <li><a href="https://strongaya.eu/cookie-statement/">COOKIE STATEMENT</a></li>
-                    <li><a href="https://strongaya.eu/terms-and-conditions/">TERMS AND CONDITIONS</a></li>
+                    <li><a href="https://strongaya.eu/what-is-ecosystem/">How do the ecosystems work?</a></li>
+                    <li><a href="https://strongaya.eu/vision-and-objectives/">Vision and objectives</a></li>
+                    <li><a href="https://strongaya.eu/privacy-declaration/">Privacy declaration</a></li>
+                    <li><a href="https://strongaya.eu/cookie-statement/">Cookie statement</a></li>
+                    <li><a href="https://strongaya.eu/terms-and-conditions/">Terms and conditions</a></li>
                 </ul>
             </div>
             <div class="footer-col quick-contact">
                 <h2>Quick contact</h2>
-                <div>+31 020 512 9111</div>
-                <div>INFO@STRONGAYA.EU</div>
-                <div>Plesmanlaan 121, 1066 CX, AMSTERDAM</div>
+                <div translate="no">+31 020 512 9111</div>
+                <div translate="no">INFO@STRONGAYA.EU</div>
+                <div translate="no">Plesmanlaan 121, 1066 CX, AMSTERDAM</div>
             </div>
         </div>
         <div class="funding-statement">
@@ -205,7 +217,7 @@
                 responsible for them.</p>
             <div class="funding-logos">
                 <img src="../images/eu-logo-1.jpg" alt="Funded by the European Union"/>
-                <img src="../images/9f432dd7298f8cda-800x800ar@2x.png" alt="UKRI Innovate UK"/>
+                <img src="../images/9f432dd7298f8cda-800x800ar@2x.png" alt="UKRI Innovate UK" translate="no"/>
             </div>
         </div>
         <div class="copyright">© 2026 Strong Aya. All Rights Reserved.</div>

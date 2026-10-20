@@ -7,123 +7,33 @@
  * - Page-specific Glossary and Help modals
  * - Articles from beatcancer.eu about the topic of a module page
  * - A national website for young people with cancer, for the visitor's country
+ * - The Language dialog: the languages the portal is published in, and
+ *   translation by the browser for the others
+ * The text this script generates comes from web/i18n/<lang>.js through
+ * t() (js/i18n.js), so the generated pages in other languages show it
+ * in their own language.
  */
 
 // ------------------------------------------------------------------
-// Page-specific Glossary and Help content.
-// The page id is derived from the file name (e.g. chemotherapy.html
-// -> "chemotherapy"); entries marked "common" are shown on every
-// module content page in addition to the page-specific terms.
+// The Glossary and Help texts live in web/i18n/<lang>.js (groups
+// "glossary" and "help"). The page id is derived from the file name
+// (e.g. chemotherapy.html -> "chemotherapy"); glossary entries marked
+// "common" are shown on every module content page in addition to the
+// page-specific terms.
 // ------------------------------------------------------------------
-const GLOSSARY_CONTENT = {
-    common: [
-        { term: 'AYA', definition: 'Adolescents and Young Adults: people who were between 15 and 39 years old when they were diagnosed with cancer.' },
-        { term: 'Icon array', definition: 'The figure shown on this page. Each person icon stands for 1 out of 100 people. The coloured icons show how many people this happens to.' },
-        { term: 'SURVAYA study', definition: 'A Dutch study of about 3300 AYAs who were treated in university medical centres in the Netherlands. The numbers shown here are test numbers based on this study.' },
-        { term: 'Blood cancers', definition: 'Cancers of the blood, bone marrow or lymphatic system, such as leukaemia and lymphoma.' },
-        { term: 'Solid tumours', definition: 'Cancers that form a lump in an organ or tissue. Examples at a young age are breast, testicular, ovarian, thyroid, bone and soft tissue cancers.' },
-        { term: 'Skin cancer', definition: 'Cancers of the skin, such as melanoma.' },
-        { term: 'Brain and nervous system tumours', definition: 'Tumours of the brain, spinal cord or nerves.' }
-    ],
-    chemotherapy: [
-        { term: 'Chemotherapy', definition: 'Treatment with medicines that kill cancer cells or slow their growth in the whole body. You often get it through a drip (infusion) or as tablets.' }
-    ],
-    radiotherapy: [
-        { term: 'Radiotherapy', definition: 'Treatment that aims strong rays (radiation) at one part of the body to destroy the cancer cells there.' }
-    ],
-    hormonetherapy: [
-        { term: 'Hormone therapy', definition: 'Treatment that blocks or lowers the hormones that some cancers need to grow, for example some breast and prostate cancers.' }
-    ],
-    emotional_functioning: [
-        { term: 'Emotional functioning', definition: 'How someone feels emotionally: for example tense, worried, irritable or down. It is measured with the EORTC QLQ-C30 questionnaire.' },
-        { term: 'Declined', definition: 'The emotional functioning score is clearly lower (worse) than the value it is compared with.' },
-        { term: 'Stable', definition: 'The emotional functioning score is about the same as the value it is compared with.' },
-        { term: 'EORTC QLQ-C30', definition: 'A questionnaire that is used in many countries to measure the quality of life of people with cancer.' }
-    ],
-    physical_functioning: [
-        { term: 'Physical functioning', definition: 'How well someone can do everyday physical activities, such as walking, climbing stairs, carrying shopping or washing themselves. It is measured with the EORTC QLQ-C30 questionnaire.' },
-        { term: 'Declined', definition: 'The physical functioning score is clearly lower (worse) than the value it is compared with.' },
-        { term: 'Stable', definition: 'The physical functioning score is about the same as the value it is compared with.' },
-        { term: 'EORTC QLQ-C30', definition: 'A questionnaire that is used in many countries to measure the quality of life of people with cancer.' }
-    ],
-    role_functioning: [
-        { term: 'Role functioning', definition: 'How well someone can do their daily tasks: work, study, tasks at home and hobbies. It is measured with the EORTC QLQ-C30 questionnaire.' },
-        { term: 'Declined', definition: 'The role functioning score is clearly lower (worse) than the value it is compared with.' },
-        { term: 'Stable', definition: 'The role functioning score is about the same as the value it is compared with.' },
-        { term: 'EORTC QLQ-C30', definition: 'A questionnaire that is used in many countries to measure the quality of life of people with cancer.' }
-    ],
-    anxiety: [
-        { term: 'Anxiety', definition: 'Feeling tense, nervous or afraid. Some anxiety is normal, but strong anxiety can make daily life hard.' },
-        { term: 'HADS', definition: 'The Hospital Anxiety and Depression Scale: a short list of questions that measures signs of anxiety and depression.' },
-        { term: 'Signs of anxiety', definition: 'A HADS anxiety score of 8 or higher. It does not mean someone is ill; it means their answers point to anxiety.' }
-    ],
-    depression: [
-        { term: 'Depression', definition: 'Feeling down, sad or empty for a long time, and enjoying things less than before.' },
-        { term: 'HADS', definition: 'The Hospital Anxiety and Depression Scale: a short list of questions that measures signs of anxiety and depression.' },
-        { term: 'Signs of depression', definition: 'A HADS depression score of 8 or higher. It does not mean someone is ill; it means their answers point to depression.' }
-    ],
-    worry: [
-        { term: 'Worry', definition: 'Thinking a lot about things that could go wrong, for example about health, work or the future.' },
-        { term: 'EORTC QLQ-AYA', definition: 'A list of questions made for young people with cancer. It asks about worry and other things that matter at a young age.' }
-    ],
-    mental_health_support: [
-        { term: 'Mental health support', definition: 'Help for your feelings and thoughts, for example from a psychologist, a counsellor or a support group.' },
-        { term: 'Self-reported', definition: 'People answered the question themselves. The answer was not checked in medical records.' }
-    ],
-    romantic_life: [
-        { term: 'Romantic life', definition: 'Dating, falling in love and being in a relationship with a partner.' },
-        { term: 'Affected a lot', definition: 'Answering "quite a bit" or "very much" when asked if cancer has had a bad effect on your romantic life.' },
-        { term: 'EORTC QLQ-AYA', definition: 'A list of questions made for young people with cancer. It asks about romantic life, sex life, relationships and other things that matter at a young age.' }
-    ],
-    sex_life: [
-        { term: 'Sex life', definition: 'Having sex and being physically close to someone, and how you feel about that.' },
-        { term: 'Affected a lot', definition: 'Answering "quite a bit" or "very much" when asked if cancer has had a bad effect on your sex life.' },
-        { term: 'EORTC QLQ-AYA', definition: 'A list of questions made for young people with cancer. It asks about romantic life, sex life, relationships and other things that matter at a young age.' }
-    ],
-    relationships: [
-        { term: 'Relationships', definition: 'How you get on with other people. The questions ask, for example, about feeling alone, being treated differently and needing help from others.' },
-        { term: 'Affected a lot', definition: 'Answering these questions with "quite a bit" or "very much" on average.' },
-        { term: 'EORTC QLQ-AYA', definition: 'A list of questions made for young people with cancer. It asks about romantic life, sex life, relationships and other things that matter at a young age.' }
-    ],
-    self_esteem: [
-        { term: 'Self-esteem', definition: 'How you see yourself and how you feel about yourself. The questions ask about confidence, feeling in control of your life and changes to how you look.' },
-        { term: 'Affected a lot', definition: 'Answering these questions with "quite a bit" or "very much" on average.' },
-        { term: 'EORTC QLQ-AYA', definition: 'A list of questions made for young people with cancer. It asks about romantic life, sex life, relationships and other things that matter at a young age.' }
-    ],
-    modules: [
-        { term: 'Subject', definition: 'A theme you can explore, such as treatment information or functioning after treatment. Each subject has several topics.' },
-        { term: 'Treatment information', definition: 'Numbers about how many AYAs receive treatments such as chemotherapy, radiotherapy and hormone therapy.' },
-        { term: 'Functioning after treatment', definition: 'Numbers about how AYAs are doing after their treatment: emotionally, physically and in their daily tasks.' },
-        { term: 'Mental health', definition: 'Numbers about how AYAs feel mentally: anxiety, depression, worry and the support they get.' },
-        { term: 'AYA', definition: 'Adolescents and Young Adults: people who were between 15 and 39 years old when they were diagnosed with cancer.' }
-    ]
-};
+function strings(group) {
+    return (window.AYA_STRINGS && window.AYA_STRINGS[group]) || {};
+}
 
-const HELP_CONTENT = {
-    module: [
-        '<b>Return to subjects</b> (top left) brings you back to the list of subjects.',
-        '<b>View</b> (to the right of the filters) lets you choose how the data is shown: as person icons, a table with all topics of this subject, a pie chart or a bar chart.',
-        '<b>Filters</b>: use <b>Cancer type</b> and <b>Sex</b> to see the numbers for one group only. The other filters are coming soon.',
-        'Your choice of <b>View</b> and <b>Filters</b> stays the same when you go to another topic.',
-        'The <b>figure</b> shows 100 person icons; each icon stands for 1 out of 100 people. The <b>legend</b> next to it explains what each colour means.',
-        'Use the <b>arrow buttons</b> below the figure to go to the topic before or after this one.',
-        '<b>Explore all topics</b> opens a list of all topics in this subject.',
-        '<b>Glossary</b> explains the words used on this page; <b>Compare</b> is coming soon.',
-        '<b>Want to know more, or is it overwhelming?</b> (near the bottom) tells you where to find support. It also shows articles about this topic from beatcancer.eu and, if your country has one, a national website for young people with cancer. They open in a new tab.',
-        '<b>Country</b> (in the accessibility bar at the top) sets the country for that national website. The portal guesses it from the settings of your browser. You can choose another country there, or let your browser find it with your location.',
-        'The note at the end of the page explains where the numbers come from, and how to contact us.'
-    ],
-    modules: [
-        '<b>Return to profiles</b> (top left) brings you back to the start page.',
-        'Click a <b>subject card</b> to explore that subject; grey cards are coming soon.',
-        'Use the <b>round arrow buttons</b> (or scroll sideways) to see more subject cards.',
-        '<b>Explore all subjects</b> opens a list of all subjects.',
-        'The order of the subjects depends on the profile you chose on the start page.',
-        '<b>Glossary</b> explains the words used on this page.',
-        'Use the <b>accessibility buttons</b> below the purple banner to turn on contrast or dark mode.',
-        '<b>Country</b> (in the accessibility bar) chooses the country for the national website for young people with cancer on the topic pages.'
-    ]
-};
+// The language of the page ("nl" on the Dutch pages): names, dates
+// and sorting follow it
+function pageLanguage() {
+    return document.documentElement.lang || 'en';
+}
+
+function isEnglishPage() {
+    return pageLanguage().split('-')[0].toLowerCase() === 'en';
+}
 
 // ------------------------------------------------------------------
 // Order of the subjects on the subjects page for each profile of the
@@ -161,7 +71,7 @@ function isBeatcancerUrl(url) {
 function externalLink(url, content, site, className) {
     return '<a' + (className ? ' class="' + className + '"' : '') + ' href="' + escapeHtml(url) +
         '" target="_blank" rel="noopener">' + content +
-        '<span class="visually-hidden"> (' + escapeHtml(site) + ', opens in a new tab)</span></a>';
+        '<span class="visually-hidden"> ' + escapeHtml(t('ui.opensInNewTabFrom', { site: site })) + '</span></a>';
 }
 
 function beatcancerLink(url, content, className) {
@@ -176,10 +86,20 @@ function hostOf(url) {
     }
 }
 
-// "2025-02-12" -> "February 2025"
+// "2025-02-12" -> "February 2025" (in the language of the page)
 function formatMonth(date) {
     const d = new Date(date + 'T00:00:00Z');
-    return isNaN(d) ? '' : d.toLocaleDateString('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+    try {
+        return isNaN(d) ? '' : d.toLocaleDateString(pageLanguage(), { month: 'long', year: 'numeric', timeZone: 'UTC' });
+    } catch (e) {
+        return isNaN(d) ? '' : d.toLocaleDateString('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+    }
+}
+
+// Text from beatcancer.eu stays English on the pages in other
+// languages: marked, so screen readers switch voice
+function englishText(html) {
+    return isEnglishPage() ? html : '<span lang="en">' + html + '</span>';
 }
 
 // The framed block with articles from beatcancer.eu: article cards (each
@@ -189,7 +109,9 @@ function formatMonth(date) {
 // heading of its own, takes the place of the last article, on the
 // right; the beatcancer.eu heading stays above the other two. country is the
 // visitor's country ({ code, source }, see currentCountry), or null when
-// the national websites could not be loaded.
+// the national websites could not be loaded. On the pages in other
+// languages the (English) titles and summaries are marked as English
+// and a note says so.
 function beatcancerInsertHtml(page, national, country) {
     const articles = (page.resources || []).filter(function (r) {
         return isBeatcancerUrl(r.url);
@@ -206,8 +128,8 @@ function beatcancerInsertHtml(page, national, country) {
             '<div class="bc-card-media">' + image + '</div>' +
             '<div class="bc-card-body">' +
             (r.type ? '<span class="bc-card-type">' + escapeHtml(r.type) + '</span>' : '') +
-            '<h4 class="bc-card-title">' + beatcancerLink(r.url, escapeHtml(r.title)) + '</h4>' +
-            (r.excerpt ? '<p class="bc-card-excerpt">' + escapeHtml(r.excerpt) + '</p>' : '') +
+            '<h4 class="bc-card-title">' + beatcancerLink(r.url, englishText(escapeHtml(r.title))) + '</h4>' +
+            (r.excerpt ? '<p class="bc-card-excerpt">' + englishText(escapeHtml(r.excerpt)) + '</p>' : '') +
             '<p class="bc-card-meta"><span>' + meta + '</span>' + EXTERNAL_ICON + '</p>' +
             '</div></li>';
     });
@@ -215,47 +137,56 @@ function beatcancerInsertHtml(page, national, country) {
     if (national && articles.length > 1) articles.pop();
     else national = null;
 
-    const topics = (page.topics || []).filter(function (t) {
-        return isBeatcancerUrl(t.url);
-    }).map(function (t) {
-        return beatcancerLink(t.url, escapeHtml(t.label) + ' <span class="bc-topic-count">' + escapeHtml(t.count) +
-            '<span class="visually-hidden"> articles</span></span>' + EXTERNAL_ICON, 'bc-topic-link');
+    const topics = (page.topics || []).filter(function (topic) {
+        return isBeatcancerUrl(topic.url);
+    }).map(function (topic) {
+        // the count is read out with its noun
+        return beatcancerLink(topic.url, englishText(escapeHtml(topic.label)) + ' <span class="bc-topic-count">' +
+            '<span aria-hidden="true">' + escapeHtml(topic.count) + '</span>' +
+            '<span class="visually-hidden">' + escapeHtml(t('beatcancer.articleCount', { count: topic.count })) +
+            '</span></span>' + EXTERNAL_ICON, 'bc-topic-link');
     });
 
     const hint = !national && country && !country.code
-        ? ' <span>Is there a website for young people with cancer in your country?</span> ' +
-            countryChangeButton('Choose your country')
+        ? ' <span>' + escapeHtml(t('national.askCountry')) + '</span> ' +
+            countryChangeButton(t('national.chooseCountry'))
         : '';
+    const inEnglish = isEnglishPage() ? '' : ' <span>' + escapeHtml(t('beatcancer.inEnglish')) + '</span>';
     const yarnGroup = '<div class="bc-group bc-group-yarn">' +
         '<div class="bc-insert-head">' +
-        '<img class="bc-insert-logo" src="' + SITE_ROOT + 'images/yarn-logo.png" alt="YARN – European Youth Cancer Network"' +
-        ' width="119" height="40"/>' +
+        '<img class="bc-insert-logo" src="' + SITE_ROOT + 'images/yarn-logo.png" alt="' +
+        escapeHtml(t('beatcancer.yarnLogoAlt')) + '" width="119" height="40"/>' +
         '<div>' +
-        '<h3 class="bc-insert-source">From <a href="' + BEATCANCER_URL + '" target="_blank" rel="noopener">beatcancer.eu' +
-        EXTERNAL_ICON + '<span class="visually-hidden"> (opens in a new tab)</span></a></h3>' +
-        '<p class="bc-insert-note"><span>Articles about this topic, picked automatically from the library of the ' +
-        'European Youth Cancer Network (YARN). They open in a new tab.</span>' + hint + '</p>' +
-        '<p class="bc-insert-note"><span>Titles, summaries, images and&nbsp;logo: beatcancer.eu (YARN).</span> ' +
-        '<span>All rights belong to them.</span></p>' +
+        '<h3 class="bc-insert-source">' + t('beatcancer.from', {
+            site: '<a href="' + BEATCANCER_URL + '" target="_blank" rel="noopener"><span translate="no">beatcancer.eu</span>' +
+                EXTERNAL_ICON + '<span class="visually-hidden"> ' + escapeHtml(t('ui.opensInNewTab')) + '</span></a>'
+        }) + '</h3>' +
+        '<p class="bc-insert-note"><span>' + t('beatcancer.intro') + '</span>' + inEnglish + hint + '</p>' +
+        '<p class="bc-insert-note"><span>' + t('beatcancer.credit') + '</span> ' +
+        '<span>' + t('beatcancer.rights') + '</span></p>' +
         '</div></div>' +
         '<ul class="bc-cards">' + articles.join('') + '</ul>' +
-        (topics.length ? '<p class="bc-insert-more"><span>More on beatcancer.eu:</span>' + topics.join('') + '</p>' : '') +
+        (topics.length ? '<p class="bc-insert-more"><span>' + escapeHtml(t('beatcancer.more')) + '</span>' +
+            topics.join('') + '</p>' : '') +
         '</div>';
 
     let nationalGroup = '';
     if (national) {
+        const organisation = nativeText(national.organisation, national.lang);
         const credit = national.logo
             ? '<p class="bc-insert-note"><span>' + (national.name !== national.organisation
-                ? nativeText(national.name, national.lang) + ' logo' : 'Logo') + ': ' +
-                nativeText(national.organisation, national.lang) + '.</span></p>'
+                ? t('national.logoCredit', { name: nativeText(national.name, national.lang), organisation: organisation })
+                : t('national.logoCreditPlain', { organisation: organisation })) + '</span></p>'
             : '';
         nationalGroup = '<div class="bc-group bc-group-national">' +
             '<div class="bc-insert-head"><div>' +
-            '<h3 class="bc-insert-source">From ' + externalLink(national.url,
-                nativeText(national.organisation, national.lang) + EXTERNAL_ICON, hostOf(national.url)) + '</h3>' +
-            '<p class="bc-insert-note"><span>A website for young people with cancer in ' +
-            escapeHtml(national.countryInProse) + COUNTRY_SOURCE_NOTE[country.source] + ' (' +
-            countryChangeButton('change country') + ').</span></p>' +
+            '<h3 class="bc-insert-source">' + t('beatcancer.from', {
+                site: externalLink(national.url, organisation + EXTERNAL_ICON, hostOf(national.url))
+            }) + '</h3>' +
+            '<p class="bc-insert-note"><span>' + t(COUNTRY_SOURCE_NOTE[country.source] || COUNTRY_SOURCE_NOTE.chosen, {
+                country: escapeHtml(national.countryInProse),
+                change: countryChangeButton(t('national.changeCountry'))
+            }) + '</span></p>' +
             credit +
             '</div></div>' +
             '<ul class="bc-cards">' + nationalCardHtml(national) + '</ul>' +
@@ -268,9 +199,9 @@ function beatcancerInsertHtml(page, national, country) {
 // The line after "You can also meet young people with the same
 // experience at ... beatcancer.eu." about the national website
 function supportNationalHtml(national) {
-    return 'In ' + escapeHtml(national.countryInProse) + ', there is also ' +
-        externalLink(national.url, nativeText(national.name, national.lang), hostOf(national.url)) +
-        (national.organisation !== national.name ? ' (' + nativeText(national.organisation, national.lang) + ')' : '') + '.';
+    const site = externalLink(national.url, nativeText(national.name, national.lang), hostOf(national.url)) +
+        (national.organisation !== national.name ? ' (' + nativeText(national.organisation, national.lang) + ')' : '');
+    return t('national.supportLine', { country: escapeHtml(national.countryInProse), site: site });
 }
 
 // Article images come from beatcancer.eu's image service, which sometimes
@@ -320,7 +251,7 @@ function watchArticleImages(root) {
 
 // A button in the beatcancer.eu block that opens the Country dialog
 function countryChangeButton(text) {
-    return '<button type="button" class="country-change" aria-haspopup="dialog">' + text + '</button>';
+    return '<button type="button" class="country-change" aria-haspopup="dialog">' + escapeHtml(text) + '</button>';
 }
 
 // ------------------------------------------------------------------
@@ -340,10 +271,14 @@ function countryChangeButton(text) {
 // the country code and how it was found, never the position.
 // ------------------------------------------------------------------
 
-// The site root (web/), from the address of this script
-// (web/js/portal.js), so that every page finds the data files
+// The site root (web/), from data-site-root on <html> (set per page:
+// the generated pages in other languages are one level deeper), else
+// from the address of this script (web/js/portal.js), so that every
+// page finds the data files
 const SITE_ROOT = (function () {
+    const declared = document.documentElement.getAttribute('data-site-root');
     try {
+        if (declared) return new URL(declared, window.location.href).href;
         const script = document.currentScript || document.querySelector('script[src*="js/portal.js"]');
         return new URL('../', script.src).href;
     } catch (e) {
@@ -409,29 +344,22 @@ const SINGLE_COUNTRY_LANGUAGES = {
     hy: 'AM', az: 'AZ', mt: 'MT', ga: 'IE', lb: 'LU'
 };
 
-// Country names that take an article in running text
-const COUNTRY_IN_PROSE = { NL: 'the Netherlands', GB: 'the United Kingdom' };
-
-// How the country was found, after the country name in the heading of
-// the national card (nothing when the visitor chose it)
+// The note on the national card: how the country was found
 const COUNTRY_SOURCE_NOTE = {
-    settings: ', guessed from the settings of your browser',
-    chosen: '',
-    position: ', found with your location'
+    settings: 'national.cardNoteSettings',
+    chosen: 'national.cardNoteChosen',
+    position: 'national.cardNotePosition'
 };
 
-// "NL" -> "Netherlands", "nl" -> "Dutch" (English names from the browser)
+// "NL" -> "Netherlands", "nl" -> "Dutch": names from the browser in the
+// language of the page (the English pages use the list above, so that
+// the names stay as they are)
 function displayName(type, code, fallback) {
     try {
-        return new Intl.DisplayNames(['en'], { type: type }).of(code) || fallback;
+        return new Intl.DisplayNames([pageLanguage(), 'en'], { type: type }).of(code) || fallback;
     } catch (e) {
         return fallback;
     }
-}
-
-function browserLanguages() {
-    return (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ''])
-        .map(function (tag) { return String(tag); });
 }
 
 function browserLanguages() {
@@ -448,11 +376,18 @@ function europeanCountry(code) {
 }
 
 function countryName(code) {
-    return code === OUTSIDE_EUROPE ? 'Outside Europe' : (EUROPE_COUNTRIES[code] || String(code));
+    if (code === OUTSIDE_EUROPE) return t('national.outsideEurope');
+    const english = EUROPE_COUNTRIES[code] || String(code);
+    return isEnglishPage() ? english : displayName('region', code, english);
 }
 
+// The country name as it reads in a sentence ("the Netherlands"): the
+// strings file lists the exceptions per country and, under "*", the
+// pattern for every other country ("{name}")
 function countryInProse(code) {
-    return COUNTRY_IN_PROSE[code] || countryName(code);
+    const prose = strings('national').countryInProse || {};
+    if (code !== OUTSIDE_EUROPE && typeof prose[code] === 'string') return prose[code];
+    return (typeof prose['*'] === 'string' ? prose['*'] : '{name}').replace('{name}', countryName(code));
 }
 
 // The visitor's country guessed from the browser settings, without
@@ -607,11 +542,22 @@ function pickNationalResource(data, country) {
         chosen = resources.find(function (r) { return String(r.lang || '').toLowerCase() === language; });
         if (chosen) break;
     }
+    const picked = chosen || resources[0];
     return Object.assign({
         iso2: country,
         country: countryName(country),
-        countryInProse: countryInProse(country)
-    }, chosen || resources[0]);
+        countryInProse: countryInProse(country),
+        index: entry.resources.indexOf(picked)
+    }, picked);
+}
+
+// The one-sentence description of a national website, in the language
+// of the page when scripts/translate_site.py translated it (strings
+// group national.descriptions, keyed "<country>/<index>"), else as it
+// is in web/data/national_resources.json (English)
+function nationalDescription(n) {
+    const translated = strings('national').descriptions || {};
+    return translated[n.iso2 + '/' + n.index] || n.description || '';
 }
 
 // Text in the language of a national website (e.g. its name), marked
@@ -628,14 +574,15 @@ function nationalCardHtml(n) {
     const plate = n.logo && /^#[0-9a-f]{3,8}$/i.test(n.logo_background || '')
         ? ' style="background:' + n.logo_background + '"' : '';
     const language = n.lang ? displayName('language', n.lang, n.lang) : '';
-    const meta = [n.organisation ? nativeText(n.organisation, n.lang) : '', language ? 'In ' + escapeHtml(language) : '']
+    const meta = [n.organisation ? nativeText(n.organisation, n.lang) : '',
+        language ? escapeHtml(t('national.inLanguage', { language: language })) : '']
         .filter(Boolean).join(' · ');
     return '<li class="bc-card bc-card-national">' +
         '<div class="bc-card-media bc-card-logo' + (n.logo ? '' : ' bc-card-illustration') + '"' + plate + '>' + image + '</div>' +
         '<div class="bc-card-body">' +
-        '<span class="bc-card-type">National · ' + escapeHtml(n.country) + '</span>' +
+        '<span class="bc-card-type">' + escapeHtml(t('national.cardType', { country: n.country })) + '</span>' +
         '<h4 class="bc-card-title">' + externalLink(n.url, nativeText(n.name, n.lang), hostOf(n.url)) + '</h4>' +
-        (n.description ? '<p class="bc-card-excerpt">' + escapeHtml(n.description) + '</p>' : '') +
+        (nationalDescription(n) ? '<p class="bc-card-excerpt">' + escapeHtml(nationalDescription(n)) + '</p>' : '') +
         '<p class="bc-card-meta"><span>' + meta + '</span>' + EXTERNAL_ICON + '</p>' +
         '</div></li>';
 }
@@ -750,8 +697,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // follow a header/footer link there have no way back. Those links
     // are disabled and explain this in a tooltip instead; the original
     // address is kept in data-href.
-    const OFFSITE_NOTE = 'This link does not work in this test version. You can visit strongaya.eu yourself, ' +
-        'but from there you cannot get back to this test portal.';
+    const OFFSITE_NOTE = t('ui.offsiteNote');
     const TIP_WIDTH = 260; // width of .offsite-link[data-tooltip]::after
     const TIP_MARGIN = 8;
 
@@ -805,7 +751,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const image = el.querySelector('img[alt]');
         const name = el.textContent.trim() || (image ? image.alt : '');
         if (name && !el.hasAttribute('aria-label')) el.setAttribute('aria-label', name);
-        if (text === 'Coming soon') el.setAttribute('aria-disabled', 'true');
+        if (text === t('ui.comingSoon') || text === 'Coming soon') el.setAttribute('aria-disabled', 'true');
     });
 
     // --- Accessibility modes (contrast / dark) ---
@@ -867,7 +813,8 @@ document.addEventListener('DOMContentLoaded', function () {
             dialog.innerHTML =
                 '<h3 id="portal-modal-title"></h3><p class="modal-intro"></p>' +
                 '<div class="modal-body"></div>' +
-                '<div class="modal-footer"><button type="button" class="modal-close">Close</button></div>';
+                '<div class="modal-footer"><button type="button" class="modal-close">' + escapeHtml(t('ui.close')) +
+                '</button></div>';
             document.body.appendChild(dialog);
 
             // A click on the backdrop targets the dialog element itself;
@@ -891,9 +838,9 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
         dialog.querySelector('.modal-footer').innerHTML = action
-            ? '<button type="button" class="modal-close modal-cancel">Cancel</button>' +
+            ? '<button type="button" class="modal-close modal-cancel">' + escapeHtml(t('ui.cancel')) + '</button>' +
                 '<button type="button" class="modal-action">' + escapeHtml(action.label) + '</button>'
-            : '<button type="button" class="modal-close">Close</button>';
+            : '<button type="button" class="modal-close">' + escapeHtml(t('ui.close')) + '</button>';
         dialog.portalAction = action ? action.run : null;
         dialog.querySelector('h3').textContent = title;
         dialog.querySelector('.modal-intro').textContent = intro;
@@ -902,31 +849,33 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function openGlossary() {
-        const pageTerms = GLOSSARY_CONTENT[pageId] || [];
-        const commonTerms = isModulePage ? GLOSSARY_CONTENT.common : [];
-        // Alphabetical order makes terms easier to find
+        const glossary = strings('glossary');
+        const pageTerms = glossary[pageId] || [];
+        const commonTerms = isModulePage ? (glossary.common || []) : [];
+        // Alphabetical order (of the page language) makes terms easier to find
         const terms = pageTerms.concat(commonTerms)
-            .sort(function (a, b) { return a.term.localeCompare(b.term); });
+            .sort(function (a, b) { return a.term.localeCompare(b.term, pageLanguage()); });
         if (terms.length === 0) return;
 
-        const items = terms.map(function (t) {
-            return '<dt>' + t.term + '</dt><dd>' + t.definition + '</dd>';
+        const items = terms.map(function (entry) {
+            return '<dt>' + entry.term + '</dt><dd>' + entry.definition + '</dd>';
         }).join('');
         openPortalModal(
-            'Glossary',
-            'What the words on this page mean.',
+            t('ui.glossaryTitle'),
+            t('ui.glossaryIntro'),
             '<dl class="glossary-list">' + items + '</dl>'
         );
     }
 
     function openHelp() {
-        const steps = isModulePage ? HELP_CONTENT.module : (HELP_CONTENT[pageId] || HELP_CONTENT.modules);
+        const help = strings('help');
+        const steps = (isModulePage ? help.module : (help[pageId] || help.modules)) || [];
         const items = steps.map(function (s) {
             return '<li>' + s + '</li>';
         }).join('');
         openPortalModal(
-            'Help',
-            'How to use this page.',
+            t('ui.helpTitle'),
+            t('ui.helpIntro'),
             '<ul class="help-list">' + items + '</ul>'
         );
     }
@@ -952,10 +901,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // accessible name and the tooltip (title)
     function updateCountryButtons() {
         const country = currentCountry();
-        const name = country.code ? countryName(country.code) : 'not chosen';
+        const name = country.code ? countryName(country.code) : t('national.notChosen');
         countryButtons.forEach(function (btn) {
-            btn.setAttribute('aria-label', 'Country: ' + name);
-            btn.title = 'Country: ' + name;
+            btn.setAttribute('aria-label', t('national.button', { country: name }));
+            btn.title = t('national.button', { country: name });
         });
     }
 
@@ -968,60 +917,59 @@ document.addEventListener('DOMContentLoaded', function () {
     // What the country means for the topic pages (HTML); pending: the
     // visitor picked it in the dialog but has not applied it yet
     function countryResultHtml(country, national, pending) {
-        if (!country.code) return 'Choose your country from the list.';
-        const show = pending ? 'will show' : 'show';
+        if (!country.code) return escapeHtml(t('national.resultChoose'));
+        const suffix = pending ? 'Pending' : '';
         const site = national && pickNationalResource(national, country.code);
         let result;
         if (!site) {
             result = country.code === OUTSIDE_EUROPE || !national
-                ? 'The topic pages ' + show + ' the articles from beatcancer.eu.'
-                : 'There is no national website for ' + escapeHtml(countryInProse(country.code)) +
-                    ' that is referenced in this portal yet: the topic pages ' + show + ' the articles from beatcancer.eu.';
+                ? t('national.resultArticles' + suffix)
+                : t('national.resultNoSite' + suffix, { country: escapeHtml(countryInProse(country.code)) });
         } else {
-            result = 'The topic pages ' + show + ' ' + nativeText(site.name, site.lang) +
-                (site.organisation && site.organisation !== site.name
-                    ? ' (' + nativeText(site.organisation, site.lang) + ')' : '') +
-                ' next to the articles from beatcancer.eu.';
+            result = t('national.resultSite' + suffix, {
+                site: nativeText(site.name, site.lang) + (site.organisation && site.organisation !== site.name
+                    ? ' (' + nativeText(site.organisation, site.lang) + ')' : '')
+            });
         }
-        return result + (pending ? ' <strong>Press Apply to use this country.</strong>' : '');
+        return result + (pending ? ' <strong>' + escapeHtml(t('national.pressApply')) + '</strong>' : '');
     }
 
     const COUNTRY_SOURCE_STATUS = {
-        settings: 'Guessed from the settings of your browser.',
+        settings: 'national.statusSettings',
         chosen: '',
-        position: 'Found with your location.'
+        position: 'national.statusPosition'
     };
 
     function openCountryDialog() {
         const opener = document.activeElement;
         const country = currentCountry();
+        const names = {};
+        Object.keys(EUROPE_COUNTRIES).forEach(function (code) { names[code] = countryName(code); });
         const options = Object.keys(EUROPE_COUNTRIES).sort(function (a, b) {
-            return EUROPE_COUNTRIES[a].localeCompare(EUROPE_COUNTRIES[b], 'en');
+            return names[a].localeCompare(names[b], pageLanguage());
         }).map(function (code) {
-            return '<option value="' + code + '">' + escapeHtml(EUROPE_COUNTRIES[code]) + '</option>';
+            return '<option value="' + code + '">' + escapeHtml(names[code]) + '</option>';
         });
         openPortalModal(
-            'Your country',
-            'The topic pages can show a website for young people with cancer in your country, next to the ' +
-            'articles from beatcancer.eu.',
+            t('national.dialogTitle'),
+            t('national.dialogIntro'),
             '<div class="country-form">' +
-            '<label class="country-label" for="country-select">Country</label>' +
+            '<label class="country-label" for="country-select">' + escapeHtml(t('national.countryLabel')) + '</label>' +
             '<select id="country-select" class="country-select" aria-describedby="country-status">' +
-            (country.code ? '' : '<option value="" disabled selected>Choose your country</option>') +
+            (country.code ? '' : '<option value="" disabled selected>' + escapeHtml(t('national.chooseCountry')) + '</option>') +
             options.join('') +
-            '<option value="' + OUTSIDE_EUROPE + '">Outside Europe</option>' +
+            '<option value="' + OUTSIDE_EUROPE + '">' + escapeHtml(t('national.outsideEurope')) + '</option>' +
             '</select>' +
             '<p id="country-status" class="country-status" role="status"></p>' +
             (canLocate
                 ? '<div class="country-locate">' +
                 '<button type="button" class="country-locate-btn">' +
-                '<i class="fas fa-location-crosshairs" aria-hidden="true"></i>Use my location</button>' +
-                '<p class="country-privacy">Your browser asks you first. The portal uses your location only on ' +
-                'this device, to find your country, and does not send or store it.</p>' +
+                '<i class="fas fa-location-crosshairs" aria-hidden="true"></i>' + escapeHtml(t('national.useLocation')) + '</button>' +
+                '<p class="country-privacy">' + escapeHtml(t('national.privacy')) + '</p>' +
                 '</div>'
                 : '') +
             '</div>',
-            { label: 'Apply', run: function () { applyChoice(); } }
+            { label: t('ui.apply'), run: function () { applyChoice(); } }
         );
         const dialog = document.getElementById('portal-modal');
         const select = dialog.querySelector('.country-select');
@@ -1045,8 +993,8 @@ document.addEventListener('DOMContentLoaded', function () {
             loadJson(NATIONAL_RESOURCES_URL).then(show, function () { show(null); });
         };
         showStatus(country.code
-            ? COUNTRY_SOURCE_STATUS[country.source]
-            : 'Your country could not be guessed from the settings of your browser.', country);
+            ? (COUNTRY_SOURCE_STATUS[country.source] ? t(COUNTRY_SOURCE_STATUS[country.source]) : '')
+            : t('national.notGuessed'), country);
 
         let choices = 0;
         select.addEventListener('change', function () {
@@ -1063,7 +1011,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (locating) return;
                 locating = true;
                 const before = choices;
-                status.textContent = 'Finding your location…';
+                status.textContent = t('national.finding');
                 const done = function () { locating = false; };
                 locateCountry().then(function (code) {
                     if (choices !== before) return; // the visitor chose a country meanwhile
@@ -1071,13 +1019,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     pendingSource = 'position';
                     applyButton.disabled = false;
                     showStatus(code === OUTSIDE_EUROPE
-                        ? 'Your location is outside Europe.'
-                        : 'Found with your location: ' + countryName(code) + '.', { code: code, source: 'position' }, true);
+                        ? t('national.foundOutside')
+                        : t('national.found', { country: countryName(code) }), { code: code, source: 'position' }, true);
                 }, function (reason) {
                     if (choices !== before) return;
-                    status.textContent = reason === 'denied'
-                        ? 'Your browser did not share your location. You can choose your country from the list.'
-                        : 'Your location could not be found. You can choose your country from the list.';
+                    status.textContent = reason === 'denied' ? t('national.denied') : t('national.notFound');
                 }).then(done, done);
             });
         }
@@ -1097,6 +1043,148 @@ document.addEventListener('DOMContentLoaded', function () {
         btn.addEventListener('click', openCountryDialog);
     });
     updateCountryButtons();
+
+    // --- Language (accessibility bar) ---
+    // The Language button lists the languages the portal is published
+    // in (web/i18n/languages.js); a choice is remembered (js/i18n.js)
+    // and this page opens in that language. When the visitor's language
+    // is not among them, the browser can translate the page on the
+    // device (Translator API, Chrome and Edge 138 or later): the dialog
+    // offers that, and otherwise points to the browser's own translate
+    // feature. A browser translation is remembered too, and applied
+    // again on the next page.
+    const i18n = window.AYA_I18N;
+    const languageButtons = document.querySelectorAll('.language-btn');
+    const LANGUAGE_STATUS = {
+        source: 'language.statusSource',
+        machine: 'language.statusMachine',
+        reviewed: 'language.statusReviewed',
+        browser: 'language.statusBrowser'
+    };
+
+    // The language of this page as the visitor sees it: the page
+    // language, or the language the browser translated it into
+    function shownLanguage() {
+        return (i18n && i18n.browser.active()) || (i18n ? i18n.pageLang() : 'en');
+    }
+
+    function languageName(code) {
+        const entry = i18n && i18n.languages.find(function (l) { return l.code === code; });
+        return entry ? entry.name : (i18n ? i18n.nativeName(code) : code);
+    }
+
+    // The label stays "Language"; the current language is in the
+    // accessible name and the tooltip (title)
+    function updateLanguageButtons() {
+        const label = t('language.title') + ': ' + languageName(shownLanguage());
+        languageButtons.forEach(function (btn) {
+            btn.setAttribute('aria-label', label);
+            btn.title = label;
+        });
+    }
+
+    function languageOptionHtml(code, name, status, current) {
+        return '<li><button type="button" class="language-option" lang="' + escapeHtml(code) + '" data-lang="' +
+            escapeHtml(code) + '"' + (current ? ' aria-current="true"' : '') + '>' +
+            '<span class="language-name">' + escapeHtml(name) + '</span>' +
+            '<span class="language-status" lang="' + escapeHtml(pageLanguage()) + '">' +
+            escapeHtml(t(LANGUAGE_STATUS[status] || LANGUAGE_STATUS.machine)) + '</span></button></li>';
+    }
+
+    function openLanguageDialog() {
+        if (!i18n) return;
+        const browserActive = i18n.browser.active();
+        const current = shownLanguage();
+        const options = i18n.languages.map(function (l) {
+            return languageOptionHtml(l.code, l.name, l.status, l.code === current && !browserActive);
+        });
+        if (browserActive) options.push(languageOptionHtml(browserActive, languageName(browserActive), 'browser', true));
+
+        // Translation by the browser, for the languages the portal does not have
+        const supported = i18n.browser.supported();
+        const candidates = supported ? i18n.browser.candidates() : [];
+        const preferred = i18n.browserLanguages().filter(function (code) { return candidates.indexOf(code) >= 0; })[0] ||
+            browserActive || candidates[0];
+        const browserHtml = '<div class="language-browser">' +
+            '<h4>' + escapeHtml(t('language.browserTitle')) + '</h4>' +
+            (supported && candidates.length
+                ? '<p>' + escapeHtml(t('language.browserIntro')) + '</p>' +
+                    '<div class="language-browser-form">' +
+                    '<label for="language-browser-select">' + escapeHtml(t('language.browserSelect')) + '</label>' +
+                    '<select id="language-browser-select" class="language-browser-select">' +
+                    candidates.map(function (code) {
+                        return '<option value="' + escapeHtml(code) + '" lang="' + escapeHtml(code) + '"' +
+                            (code === preferred ? ' selected' : '') + '>' + escapeHtml(i18n.nativeName(code)) + '</option>';
+                    }).join('') +
+                    '</select>' +
+                    '<button type="button" class="language-browser-btn">' + escapeHtml(t('language.browserButton')) + '</button>' +
+                    '</div>' +
+                    '<p class="language-browser-status" role="status"></p>'
+                : '<p>' + escapeHtml(t('language.browserHelp')) + '</p>') +
+            '</div>';
+
+        openPortalModal(
+            t('language.title'),
+            t('language.intro'),
+            '<ul class="language-list">' + options.join('') + '</ul>' + browserHtml
+        );
+        const dialog = document.getElementById('portal-modal');
+
+        // A language of the portal: remember it and open this page in it
+        dialog.querySelectorAll('.language-option').forEach(function (option) {
+            option.addEventListener('click', function () {
+                const code = option.dataset.lang;
+                if (code === browserActive) {
+                    dialog.close();
+                    return;
+                }
+                i18n.choose(code, 'site');
+                const url = i18n.urlFor(code);
+                if (code === i18n.pageLang() && !browserActive) {
+                    dialog.close();
+                } else if (url === window.location.href) {
+                    window.location.reload(); // the English page, translated by the browser
+                } else if (url) {
+                    window.location.href = url;
+                }
+            });
+        });
+
+        // Translation by the browser
+        const translateButton = dialog.querySelector('.language-browser-btn');
+        if (translateButton) {
+            const select = dialog.querySelector('.language-browser-select');
+            const status = dialog.querySelector('.language-browser-status');
+            translateButton.addEventListener('click', function () {
+                const code = select.value;
+                translateButton.disabled = true;
+                status.textContent = t('language.browserTranslating');
+                i18n.browser.availability(code).then(function (state) {
+                    if (state === 'unavailable') throw new Error('unavailable');
+                    return i18n.browser.translatePage(code, function (fraction) {
+                        status.textContent = t('language.browserDownloading', { percent: Math.round(fraction * 100) });
+                    });
+                }).then(function () {
+                    i18n.choose(code, 'browser');
+                    status.textContent = t('language.browserDone');
+                    dialog.querySelectorAll('.language-option').forEach(function (option) {
+                        option.removeAttribute('aria-current');
+                    });
+                    updateLanguageButtons();
+                }, function (error) {
+                    status.textContent = error && error.message === 'unavailable'
+                        ? t('language.browserUnavailable') : t('language.browserFailed');
+                }).then(function () {
+                    translateButton.disabled = false;
+                });
+            });
+        }
+    }
+
+    languageButtons.forEach(function (btn) {
+        btn.addEventListener('click', openLanguageDialog);
+    });
+    updateLanguageButtons();
 
     // --- Articles from beatcancer.eu (module pages) ---
     // Replaces the plain link to the beatcancer.eu library with a few

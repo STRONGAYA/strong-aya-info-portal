@@ -9,6 +9,8 @@
  *   English page on the device: with the Translator API where the browser has it (Chrome and Edge
  *   138 or later), through the Language dialog, or with the browser's own translate feature. The
  *   portal itself sends nothing anywhere for this.
+ * - the remembered accessibility preferences (text size, contrast, dark mode: localStorage) are put on
+ *   <html> here too, so the page is drawn with them from the start (portal.js wires the buttons)
  * This script is loaded synchronously in <head>, right after web/i18n/languages.js, so that the
  * redirect to another language happens before anything is drawn.
  */
@@ -122,6 +124,16 @@
             var url = urlFor(target);
             if (url && url !== location.href) location.replace(url);
         }
+    })();
+
+    // --- Accessibility preferences, before paint ---
+    // The same classes and storage keys as the buttons in portal.js use
+    (function applyPreferences() {
+        var size = readStorage('aya-size');
+        if (size === 'large' || size === 'larger') html.classList.add('size-' + size);
+        ['contrast', 'dark'].forEach(function (mode) {
+            if (readStorage('aya-mode-' + mode) === '1') html.classList.add('mode-' + mode);
+        });
     })();
 
     // --- t(): the text the scripts generate ---

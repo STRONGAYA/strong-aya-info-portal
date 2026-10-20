@@ -570,12 +570,12 @@ class StrongAyaVisualisation {
         const title = document.createElement('h3');
         title.id = 'view-selector-title';
         title.textContent = t('ui.viewTitle');
-        title.style.cssText = 'margin: 0 0 20px 0; font-size: 24px; color: black; font-weight: 600; font-family: inherit;';
+        title.style.cssText = 'margin: 0 0 20px 0; font-size: 1.6rem; color: black; font-weight: 600; font-family: inherit;';
         modal.appendChild(title);
         
         const description = document.createElement('p');
         description.textContent = t('ui.viewIntro');
-        description.style.cssText = 'font-size: 14px; color: #a2a2a2; margin: 0 0 25px 0; line-height: 1.6;';
+        description.style.cssText = 'font-size: 0.9333rem; color: #a2a2a2; margin: 0 0 25px 0; line-height: 1.6;';
         modal.appendChild(description);
         
         const grid = document.createElement('div');
@@ -589,14 +589,14 @@ class StrongAyaVisualisation {
         const cancelBtn = document.createElement('button');
         cancelBtn.type = 'button';
         cancelBtn.textContent = t('ui.cancel');
-        cancelBtn.style.cssText = 'padding: 12px 24px; border-radius: 8px; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer; background: #d7d7d7; color: black; border: none;';
+        cancelBtn.style.cssText = 'padding: 12px 24px; border-radius: 8px; font-family: inherit; font-size: 0.9333rem; font-weight: 600; cursor: pointer; background: #d7d7d7; color: black; border: none;';
         cancelBtn.addEventListener('click', () => modal.close());
         footer.appendChild(cancelBtn);
         
         const applyBtn = document.createElement('button');
         applyBtn.type = 'button';
         applyBtn.textContent = t('ui.apply');
-        applyBtn.style.cssText = 'padding: 12px 24px; border-radius: 8px; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer; background: #f7741e; color: white; border: none;';
+        applyBtn.style.cssText = 'padding: 12px 24px; border-radius: 8px; font-family: inherit; font-size: 0.9333rem; font-weight: 600; cursor: pointer; background: #f7741e; color: white; border: none;';
         applyBtn.addEventListener('click', () => {
             this.switchView(this.pendingView || this.currentView);
             saveVisState({ view: this.currentView });
@@ -652,12 +652,12 @@ class StrongAyaVisualisation {
                 
                 const name = document.createElement('div');
                 name.textContent = visType.name;
-                name.style.cssText = 'font-size: 16px; font-weight: 600; color: black; margin: 0 0 5px 0;';
+                name.style.cssText = 'font-size: 1.0667rem; font-weight: 600; color: black; margin: 0 0 5px 0;';
                 card.appendChild(name);
                 
                 const desc = document.createElement('div');
                 desc.textContent = visType.description;
-                desc.style.cssText = 'font-size: 14px; color: #a2a2a2; margin: 0; line-height: 1.4;';
+                desc.style.cssText = 'font-size: 0.9333rem; color: #a2a2a2; margin: 0; line-height: 1.4;';
                 card.appendChild(desc);
                 
                 card.addEventListener('click', () => {

@@ -174,7 +174,16 @@ class ExtractorTest(unittest.TestCase):
         self.assertNotIn('https://strongaya.eu/', values)
 
     def test_strings_file(self):
-        self.assertEqual(len(self.site.strings.leaves), 390)
+        # every string of the file is a unit: count them independently of the extractor
+        def count(node):
+            if isinstance(node, dict):
+                return sum(count(value) for value in node.values())
+            if isinstance(node, list):
+                return sum(count(value) for value in node)
+            return 1 if isinstance(node, str) else 0
+        expected = count(load_strings(os.path.join(WEB, 'i18n', 'en.js')))
+        self.assertGreater(expected, 300)
+        self.assertEqual(len(self.site.strings.leaves), expected)
         paths = {unit.path for unit in self.site.strings.leaves}
         self.assertIn('language.noticeMachine', paths)
         self.assertIn('glossary.common.0.term', paths)

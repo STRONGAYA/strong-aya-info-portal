@@ -125,6 +125,15 @@ a list of European cities:
 python scripts/fetch_europe_countries.py web/data/europe_countries.json
 ```
 
+## Accessibility bar
+The row of buttons under the purple banner holds the reader's own settings. **Contrast** and **Dark** change the
+colours, **Size** opens a dialog with three text sizes (normal, large at 115 % and extra large at 130 %: the
+stylesheet sizes all text in `rem`, so one root size scales everything except the icons and the icon array),
+**Language** and **Country** are described below. Contrast, dark mode and the text size are kept in
+`localStorage` and put on the `<html>` element by `web/js/i18n.js` before the page is drawn, so they do not
+flash. **Audio** is not implemented yet; `docs/plan_audio_read_aloud.md` investigates what the browser's own
+speech synthesis can do for it.
+
 ## Languages
 English is the only language that is written by hand. The portal is translated at build time with
 [DeepL](https://www.deepl.com/pro-api), never in the browser: `scripts/translate_site.py` (standard library only)

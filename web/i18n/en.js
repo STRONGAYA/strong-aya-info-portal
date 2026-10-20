@@ -30,6 +30,15 @@ window.AYA_STRINGS = {
     "browserUnavailable": "Your browser cannot translate into this language.",
     "browserHelp": "Your browser may be able to translate this page itself: look for a translate option in the address bar, or in the menu that opens with a right click on the page. The translation is then made by your browser, not by the portal."
   },
+  "size": {
+    "title": "Text size",
+    "intro": "Choose how large the text of the portal is shown. The choice is remembered on this device, like the contrast and dark modes.",
+    "button": "Text size: {size}",
+    "normal": "Normal",
+    "large": "Large",
+    "larger": "Extra large",
+    "percent": "{percent}% of the normal size"
+  },
   "ui": {
     "close": "Close",
     "cancel": "Cancel",
@@ -354,6 +363,7 @@ window.AYA_STRINGS = {
       "<b>Want to know more, or is it overwhelming?</b> (near the bottom) tells you where to find support. It also shows articles about this topic from beatcancer.eu and, if your country has one, a national website for young people with cancer. They open in a new tab.",
       "<b>Country</b> (in the accessibility bar at the top) sets the country for that national website. The portal guesses it from the settings of your browser. You can choose another country there, or let your browser find it with your location.",
       "<b>Language</b> (in the accessibility bar) shows the languages the portal is available in. If yours is not among them, your browser may be able to translate the page.",
+      "<b>Size</b> (in the accessibility bar) makes all text larger; <b>Contrast</b> and <b>Dark</b> change the colours.",
       "The note at the end of the page explains where the numbers come from, and how to contact us."
     ],
     "modules": [
@@ -363,7 +373,7 @@ window.AYA_STRINGS = {
       "<b>Explore all subjects</b> opens a list of all subjects.",
       "The order of the subjects depends on the profile you chose on the start page.",
       "<b>Glossary</b> explains the words used on this page.",
-      "Use the <b>accessibility buttons</b> below the purple banner to turn on contrast or dark mode.",
+      "Use the <b>accessibility buttons</b> below the purple banner to turn on contrast or dark mode, or to make the text larger (<b>Size</b>).",
       "<b>Country</b> (in the accessibility bar) chooses the country for the national website for young people with cancer on the topic pages.",
       "<b>Language</b> (in the accessibility bar) shows the languages the portal is available in."
     ]

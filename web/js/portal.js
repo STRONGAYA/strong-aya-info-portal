@@ -3,7 +3,7 @@
  * - Subject carousel: horizontal scrolling via prev/next buttons
  * - "Explore all topics" dropdown on module pages
  * - Disabled header/footer links to strongaya.eu (with an explanation)
- * - Accessibility modes (contrast / dark), persisted in localStorage
+ * - Accessibility modes (contrast / dark) and the text size, persisted in localStorage
  * - Page-specific Glossary and Help modals
  * - Articles from beatcancer.eu about the topic of a module page
  * - A national website for young people with cancer, for the visitor's country
@@ -791,6 +791,69 @@ document.addEventListener('DOMContentLoaded', function () {
             syncAccessButtons();
         });
     });
+
+    // --- Text size ---
+    // The Size button opens a dialog with three sizes; the choice is a
+    // class on <html> (the stylesheet sizes text in rem) and is kept in
+    // localStorage, where js/i18n.js reads it before the page is drawn.
+    const SIZES = ['normal', 'large', 'larger'];
+    const SIZE_PERCENT = { normal: 100, large: 115, larger: 130 };
+    const SIZE_KEY = 'aya-size';
+    const sizeButtons = document.querySelectorAll('.size-btn');
+
+    function currentSize() {
+        return SIZES.find(function (size) { return size !== 'normal' && rootEl.classList.contains('size-' + size); }) || 'normal';
+    }
+
+    function applySize(size) {
+        SIZES.forEach(function (s) { rootEl.classList.toggle('size-' + s, s === size && s !== 'normal'); });
+        try {
+            if (size === 'normal') localStorage.removeItem(SIZE_KEY);
+            else localStorage.setItem(SIZE_KEY, size);
+        } catch (e) { /* storage unavailable: the size holds on this page only */ }
+        updateSizeButtons();
+    }
+
+    // The label stays "Size"; the current size is in the accessible
+    // name and the tooltip (title)
+    function updateSizeButtons() {
+        const label = t('size.button', { size: t('size.' + currentSize()) });
+        sizeButtons.forEach(function (btn) {
+            btn.setAttribute('aria-label', label);
+            btn.title = label;
+        });
+    }
+
+    function openSizeDialog() {
+        const items = SIZES.map(function (size) {
+            return '<li><button type="button" class="size-option" data-size="' + size + '"' +
+                (size === currentSize() ? ' aria-current="true"' : '') + '>' +
+                '<span class="size-name">' + escapeHtml(t('size.' + size)) + '</span>' +
+                '<span class="size-percent">' + escapeHtml(t('size.percent', { percent: SIZE_PERCENT[size] })) + '</span>' +
+                '</button></li>';
+        });
+        openPortalModal(t('size.title'), t('size.intro'), '<ul class="size-list">' + items.join('') + '</ul>');
+        const dialog = document.getElementById('portal-modal');
+        // a size applies at once, so the reader sees the effect; Close keeps it
+        dialog.querySelectorAll('.size-option').forEach(function (option) {
+            option.addEventListener('click', function () {
+                applySize(option.dataset.size);
+                dialog.querySelectorAll('.size-option').forEach(function (o) {
+                    if (o === option) o.setAttribute('aria-current', 'true');
+                    else o.removeAttribute('aria-current');
+                });
+            });
+        });
+    }
+
+    try {
+        const stored = localStorage.getItem(SIZE_KEY);
+        if (SIZES.indexOf(stored) > 0) rootEl.classList.add('size-' + stored);
+    } catch (e) { /* storage unavailable */ }
+    sizeButtons.forEach(function (btn) {
+        btn.addEventListener('click', openSizeDialog);
+    });
+    updateSizeButtons();
 
     // --- Glossary / Help modals ---
     // Content is page specific; the page id is the file name without

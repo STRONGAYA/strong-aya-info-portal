@@ -186,8 +186,8 @@ function formatMonth(date) {
 // opening the article in a new tab) and links to the matching topics on
 // the site; '' when there is nothing to show. national is the national
 // website for the visitor's country (see below): its card, with a short
-// heading of its own, takes the place of the first article, and the
-// beatcancer.eu heading moves above the other two. country is the
+// heading of its own, takes the place of the last article, on the
+// right; the beatcancer.eu heading stays above the other two. country is the
 // visitor's country ({ code, source }, see currentCountry), or null when
 // the national websites could not be loaded.
 function beatcancerInsertHtml(page, national, country) {
@@ -257,7 +257,7 @@ function beatcancerInsertHtml(page, national, country) {
             '</div>';
     }
 
-    return '<div class="bc-groups' + (national ? ' has-national' : '') + '">' + nationalGroup + yarnGroup + '</div>' +
+    return '<div class="bc-groups' + (national ? ' has-national' : '') + '">' + yarnGroup + nationalGroup + '</div>' +
         (topics.length ? '<p class="bc-insert-more"><span>More on beatcancer.eu:</span>' + topics.join('') + '</p>' : '');
 }
 

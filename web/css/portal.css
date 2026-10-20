@@ -1448,13 +1448,18 @@ html.mode-dark .bc-card-logo img {
     filter: none;
 }
 
-/* the national website (one tile) and beatcancer.eu (two tiles) side by
-   side, each with its own heading right above its tiles; without a
-   national website beatcancer.eu takes the full width */
+/* beatcancer.eu (two tiles) and the national website (one tile, on the
+   right) side by side, each with its own heading right above its tiles
+   and a thin line between them; without a national website
+   beatcancer.eu takes the full width */
 .bc-groups {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 16px;
+}
+
+.bc-groups.has-national {
+    column-gap: 32px;
 }
 
 .bc-group {
@@ -1478,16 +1483,30 @@ html.mode-dark .bc-card-logo img {
     margin-bottom: 0;
 }
 
-.has-national .bc-group-national {
-    grid-column: 1;
-}
-
 .has-national .bc-group-yarn {
-    grid-column: 2 / -1;
+    grid-column: 1 / span 2;
 }
 
+.has-national .bc-group-national {
+    grid-column: 3;
+    position: relative;
+}
+
+/* the line, in the middle of the gap between the groups */
+.has-national .bc-group-national::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -16px;
+    width: 1px;
+    background: var(--border-grey);
+}
+
+/* same gap between the two article tiles, so all tiles are equally wide */
 .has-national .bc-group-yarn .bc-cards {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px;
 }
 
 .has-national .bc-group-national .bc-cards {
@@ -1504,8 +1523,23 @@ html.mode-dark .bc-card-logo img {
         grid-column: 1;
     }
 
+    .bc-groups.has-national {
+        row-gap: 32px;
+    }
+
     .has-national .bc-group-yarn .bc-cards {
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 16px;
+    }
+
+    /* stacked: the line runs across, above the national website */
+    .has-national .bc-group-national::before {
+        top: -16px;
+        bottom: auto;
+        left: 0;
+        right: 0;
+        width: auto;
+        height: 1px;
     }
 }
 

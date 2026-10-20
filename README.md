@@ -79,8 +79,8 @@ published beyond testing.
 
 ### National websites for young people with cancer
 When a visitor is in a European country that has a national website for young people with cancer, the first
-beatcancer.eu card on a topic page makes way for a card for that website, with a short heading of its own (the
-beatcancer.eu heading then sits above the other two cards), and the support text names the website too, for example
+beatcancer.eu card on a topic page makes way for a card for that website on the right, with a short heading of its
+own (the beatcancer.eu heading then sits above the other two cards), and the support text names the website too, for example
 [kanker.nl/jong](https://www.kanker.nl/jong) in the Netherlands. The websites are listed per country code in
 `web/data/national_resources.json`:
 

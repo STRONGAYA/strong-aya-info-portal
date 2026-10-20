@@ -1469,13 +1469,19 @@ html.mode-dark .bc-card-logo img {
     gap: 16px;
 }
 
-/* the tiles of both groups start at the same height */
+/* rows shared by both groups: heading, tiles and "More on beatcancer.eu",
+   so the tiles start at the same height and the line between the groups
+   runs down past the links */
 @supports (grid-template-rows: subgrid) {
     .bc-group {
         display: grid;
-        grid-row: span 2;
+        grid-row: span 3;
         grid-template-rows: subgrid;
     }
+}
+
+.bc-group .bc-insert-more {
+    margin: 0;
 }
 
 .bc-group .bc-insert-head {

@@ -235,6 +235,7 @@ function beatcancerInsertHtml(page, national, country) {
         '<span>All rights belong to them.</span></p>' +
         '</div></div>' +
         '<ul class="bc-cards">' + articles.join('') + '</ul>' +
+        (topics.length ? '<p class="bc-insert-more"><span>More on beatcancer.eu:</span>' + topics.join('') + '</p>' : '') +
         '</div>';
 
     let nationalGroup = '';
@@ -257,8 +258,7 @@ function beatcancerInsertHtml(page, national, country) {
             '</div>';
     }
 
-    return '<div class="bc-groups' + (national ? ' has-national' : '') + '">' + yarnGroup + nationalGroup + '</div>' +
-        (topics.length ? '<p class="bc-insert-more"><span>More on beatcancer.eu:</span>' + topics.join('') + '</p>' : '');
+    return '<div class="bc-groups' + (national ? ' has-national' : '') + '">' + yarnGroup + nationalGroup + '</div>';
 }
 
 // The line after "You can also meet young people with the same

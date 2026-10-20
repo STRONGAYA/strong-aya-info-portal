@@ -30,6 +30,40 @@ window.AYA_STRINGS = {
     "browserUnavailable": "Your browser cannot translate into this language.",
     "browserHelp": "Your browser may be able to translate this page itself: look for a translate option in the address bar, or in the menu that opens with a right click on the page. The translation is then made by your browser, not by the portal."
   },
+  "readAloud": {
+    "title": "Read aloud",
+    "button": "Read aloud: {voice}",
+    "play": "Play",
+    "pause": "Pause",
+    "resume": "Resume",
+    "stop": "Stop",
+    "previous": "Previous paragraph",
+    "next": "Next paragraph",
+    "speed": "Speed",
+    "speedSlow": "Slower (0.8×)",
+    "speedNormal": "Normal",
+    "speedFast": "Faster (1.25×)",
+    "speedFaster": "Fastest (1.5×)",
+    "statusReading": "Reading {current} of {total}",
+    "statusPaused": "Paused",
+    "statusDone": "Finished reading",
+    "statusNothing": "There is nothing to read on this page.",
+    "waitTranslation": "Waiting for your browser to finish translating the page…",
+    "onlineVoiceTitle": "Only an online voice is available",
+    "onlineVoiceIntro": "Your browser can read this page with the voice \"{voice}\", but that voice is provided over the internet by {maker}: the text of this page is sent to {maker} to be turned into speech. The portal itself sends nothing. A voice installed on your device avoids this.",
+    "onlineVoiceContinue": "Read with the online voice",
+    "noVoiceTitle": "No voice for {language}",
+    "noVoiceIntro": "Your browser has no voice installed for {language}, so this page cannot be read aloud here. You can add a voice to your device, or use your browser's own read-aloud feature.",
+    "unsupportedIntro": "Your browser cannot read pages aloud through this button. You can use your browser's or your device's own read-aloud feature.",
+    "helpChromeAndroid": "Chrome on Android: open the ⋮ menu and choose \"Listen to this page\" (the page is then sent to Google). To add a voice: Settings › Accessibility › Text-to-speech output › Install voice data.",
+    "helpChromeDesktop": "Chrome: right-click the page, choose \"Open in reading mode\", then the Play button in the side panel.",
+    "helpEdge": "Edge: right-click the page and choose \"Read aloud\", or press Ctrl+Shift+U.",
+    "helpFirefox": "Firefox: open Reader View (the icon in the address bar) and choose the headphones button. On Linux, Firefox needs the speech-dispatcher package and a voice such as espeak-ng.",
+    "helpSafariIos": "Safari on iPhone or iPad: tap the page menu (ᴬᴬ) and choose \"Listen to Page\", or turn on Speak Screen under Settings › Accessibility › Spoken Content and swipe down with two fingers.",
+    "helpMacos": "macOS: System Settings › Accessibility › Spoken Content › System voice › Manage voices to add a voice, then select text and press the Speak Selection shortcut.",
+    "helpWindows": "Windows: Settings › Time & language › Speech › Manage voices › Add voices to install a voice for your language.",
+    "failed": "Reading stopped because of an error in your browser. Press Play to try again."
+  },
   "size": {
     "title": "Text size",
     "intro": "Choose how large the text of the portal is shown; the page widens with larger text. The choice is remembered on this device, like the contrast and dark modes.",
@@ -365,6 +399,7 @@ window.AYA_STRINGS = {
       "<b>Country</b> (in the accessibility bar at the top) sets the country for that national website. The portal guesses it from the settings of your browser. You can choose another country there, or let your browser find it with your location.",
       "<b>Language</b> (in the accessibility bar) shows the languages the portal is available in. If yours is not among them, your browser may be able to translate the page.",
       "<b>Size</b> (in the accessibility bar) makes all text larger; <b>Contrast</b> and <b>Dark</b> change the colours.",
+      "<b>Audio</b> (in the accessibility bar) reads the page aloud with a voice of your device; the small bar that appears under the buttons pauses, stops, skips a paragraph and changes the speed. A click on a paragraph while reading starts from there.",
       "The note at the end of the page explains where the numbers come from, and how to contact us."
     ],
     "modules": [
@@ -374,7 +409,7 @@ window.AYA_STRINGS = {
       "<b>Explore all subjects</b> opens a list of all subjects.",
       "The order of the subjects depends on the profile you chose on the start page.",
       "<b>Glossary</b> explains the words used on this page.",
-      "Use the <b>accessibility buttons</b> below the purple banner to turn on contrast or dark mode, or to make the text larger (<b>Size</b>).",
+      "Use the <b>accessibility buttons</b> below the purple banner to turn on contrast or dark mode, to make the text larger (<b>Size</b>) or to have the page read aloud (<b>Audio</b>).",
       "<b>Country</b> (in the accessibility bar) chooses the country for the national website for young people with cancer on the topic pages.",
       "<b>Language</b> (in the accessibility bar) shows the languages the portal is available in."
     ]

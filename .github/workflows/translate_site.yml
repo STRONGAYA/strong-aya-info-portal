@@ -1,4 +1,4 @@
-# Translates the portal with DeepL at build time (scripts/translate_site.py, docs/plan_deepl_translation.md)
+# Translates the portal with DeepL at build time (scripts/translate_site.py, "Languages" in README.md)
 # and keeps the generated page trees (web/<lang>/), strings (web/i18n/<lang>.js), web/i18n/languages.js
 # and the hreflang links of the English pages up to date.
 #

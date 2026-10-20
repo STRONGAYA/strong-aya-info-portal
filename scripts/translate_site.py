@@ -1,5 +1,5 @@
 """
-Translate the STRONG-AYA info portal with DeepL, at build time (docs/plan_deepl_translation.md).
+Translate the STRONG-AYA info portal with DeepL, at build time (see "Languages" in README.md).
 
 English is the only hand-edited source: the 17 pages in web/ (web/*.html and web/module_*/*.html) and
 the text that the scripts generate (web/i18n/en.js). This script

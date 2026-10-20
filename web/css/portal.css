@@ -337,7 +337,7 @@ button {
     background: var(--border-grey);
 }
 
-/* toggled accessibility mode (contrast / dark) */
+/* toggled accessibility mode (contrast / dark), or reading aloud */
 .access-btn.active {
     border-color: var(--brand-orange);
     background: rgba(247, 116, 30, 0.08);
@@ -1218,6 +1218,79 @@ html.mode-dark .page img {
 .language-browser-status {
     min-height: 1.6em;
     margin: 10px 0 0;
+}
+
+/* Read aloud (read_aloud.js): the toolbar under the accessibility bar
+   and the block being read */
+.read-aloud-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    margin: -4px 0 16px;
+}
+
+.read-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid var(--border-grey);
+    color: var(--brand-orange);
+    font-size: 0.8667rem;
+}
+
+.read-btn:hover {
+    border-color: var(--brand-orange);
+}
+
+.read-btn:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+.read-speed {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: var(--text-grey);
+}
+
+.read-speed select {
+    font: inherit;
+    font-size: 0.8667rem;
+    padding: 6px 8px;
+    border: 1px solid var(--border-grey);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--text-dark);
+}
+
+.read-status {
+    min-width: 7em;
+    font-size: 0.8rem;
+    color: var(--text-grey);
+}
+
+/* the paragraph (or figure) being read; the colours follow the
+   contrast and dark modes through the variables and the inversion */
+.reading-now {
+    outline: 2px solid var(--brand-orange);
+    outline-offset: 4px;
+    border-radius: 6px;
+    background: rgba(247, 116, 30, 0.08);
+}
+
+/* the help in the "no voice" dialog */
+.read-help p {
+    font-size: 0.8667rem;
+    line-height: 1.6;
+    margin: 0 0 10px;
 }
 
 /* Size dialog (portal.js): the text size options */

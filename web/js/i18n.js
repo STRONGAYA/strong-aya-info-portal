@@ -182,6 +182,7 @@
         translator: null,
         observer: null,
         pending: 0,
+        promise: null,       // the first pass of a translation while it runs (read_aloud.js waits for it)
         translatedText: new WeakMap(),       // text node -> the value this script set
         translatedAttributes: new WeakMap()  // element -> { attribute: value this script set }
     };
@@ -358,9 +359,14 @@
             var roots = [document.body];
             var title = document.querySelector('head > title');
             if (title && title.firstChild) roots.push(title.firstChild);
-            return Promise.all(roots.map(translateRoot)).then(function () {
+            browser.promise = Promise.all(roots.map(translateRoot)).then(function () {
                 html.setAttribute('lang', code);
+                browser.promise = null;
+            }, function (error) {
+                browser.promise = null;
+                throw error;
             });
+            return browser.promise;
         });
     }
 
@@ -466,7 +472,8 @@
             candidates: function () {
                 return BROWSER_LANGUAGE_CODES.filter(function (code) { return !available(code); });
             },
-            active: function () { return browser.active; }
+            active: function () { return browser.active; },
+            pending: function () { return browser.promise; }
         }
     };
     window.t = t;

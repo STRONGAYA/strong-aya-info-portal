@@ -162,7 +162,7 @@ function beatcancerInsertHtml(page, national, country) {
                 EXTERNAL_ICON + '<span class="visually-hidden"> ' + escapeHtml(t('ui.opensInNewTab')) + '</span></a>'
         }) + '</h3>' +
         '<p class="bc-insert-note"><span>' + t('beatcancer.intro') + '</span>' + inEnglish + hint + '</p>' +
-        '<p class="bc-insert-note"><span>' + t('beatcancer.credit') + '</span> ' +
+        '<p class="bc-insert-note" data-read="skip"><span>' + t('beatcancer.credit') + '</span> ' +
         '<span>' + t('beatcancer.rights') + '</span></p>' +
         '</div></div>' +
         '<ul class="bc-cards">' + articles.join('') + '</ul>' +
@@ -912,6 +912,8 @@ document.addEventListener('DOMContentLoaded', function () {
         dialog.querySelector('.modal-body').innerHTML = bodyHtml;
         dialog.showModal();
     }
+    // The dialog is shared with read_aloud.js
+    window.AYA_PORTAL = { openModal: openPortalModal };
 
     function openGlossary() {
         const glossary = strings('glossary');

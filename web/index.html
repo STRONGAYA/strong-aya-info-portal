@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="css/portal.css"/>
     <script src="i18n/en.js" defer></script>
     <script src="js/portal.js" defer></script>
+    <script src="js/read_aloud.js" defer></script>
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -60,7 +61,7 @@
 <main id="main-content" class="page">
     <div class="accessibility-strip">
         <div class="accessibility-bar">
-            <button class="access-btn" data-tooltip="Coming soon"><i class="fas fa-volume-up"></i>Audio</button>
+            <button class="access-btn audio-btn" type="button" aria-pressed="false"><i class="fas fa-volume-up" aria-hidden="true"></i><span class="audio-btn-label">Audio</span></button>
             <button class="access-btn" data-access="contrast" aria-pressed="false"><i class="fas fa-adjust"></i>Contrast</button>
             <button class="access-btn" data-access="dark" aria-pressed="false"><i class="fas fa-moon"></i>Dark</button>
             <button class="access-btn size-btn" type="button" aria-haspopup="dialog"><i class="fas fa-text-height" aria-hidden="true"></i><span class="size-btn-label">Size</span></button>

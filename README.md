@@ -132,8 +132,20 @@ colours, **Size** opens a dialog with four text sizes (small at 85 %, normal, la
 and widens the page, the tile, the figure and the notes with it, while the small icons keep their size),
 **Language** and **Country** are described below. Contrast, dark mode and the text size are kept in
 `localStorage` and put on the `<html>` element by `web/js/i18n.js` before the page is drawn, so they do not
-flash. **Audio** is not implemented yet; `docs/plan_audio_read_aloud.md` investigates what the browser's own
-speech synthesis can do for it.
+flash. **Audio** (`web/js/read_aloud.js`) reads the main content of the page aloud with the browser's own speech
+synthesis (the Web Speech API: no account, no server, nothing sent anywhere by the portal): the title, the
+statement, the figure's spoken summary, the support text, the article titles and the info note, one sentence at a
+time with the paragraph being read highlighted; a small bar under the buttons pauses, stops, skips a paragraph and
+sets the speed (the only thing remembered), and a click on a paragraph starts from there. The voice comes from the
+device, in the language of the page (or of a fragment with its own `lang`): installed voices first; when only an
+online voice exists (Google's in Chrome, Microsoft's in Edge, where the text leaves the device) the visitor is asked
+first, once per visit; when there is no voice for the language a dialog names the browser's own read-aloud feature
+and how to add a voice. What it cannot do, and why, is in `docs/plan_audio_read_aloud.md`: the voices are the
+device's (Windows has only legacy voices for Dutch, Italian, Polish and Romanian, iOS hides its best ones from web
+pages, Linux often has none), highlighting is per paragraph, and phones stop speaking when the screen locks. If
+the device voices prove too poor for a language, section 5.1 of that plan describes the second step: audio files
+generated at build time from the translation cache with Mistral's Voxtral text-to-speech on its EU endpoint (the
+only provider allowed outside the browser), played by the same controls, with the browser voice as the fallback.
 
 ## Languages
 English is the only language that is written by hand. The portal is translated at build time with
@@ -142,7 +154,10 @@ writes one static page tree per language (`web/nl/module_a/chemotherapy.html`, .
 language (`web/i18n/nl.js`) for the text the scripts generate (glossary, help, dialogs, legends, table and chart
 labels, the beatcancer.eu block, the national website card). These files are generated output, committed like
 `web/data/beatcancer_resources.json`: do not edit them, edit the English page or the translation cache instead.
-The plan behind this, with the DeepL facts, costs and open questions, is `docs/plan_deepl_translation.md`.
+A language costs about 31,000 DeepL characters once (about €0.70 at €22 per million on the paid plans; text sent
+to the paid API is not stored or used for training), then only the changed sentences. DeepL's glossaries are
+not available for Croatian, Irish, Maltese and a few other languages, and the formality setting only exists for
+German, French, Italian, Spanish, Dutch, Polish and Portuguese; the script applies both where they exist.
 
 ### How the pages are translated
 - The English sources are the 17 pages in `web/` and `web/i18n/en.js`. In the pages, a translation unit is the
@@ -219,7 +234,8 @@ the plural rules of the page language.
 The beatcancer.eu articles stay in English on the pages in other languages (the linked articles are English, and
 beatcancer.eu's terms reserve all rights); their titles are marked `lang="en"` and a note says so. Dutch comes
 first (reviewers at NKI, Maastricht and IKNL), then the consortium languages; Greek, Bulgarian and Ukrainian also
-need a font with those scripts (Poppins has none), see `docs/plan_deepl_translation.md` §9.
+need a font with those scripts, as Poppins has no Greek or Cyrillic subset (Noto Sans, self-hosted with
+`unicode-range` like Poppins, would cover them).
 
 ## Prequisites for own application
 - ### When using the descriptive statistics algorithm (default)

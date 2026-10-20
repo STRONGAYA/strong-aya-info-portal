@@ -15,18 +15,12 @@
       "notes": "Upgraded from 5.15.3 to 6.5.1 for latest icons"
     },
     "google-fonts-poppins": {
-      "current": "latest",
-      "previous": null,
-      "cdn": "https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,400&display=swap",
-      "update_date": "2024-08-24",
-      "notes": "Primary font for the portal"
-    },
-    "google-fonts-arial": {
-      "current": "latest",
-      "previous": null,
-      "cdn": "https://fonts.googleapis.com/css2?family=Arial:wght@400&display=swap",
-      "update_date": "2024-08-24",
-      "notes": "Fallback font"
+      "current": "4.004 (Google Fonts v24)",
+      "previous": "latest (Google Fonts CDN)",
+      "cdn": null,
+      "local": "web/css/poppins-4.004.css + web/webfonts/poppins/",
+      "update_date": "2026-10-20",
+      "notes": "Self-hosted WOFF2 subsets (latin, latin-ext; 400, 400 italic, 600, 700) under the SIL Open Font License 1.1; no request to Google Fonts"
     }
   },
   "data_sources": {

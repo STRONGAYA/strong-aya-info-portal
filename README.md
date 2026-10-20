@@ -136,4 +136,8 @@ python scripts/fetch_europe_countries.py web/data/europe_countries.json
 
 ## References and acknowledgements
 - Icons present in this repository were obtained through FontAwesome.
+- The Poppins typeface (Indian Type Foundry, Jonny Pinhorn and Ninad Kale; Copyright 2020 The Poppins Project Authors,
+  https://github.com/itfoundry/Poppins) is self-hosted in `web/webfonts/poppins/` as WOFF2 subsets (latin, latin-ext) of
+  the files in https://github.com/google/fonts/tree/main/ofl/poppins, under the SIL Open Font License 1.1
+  (`web/webfonts/poppins/OFL.txt`), so that visitors' browsers do not contact Google Fonts.
 - Images present in this repository were generated using Adobe Firefly generative artificial intelligence.

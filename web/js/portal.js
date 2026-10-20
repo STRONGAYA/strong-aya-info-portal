@@ -755,6 +755,17 @@ document.addEventListener('DOMContentLoaded', function () {
         if (text === t('ui.comingSoon') || text === 'Coming soon') el.setAttribute('aria-disabled', 'true');
     });
 
+    // Escape hides the tooltips (WCAG 1.4.13: dismissable without moving
+    // the pointer or the focus); they come back on the next hover or focus
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') document.body.classList.add('tooltips-dismissed');
+    });
+    ['mouseover', 'focusin'].forEach(function (type) {
+        document.addEventListener(type, function () {
+            document.body.classList.remove('tooltips-dismissed');
+        });
+    });
+
     // --- Accessibility modes (contrast / dark) ---
     // The chosen modes are stored as classes on <html> and persisted
     // in localStorage; the other controls are not implemented yet

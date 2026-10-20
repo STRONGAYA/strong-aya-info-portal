@@ -36,7 +36,7 @@
         }
 
         .login-card h1 {
-            color: var(--brand-orange);
+            color: var(--brand-orange-text);
             font-size: 1.4667rem;
             font-weight: 600;
             margin: 0 0 6px;
@@ -46,7 +46,7 @@
             font-family: var(--font-main);
             font-size: 0.9333rem;
             padding: 12px 18px;
-            border: 1px solid var(--border-grey);
+            border: 1px solid var(--border-control);
             border-radius: 24px;
         }
 
@@ -61,7 +61,7 @@
         .login-card .login-btn {
             display: block;
             background: var(--brand-orange);
-            color: #fff;
+            color: var(--on-orange);
             font-weight: 600;
             font-size: 1rem;
             padding: 12px 20px;
@@ -122,8 +122,10 @@
 
     <div class="login-card">
         <h1>Log in</h1>
-        <input placeholder="Username" type="text" aria-label="Username"/>
-        <input placeholder="Password" type="password" aria-label="Password"/>
+        <label class="visually-hidden" for="login-username">Username</label>
+        <input id="login-username" placeholder="Username" type="text" autocomplete="username"/>
+        <label class="visually-hidden" for="login-password">Password</label>
+        <input id="login-password" placeholder="Password" type="password" autocomplete="current-password"/>
         <button class="link-btn">Forgot your password?</button>
         <a class="login-btn" href="index.html">Login</a>
         <button class="link-btn">Request access</button>

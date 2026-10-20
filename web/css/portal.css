@@ -8,9 +8,22 @@
     --brand-orange: #f7741e;
     --brand-pink: #e36799;
     --brand-purple: #7607ff;
+    /* the brand orange and pink are surfaces and accents; as text they
+       fall short of the 4.5:1 contrast that EN 301 549 (WCAG 2.1 AA)
+       asks for, so text and icons use the same hues a few steps darker:
+       -text passes 4.5:1 on white and on the cream background, -icon
+       passes the 3:1 for icons and large headings; text on an orange
+       surface is dark (6:1) rather than white (2.8:1) */
+    --brand-orange-text: #be4f07;
+    --brand-orange-icon: #ef6409;
+    --brand-pink-text: #d5276d;
+    --on-orange: #1c1c1c;
     --text-dark: #1c1c1c;
     --text-grey: #6d6d6d;
     --border-grey: #d7d7d7;
+    /* boundary of inputs and selects: 3:1 against white (the light grey
+       stays for cards and dividers, which are decorative) */
+    --border-control: #8a8a8a;
     --bg-cream: #fdf6ec;
     --bg-card: #ffffff;
     --font-main: 'Poppins', Arial, sans-serif;
@@ -122,12 +135,21 @@ button {
     cursor: pointer;
 }
 
+/* keyboard focus: one ring for every control, dark so it has 3:1 on
+   white, on the cream background and on the orange surfaces (inverted
+   to light in the dark mode), outside the element so rounded corners
+   and overflow do not clip it */
+:focus-visible {
+    outline: 3px solid var(--text-dark);
+    outline-offset: 2px;
+}
+
 .skip-link {
     position: absolute;
     left: -9999px;
     top: 0;
     background: var(--brand-orange);
-    color: #fff;
+    color: var(--on-orange);
     padding: 8px 16px;
     z-index: 1000;
 }
@@ -159,7 +181,7 @@ button {
     justify-content: space-between;
     align-items: center;
     background: var(--brand-orange);
-    color: #fff;
+    color: var(--on-orange);
     padding: 6px 40px;
     font-size: 0.8rem;
 }
@@ -174,7 +196,7 @@ button {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    color: #fff;
+    color: var(--on-orange);
     font-size: 0.8rem;
     letter-spacing: 0.5px;
 }
@@ -221,7 +243,7 @@ button {
 
 .translation-notice a:hover,
 .translation-notice-link:hover {
-    color: var(--brand-orange);
+    color: var(--brand-orange-text);
 }
 
 .header-main {
@@ -264,11 +286,11 @@ button {
 
 .site-nav a i {
     font-size: 9px;
-    color: var(--brand-orange);
+    color: var(--brand-orange-icon);
 }
 
 .site-nav a:hover {
-    color: var(--brand-orange);
+    color: var(--brand-orange-text);
 }
 
 /* rectangular orange block flush with the header edge, as on the site */
@@ -277,7 +299,7 @@ button {
     display: inline-flex;
     align-items: center;
     background: var(--brand-orange);
-    color: #fff;
+    color: var(--on-orange);
     font-size: 0.8667rem;
     font-weight: 600;
     padding: 0 30px;
@@ -287,7 +309,7 @@ button {
 }
 
 .contact-btn:hover {
-    background: var(--brand-orange-dark, #e0650f);
+    background: var(--brand-orange-icon);
 }
 
 /* right-aligned strip just below the purple notice banner, at the
@@ -321,7 +343,7 @@ button {
 
 .access-btn i {
     font-size: 14px;
-    color: var(--brand-orange);
+    color: var(--brand-orange-icon);
 }
 
 .access-btn:hover {
@@ -355,6 +377,9 @@ button {
 html.mode-contrast {
     --text-grey: #1c1c1c;
     --border-grey: #4a4a4a;
+    --border-control: #1c1c1c;
+    --brand-orange-text: #9a3f05;
+    --brand-pink-text: #b01d59;
     --bg-cream: #ffffff;
 }
 
@@ -420,7 +445,7 @@ html.mode-dark .page img {
    collides with the return link or the tool buttons */
 .card-title {
     text-align: center;
-    color: var(--brand-orange);
+    color: var(--brand-orange-icon);
     font-size: 1.7333rem;
     font-weight: 600;
     margin: 2px 0 18px;
@@ -451,7 +476,7 @@ html.mode-dark .page img {
 }
 
 .return-link:hover {
-    color: var(--brand-orange);
+    color: var(--brand-orange-text);
 }
 
 .tool-buttons {
@@ -479,7 +504,7 @@ html.mode-dark .page img {
 
 .tool-btn i {
     font-size: 18px;
-    color: var(--brand-orange);
+    color: var(--brand-orange-icon);
 }
 
 .tool-btn:hover {
@@ -488,7 +513,7 @@ html.mode-dark .page img {
 
 .page-title {
     text-align: center;
-    color: var(--brand-orange);
+    color: var(--brand-orange-icon);
     font-size: 1.8667rem;
     font-weight: 600;
     margin: 8px 0 20px;
@@ -501,7 +526,7 @@ html.mode-dark .page img {
 }
 
 .context-block h2 {
-    color: var(--brand-pink);
+    color: var(--brand-pink-text);
     font-size: 1.3333rem;
     font-weight: 600;
     margin: 0 0 10px;
@@ -550,7 +575,7 @@ html.mode-dark .page img {
 }
 
 .profile-card h2 {
-    color: var(--brand-orange);
+    color: var(--brand-orange-text);
     font-size: 1.3333rem;
     font-weight: 600;
     margin: 0 0 8px;
@@ -576,7 +601,7 @@ html.mode-dark .page img {
 
 .outline-btn:hover {
     border-color: var(--brand-orange);
-    color: var(--brand-orange);
+    color: var(--brand-orange-text);
 }
 
 .outline-btn.secondary {
@@ -666,7 +691,7 @@ html.mode-dark .page img {
 
 .carousel-btn:hover {
     border-color: var(--brand-orange);
-    color: var(--brand-orange);
+    color: var(--brand-orange-text);
 }
 
 .subject-card {
@@ -698,7 +723,7 @@ html.mode-dark .page img {
 }
 
 .subject-card .subject-label {
-    color: var(--brand-pink);
+    color: var(--brand-pink-text);
     font-size: 1.0667rem;
     font-weight: 600;
     line-height: 1.3;
@@ -732,7 +757,7 @@ html.mode-dark .page img {
 }
 
 .own-data-card h2 {
-    color: var(--brand-orange);
+    color: var(--brand-orange-text);
     font-size: 1.1333rem;
     font-weight: 600;
     margin: 0 0 6px;
@@ -853,11 +878,11 @@ html.mode-dark .page img {
 
 .filter-dropdown button:hover {
     background: rgba(247, 116, 30, 0.08);
-    color: var(--brand-orange);
+    color: var(--brand-orange-text);
 }
 
 .filter-dropdown button.current {
-    color: var(--brand-orange);
+    color: var(--brand-orange-text);
     font-weight: 600;
 }
 
@@ -871,9 +896,13 @@ html.mode-dark .page img {
 [data-tooltip]::after {
     content: attr(data-tooltip);
     position: absolute;
-    bottom: calc(100% + 8px);
+    bottom: 100%;
     left: 50%;
     transform: translateX(-50%);
+    /* the gap to the control is a transparent border, so the pointer
+       can move onto the bubble without leaving it (WCAG 1.4.13) */
+    border-bottom: 8px solid transparent;
+    background-clip: padding-box;
     background: var(--text-dark);
     color: #fff;
     font-size: 0.7333rem;
@@ -888,7 +917,6 @@ html.mode-dark .page img {
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.15s ease;
-    pointer-events: none;
     z-index: 500;
 }
 
@@ -896,6 +924,12 @@ html.mode-dark .page img {
 [data-tooltip]:focus-visible::after {
     opacity: 1;
     visibility: visible;
+}
+
+/* Escape hides the tooltips until the pointer or the focus moves on */
+.tooltips-dismissed [data-tooltip]::after {
+    opacity: 0;
+    visibility: hidden;
 }
 
 /* disabled header/footer links to strongaya.eu (portal.js): a wider
@@ -915,7 +949,9 @@ html.mode-dark .page img {
 
 .site-header .offsite-link[data-tooltip]::after {
     bottom: auto;
-    top: calc(100% + 8px);
+    top: 100%;
+    border-bottom: none;
+    border-top: 8px solid transparent;
 }
 
 .site-nav a.offsite-link:hover,
@@ -970,7 +1006,7 @@ html.mode-dark .page img {
 .portal-modal .glossary-list dt {
     font-size: 0.9333rem;
     font-weight: 600;
-    color: var(--brand-orange);
+    color: var(--brand-orange-text);
     margin-top: 14px;
 }
 
@@ -993,7 +1029,7 @@ html.mode-dark .page img {
 }
 
 .portal-modal .help-list li b {
-    color: var(--brand-orange);
+    color: var(--brand-orange-text);
 }
 
 .portal-modal .modal-footer {
@@ -1010,7 +1046,7 @@ html.mode-dark .page img {
     font-size: 0.9333rem;
     font-weight: 600;
     background: var(--brand-orange);
-    color: #fff;
+    color: var(--on-orange);
     border: none;
 }
 
@@ -1031,7 +1067,7 @@ html.mode-dark .page img {
     font-size: 0.9333rem;
     font-weight: 600;
     background: var(--brand-orange);
-    color: #fff;
+    color: var(--on-orange);
     border: none;
     cursor: pointer;
 }
@@ -1059,7 +1095,7 @@ html.mode-dark .page img {
     width: 100%;
     max-width: 360px;
     padding: 10px 12px;
-    border: 1px solid var(--border-grey);
+    border: 1px solid var(--border-control);
     border-radius: 8px;
     background: #fff;
     font: inherit;
@@ -1097,7 +1133,7 @@ html.mode-dark .page img {
 }
 
 .country-locate-btn i {
-    color: var(--brand-orange);
+    color: var(--brand-orange-icon);
 }
 
 .country-locate-btn:hover {
@@ -1187,7 +1223,7 @@ html.mode-dark .page img {
     flex: 1 1 160px;
     max-width: 260px;
     padding: 10px 12px;
-    border: 1px solid var(--border-grey);
+    border: 1px solid var(--border-control);
     border-radius: 8px;
     background: #fff;
     font: inherit;
@@ -1240,7 +1276,7 @@ html.mode-dark .page img {
     border-radius: 50%;
     background: #fff;
     border: 1px solid var(--border-grey);
-    color: var(--brand-orange);
+    color: var(--brand-orange-icon);
     font-size: 0.8667rem;
 }
 
@@ -1265,7 +1301,7 @@ html.mode-dark .page img {
     font: inherit;
     font-size: 0.8667rem;
     padding: 6px 8px;
-    border: 1px solid var(--border-grey);
+    border: 1px solid var(--border-control);
     border-radius: 8px;
     background: #fff;
     color: var(--text-dark);
@@ -1360,7 +1396,7 @@ html.mode-dark .page img {
 }
 
 .vis-statement b {
-    color: var(--brand-orange);
+    color: var(--brand-orange-text);
 }
 
 /* previous/next topic buttons below the figure, pushed to the left
@@ -1385,7 +1421,7 @@ html.mode-dark .page img {
 }
 
 .topic-link:hover {
-    color: var(--brand-orange);
+    color: var(--brand-orange-text);
     background: rgba(247, 116, 30, 0.06);
 }
 
@@ -1439,11 +1475,11 @@ html.mode-dark .page img {
 
 .topics-dropdown a:hover {
     background: rgba(247, 116, 30, 0.08);
-    color: var(--brand-orange);
+    color: var(--brand-orange-text);
 }
 
 .topics-dropdown a.current {
-    color: var(--brand-orange);
+    color: var(--brand-orange-text);
     font-weight: 600;
 }
 
@@ -1501,7 +1537,7 @@ html.mode-dark .page img {
 }
 
 .support-section h2 {
-    color: var(--brand-pink);
+    color: var(--brand-pink-text);
     font-size: 1.3333rem;
     font-weight: 600;
     margin: 0 0 10px;
@@ -1667,7 +1703,7 @@ html.mode-dark .page img {
 }
 
 .bc-card:hover .bc-card-title a {
-    color: var(--brand-orange);
+    color: var(--brand-orange-text);
 }
 
 .bc-card-excerpt {
@@ -1876,7 +1912,7 @@ html.mode-dark .bc-card-logo img {
 }
 
 .country-change:hover {
-    color: var(--brand-orange);
+    color: var(--brand-orange-text);
 }
 
 /* --- Visualisation container (populated by visualisation.js) --- */
@@ -2040,7 +2076,7 @@ html.mode-dark .bc-card-logo img {
 
 .insufficient-data i {
     font-size: 40px;
-    color: var(--brand-orange);
+    color: var(--brand-orange-icon);
 }
 
 .insufficient-data p {
@@ -2183,7 +2219,7 @@ html.mode-dark .bc-card-logo img {
 }
 
 .data-table th[scope="rowgroup"] a:hover {
-    color: var(--brand-orange);
+    color: var(--brand-orange-text);
 }
 
 /* the topic of this page stands out */
@@ -2275,7 +2311,7 @@ html.mode-dark .bc-card-logo img {
 }
 
 .footer-col li a:hover {
-    color: var(--brand-orange);
+    color: var(--brand-orange-text);
 }
 
 .quick-contact {
@@ -2298,7 +2334,8 @@ html.mode-dark .bc-card-logo img {
 .funding-statement {
     max-width: 1200px;
     margin: 0 auto;
-    background: rgba(130, 130, 130, 0.85);
+    /* dark enough for the small white text (6:1) */
+    background: rgba(80, 80, 80, 0.92);
     color: #fff;
     border-radius: 8px;
     padding: 20px 26px;
@@ -2327,8 +2364,27 @@ html.mode-dark .bc-card-logo img {
 .copyright {
     text-align: center;
     font-size: 0.8rem;
-    color: var(--text-grey);
+    color: var(--text-dark);
     padding-top: 24px;
+}
+
+/* ============================================================
+   REDUCED MOTION: no transitions or smooth scrolling for visitors
+   who asked their system for less movement (WCAG 2.3.3)
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .subject-card:hover {
+        transform: none;
+    }
 }
 
 /* ============================================================

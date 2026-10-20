@@ -33,17 +33,20 @@ function pageFontFamily() {
     }
 }
 
-// Brand colour theme from existing CSS
+// Brand colour theme, in the shades that keep at least 3:1 contrast
+// against the white tile as graphics (EN 301 549 / WCAG 1.4.11): the
+// icon array, the legend swatches and the charts use these. The brand
+// orange #f7741e itself (2.8:1) stays for surfaces in the stylesheet.
 const BRAND_COLORS = {
-    primary: '#f7741e',      // Chocolate orange - main brand colour
-    secondary: '#e36799',    // Pale violet red - existing accent
-    blue: '#7607ff',        // Blue - existing accent
+    primary: '#ef6409',      // the brand orange, one step darker (3.2:1)
+    secondary: '#d5276d',    // the brand pink as text (4.8:1)
+    blue: '#7607ff',        // the brand purple
     dark: '#000000',        // Black
     light: '#ffffff',       // White
-    silver: '#c9c6c4',      // Silver
-    lightGray: '#d7d7d7',   // Light grey
-    darkGray: '#aeaeae',    // Dark grey
-    gainsboro: '#dbdbdb'    // Gainsboro
+    silver: '#8f8f8f',      // mid grey (3.2:1)
+    lightGray: '#949494',   // grey for "not received" and "not at all" (3.0:1)
+    darkGray: '#6d6d6d',    // dark grey (5.2:1)
+    gainsboro: '#949494'    // same mid grey
 };
 
 // Colour-blind-safe colour palettes
@@ -52,13 +55,13 @@ const COLORBLIND_SAFE = {
     category1: '#648FFF',    // Blue
     category2: '#DC267F',    // Magenta
     category3: '#FE6100',    // Orange (matches brand)
-    category4: '#FFB000',    // Gold
+    category4: '#c68900',    // Gold, darkened to 3:1 on white
     category5: '#785EF0',    // Purple
     
     // Additional accessible colours
     yes: '#648FFF',         // Blue for "Yes"
     no: '#DC267F',          // Magenta for "No" (avoids red-green)
-    partial: '#FFB000',      // Gold for "Partial"
+    partial: '#c68900',      // Gold for "Partial"
     
     // For functioning scores (avoiding red-green)
     high: '#648FFF',        // Blue for high/good
@@ -68,15 +71,15 @@ const COLORBLIND_SAFE = {
     // For symptoms (colour-blind-safe)
     severe: '#648FFF',      // Blue
     moderate: '#FE6100',    // Orange
-    mild: '#FFB000',        // Gold
+    mild: '#c68900',        // Gold
     none: '#785EF0',        // Purple
     
     // Treatment colours (using brand colours)
     received: '#f7741e',     // Brand orange
-    notReceived: '#d7d7d7', // Light grey
+    notReceived: '#949494', // Grey (3:1 on white)
     planned: '#7607ff',      // Brand blue
     completed: '#648FFF',    // Accessible blue
-    ongoing: '#FFB000'       // Gold
+    ongoing: '#c68900'       // Gold
 };
 
 // Page type configurations: the name of the subject (table caption) is
@@ -575,7 +578,7 @@ class StrongAyaVisualisation {
         
         const description = document.createElement('p');
         description.textContent = t('ui.viewIntro');
-        description.style.cssText = 'font-size: 0.9333rem; color: #a2a2a2; margin: 0 0 25px 0; line-height: 1.6;';
+        description.style.cssText = 'font-size: 0.9333rem; color: #6d6d6d; margin: 0 0 25px 0; line-height: 1.6;';
         modal.appendChild(description);
         
         const grid = document.createElement('div');
@@ -596,7 +599,7 @@ class StrongAyaVisualisation {
         const applyBtn = document.createElement('button');
         applyBtn.type = 'button';
         applyBtn.textContent = t('ui.apply');
-        applyBtn.style.cssText = 'padding: 12px 24px; border-radius: 8px; font-family: inherit; font-size: 0.9333rem; font-weight: 600; cursor: pointer; background: #f7741e; color: white; border: none;';
+        applyBtn.style.cssText = 'padding: 12px 24px; border-radius: 8px; font-family: inherit; font-size: 0.9333rem; font-weight: 600; cursor: pointer; background: #f7741e; color: #1c1c1c; border: none;';
         applyBtn.addEventListener('click', () => {
             this.switchView(this.pendingView || this.currentView);
             saveVisState({ view: this.currentView });
@@ -635,9 +638,12 @@ class StrongAyaVisualisation {
         
         // Real buttons, so keyboard users get tab focus and Enter/Space
         // for free; aria-pressed tells screen readers which one is chosen
+        // the chosen card differs in colour and in border width (not colour alone, WCAG 1.4.1)
         const markSelected = (card, selected) => {
-            card.style.borderColor = selected ? '#f7741e' : '#d7d7d7';
-            card.style.background = selected ? 'rgba(247, 116, 30, 0.05)' : 'white';
+            card.style.borderColor = selected ? '#be4f07' : '#8a8a8a';
+            card.style.borderWidth = selected ? '3px' : '1px';
+            card.style.padding = selected ? '13px' : '15px';
+            card.style.background = selected ? 'rgba(247, 116, 30, 0.08)' : 'white';
             card.setAttribute('aria-pressed', String(selected));
         };
         
@@ -657,7 +663,7 @@ class StrongAyaVisualisation {
                 
                 const desc = document.createElement('div');
                 desc.textContent = visType.description;
-                desc.style.cssText = 'font-size: 0.9333rem; color: #a2a2a2; margin: 0; line-height: 1.4;';
+                desc.style.cssText = 'font-size: 0.9333rem; color: #6d6d6d; margin: 0; line-height: 1.4;';
                 card.appendChild(desc);
                 
                 card.addEventListener('click', () => {
@@ -779,7 +785,7 @@ class StrongAyaVisualisation {
         
         if (!hasEnoughCategories) {
             this.visArea.innerHTML = `
-                <p style="text-align: center; padding: 20px; color: #666;">
+                <p style="text-align: center; padding: 20px; color: #6d6d6d;">
                     ${t('messages.needsGroups', { count: Object.keys(this.categoryCounts).length })}
                 </p>
             `;

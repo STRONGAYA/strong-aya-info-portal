@@ -276,6 +276,7 @@ function countryChangeButton(text) {
 // from the address of this script (web/js/portal.js), so that every
 // page finds the data files
 const SITE_ROOT = (function () {
+    if (window.AYA_I18N && window.AYA_I18N.siteRoot) return window.AYA_I18N.siteRoot;
     const declared = document.documentElement.getAttribute('data-site-root');
     try {
         if (declared) return new URL(declared, window.location.href).href;

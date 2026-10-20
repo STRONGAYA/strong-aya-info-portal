@@ -9,20 +9,20 @@
  * generated pages in other languages show it in their own language
  */
 
-// The site root (web/), from data-site-root on <html> (set per page:
-// the generated pages in other languages are one level deeper), else
-// from the address of this script, so that every page finds the data
-const SITE_ROOT = (function () {
-    const declared = document.documentElement.getAttribute('data-site-root');
+// The data directory (web/data/), from the site root that js/i18n.js
+// reads from data-site-root on <html> (set per page: the generated pages
+// in other languages are one level deeper), else from the address of
+// this script. (portal.js declares SITE_ROOT; the scripts share one
+// global scope, so no second declaration here.)
+const DATA_DIR = (function () {
+    if (window.AYA_I18N && window.AYA_I18N.siteRoot) return window.AYA_I18N.siteRoot + 'data/';
     try {
-        if (declared) return new URL(declared, window.location.href).href;
         const script = document.currentScript || document.querySelector('script[src*="js/visualisation.js"]');
-        return new URL('../', script.src).href;
+        return new URL('../data/', script.src).href;
     } catch (e) {
-        return '../';
+        return '../data/';
     }
 })();
-const DATA_DIR = SITE_ROOT + 'data/';
 
 // The font of the page (Poppins, self-hosted), for the Plotly charts
 function pageFontFamily() {

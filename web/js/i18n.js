@@ -438,6 +438,7 @@
     window.AYA_I18N = {
         languages: languages,
         sourceLang: SOURCE_LANG,
+        siteRoot: siteRoot ? siteRoot.href : null, // the address of web/, for data and images
         pageLang: pageLang,
         available: available,
         urlFor: urlFor,

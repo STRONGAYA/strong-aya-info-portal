@@ -127,8 +127,9 @@ python scripts/fetch_europe_countries.py web/data/europe_countries.json
 
 ## Accessibility bar
 The row of buttons under the purple banner holds the reader's own settings. **Contrast** and **Dark** change the
-colours, **Size** opens a dialog with three text sizes (normal, large at 115 % and extra large at 130 %: the
-stylesheet sizes all text in `rem`, so one root size scales everything except the icons and the icon array),
+colours, **Size** opens a dialog with four text sizes (small at 85 %, normal, large at 115 % and extra large at
+130 %: the stylesheet sizes all text and the widths of the content area in `rem`, so one root size scales the text
+and widens the page, the tile, the figure and the notes with it, while the small icons keep their size),
 **Language** and **Country** are described below. Contrast, dark mode and the text size are kept in
 `localStorage` and put on the `<html>` element by `web/js/i18n.js` before the page is drawn, so they do not
 flash. **Audio** is not implemented yet; `docs/plan_audio_read_aloud.md` investigates what the browser's own

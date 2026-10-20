@@ -32,8 +32,9 @@ window.AYA_STRINGS = {
   },
   "size": {
     "title": "Text size",
-    "intro": "Choose how large the text of the portal is shown. The choice is remembered on this device, like the contrast and dark modes.",
+    "intro": "Choose how large the text of the portal is shown; the page widens with larger text. The choice is remembered on this device, like the contrast and dark modes.",
     "button": "Text size: {size}",
+    "small": "Small",
     "normal": "Normal",
     "large": "Large",
     "larger": "Extra large",

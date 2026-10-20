@@ -130,7 +130,7 @@
     // The same classes and storage keys as the buttons in portal.js use
     (function applyPreferences() {
         var size = readStorage('aya-size');
-        if (size === 'large' || size === 'larger') html.classList.add('size-' + size);
+        if (size === 'small' || size === 'large' || size === 'larger') html.classList.add('size-' + size);
         ['contrast', 'dark'].forEach(function (mode) {
             if (readStorage('aya-mode-' + mode) === '1') html.classList.add('mode-' + mode);
         });

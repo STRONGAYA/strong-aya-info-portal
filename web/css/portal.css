@@ -47,9 +47,16 @@ html, body {
 /* Text sizes are in rem, so the Size button in the accessibility bar
    (portal.js) scales all text at once by changing the root size; the
    choice persists in localStorage and is applied before paint
-   (js/i18n.js). Icons and the icon array keep their pixel sizes. */
+   (js/i18n.js). The widths of the content area (page, tile columns,
+   figure, table, notes, dialogs) are in rem too, so the main area
+   widens with larger text instead of squeezing it; the small icons
+   keep their pixel sizes. */
 html {
     font-size: 15px;
+}
+
+html.size-small {
+    font-size: 12.75px; /* 85 % */
 }
 
 html.size-large {
@@ -393,7 +400,7 @@ html.mode-dark .page img {
 .page {
     flex: 1;
     width: 100%;
-    max-width: 1340px;
+    max-width: 89.3333rem; /* 1340px at the normal size */
     margin: 0 auto;
     padding: 40px 24px 64px;
 }
@@ -490,7 +497,7 @@ html.mode-dark .page img {
 /* Pink context block ("What suits you best?" etc.) */
 .context-block {
     margin: 48px auto 0;
-    max-width: 820px;
+    max-width: 54.6667rem;
 }
 
 .context-block h2 {
@@ -814,14 +821,14 @@ html.mode-dark .page img {
     border-radius: 14px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
     padding: 6px;
-    min-width: 240px;
+    min-width: 16rem;
     z-index: 200;
 }
 
 /* the cancer type options have longer labels, so give that dropdown
    more room and keep each option on a single line */
 .filter-wrap[data-filter="cancerType"] .filter-dropdown {
-    min-width: min(460px, 92vw);
+    min-width: min(30.6667rem, 92vw);
 }
 
 /* on larger screens the options fit on one line; on small screens
@@ -936,7 +943,7 @@ html.mode-dark .page img {
     border: none;
     border-radius: 15px;
     padding: 25px 30px;
-    max-width: 620px;
+    max-width: 41.3333rem;
     width: 90%;
     max-height: 80vh;
     overflow-y: auto;
@@ -1247,6 +1254,10 @@ html.mode-dark .page img {
 }
 
 /* each option shows itself at its own size */
+.size-option[data-size="small"] .size-name {
+    font-size: 12.75px;
+}
+
 .size-option[data-size="normal"] .size-name {
     font-size: 15px;
 }
@@ -1340,7 +1351,7 @@ html.mode-dark .page img {
     border-radius: 14px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
     padding: 8px;
-    min-width: 240px;
+    min-width: 16rem;
     z-index: 100;
 }
 
@@ -1378,7 +1389,7 @@ html.mode-dark .page img {
     display: flex;
     gap: 18px;
     align-items: flex-start;
-    max-width: 900px;
+    max-width: 60rem;
     margin: 48px auto 0;
     font-size: 0.8667rem;
     color: var(--text-grey);
@@ -1501,7 +1512,7 @@ html.mode-dark .page img {
 
 .bc-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(14.6667rem, 1fr));
     gap: 16px;
     list-style: none;
     margin: 0;
@@ -1762,7 +1773,7 @@ html.mode-dark .bc-card-logo img {
     }
 
     .has-national .bc-group-yarn .bc-cards {
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(14.6667rem, 1fr));
         gap: 16px;
     }
 
@@ -1830,7 +1841,7 @@ html.mode-dark .bc-card-logo img {
    (see RESPONSIVE) the grid collapses to one column, legend below. */
 .visualisation-wrapper {
     display: grid;
-    grid-template-columns: 200px minmax(0, 1fr) 200px;
+    grid-template-columns: 13.3333rem minmax(0, 1fr) 13.3333rem;
     gap: 32px;
     align-items: center;
     margin: 16px 0 8px;
@@ -1879,12 +1890,14 @@ html.mode-dark .bc-card-logo img {
     display: grid;
     grid-template-columns: repeat(10, minmax(0, 1fr));
     gap: 8px 16px;
-    max-width: 640px;
+    max-width: 42.6667rem;
     margin: 0 auto;
 }
 
+/* the person icons grow with the text, but never past a tenth of the
+   screen, so ten always fit on a row */
 .icon-array-grid .person-icon {
-    font-size: 36px;
+    font-size: min(2.4rem, 8vw);
     line-height: 1;
     text-align: center;
 }
@@ -1892,7 +1905,7 @@ html.mode-dark .bc-card-logo img {
 /* per-category rows (complex icon array); kept narrow and centred so
    the figure does not span the full width of the tile */
 .icon-array-container {
-    max-width: 560px;
+    max-width: 37.3333rem;
     margin: 0 auto;
 }
 
@@ -1925,7 +1938,7 @@ html.mode-dark .bc-card-logo img {
 }
 
 .icon-category-icons .person-icon {
-    font-size: 22px;
+    font-size: 1.4667rem;
     line-height: 1;
 }
 
@@ -1943,7 +1956,7 @@ html.mode-dark .bc-card-logo img {
     justify-content: center;
     text-align: center;
     gap: 12px;
-    max-width: 640px;
+    max-width: 42.6667rem;
     min-height: 260px;
     margin: 0 auto;
     padding: 32px 24px;
@@ -2023,7 +2036,7 @@ html.mode-dark .bc-card-logo img {
 .data-table {
     border-collapse: collapse;
     width: 100%;
-    max-width: 900px;
+    max-width: 60rem;
     margin: 0 auto;
     font-size: 0.9333rem;
 }
@@ -2263,7 +2276,7 @@ html.mode-dark .bc-card-logo img {
 
     .legend-container {
         width: 100%;
-        max-width: 420px;
+        max-width: 28rem;
         justify-self: center;
     }
 }
@@ -2305,7 +2318,7 @@ html.mode-dark .bc-card-logo img {
     }
 
     .icon-array-grid .person-icon {
-        font-size: 26px;
+        font-size: min(1.7333rem, 7vw);
     }
 
     /* stack the previous/next buttons */

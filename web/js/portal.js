@@ -793,11 +793,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // --- Text size ---
-    // The Size button opens a dialog with three sizes; the choice is a
+    // The Size button opens a dialog with four sizes (one smaller than
+    // normal, two larger); the choice is a
     // class on <html> (the stylesheet sizes text in rem) and is kept in
     // localStorage, where js/i18n.js reads it before the page is drawn.
-    const SIZES = ['normal', 'large', 'larger'];
-    const SIZE_PERCENT = { normal: 100, large: 115, larger: 130 };
+    const SIZES = ['small', 'normal', 'large', 'larger'];
+    const SIZE_PERCENT = { small: 85, normal: 100, large: 115, larger: 130 };
     const SIZE_KEY = 'aya-size';
     const sizeButtons = document.querySelectorAll('.size-btn');
 
@@ -848,7 +849,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     try {
         const stored = localStorage.getItem(SIZE_KEY);
-        if (SIZES.indexOf(stored) > 0) rootEl.classList.add('size-' + stored);
+        if (SIZES.indexOf(stored) >= 0 && stored !== 'normal') rootEl.classList.add('size-' + stored);
     } catch (e) { /* storage unavailable */ }
     sizeButtons.forEach(function (btn) {
         btn.addEventListener('click', openSizeDialog);

@@ -107,9 +107,11 @@ maintainers (how well the website fits young adults of 15 to 39, caveats) and ar
 considered and rejected per country are in `data/national_resources_research.md`. Countries without an entry, and
 visitors outside Europe, see the beatcancer.eu articles only.
 
-The visitor's country is determined in the browser, without asking anything: from the browser language settings
-(a country in a language tag such as `nl-BE`), then from the time zone (such as `Europe/Amsterdam`), then from a
-language that is spoken mainly in one European country (such as `pl`). The **Country** button in the accessibility
+The visitor's country is determined in the browser, without asking anything: from the time zone (such as
+`Europe/Amsterdam`), then from the browser language settings (a country in a language tag such as `nl-BE`), then
+from a language that is spoken mainly in one European country (such as `pl`). The time zone comes first because
+browsers across Europe commonly report `en-GB` for English, which would otherwise send visitors outside the UK to
+the UK website. The **Country** button in the accessibility
 bar opens a dialog in which the visitor can choose another country (or "Outside Europe"), or click **Use my
 location**, and confirm with **Apply**. Only the location button makes the browser ask for permission to share the device position;
 the coordinates are matched against the country outlines in `web/data/europe_countries.json` on the visitor's own

@@ -260,9 +260,11 @@ function countryChangeButton(text) {
 // national website for young people with cancer. When the visitor's
 // country has one, its card takes the place of the first beatcancer.eu
 // article. The country is found in the browser, without asking
-// anything: from the browser languages (a country in a language tag,
-// e.g. nl-BE), then the time zone, then a language that belongs to one
-// European country (e.g. pl). The Country button in the accessibility
+// anything: from the time zone (e.g. Europe/Amsterdam), then the
+// browser languages (a country in a language tag, e.g. nl-BE), then a
+// language that belongs to one European country (e.g. pl). The time
+// zone goes first because many browsers outside the UK report en-GB
+// for English. The Country button in the accessibility
 // bar shows it on every page and lets the visitor choose another
 // country, or find it with "Use my location": only then does the
 // browser ask for the device position, and the coordinates are matched
@@ -392,20 +394,23 @@ function countryInProse(code) {
 }
 
 // The visitor's country guessed from the browser settings, without
-// asking anything (see the note above); null when nothing fits
+// asking anything (see the note above); null when nothing fits. The
+// time zone comes first: a country in a language tag often says only
+// which variant of a world language the visitor reads (en-GB is the
+// usual English of browsers across Europe), not where the visitor is
 function guessCountry() {
     const languages = browserLanguages();
-    for (const tag of languages) {
-        const match = /^[a-z]{2,3}(?:-[a-z]{4})?-([a-z]{2})(?:-|$)/i.exec(tag);
-        const country = match && europeanCountry(match[1]);
-        if (country) return country;
-    }
     let zone = '';
     try {
         zone = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
     } catch (e) { /* no time zone support */ }
     const fromZone = europeanCountry(EUROPE_TIME_ZONES[zone]);
     if (fromZone) return fromZone;
+    for (const tag of languages) {
+        const match = /^[a-z]{2,3}(?:-[a-z]{4})?-([a-z]{2})(?:-|$)/i.exec(tag);
+        const country = match && europeanCountry(match[1]);
+        if (country) return country;
+    }
     for (const tag of languages) {
         const country = europeanCountry(SINGLE_COUNTRY_LANGUAGES[tag.split('-')[0].toLowerCase()]);
         if (country) return country;

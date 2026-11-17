@@ -796,6 +796,10 @@ html.mode-dark .page img {
     transform: none;
 }
 
+.own-data-card[hidden] {
+    display: none;
+}
+
 .own-data-card {
     display: flex;
     align-items: center;

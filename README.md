@@ -127,6 +127,19 @@ a list of European cities:
 python scripts/fetch_europe_countries.py web/data/europe_countries.json
 ```
 
+## Glossary
+The **Glossary** button on the subjects page and the topic pages lists the terms of that page (`glossary` in
+`web/i18n/en.js`: one list per page, named after the file, plus `common` on every topic page). Where one of those
+terms appears in the text of the page (the statement, the legend, the notes), `web/js/portal.js` turns the word
+into a button with a small raised question mark that opens the Glossary scrolled to that term, with the entry marked
+and the focus on it. A term is marked once in each part of the page (the statement, the figure with its legend, the
+note below it), since visitors read those parts on their own, like links on Wikipedia and WCAG technique G101 (the
+first occurrence, where a word has one meaning on the page); the parts are `GLOSSARY_SECTIONS` in `portal.js`.
+Headings, links, buttons, the filters, the table, the support text, text only for screen readers and text from
+other websites are left alone, and the legend is checked again whenever it is drawn again. Terms are matched as whole words regardless of case, so a term only gets its question mark where
+the text uses the same words as the Glossary: on a translated page, where the term is translated the same way in the
+text (`translations/glossary.tsv` keeps the fixed ones fixed).
+
 ## Accessibility bar
 The row of buttons under the purple banner holds the reader's own settings. **Contrast** and **Dark** change the
 colours, **Size** opens a dialog with four text sizes (small at 85 %, normal, large at 115 % and extra large at

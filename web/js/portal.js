@@ -958,23 +958,49 @@ document.addEventListener('DOMContentLoaded', function () {
     // The dialog is shared with read_aloud.js
     window.AYA_PORTAL = { openModal: openPortalModal };
 
-    function openGlossary() {
+    // The glossary entries of this page: its own terms, plus the common
+    // ones on the module pages. key is the term as plain text in lower
+    // case; it ties a glossary word in the text to its entry in the dialog.
+    const glossaryEntries = (function () {
         const glossary = strings('glossary');
         const pageTerms = glossary[pageId] || [];
         const commonTerms = isModulePage ? (glossary.common || []) : [];
+        const template = document.createElement('template');
+        return pageTerms.concat(commonTerms).map(function (entry) {
+            template.innerHTML = entry.term;
+            const text = template.content.textContent.trim();
+            return { term: entry.term, definition: entry.definition, text: text, key: text.toLowerCase() };
+        });
+    })();
+
+    // termKey (optional): the entry to show, from a glossary word in the
+    // text; the dialog then scrolls to it, marks it and moves the focus
+    // to it, so a screen reader reads the term and its explanation
+    function openGlossary(termKey) {
         // Alphabetical order (of the page language) makes terms easier to find
-        const terms = pageTerms.concat(commonTerms)
+        const terms = glossaryEntries.slice()
             .sort(function (a, b) { return a.term.localeCompare(b.term, pageLanguage()); });
         if (terms.length === 0) return;
 
         const items = terms.map(function (entry) {
-            return '<dt>' + entry.term + '</dt><dd>' + entry.definition + '</dd>';
+            return '<div class="glossary-entry" data-glossary-key="' + escapeHtml(entry.key) + '">' +
+                '<dt>' + entry.term + '</dt><dd>' + entry.definition + '</dd></div>';
         }).join('');
         openPortalModal(
             t('ui.glossaryTitle'),
             t('ui.glossaryIntro'),
             '<dl class="glossary-list">' + items + '</dl>'
         );
+        if (!termKey) return;
+        const dialog = document.getElementById('portal-modal');
+        const entry = Array.prototype.find.call(dialog.querySelectorAll('.glossary-entry'), function (el) {
+            return el.dataset.glossaryKey === termKey;
+        });
+        if (!entry) return;
+        entry.classList.add('glossary-current');
+        entry.setAttribute('tabindex', '-1');
+        entry.focus({ preventScroll: true });
+        entry.scrollIntoView({ block: 'center' });
     }
 
     function openHelp() {
@@ -991,11 +1017,169 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     document.querySelectorAll('.tool-btn[data-tool="glossary"]').forEach(function (btn) {
-        btn.addEventListener('click', openGlossary);
+        btn.addEventListener('click', function () { openGlossary(); });
     });
     document.querySelectorAll('.tool-btn[data-tool="help"]').forEach(function (btn) {
         btn.addEventListener('click', openHelp);
     });
+
+    // --- Glossary words in the text ---
+    // Where a glossary term of this page appears in the text (the
+    // statement, the legend, the notes), the word becomes a button with a
+    // small raised question mark that opens the Glossary at that term.
+    // A term is marked once in each part of the page (GLOSSARY_SECTIONS:
+    // the statement, the figure with its legend, the note below), as
+    // visitors read those parts on their own rather than top to bottom,
+    // and a sentence does not fill up with question marks (like links on
+    // Wikipedia, WCAG technique G101). Headings, links, buttons, filters,
+    // the table, text only for screen readers and text from other
+    // websites are left as they are, and so is the support text ("Does
+    // this information worry you?"), which is the same on every page and
+    // uses such words in their everyday sense. The legend is drawn again
+    // after a change of filter or view, so content that arrives later is
+    // checked when it arrives.
+    // The words are matched as whole words, without case, in the
+    // language of the page (the terms come from the same strings file).
+    const GLOSSARY_SKIP = 'a, button, input, select, textarea, label, h1, h2, h3, h4, h5, h6, table, svg, ' +
+        'script, style, template, dialog, nav, [aria-hidden="true"], .visually-hidden, [translate="no"], ' +
+        '[contenteditable], [role="img"], .accessibility-strip, .read-aloud-bar, .page-toolbar, .filter-bar, ' +
+        '.topic-nav, .explore-topics-wrap, .support-section, .translation-notice, .glossary-term';
+    const GLOSSARY_SECTIONS = '.vis-statement, .visualisation-container, .info-note, .context-block, .own-data-card';
+    const glossaryRoot = document.getElementById('main-content') || document.querySelector('main');
+    const glossaryWords = glossaryEntries.filter(function (entry) { return entry.text; })
+        .map(function (entry) {
+            return {
+                entry: entry,
+                pattern: entry.text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\s+/g, '\\s+')
+            };
+        })
+        // the longest first, so "EORTC QLQ-AYA" is found before "AYA"
+        .sort(function (a, b) { return b.entry.text.length - a.entry.text.length; });
+    let glossaryPattern = null;
+    try {
+        glossaryPattern = glossaryWords.length && new RegExp('(^|[^\\p{L}\\p{N}])(' +
+            glossaryWords.map(function (w) { return w.pattern; }).join('|') + ')(?![\\p{L}\\p{N}])', 'giu');
+        glossaryWords.forEach(function (w) { w.whole = new RegExp('^(?:' + w.pattern + ')$', 'iu'); });
+    } catch (e) {
+        glossaryPattern = null; // a browser without Unicode property escapes: no glossary words
+    }
+
+    // text in another language (a national website's name, English
+    // articles on a translated page) is skipped too
+    function glossarySkipped(element) {
+        const lang = element.getAttribute('lang');
+        return element.matches(GLOSSARY_SKIP) ||
+            (lang !== null && lang.split('-')[0].toLowerCase() !== pageLanguage().split('-')[0].toLowerCase());
+    }
+
+    function glossaryTextNodes(root) {
+        const nodes = [];
+        const walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT, {
+            acceptNode: function (node) {
+                if (node.nodeType === 1) return glossarySkipped(node) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_SKIP;
+                return node.nodeValue.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
+            }
+        });
+        while (walker.nextNode()) nodes.push(walker.currentNode);
+        return nodes;
+    }
+
+    // The button says what it does in a description, so its name stays
+    // the word that is shown; the question mark is not read out
+    let glossaryHintId = null;
+    function glossaryButton(entry, text) {
+        if (!glossaryHintId) {
+            const hint = document.createElement('span');
+            hint.id = glossaryHintId = 'glossary-term-hint';
+            hint.hidden = true;
+            hint.textContent = t('ui.glossaryTermHint');
+            document.body.appendChild(hint);
+        }
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'glossary-term';
+        button.dataset.glossaryKey = entry.key;
+        button.setAttribute('aria-haspopup', 'dialog');
+        button.setAttribute('aria-describedby', glossaryHintId);
+        const word = document.createElement('span');
+        word.className = 'glossary-term-word';
+        word.textContent = text;
+        const mark = document.createElement('sup');
+        mark.setAttribute('aria-hidden', 'true');
+        mark.textContent = '?';
+        button.appendChild(word);
+        button.appendChild(mark);
+        return button;
+    }
+
+    // The part of the page a node is in (the rest of <main> is one part)
+    function glossarySection(node) {
+        return node.parentNode.closest(GLOSSARY_SECTIONS) || glossaryRoot;
+    }
+
+    function markGlossaryTerms() {
+        if (!glossaryPattern || !glossaryRoot) return;
+        // the terms marked so far, per part of the page
+        const markedIn = new Map();
+        function markedFor(section) {
+            if (!markedIn.has(section)) markedIn.set(section, {});
+            return markedIn.get(section);
+        }
+        glossaryRoot.querySelectorAll('.glossary-term').forEach(function (el) {
+            markedFor(glossarySection(el))[el.dataset.glossaryKey] = true;
+        });
+
+        glossaryTextNodes(glossaryRoot).forEach(function (node) {
+            const marked = markedFor(glossarySection(node));
+            const text = node.nodeValue;
+            const parts = [];
+            let last = 0;
+            let match;
+            glossaryPattern.lastIndex = 0;
+            while ((match = glossaryPattern.exec(text)) !== null) {
+                // every term is in the pattern, also the ones shown already,
+                // so the "AYA" of a second "EORTC QLQ-AYA" is not marked
+                const word = glossaryWords.find(function (w) { return w.whole.test(match[2]); });
+                if (!word || marked[word.entry.key]) continue;
+                marked[word.entry.key] = true;
+                const start = match.index + match[1].length;
+                if (start > last) parts.push(document.createTextNode(text.slice(last, start)));
+                parts.push(glossaryButton(word.entry, match[2]));
+                last = start + match[2].length;
+            }
+            if (!parts.length) return;
+            if (last < text.length) parts.push(document.createTextNode(text.slice(last)));
+            const fragment = document.createDocumentFragment();
+            parts.forEach(function (part) { fragment.appendChild(part); });
+            node.parentNode.replaceChild(fragment, node);
+        });
+    }
+
+    if (glossaryPattern && glossaryRoot) {
+        markGlossaryTerms();
+        // one click handler for all of them, also for words marked later
+        // (and for a statement whose HTML visualisation.js rewrites)
+        glossaryRoot.addEventListener('click', function (e) {
+            const term = e.target.closest && e.target.closest('.glossary-term');
+            if (term) openGlossary(term.dataset.glossaryKey);
+        });
+        if (typeof MutationObserver !== 'undefined') {
+            let scheduled = false;
+            new MutationObserver(function (records) {
+                // changes inside skipped parts (the read-aloud status, the
+                // article cards) cannot bring new glossary words
+                const relevant = records.some(function (record) {
+                    return record.target.nodeType === 1 && !record.target.closest(GLOSSARY_SKIP);
+                });
+                if (!relevant || scheduled) return;
+                scheduled = true;
+                setTimeout(function () {
+                    scheduled = false;
+                    markGlossaryTerms();
+                }, 0);
+            }).observe(glossaryRoot, { childList: true, subtree: true });
+        }
+    }
 
     // --- Country (accessibility bar) ---
     // The Country button shows the visitor's country for the national

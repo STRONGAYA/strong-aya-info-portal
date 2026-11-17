@@ -1073,11 +1073,26 @@ html.mode-dark .page img {
     line-height: 1.6;
 }
 
+/* one term and its explanation; the entry a glossary word in the
+   text opened (portal.js) is marked with a tinted band and a bar. The
+   negative margin keeps the text in line with the intro */
+.portal-modal .glossary-entry {
+    margin: 6px 0 0 -15px;
+    padding: 8px 12px 8px 12px;
+    border-left: 3px solid transparent;
+    border-radius: 0 8px 8px 0;
+    scroll-margin: 12px 0;
+}
+
+.portal-modal .glossary-entry.glossary-current {
+    border-left-color: var(--brand-orange-text);
+    background: rgba(247, 116, 30, 0.1);
+}
+
 .portal-modal .glossary-list dt {
     font-size: 0.9333rem;
     font-weight: 600;
     color: var(--brand-orange-text);
-    margin-top: 14px;
 }
 
 .portal-modal .glossary-list dd {
@@ -1472,6 +1487,48 @@ html.mode-dark .page img {
 
 .vis-statement b {
     color: var(--brand-orange-text);
+}
+
+/* a glossary word in the text (portal.js): the word itself is a
+   button that opens the Glossary at its explanation. The underline is
+   what shows it: thick, dotted and orange (3:1 against the background,
+   so it also reads in the grey legend text), solid on hover; the small
+   grey question mark after it is only a hint. Otherwise the word looks
+   like the text around it (bold and orange in the statement) */
+.glossary-term {
+    font: inherit;
+    color: inherit;
+    letter-spacing: inherit;
+    text-align: inherit;
+    background: none;
+    border: 0;
+    border-radius: 2px;
+    padding: 0;
+    margin: 0;
+}
+
+/* two classes, so rules for spans in the text around it (such as the
+   grey description in the legend) do not reach the word */
+.glossary-term .glossary-term-word {
+    color: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    text-decoration: underline dotted var(--brand-orange-icon);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.22em;
+    text-decoration-skip-ink: none;
+}
+
+.glossary-term:hover .glossary-term-word {
+    text-decoration-style: solid;
+}
+
+.glossary-term sup {
+    margin-left: 0.08em;
+    font-size: 0.6em;
+    font-weight: 400;
+    line-height: 0;
+    color: var(--text-grey);
 }
 
 /* previous/next topic buttons below the figure, pushed to the left
@@ -2578,6 +2635,15 @@ html.mode-dark .bc-card-logo img {
         background: none;
         color: var(--text-dark);
     }
+
+    /* on paper a glossary word is plain text */
+    .glossary-term sup {
+        display: none;
+    }
+
+    .glossary-term-word {
+        text-decoration: none;
+    }
 }
 
 /* ============================================================
@@ -2597,6 +2663,20 @@ html.mode-dark .bc-card-logo img {
     .size-option[aria-current="true"] {
         outline: 3px solid Highlight;
         outline-offset: -3px;
+    }
+
+    /* a glossary word keeps the colour of a link, not of a button */
+    .glossary-term,
+    .glossary-term sup {
+        color: LinkText;
+    }
+
+    .glossary-term .glossary-term-word {
+        text-decoration-color: LinkText;
+    }
+
+    .portal-modal .glossary-entry.glossary-current {
+        border-left-color: Highlight;
     }
 }
 

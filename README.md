@@ -50,6 +50,17 @@ are scored like the EORTC QLQ-C30 (0–100, higher is more affected): a single q
 up to 67, above 67). "Affected a lot" is quite a bit or very much. The QLQ-AYA has no published thresholds for
 clinical importance yet: its international validation study runs until 2029.
 
+### Figure colours
+The figures of every subject use one set of colours (`FIGURE_COLORS` in `web/js/visualisation.js`), so a colour
+means the same on every page: **orange** for the people the statement above the figure is about (received the
+treatment, functioning declined, signs of anxiety, affected a lot), **grey** for everyone else. The detailed view
+splits each into shades without moving anyone from orange to grey: the stronger the degree, the darker the orange
+(`#ef6409`, `#ab4504`, `#6d2900`: very much, severe, completed treatment, declined a lot are always the darkest),
+and the darker grey (`#636363`) is the part of the grey group that is not "none" (a little, improved). Every shade
+has at least 3:1 contrast on the white tile; the colours that sit side by side in a figure stay distinguishable
+with red-green colour blindness (simulated protanopia and deuteranopia, OKLab ΔE ≥ 12.9) and with full colour vision
+(ΔE ≥ 15). A new topic takes its legend colours from `FIGURE_COLORS` in the same way.
+
 ### Articles from beatcancer.eu
 The bottom of every topic page points to support and shows a few articles about the topic from
 [beatcancer.eu](https://beatcancer.eu/resources/), the website of the European Youth Cancer Network (YARN);

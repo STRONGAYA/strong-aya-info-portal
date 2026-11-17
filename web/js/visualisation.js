@@ -3,7 +3,7 @@
  * Handles icon array, table, and pie chart visualisations using Plotly.js
  * Loads the counts per category from web/data/<variable>.csv
  * Supports multiple page types and visualisation variants
- * Uses brand colour theme and colour-blind-safe palettes
+ * Uses one colour language for every subject (FIGURE_COLORS)
  * The text it generates (view names, legends, table, charts, notices)
  * comes from web/i18n/<lang>.js through t() (js/i18n.js), so the
  * generated pages in other languages show it in their own language
@@ -33,53 +33,31 @@ function pageFontFamily() {
     }
 }
 
-// Brand colour theme, in the shades that keep at least 3:1 contrast
-// against the white tile as graphics (EN 301 549 / WCAG 1.4.11): the
-// icon array, the legend swatches and the charts use these. The brand
-// orange #f7741e itself (2.8:1) stays for surfaces in the stylesheet.
-const BRAND_COLORS = {
-    primary: '#ef6409',      // the brand orange, one step darker (3.2:1)
-    secondary: '#d5276d',    // the brand pink as text (4.8:1)
-    blue: '#7607ff',        // the brand purple
-    dark: '#000000',        // Black
-    light: '#ffffff',       // White
-    silver: '#8f8f8f',      // mid grey (3.2:1)
-    lightGray: '#949494',   // grey for "not received" and "not at all" (3.0:1)
-    darkGray: '#6d6d6d',    // dark grey (5.2:1)
-    gainsboro: '#949494'    // same mid grey
-};
-
-// Colour-blind-safe colour palettes
-const COLORBLIND_SAFE = {
-    // IBM Design Library colour-blind-safe palette
-    category1: '#648FFF',    // Blue
-    category2: '#DC267F',    // Magenta
-    category3: '#FE6100',    // Orange (matches brand)
-    category4: '#c68900',    // Gold, darkened to 3:1 on white
-    category5: '#785EF0',    // Purple
-    
-    // Additional accessible colours
-    yes: '#648FFF',         // Blue for "Yes"
-    no: '#DC267F',          // Magenta for "No" (avoids red-green)
-    partial: '#c68900',      // Gold for "Partial"
-    
-    // For functioning scores (avoiding red-green)
-    high: '#648FFF',        // Blue for high/good
-    medium: '#FE6100',      // Orange for medium
-    low: '#DC267F',          // Magenta for low
-    
-    // For symptoms (colour-blind-safe)
-    severe: '#648FFF',      // Blue
-    moderate: '#FE6100',    // Orange
-    mild: '#c68900',        // Gold
-    none: '#785EF0',        // Purple
-    
-    // Treatment colours (using brand colours)
-    received: '#f7741e',     // Brand orange
-    notReceived: '#949494', // Grey (3:1 on white)
-    planned: '#7607ff',      // Brand blue
-    completed: '#648FFF',    // Accessible blue
-    ongoing: '#c68900'       // Gold
+// One colour language for the figures of every subject (icon arrays,
+// legends, pie and bar charts), so that a colour means the same on every
+// page:
+// - orange: the people the statement above the figure is about (received
+//   the treatment, functioning declined, signs of anxiety, worry a lot,
+//   affected a lot, received support);
+// - grey: everyone else.
+// The detailed view (iconArrayComplex) splits each colour into shades
+// and never moves a person from orange to grey, so the two views can be
+// compared: the stronger the degree, the darker the orange (very much,
+// severe, completed treatment, declined a lot); the darker grey is the
+// part of "everyone else" that is not "none" (a little, improved).
+// Every shade keeps at least 3:1 against the white tile (EN 301 549 /
+// WCAG 1.4.11). The oranges are one hue in even lightness steps, and the
+// colours that sit side by side in a figure stay apart for people with
+// red-green colour blindness (protanopia, deuteranopia: OKLab delta E of
+// 12.9 or more) and with full colour vision (15 or more). The earlier
+// magenta, orange and gold collapsed for deuteranopia (orange and gold:
+// delta E 2.3).
+const FIGURE_COLORS = {
+    orange: '#ef6409',        // the group of the statement, and its mildest degree (3.2:1)
+    orangeDark: '#ab4504',    // a middle degree: moderate, partial treatment (5.9:1)
+    orangeDarkest: '#6d2900', // the strongest degree: very much, severe, completed, declined a lot (10.7:1)
+    grey: '#949494',          // everyone else: none, not at all, stable, not received (3.0:1)
+    greyDark: '#636363'       // a little, improved (6.0:1)
 };
 
 // Page type configurations: the name of the subject (table caption) is
@@ -89,43 +67,36 @@ const PAGE_TYPES = {
         id: 'treatment',
         modules: ['chemotherapy', 'radiotherapy', 'hormonetherapy', 'surgery', 'immunotherapy'],
         visualisationTypes: ['iconArraySimple', 'iconArrayComplex', 'table', 'pieChart', 'barChart'],
-        colorScheme: 'treatment'
     },
     functioning: {
         id: 'functioning',
         modules: ['emotional_functioning', 'physical_functioning', 'role_functioning', 'social_functioning', 'cognitive_functioning'],
         visualisationTypes: ['iconArraySimple', 'iconArrayComplex', 'table', 'pieChart', 'barChart'],
-        colorScheme: 'functioning'
     },
     symptoms: {
         id: 'symptoms',
         modules: ['fatigue', 'pain', 'nausea', 'anxiety', 'depression'],
         visualisationTypes: ['iconArraySimple', 'iconArrayComplex', 'table', 'pieChart', 'barChart'],
-        colorScheme: 'symptoms'
     },
     mental_health: {
         id: 'mental_health',
         modules: ['anxiety', 'depression', 'worry', 'mental_health_support'],
         visualisationTypes: ['iconArraySimple', 'iconArrayComplex', 'table', 'pieChart', 'barChart'],
-        colorScheme: 'default'
     },
     relationships: {
         id: 'relationships',
         modules: ['romantic_life', 'sex_life', 'relationships', 'self_esteem'],
         visualisationTypes: ['iconArraySimple', 'iconArrayComplex', 'table', 'pieChart', 'barChart'],
-        colorScheme: 'default'
     },
     lifestyle: {
         id: 'lifestyle',
         modules: ['physical_activity', 'diet', 'sleep', 'smoking', 'alcohol'],
         visualisationTypes: ['iconArraySimple', 'table', 'pieChart', 'barChart'],
-        colorScheme: 'default'
     },
     demographics: {
         id: 'demographics',
         modules: ['age', 'sex', 'education', 'employment', 'relationship_status'],
         visualisationTypes: ['table', 'pieChart', 'barChart'],
-        colorScheme: 'default'
     }
 };
 
@@ -140,50 +111,6 @@ const VISUALISATION_TYPES = {
     barChart: { id: 'barChart', icon: '📈' }
 };
 
-// Colour schemes for different data types (using brand and colour-blind-safe colours)
-const COLOR_SCHEMES = {
-    default: {
-        yes: BRAND_COLORS.primary,     // Brand orange #f7741e
-        no: BRAND_COLORS.lightGray,    // Light grey #d7d7d7
-        partial: COLORBLIND_SAFE.category4, // Gold #FFB000
-        high: COLORBLIND_SAFE.category1,    // Blue #648FFF
-        medium: COLORBLIND_SAFE.category3,  // Orange #FE6100
-        low: COLORBLIND_SAFE.category2      // Magenta #DC267F
-    },
-    treatment: {
-        received: BRAND_COLORS.primary,    // Brand orange #f7741e
-        notReceived: BRAND_COLORS.lightGray, // Light grey #d7d7d7
-        partial: COLORBLIND_SAFE.category4,  // Gold #FFB000
-        planned: BRAND_COLORS.secondary,    // Pale violet red #e36799
-        completed: BRAND_COLORS.blue,       // Brand blue #7607ff
-        ongoing: COLORBLIND_SAFE.category4   // Gold #FFB000
-    },
-    functioning: {
-        // Avoid red-green for functioning scores
-        declined: COLORBLIND_SAFE.category2,   // Magenta #DC267F (instead of red)
-        stable: COLORBLIND_SAFE.category4,    // Gold #FFB000 (neutral)
-        improved: COLORBLIND_SAFE.category1,  // Blue #648FFF (instead of green)
-        significantly_declined: COLORBLIND_SAFE.category5, // Purple #785EF0
-        significantly_improved: BRAND_COLORS.blue // Brand blue #7607ff
-    },
-    symptoms: {
-        // Colorblind-safe symptom colors
-        severe: COLORBLIND_SAFE.category2,     // Magenta #DC267F
-        moderate: COLORBLIND_SAFE.category3,   // Orange #FE6100
-        mild: COLORBLIND_SAFE.category4,       // Gold #FFB000
-        none: COLORBLIND_SAFE.category1,       // Blue #648FFF
-        unknown: BRAND_COLORS.silver           // Silver #c9c6c4
-    },
-    qualityOfLife: {
-        // Colorblind-safe QoL colors
-        excellent: COLORBLIND_SAFE.category1,  // Blue #648FFF
-        good: COLORBLIND_SAFE.category4,       // Gold #FFB000
-        fair: COLORBLIND_SAFE.category3,       // Orange #FE6100
-        poor: COLORBLIND_SAFE.category2,       // Magenta #DC267F
-        very_poor: COLORBLIND_SAFE.category5   // Purple #785EF0
-    }
-};
-
 // Legend configurations for different visualisation types.
 // The data CSVs (web/data/<variable>.csv) hold one `category,count` row
 // per category, named after the ids of the *complex* legend. A simple
@@ -194,26 +121,26 @@ const COLOR_SCHEMES = {
 const LEGEND_CONFIGS = {
     treatment: {
         simple: [
-            { id: 'received', color: COLOR_SCHEMES.treatment.received, categories: ['partial', 'planned'] },
-            { id: 'notReceived', color: COLOR_SCHEMES.treatment.notReceived }
+            { id: 'received', color: FIGURE_COLORS.orange, categories: ['partial', 'planned'] },
+            { id: 'notReceived', color: FIGURE_COLORS.grey }
         ],
         complex: [
-            { id: 'received', color: COLOR_SCHEMES.treatment.completed },
-            { id: 'partial', color: COLOR_SCHEMES.treatment.partial },
-            { id: 'planned', color: COLOR_SCHEMES.treatment.planned },
-            { id: 'notReceived', color: COLOR_SCHEMES.treatment.notReceived }
+            { id: 'received', color: FIGURE_COLORS.orangeDarkest },
+            { id: 'partial', color: FIGURE_COLORS.orangeDark },
+            { id: 'planned', color: FIGURE_COLORS.orange },
+            { id: 'notReceived', color: FIGURE_COLORS.grey }
         ]
     },
     functioning: {
         simple: [
-            { id: 'declined', color: COLOR_SCHEMES.functioning.declined, categories: ['significantly_declined'] },
-            { id: 'stable', color: COLOR_SCHEMES.functioning.stable, categories: ['improved'] }
+            { id: 'declined', color: FIGURE_COLORS.orange, categories: ['significantly_declined'] },
+            { id: 'stable', color: FIGURE_COLORS.grey, categories: ['improved'] }
         ],
         complex: [
-            { id: 'significantly_declined', color: COLOR_SCHEMES.functioning.significantly_declined },
-            { id: 'declined', color: COLOR_SCHEMES.functioning.declined },
-            { id: 'stable', color: COLOR_SCHEMES.functioning.stable },
-            { id: 'improved', color: COLOR_SCHEMES.functioning.improved }
+            { id: 'significantly_declined', color: FIGURE_COLORS.orangeDarkest },
+            { id: 'declined', color: FIGURE_COLORS.orange },
+            { id: 'stable', color: FIGURE_COLORS.grey },
+            { id: 'improved', color: FIGURE_COLORS.greyDark }
         ]
     }
 };
@@ -240,8 +167,8 @@ const FILTER_PLACEHOLDER_COUNTS = {
 // A yes/no legend for a page without a legend configuration
 function defaultLegend() {
     return localisedLegendEntries([
-        { id: 'yes', color: COLOR_SCHEMES.default.yes },
-        { id: 'no', color: COLOR_SCHEMES.default.no }
+        { id: 'yes', color: FIGURE_COLORS.orange },
+        { id: 'no', color: FIGURE_COLORS.grey }
     ], 'legends.default.simple');
 }
 
@@ -355,42 +282,15 @@ class StrongAyaVisualisation {
         return PAGE_TYPES.treatment;
     }
     
+    // The simple legend: the page's own, else the one of its page type,
+    // else yes/no. The colours are in the legend entries (FIGURE_COLORS).
     loadLegendConfig() {
-        // Page-specific legend from the config wins over the page-type one
         if (this.dataConfig.legend && this.dataConfig.legend.simple) {
             this.legendData = this.dataConfig.legend.simple;
-            this.colorScheme = COLOR_SCHEMES[this.dataConfig.colorScheme] || COLOR_SCHEMES.default;
             return;
         }
-        
-        // Load legend based on page type and colour scheme
-        if (this.pageType) {
-            const pageId = this.pageType.id;
-            const colorScheme = this.dataConfig.colorScheme || this.pageType.colorScheme || 'default';
-            
-            // Get legend config for this page type
-            const legendConfig = LEGEND_CONFIGS[pageId];
-            if (legendConfig) {
-                // Use simple legend by default
-                this.legendData = legendConfig.simple || [];
-                this.colorScheme = COLOR_SCHEMES[colorScheme];
-            } else {
-                // Fallback to default
-                this.legendData = defaultLegend();
-                this.colorScheme = COLOR_SCHEMES.default;
-            }
-        } else {
-            // Default legend
-            this.legendData = defaultLegend();
-            this.colorScheme = COLOR_SCHEMES.default;
-        }
-        
-        // Apply colours from scheme to legend
-        this.legendData.forEach(item => {
-            if (this.colorScheme[item.id]) {
-                item.color = this.colorScheme[item.id];
-            }
-        });
+        const legendConfig = this.pageType ? LEGEND_CONFIGS[this.pageType.id] : null;
+        this.legendData = legendConfig ? (legendConfig.simple || []) : defaultLegend();
     }
     
     async loadData() {
@@ -581,12 +481,12 @@ class StrongAyaVisualisation {
         const title = document.createElement('h3');
         title.id = 'view-selector-title';
         title.textContent = t('ui.viewTitle');
-        title.style.cssText = 'margin: 0 0 20px 0; font-size: 1.6rem; color: black; font-weight: 600; font-family: inherit;';
+        title.style.cssText = 'margin: 0 0 20px 0; font-size: 1.6rem; color: var(--text-dark); font-weight: 600; font-family: inherit;';
         modal.appendChild(title);
         
         const description = document.createElement('p');
         description.textContent = t('ui.viewIntro');
-        description.style.cssText = 'font-size: 0.9333rem; color: #6d6d6d; margin: 0 0 25px 0; line-height: 1.6;';
+        description.style.cssText = 'font-size: 0.9333rem; color: var(--text-grey); margin: 0 0 25px 0; line-height: 1.6;';
         modal.appendChild(description);
         
         const grid = document.createElement('div');
@@ -595,19 +495,19 @@ class StrongAyaVisualisation {
         modal.appendChild(grid);
         
         const footer = document.createElement('div');
-        footer.style.cssText = 'display: flex; justify-content: flex-end; gap: 10px; border-top: 2px solid #d7d7d7; padding-top: 20px;';
+        footer.style.cssText = 'display: flex; justify-content: flex-end; gap: 10px; border-top: 2px solid var(--border-grey); padding-top: 20px;';
         
         const cancelBtn = document.createElement('button');
         cancelBtn.type = 'button';
         cancelBtn.textContent = t('ui.cancel');
-        cancelBtn.style.cssText = 'padding: 12px 24px; border-radius: 8px; font-family: inherit; font-size: 0.9333rem; font-weight: 600; cursor: pointer; background: #d7d7d7; color: black; border: none;';
+        cancelBtn.style.cssText = 'padding: 12px 24px; border-radius: 8px; font-family: inherit; font-size: 0.9333rem; font-weight: 600; cursor: pointer; background: var(--bg-neutral); color: var(--text-dark); border: none;';
         cancelBtn.addEventListener('click', () => modal.close());
         footer.appendChild(cancelBtn);
         
         const applyBtn = document.createElement('button');
         applyBtn.type = 'button';
         applyBtn.textContent = t('ui.apply');
-        applyBtn.style.cssText = 'padding: 12px 24px; border-radius: 8px; font-family: inherit; font-size: 0.9333rem; font-weight: 600; cursor: pointer; background: #f7741e; color: #1c1c1c; border: none;';
+        applyBtn.style.cssText = 'padding: 12px 24px; border-radius: 8px; font-family: inherit; font-size: 0.9333rem; font-weight: 600; cursor: pointer; background: var(--brand-orange); color: var(--on-orange); border: none;';
         applyBtn.addEventListener('click', () => {
             this.switchView(this.pendingView || this.currentView);
             saveVisState({ view: this.currentView });
@@ -648,7 +548,7 @@ class StrongAyaVisualisation {
         // for free; aria-pressed tells screen readers which one is chosen
         // the chosen card differs in colour and in border width (not colour alone, WCAG 1.4.1)
         const markSelected = (card, selected) => {
-            card.style.borderColor = selected ? '#be4f07' : '#8a8a8a';
+            card.style.borderColor = selected ? 'var(--brand-orange-text)' : 'var(--border-control)';
             card.style.borderWidth = selected ? '3px' : '1px';
             card.style.padding = selected ? '13px' : '15px';
             card.style.background = selected ? 'rgba(247, 116, 30, 0.08)' : 'white';
@@ -661,17 +561,17 @@ class StrongAyaVisualisation {
                 const card = document.createElement('button');
                 card.type = 'button';
                 card.className = 'view-option-card';
-                card.style.cssText = 'background: white; border: 2px solid #d7d7d7; border-radius: 10px; padding: 15px; cursor: pointer; transition: all 0.3s ease; text-align: left; font-family: inherit; width: 100%;';
+                card.style.cssText = 'background: white; border: 2px solid var(--border-control); border-radius: 10px; padding: 15px; cursor: pointer; transition: all 0.3s ease; text-align: left; font-family: inherit; width: 100%;';
                 markSelected(card, selectedView === viewId);
                 
                 const name = document.createElement('span');
                 name.textContent = visType.name;
-                name.style.cssText = 'display: block; font-size: 1.0667rem; font-weight: 600; color: black; margin: 0 0 5px 0;';
+                name.style.cssText = 'display: block; font-size: 1.0667rem; font-weight: 600; color: var(--text-dark); margin: 0 0 5px 0;';
                 card.appendChild(name);
                 
                 const desc = document.createElement('span');
                 desc.textContent = visType.description;
-                desc.style.cssText = 'display: block; font-size: 0.9333rem; color: #6d6d6d; margin: 0; line-height: 1.4;';
+                desc.style.cssText = 'display: block; font-size: 0.9333rem; color: var(--text-grey); margin: 0; line-height: 1.4;';
                 card.appendChild(desc);
                 
                 card.addEventListener('click', () => {
@@ -721,16 +621,9 @@ class StrongAyaVisualisation {
                 // Page-specific complex legend from the config
                 this.legendData = this.dataConfig.legend.complex;
             } else {
-                const pageId = this.pageType?.id;
-                const legendConfig = LEGEND_CONFIGS[pageId];
+                const legendConfig = LEGEND_CONFIGS[this.pageType?.id];
                 if (legendConfig && legendConfig.complex) {
                     this.legendData = legendConfig.complex;
-                    // Apply colours from scheme
-                    this.legendData.forEach(item => {
-                        if (this.colorScheme[item.id]) {
-                            item.color = this.colorScheme[item.id];
-                        }
-                    });
                 }
             }
         } else {
@@ -799,7 +692,7 @@ class StrongAyaVisualisation {
         
         if (!hasEnoughCategories) {
             this.visArea.innerHTML = `
-                <p style="text-align: center; padding: 20px; color: #6d6d6d;">
+                <p style="text-align: center; padding: 20px; color: var(--text-grey);">
                     ${t('messages.needsGroups', { count: Object.keys(this.categoryCounts).length })}
                 </p>
             `;
@@ -1199,7 +1092,7 @@ class StrongAyaVisualisation {
     }
     
     showError(message) {
-        this.visArea.innerHTML = `<p style="text-align: center; padding: 20px; color: ${BRAND_COLORS.secondary};">${message}</p>`;
+        this.visArea.innerHTML = `<p style="text-align: center; padding: 20px; color: var(--brand-pink-text);">${message}</p>`;
     }
     
     applyFilters(filters) {
@@ -1276,14 +1169,14 @@ class StrongAyaVisualisation {
 function qlqAyaLegend() {
     return {
         simple: [
-            { id: 'affectedALot', color: BRAND_COLORS.primary, categories: ['veryMuch', 'quiteABit'] },
-            { id: 'affectedLittle', color: BRAND_COLORS.lightGray, categories: ['aLittle', 'notAtAll'] }
+            { id: 'affectedALot', color: FIGURE_COLORS.orange, categories: ['veryMuch', 'quiteABit'] },
+            { id: 'affectedLittle', color: FIGURE_COLORS.grey, categories: ['aLittle', 'notAtAll'] }
         ],
         complex: [
-            { id: 'veryMuch', color: COLORBLIND_SAFE.category2 },
-            { id: 'quiteABit', color: COLORBLIND_SAFE.category3 },
-            { id: 'aLittle', color: COLORBLIND_SAFE.category4 },
-            { id: 'notAtAll', color: BRAND_COLORS.lightGray }
+            { id: 'veryMuch', color: FIGURE_COLORS.orangeDarkest },
+            { id: 'quiteABit', color: FIGURE_COLORS.orange },
+            { id: 'aLittle', color: FIGURE_COLORS.greyDark },
+            { id: 'notAtAll', color: FIGURE_COLORS.grey }
         ]
     };
 }
@@ -1299,7 +1192,6 @@ const VISUALISATION_CONFIGS = {
         lastUpdated: 'August 2024',
         variable: 'ther_chemo',
         pageType: 'treatment',
-        colorScheme: 'treatment',
         defaultView: 'iconArraySimple'
     },
     radiotherapy: {
@@ -1307,7 +1199,6 @@ const VISUALISATION_CONFIGS = {
         lastUpdated: 'August 2024',
         variable: 'ther_rt',
         pageType: 'treatment',
-        colorScheme: 'treatment',
         defaultView: 'iconArraySimple'
     },
     hormonetherapy: {
@@ -1315,7 +1206,6 @@ const VISUALISATION_CONFIGS = {
         lastUpdated: 'August 2024',
         variable: 'ther_ht',
         pageType: 'treatment',
-        colorScheme: 'treatment',
         defaultView: 'iconArraySimple'
     },
     
@@ -1325,7 +1215,6 @@ const VISUALISATION_CONFIGS = {
         lastUpdated: 'August 2024',
         variable: 'ef',
         pageType: 'functioning',
-        colorScheme: 'functioning',
         defaultView: 'iconArraySimple'
     },
     physical_functioning: {
@@ -1333,7 +1222,6 @@ const VISUALISATION_CONFIGS = {
         lastUpdated: 'August 2024',
         variable: 'pf',
         pageType: 'functioning',
-        colorScheme: 'functioning',
         defaultView: 'iconArraySimple'
     },
     role_functioning: {
@@ -1341,7 +1229,6 @@ const VISUALISATION_CONFIGS = {
         lastUpdated: 'August 2024',
         variable: 'rf',
         pageType: 'functioning',
-        colorScheme: 'functioning',
         defaultView: 'iconArraySimple'
     },
     
@@ -1351,18 +1238,17 @@ const VISUALISATION_CONFIGS = {
         lastUpdated: 'August 2024',
         variable: 'hads_anx',
         pageType: 'mental_health',
-        colorScheme: 'default',
         defaultView: 'iconArraySimple',
         legend: {
             simple: [
-                { id: 'signs', color: BRAND_COLORS.primary, categories: ['severe', 'moderate', 'mild'] },
-                { id: 'noSigns', color: BRAND_COLORS.lightGray, categories: ['none'] }
+                { id: 'signs', color: FIGURE_COLORS.orange, categories: ['severe', 'moderate', 'mild'] },
+                { id: 'noSigns', color: FIGURE_COLORS.grey, categories: ['none'] }
             ],
             complex: [
-                { id: 'severe', color: COLORBLIND_SAFE.category2 },
-                { id: 'moderate', color: COLORBLIND_SAFE.category3 },
-                { id: 'mild', color: COLORBLIND_SAFE.category4 },
-                { id: 'none', color: BRAND_COLORS.lightGray }
+                { id: 'severe', color: FIGURE_COLORS.orangeDarkest },
+                { id: 'moderate', color: FIGURE_COLORS.orangeDark },
+                { id: 'mild', color: FIGURE_COLORS.orange },
+                { id: 'none', color: FIGURE_COLORS.grey }
             ]
         }
     },
@@ -1371,18 +1257,17 @@ const VISUALISATION_CONFIGS = {
         lastUpdated: 'August 2024',
         variable: 'hads_dep',
         pageType: 'mental_health',
-        colorScheme: 'default',
         defaultView: 'iconArraySimple',
         legend: {
             simple: [
-                { id: 'signs', color: BRAND_COLORS.primary, categories: ['severe', 'moderate', 'mild'] },
-                { id: 'noSigns', color: BRAND_COLORS.lightGray, categories: ['none'] }
+                { id: 'signs', color: FIGURE_COLORS.orange, categories: ['severe', 'moderate', 'mild'] },
+                { id: 'noSigns', color: FIGURE_COLORS.grey, categories: ['none'] }
             ],
             complex: [
-                { id: 'severe', color: COLORBLIND_SAFE.category2 },
-                { id: 'moderate', color: COLORBLIND_SAFE.category3 },
-                { id: 'mild', color: COLORBLIND_SAFE.category4 },
-                { id: 'none', color: BRAND_COLORS.lightGray }
+                { id: 'severe', color: FIGURE_COLORS.orangeDarkest },
+                { id: 'moderate', color: FIGURE_COLORS.orangeDark },
+                { id: 'mild', color: FIGURE_COLORS.orange },
+                { id: 'none', color: FIGURE_COLORS.grey }
             ]
         }
     },
@@ -1391,18 +1276,17 @@ const VISUALISATION_CONFIGS = {
         lastUpdated: 'August 2024',
         variable: 'qlq_aya_worry',
         pageType: 'mental_health',
-        colorScheme: 'default',
         defaultView: 'iconArraySimple',
         legend: {
             simple: [
-                { id: 'worryALot', color: BRAND_COLORS.primary, categories: ['veryMuch', 'quiteABit'] },
-                { id: 'worryLittle', color: BRAND_COLORS.lightGray, categories: ['aLittle', 'notAtAll'] }
+                { id: 'worryALot', color: FIGURE_COLORS.orange, categories: ['veryMuch', 'quiteABit'] },
+                { id: 'worryLittle', color: FIGURE_COLORS.grey, categories: ['aLittle', 'notAtAll'] }
             ],
             complex: [
-                { id: 'veryMuch', color: COLORBLIND_SAFE.category2 },
-                { id: 'quiteABit', color: COLORBLIND_SAFE.category3 },
-                { id: 'aLittle', color: COLORBLIND_SAFE.category4 },
-                { id: 'notAtAll', color: BRAND_COLORS.lightGray }
+                { id: 'veryMuch', color: FIGURE_COLORS.orangeDarkest },
+                { id: 'quiteABit', color: FIGURE_COLORS.orange },
+                { id: 'aLittle', color: FIGURE_COLORS.greyDark },
+                { id: 'notAtAll', color: FIGURE_COLORS.grey }
             ]
         }
     },
@@ -1411,12 +1295,11 @@ const VISUALISATION_CONFIGS = {
         lastUpdated: 'August 2024',
         variable: 'mh_support',
         pageType: 'mental_health',
-        colorScheme: 'default',
         defaultView: 'iconArraySimple',
         legend: {
             simple: [
-                { id: 'received', color: BRAND_COLORS.primary },
-                { id: 'notReceived', color: BRAND_COLORS.lightGray }
+                { id: 'received', color: FIGURE_COLORS.orange },
+                { id: 'notReceived', color: FIGURE_COLORS.grey }
             ]
         }
     },
@@ -1428,7 +1311,6 @@ const VISUALISATION_CONFIGS = {
         lastUpdated: 'September 2026',
         variable: 'qlq_aya_romantic_life',
         pageType: 'relationships',
-        colorScheme: 'default',
         defaultView: 'iconArraySimple',
         legend: qlqAyaLegend()
     },
@@ -1437,7 +1319,6 @@ const VISUALISATION_CONFIGS = {
         lastUpdated: 'September 2026',
         variable: 'qlq_aya_sex_life',
         pageType: 'relationships',
-        colorScheme: 'default',
         defaultView: 'iconArraySimple',
         legend: qlqAyaLegend()
     },
@@ -1446,7 +1327,6 @@ const VISUALISATION_CONFIGS = {
         lastUpdated: 'September 2026',
         variable: 'qlq_aya_relationships',
         pageType: 'relationships',
-        colorScheme: 'default',
         defaultView: 'iconArraySimple',
         legend: qlqAyaLegend()
     },
@@ -1455,7 +1335,6 @@ const VISUALISATION_CONFIGS = {
         lastUpdated: 'September 2026',
         variable: 'qlq_aya_self_esteem',
         pageType: 'relationships',
-        colorScheme: 'default',
         defaultView: 'iconArraySimple',
         legend: qlqAyaLegend()
     }
@@ -1615,9 +1494,7 @@ if (typeof module !== 'undefined' && module.exports) {
         VISUALISATION_CONFIGS,
         PAGE_TYPES,
         VISUALISATION_TYPES,
-        COLOR_SCHEMES,
-        COLORBLIND_SAFE,
-        BRAND_COLORS,
+        FIGURE_COLORS,
         LEGEND_CONFIGS
     };
 }

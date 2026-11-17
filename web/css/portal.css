@@ -24,6 +24,9 @@
     /* boundary of inputs and selects: 3:1 against white (the light grey
        stays for cards and dividers, which are decorative) */
     --border-control: #8a8a8a;
+    /* surface of a neutral button (Cancel) with dark text (11:1); not a
+       border colour, so the contrast mode does not darken it */
+    --bg-neutral: #d7d7d7;
     --bg-cream: #fdf6ec;
     --bg-card: #ffffff;
     --font-main: 'Poppins', Arial, sans-serif;
@@ -1142,7 +1145,7 @@ html.mode-dark .page img {
 }
 
 .portal-modal .modal-cancel {
-    background: var(--border-grey);
+    background: var(--bg-neutral);
     color: var(--text-dark);
 }
 
@@ -1158,7 +1161,7 @@ html.mode-dark .page img {
 }
 
 .portal-modal .modal-action:disabled {
-    background: var(--border-grey);
+    background: var(--bg-neutral);
     color: var(--text-grey);
     cursor: not-allowed;
 }
@@ -1572,6 +1575,7 @@ html.mode-dark .page img {
 .explore-topics {
     display: block;
     background: #fff;
+    color: var(--text-dark);
     border: 1px solid var(--border-grey);
     border-radius: 24px;
     padding: 10px 26px;

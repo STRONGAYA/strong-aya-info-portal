@@ -1043,7 +1043,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const GLOSSARY_SKIP = 'a, button, input, select, textarea, label, h1, h2, h3, h4, h5, h6, table, svg, ' +
         'script, style, template, dialog, nav, [aria-hidden="true"], .visually-hidden, [translate="no"], ' +
         '[contenteditable], [role="img"], .accessibility-strip, .read-aloud-bar, .page-toolbar, .filter-bar, ' +
-        '.topic-nav, .explore-topics-wrap, .support-section, .translation-notice, .glossary-term';
+        '.topic-nav, .explore-topics-wrap, .support-section, .translation-notice, .icon-category-header, ' +
+        '.glossary-term';
     const GLOSSARY_SECTIONS = '.vis-statement, .visualisation-container, .info-note, .context-block, .own-data-card';
     const glossaryRoot = document.getElementById('main-content') || document.querySelector('main');
     const glossaryWords = glossaryEntries.filter(function (entry) { return entry.text; })
@@ -1129,7 +1130,16 @@ document.addEventListener('DOMContentLoaded', function () {
             markedFor(glossarySection(el))[el.dataset.glossaryKey] = true;
         });
 
-        glossaryTextNodes(glossaryRoot).forEach(function (node) {
+        // a label that is exactly a term ("Declined") goes first, so that a
+        // longer label that starts with it ("Declined a lot") keeps its words
+        // whole; the row headers of the detailed view repeat the legend and
+        // are skipped (GLOSSARY_SKIP)
+        const nodes = glossaryTextNodes(glossaryRoot);
+        const exact = nodes.filter(function (node) {
+            const text = node.nodeValue.trim();
+            return glossaryWords.some(function (w) { return w.whole.test(text); });
+        });
+        exact.concat(nodes.filter(function (node) { return exact.indexOf(node) < 0; })).forEach(function (node) {
             const marked = markedFor(glossarySection(node));
             const text = node.nodeValue;
             const parts = [];

@@ -32,7 +32,10 @@ window.AYA_STRINGS = {
   },
   "readAloud": {
     "title": "Read aloud",
-    "button": "Read aloud: {voice}",
+    "audioIdle": "Audio: read this page aloud",
+    "audioVoice": "Audio: read this page aloud with the voice {voice}",
+    "audioPause": "Audio: pause reading",
+    "audioResume": "Audio: continue reading",
     "play": "Play",
     "pause": "Pause",
     "resume": "Resume",

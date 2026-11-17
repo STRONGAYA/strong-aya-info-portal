@@ -30,12 +30,12 @@
     <div class="header-topbar">
         <div class="topbar-social" translate="no">
             <a href="https://www.linkedin.com/company/strong-aya/" aria-label="LinkedIn"><i
-                    class="fab fa-linkedin-in"></i></a>
-            <a href="https://bsky.app/profile/strongaya.eu" aria-label="Bluesky"><i class="fab fa-bluesky"></i></a>
+                    class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+            <a href="https://bsky.app/profile/strongaya.eu" aria-label="Bluesky"><i class="fab fa-bluesky" aria-hidden="true"></i></a>
             <a href="https://www.instagram.com/strongaya_eu/" aria-label="Instagram"><i
-                    class="fab fa-instagram"></i></a>
+                    class="fab fa-instagram" aria-hidden="true"></i></a>
         </div>
-        <a class="topbar-mail" href="mailto:info@strongaya.eu" translate="no"><i class="fas fa-envelope"></i>INFO@STRONGAYA.EU</a>
+        <a class="topbar-mail" href="mailto:info@strongaya.eu" translate="no"><i class="fas fa-envelope" aria-hidden="true"></i>INFO@STRONGAYA.EU</a>
     </div>
     <div class="header-main">
         <a class="site-logo" href="https://strongaya.eu/">
@@ -43,11 +43,11 @@
         </a>
         <nav class="site-nav">
             <a href="https://strongaya.eu/">Home</a>
-            <a href="https://strongaya.eu/about-us/">About us <i class="fas fa-chevron-down"></i></a>
+            <a href="https://strongaya.eu/about-us/">About us <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
             <a href="https://strongaya.eu/our-consortium/">Our consortium</a>
-            <a href="https://strongaya.eu/what-is-ecosystem/">Ecosystems <i class="fas fa-chevron-down"></i></a>
-            <a href="https://strongaya.eu/publications/">Resources <i class="fas fa-chevron-down"></i></a>
-            <a href="https://strongaya.eu/news/">News &amp; media <i class="fas fa-chevron-down"></i></a>
+            <a href="https://strongaya.eu/what-is-ecosystem/">Ecosystems <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
+            <a href="https://strongaya.eu/publications/">Resources <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
+            <a href="https://strongaya.eu/news/">News &amp; media <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
         </nav>
         <a class="contact-btn" href="https://strongaya.eu/contact/">Contact</a>
     </div>
@@ -62,10 +62,10 @@
 
 <main id="main-content" class="page">
     <div class="accessibility-strip">
-        <div class="accessibility-bar">
-            <button class="access-btn audio-btn" type="button" aria-pressed="false"><i class="fas fa-volume-up" aria-hidden="true"></i><span class="audio-btn-label">Audio</span></button>
-            <button class="access-btn" data-access="contrast" aria-pressed="false"><i class="fas fa-adjust"></i>Contrast</button>
-            <button class="access-btn" data-access="dark" aria-pressed="false"><i class="fas fa-moon"></i>Dark</button>
+        <div class="accessibility-bar" role="group" aria-label="Accessibility settings">
+            <button class="access-btn audio-btn" type="button"><i class="fas fa-volume-up" aria-hidden="true"></i><span class="audio-btn-label">Audio</span></button>
+            <button class="access-btn" data-access="contrast" aria-pressed="false"><i class="fas fa-adjust" aria-hidden="true"></i>Contrast</button>
+            <button class="access-btn" data-access="dark" aria-pressed="false"><i class="fas fa-moon" aria-hidden="true"></i>Dark</button>
             <button class="access-btn size-btn" type="button" aria-haspopup="dialog"><i class="fas fa-text-height" aria-hidden="true"></i><span class="size-btn-label">Size</span></button>
             <span class="access-sep" aria-hidden="true"></span>
             <button class="access-btn language-btn" type="button" aria-haspopup="dialog"><i class="fas fa-language" aria-hidden="true"></i><span class="language-btn-label">Language</span></button>
@@ -73,13 +73,15 @@
         </div>
     </div>
 
+    <h1 class="page-title">Choose your profile</h1>
+
     <div class="profile-cards">
         <div class="profile-card">
             <img src="images/doctor-greeting.png"
                  alt="A young person and a doctor greeting each other"/>
             <h2>Before treatment</h2>
             <p>Information that can help you when you have just been diagnosed.</p>
-            <a class="outline-btn" href="modules.html?profile=before">Explore</a>
+            <a class="outline-btn" href="modules.html?profile=before">Explore<span class="visually-hidden">: before treatment</span></a>
             <button class="outline-btn secondary" data-tooltip="Coming soon">Set as default</button>
         </div>
         <div class="profile-card">
@@ -87,7 +89,7 @@
                  alt="Young adult with phone in hand"/>
             <h2>Beyond treatment</h2>
             <p>Information that can help you after your treatment.</p>
-            <a class="outline-btn" href="modules.html?profile=beyond">Explore</a>
+            <a class="outline-btn" href="modules.html?profile=beyond">Explore<span class="visually-hidden">: beyond treatment</span></a>
             <button class="outline-btn secondary" data-tooltip="Coming soon">Set as default</button>
         </div>
     </div>
@@ -132,6 +134,7 @@
                     <li><a href="https://strongaya.eu/privacy-declaration/">Privacy declaration</a></li>
                     <li><a href="https://strongaya.eu/cookie-statement/">Cookie statement</a></li>
                     <li><a href="https://strongaya.eu/terms-and-conditions/">Terms and conditions</a></li>
+                    <li><a href="accessibility.html">Accessibility statement</a></li>
                 </ul>
             </div>
             <div class="footer-col quick-contact">

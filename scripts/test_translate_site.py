@@ -21,7 +21,7 @@ import translate_site as ts  # noqa: E402
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WEB = os.path.join(REPO, 'web')
 TRANSLATIONS = os.path.join(REPO, 'translations')
-PAGE_COUNT = 17
+PAGE_COUNT = 18
 
 
 class FakeClient:
@@ -104,7 +104,7 @@ class ExtractorTest(unittest.TestCase):
 
     def test_pages_found(self):
         self.assertEqual(len(self.site.pages), PAGE_COUNT)
-        self.assertEqual(self.site.pages[0].rel, 'index.html')
+        self.assertIn('index.html', [page.rel for page in self.site.pages])
         self.assertIn('module_a/chemotherapy.html', [page.rel for page in self.site.pages])
 
     def test_every_page_has_units(self):
@@ -139,7 +139,7 @@ class ExtractorTest(unittest.TestCase):
         # the subject card link is not a unit (no direct text): its label span is, its image alt is an attribute
         self.assertIn('Treatment information', sources)
         self.assertFalse(any('subject-label' in source for source in sources))
-        self.assertIn('A young man being treated by a doctor', [unit.source for unit in modules.attr_units])
+        self.assertIn('Young adult waving', [unit.source for unit in modules.attr_units])
         # a list item wrapping a link is the unit, link included
         self.assertIn('<a href="https://strongaya.eu/project/">Project</a>', sources)
         # a paragraph of spans is one unit
@@ -166,7 +166,7 @@ class ExtractorTest(unittest.TestCase):
 
     def test_links_and_paths(self):
         page = self.page('module_a/chemotherapy.html')
-        self.assertEqual(page.links, {'../modules.html', 'chemotherapy.html', 'hormonetherapy.html', 'radiotherapy.html'})
+        self.assertEqual(page.links, {'../modules.html', '../accessibility.html', 'chemotherapy.html', 'hormonetherapy.html', 'radiotherapy.html'})
         values = {attr.value for attr in page.path_attrs}
         self.assertIn('../css/portal.css', values)
         self.assertIn('../i18n/en.js', values)
@@ -290,11 +290,11 @@ class GenerationTest(unittest.TestCase):
         self.assertIn('<script src="../../js/i18n.js"></script>', topic)
         self.assertIn('<img src="../../images/weblogo1@2x.png" alt="STRONG-AYA" translate="no"/>', topic)
         self.assertIn('<a class="return-link" href="../modules.html">', topic)
-        self.assertIn('<a href="chemotherapy.html" class="current">[nl] Chemotherapy</a>', topic)
+        self.assertIn('<a href="chemotherapy.html" class="current" aria-current="page">[nl] Chemotherapy</a>', topic)
         self.assertIn('<title>[nl] STRONG-AYA Info Portal — Chemotherapy</title>', topic)
         self.assertIn('<h1 class="card-title">[nl] Chemotherapy</h1>', topic)
         self.assertIn('data-tooltip="[nl] Coming soon"', topic)
-        self.assertIn('<p class="vis-statement" aria-live="polite">[nl] <span class="vis-count">56</span> out of 100 people', topic)
+        self.assertIn('<p class="vis-statement" aria-live="polite" aria-atomic="true">[nl] <span class="vis-count">56</span> out of 100 people', topic)
         self.assertIn('<div translate="no">INFO@STRONGAYA.EU</div>', topic)
         self.assertIn('<div class="translation-notice" role="note"><span>[nl] This page was translated automatically with DeepL',
                       topic)
@@ -305,10 +305,10 @@ class GenerationTest(unittest.TestCase):
         root_page = self.read(self.web, 'nl', 'index.html')
         self.assertIn('<html lang="nl" data-site-root="../" data-translation="machine">', root_page)
         self.assertIn('<script src="../i18n/nl.js" defer></script>', root_page)
-        self.assertIn('<a class="outline-btn" href="modules.html?profile=before">[nl] Explore</a>', root_page)
+        self.assertIn('<a class="outline-btn" href="modules.html?profile=before">[nl] Explore<span class="visually-hidden">: before treatment</span></a>', root_page)
         self.assertIn('<a href="../index.html">[nl] English version</a>', root_page)
         modules = self.read(self.web, 'nl', 'modules.html')
-        self.assertIn('alt="[nl] A young man being treated by a doctor"', modules)
+        self.assertIn('alt="[nl] Young adult waving"', modules)
         self.assertIn('<a class="subject-card" href="module_a/chemotherapy.html" data-subject="treatment">', modules)
 
         # the strings file

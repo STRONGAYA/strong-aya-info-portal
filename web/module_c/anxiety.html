@@ -32,12 +32,12 @@
     <div class="header-topbar">
         <div class="topbar-social" translate="no">
             <a href="https://www.linkedin.com/company/strong-aya/" aria-label="LinkedIn"><i
-                    class="fab fa-linkedin-in"></i></a>
-            <a href="https://bsky.app/profile/strongaya.eu" aria-label="Bluesky"><i class="fab fa-bluesky"></i></a>
+                    class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+            <a href="https://bsky.app/profile/strongaya.eu" aria-label="Bluesky"><i class="fab fa-bluesky" aria-hidden="true"></i></a>
             <a href="https://www.instagram.com/strongaya_eu/" aria-label="Instagram"><i
-                    class="fab fa-instagram"></i></a>
+                    class="fab fa-instagram" aria-hidden="true"></i></a>
         </div>
-        <a class="topbar-mail" href="mailto:info@strongaya.eu" translate="no"><i class="fas fa-envelope"></i>INFO@STRONGAYA.EU</a>
+        <a class="topbar-mail" href="mailto:info@strongaya.eu" translate="no"><i class="fas fa-envelope" aria-hidden="true"></i>INFO@STRONGAYA.EU</a>
     </div>
     <div class="header-main">
         <a class="site-logo" href="https://strongaya.eu/">
@@ -45,11 +45,11 @@
         </a>
         <nav class="site-nav">
             <a href="https://strongaya.eu/">Home</a>
-            <a href="https://strongaya.eu/about-us/">About us <i class="fas fa-chevron-down"></i></a>
+            <a href="https://strongaya.eu/about-us/">About us <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
             <a href="https://strongaya.eu/our-consortium/">Our consortium</a>
-            <a href="https://strongaya.eu/what-is-ecosystem/">Ecosystems <i class="fas fa-chevron-down"></i></a>
-            <a href="https://strongaya.eu/publications/">Resources <i class="fas fa-chevron-down"></i></a>
-            <a href="https://strongaya.eu/news/">News &amp; media <i class="fas fa-chevron-down"></i></a>
+            <a href="https://strongaya.eu/what-is-ecosystem/">Ecosystems <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
+            <a href="https://strongaya.eu/publications/">Resources <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
+            <a href="https://strongaya.eu/news/">News &amp; media <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
         </nav>
         <a class="contact-btn" href="https://strongaya.eu/contact/">Contact</a>
     </div>
@@ -64,10 +64,10 @@
 
 <main id="main-content" class="page">
     <div class="accessibility-strip">
-        <div class="accessibility-bar">
-            <button class="access-btn audio-btn" type="button" aria-pressed="false"><i class="fas fa-volume-up" aria-hidden="true"></i><span class="audio-btn-label">Audio</span></button>
-            <button class="access-btn" data-access="contrast" aria-pressed="false"><i class="fas fa-adjust"></i>Contrast</button>
-            <button class="access-btn" data-access="dark" aria-pressed="false"><i class="fas fa-moon"></i>Dark</button>
+        <div class="accessibility-bar" role="group" aria-label="Accessibility settings">
+            <button class="access-btn audio-btn" type="button"><i class="fas fa-volume-up" aria-hidden="true"></i><span class="audio-btn-label">Audio</span></button>
+            <button class="access-btn" data-access="contrast" aria-pressed="false"><i class="fas fa-adjust" aria-hidden="true"></i>Contrast</button>
+            <button class="access-btn" data-access="dark" aria-pressed="false"><i class="fas fa-moon" aria-hidden="true"></i>Dark</button>
             <button class="access-btn size-btn" type="button" aria-haspopup="dialog"><i class="fas fa-text-height" aria-hidden="true"></i><span class="size-btn-label">Size</span></button>
             <span class="access-sep" aria-hidden="true"></span>
             <button class="access-btn language-btn" type="button" aria-haspopup="dialog"><i class="fas fa-language" aria-hidden="true"></i><span class="language-btn-label">Language</span></button>
@@ -77,11 +77,11 @@
 
     <section class="vis-card">
         <div class="page-toolbar">
-            <a class="return-link" href="../modules.html"><i class="fas fa-chevron-left"></i> Return to subjects</a>
+            <a class="return-link" href="../modules.html"><i class="fas fa-chevron-left" aria-hidden="true"></i> Return to subjects</a>
             <div class="tool-buttons">
-                <button class="tool-btn" data-tool="glossary"><i class="fas fa-book"></i>Glossary</button>
-                <button class="tool-btn" data-tool="help"><i class="fas fa-question-circle"></i>Help</button>
-                <button class="tool-btn" data-tooltip="Coming soon"><i class="fas fa-columns"></i>Compare</button>
+                <button class="tool-btn" data-tool="glossary"><i class="fas fa-book" aria-hidden="true"></i>Glossary</button>
+                <button class="tool-btn" data-tool="help"><i class="fas fa-question-circle" aria-hidden="true"></i>Help</button>
+                <button class="tool-btn" data-tooltip="Coming soon"><i class="fas fa-columns" aria-hidden="true"></i>Compare</button>
             </div>
         </div>
 
@@ -90,9 +90,9 @@
         <div class="filter-bar">
             <div class="filter-wrap" data-filter="cancerType">
                 <button class="filter-btn filter-toggle" aria-expanded="false">Cancer type: <span
-                        class="filter-value">All</span> <i class="fas fa-chevron-down"></i></button>
+                        class="filter-value">All</span> <i class="fas fa-chevron-down" aria-hidden="true"></i></button>
                 <div class="filter-dropdown" hidden>
-                    <button type="button" data-value="all" class="current">All cancer types</button>
+                    <button type="button" data-value="all" class="current" aria-current="true">All cancer types</button>
                     <button type="button" data-value="blood">Blood cancers (such as leukaemia and lymphoma)</button>
                     <button type="button" data-value="solid">Solid tumours (such as breast or testicular cancer)</button>
                     <button type="button" data-value="skin">Skin cancer (such as melanoma)</button>
@@ -101,36 +101,36 @@
             </div>
             <div class="filter-wrap" data-filter="sex">
                 <button class="filter-btn filter-toggle" aria-expanded="false">Sex: <span
-                        class="filter-value">All</span> <i class="fas fa-chevron-down"></i></button>
+                        class="filter-value">All</span> <i class="fas fa-chevron-down" aria-hidden="true"></i></button>
                 <div class="filter-dropdown" hidden>
-                    <button type="button" data-value="all" class="current">All</button>
+                    <button type="button" data-value="all" class="current" aria-current="true">All</button>
                     <button type="button" data-value="male">Male</button>
                     <button type="button" data-value="female">Female</button>
                     <button type="button" data-value="intersex">Intersex</button>
                 </div>
             </div>
             <button class="filter-btn" data-tooltip="Coming soon">Time since diagnosis <i
-                    class="fas fa-chevron-down"></i></button>
+                    class="fas fa-chevron-down" aria-hidden="true"></i></button>
             <button class="filter-btn strong" data-tooltip="Coming soon">All filters <i
-                    class="fas fa-sliders-h"></i></button>
+                    class="fas fa-sliders-h" aria-hidden="true"></i></button>
         </div>
 
         <hr class="tile-divider"/>
 
-        <p class="vis-statement" aria-live="polite"><span class="vis-count">33</span> out of 100 people aged 15 to 39 years old<br/>
+        <p class="vis-statement" aria-live="polite" aria-atomic="true"><span class="vis-count">33</span> out of 100 people aged 15 to 39 years old<br/>
         show signs of <b>anxiety</b> after treatment</p>
 
         <div id="visualisation-container" class="visualisation-container"></div>
 
         <div class="topic-nav">
-            <a class="topic-link" href="mental_health_support.html"><i class="fas fa-chevron-left"></i> Mental health support</a>
-            <a class="topic-link" href="depression.html">Depression <i class="fas fa-chevron-right"></i></a>
+            <a class="topic-link" href="mental_health_support.html"><i class="fas fa-chevron-left" aria-hidden="true"></i> Mental health support</a>
+            <a class="topic-link" href="depression.html">Depression <i class="fas fa-chevron-right" aria-hidden="true"></i></a>
         </div>
 
         <div class="explore-topics-wrap">
-            <button class="explore-topics" aria-expanded="false">Explore all topics <i class="fas fa-chevron-down"></i></button>
+            <button class="explore-topics" aria-expanded="false">Explore all topics <i class="fas fa-chevron-down" aria-hidden="true"></i></button>
             <div class="topics-dropdown" hidden>
-                <a href="anxiety.html" class="current">Anxiety</a>
+                <a href="anxiety.html" class="current" aria-current="page">Anxiety</a>
                 <a href="depression.html">Depression</a>
                 <a href="worry.html">Worry</a>
                 <a href="mental_health_support.html">Mental health support</a>
@@ -201,6 +201,7 @@
                     <li><a href="https://strongaya.eu/privacy-declaration/">Privacy declaration</a></li>
                     <li><a href="https://strongaya.eu/cookie-statement/">Cookie statement</a></li>
                     <li><a href="https://strongaya.eu/terms-and-conditions/">Terms and conditions</a></li>
+                    <li><a href="../accessibility.html">Accessibility statement</a></li>
                 </ul>
             </div>
             <div class="footer-col quick-contact">

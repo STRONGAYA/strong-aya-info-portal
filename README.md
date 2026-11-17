@@ -147,6 +147,39 @@ the device voices prove too poor for a language, section 5.1 of that plan descri
 generated at build time from the translation cache with Mistral's Voxtral text-to-speech on its EU endpoint (the
 only provider allowed outside the browser), played by the same controls, with the browser voice as the fallback.
 
+## Accessibility (EN 301 549)
+The portal aims at EN 301 549, the European standard that the Web Accessibility Directive and the Dutch
+"Besluit digitale toegankelijkheid overheid" refer to; its clause 9 is WCAG 2.1 level AA, and the 2026 revision of the
+standard (WCAG 2.2) is met where it costs little (focus never covered by an open list, targets of 24 px, no
+dragging). `web/accessibility.html`, linked from every footer, is the accessibility statement in the form of the
+European model statement: compliance status, the known limitations with their reasons, feedback address, enforcement
+route and the date of the self-assessment. It still holds four placeholders for the maintainers, marked in yellow
+(response time, the organisation that publishes the portal, its complaints desk, the national body); whether the
+Directive applies in full depends on that organisation (it does for Maastricht University, probably not for a
+private foundation such as the NKI). What was done on 20 October 2026, by review of the markup, the stylesheet, the
+scripts and the colours (no automated tool, no test with users of assistive technology yet):
+
+- **Colours.** The brand orange and pink stay as surfaces and accents; as text and icons they use darker shades of
+  the same hues (`--brand-orange-text`, `--brand-orange-icon`, `--brand-pink-text`) that reach 4.5:1 for text and 3:1
+  for icons on white and on the cream background; text on the orange surfaces is dark (6:1); the icon array, legend
+  and charts use colours with 3:1 against the tile; the footer photo carries a dark tint for its white text; the
+  contrast mode darkens the shades further and the dark mode keeps the ratios on the inverted surfaces.
+- **Keyboard.** One focus ring for every control (dark, white on the footer), the Escape key closes lists and hides
+  tooltips, the focus goes back to the filter button after a choice, lists close when the focus leaves them, dialogs
+  are native `<dialog>`s that start at their heading or first control and return the focus.
+- **Screen readers.** Landmarks and one `h1` per page, a named accessibility bar, decorative icons and card
+  illustrations hidden, link names that say where they lead, `aria-current` on the chosen filter, topic, language
+  and size, the statement announced in full after a filter change, a persistent status region for the notices, the
+  figure summarised in one sentence, the Audio button named after what a click does.
+- **Layout.** Everything reflows at 320 px without sideways scrolling (profile cards, stacked subjects, filter lists
+  across the tile, the top bar wraps), long words break, the option lists never exceed a dialog, text spacing can be
+  overridden, reduced motion is respected, print and Windows high contrast have their own rules.
+- **Pointer and hover.** Tooltips can be hovered and dismissed, the charts have no hover labels or drag zoom,
+  small links have padding so that targets are at least 24 px apart.
+
+Still to do: a check in real browsers and with a screen reader (the test checklist in `docs/plan_audio_read_aloud.md`
+section 9 lists devices), the placeholders in the statement, and a yearly review of the statement.
+
 ## Languages
 English is the only language that is written by hand. The portal is translated at build time with
 [DeepL](https://www.deepl.com/pro-api), never in the browser: `scripts/translate_site.py` (standard library only)

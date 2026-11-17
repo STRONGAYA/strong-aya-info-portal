@@ -660,14 +660,18 @@ document.addEventListener('DOMContentLoaded', function () {
         layoutTrack();
         window.addEventListener('resize', layoutTrack);
 
+        // smooth, unless the visitor asked the system for less motion
+        const scrolling = function () {
+            return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+        };
         if (prevBtn) {
             prevBtn.addEventListener('click', function () {
-                track.scrollBy({ left: -step(), behavior: 'smooth' });
+                track.scrollBy({ left: -step(), behavior: scrolling() });
             });
         }
         if (nextBtn) {
             nextBtn.addEventListener('click', function () {
-                track.scrollBy({ left: step(), behavior: 'smooth' });
+                track.scrollBy({ left: step(), behavior: scrolling() });
             });
         }
     });
@@ -689,6 +693,22 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!wrap.contains(e.target) && !dropdown.hidden) {
                 dropdown.hidden = true;
                 btn.setAttribute('aria-expanded', 'false');
+            }
+        });
+        // keyboard: the list closes when the focus leaves it (so it never
+        // covers the next control) and on Escape, which returns to the button
+        wrap.addEventListener('focusout', function (e) {
+            if (!dropdown.hidden && !wrap.contains(e.relatedTarget)) {
+                dropdown.hidden = true;
+                btn.setAttribute('aria-expanded', 'false');
+            }
+        });
+        wrap.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && !dropdown.hidden) {
+                dropdown.hidden = true;
+                btn.setAttribute('aria-expanded', 'false');
+                btn.focus();
+                e.stopPropagation();
             }
         });
     });
@@ -922,6 +942,13 @@ document.addEventListener('DOMContentLoaded', function () {
         dialog.querySelector('.modal-intro').textContent = intro;
         dialog.querySelector('.modal-body').innerHTML = bodyHtml;
         dialog.showModal();
+        // A dialog that is only text (Glossary, Help) starts at its
+        // heading, not at the Close button at the end
+        if (!dialog.querySelector('.modal-body').querySelector('a[href], button, select, input, [tabindex]')) {
+            const heading = dialog.querySelector('h3');
+            heading.setAttribute('tabindex', '-1');
+            heading.focus();
+        }
     }
     // The dialog is shared with read_aloud.js
     window.AYA_PORTAL = { openModal: openPortalModal };

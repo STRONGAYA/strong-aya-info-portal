@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en-GB" data-site-root="./">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="icon" href="images/favicon.png" type="image/png" sizes="32x32"/>
+    <link rel="apple-touch-icon" href="images/favicon.png"/>
+    <title>STRONG-AYA Info Portal — Accessibility</title>
+    <!-- the same page in the other languages of the portal; kept up to date by scripts/translate_site.py -->
+    <!-- hreflang:start -->
+    <link rel="alternate" hreflang="x-default" href="https://strongaya.github.io/strong-aya-info-portal/accessibility.html"/>
+    <link rel="alternate" hreflang="en" href="https://strongaya.github.io/strong-aya-info-portal/accessibility.html"/>
+    <!-- hreflang:end -->
+    <!-- the languages of the portal and the choice of language, before anything is drawn -->
+    <script src="i18n/languages.js"></script>
+    <script src="js/i18n.js"></script>
+
+    <link rel="preload" href="webfonts/poppins/poppins-400-latin.woff2" as="font" type="font/woff2" crossorigin/>
+    <link rel="stylesheet" href="css/poppins-4.004.css"/>
+    <link rel="stylesheet" href="css/font-awesome-6.7.2.min.css"/>
+    <link rel="stylesheet" href="css/portal.css"/>
+    <script src="i18n/en.js" defer></script>
+    <script src="js/portal.js" defer></script>
+    <script src="js/read_aloud.js" defer></script>
+    <!-- the statement is a text page: a narrower tile than the topic pages, and the parts the
+         maintainers still have to fill in are marked so that they cannot go unnoticed -->
+    <style>
+        .statement-card {
+            max-width: 54.6667rem;
+            margin: 0 auto;
+        }
+
+        .statement-section {
+            padding: 0;
+            margin-top: 28px;
+        }
+
+        .statement-section ul {
+            margin: 0 0 10px;
+            padding-left: 22px;
+        }
+
+        .statement-section li {
+            margin-bottom: 8px;
+        }
+
+        .statement-card mark {
+            background: #fff3bf;
+            color: #1c1c1c;
+            border: 2px dashed #9a3f05;
+            border-radius: 4px;
+            padding: 0 6px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<header class="site-header">
+    <div class="header-topbar">
+        <div class="topbar-social" translate="no">
+            <a href="https://www.linkedin.com/company/strong-aya/" aria-label="LinkedIn"><i
+                    class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+            <a href="https://bsky.app/profile/strongaya.eu" aria-label="Bluesky"><i class="fab fa-bluesky" aria-hidden="true"></i></a>
+            <a href="https://www.instagram.com/strongaya_eu/" aria-label="Instagram"><i
+                    class="fab fa-instagram" aria-hidden="true"></i></a>
+        </div>
+        <a class="topbar-mail" href="mailto:info@strongaya.eu" translate="no"><i class="fas fa-envelope" aria-hidden="true"></i>INFO@STRONGAYA.EU</a>
+    </div>
+    <div class="header-main">
+        <a class="site-logo" href="https://strongaya.eu/">
+            <img src="images/weblogo1@2x.png" alt="STRONG-AYA" translate="no"/>
+        </a>
+        <nav class="site-nav">
+            <a href="https://strongaya.eu/">Home</a>
+            <a href="https://strongaya.eu/about-us/">About us <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
+            <a href="https://strongaya.eu/our-consortium/">Our consortium</a>
+            <a href="https://strongaya.eu/what-is-ecosystem/">Ecosystems <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
+            <a href="https://strongaya.eu/publications/">Resources <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
+            <a href="https://strongaya.eu/news/">News &amp; media <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
+        </nav>
+        <a class="contact-btn" href="https://strongaya.eu/contact/">Contact</a>
+    </div>
+    <div class="notice-banner"><b>Please note: this is a test version of the portal, not a finished product.</b>
+        The information shown is part of ongoing research and is not medical advice — please read the full Research
+        Disclaimer at the bottom of this page.
+    </div>
+    <!-- on translated pages: the notice about the translation (scripts/translate_site.py, or js/i18n.js
+         when the browser translates the page) -->
+    <div class="translation-notice" hidden></div>
+</header>
+
+<main id="main-content" class="page">
+    <div class="accessibility-strip">
+        <div class="accessibility-bar" role="group" aria-label="Accessibility settings">
+            <button class="access-btn audio-btn" type="button"><i class="fas fa-volume-up" aria-hidden="true"></i><span class="audio-btn-label">Audio</span></button>
+            <button class="access-btn" data-access="contrast" aria-pressed="false"><i class="fas fa-adjust" aria-hidden="true"></i>Contrast</button>
+            <button class="access-btn" data-access="dark" aria-pressed="false"><i class="fas fa-moon" aria-hidden="true"></i>Dark</button>
+            <button class="access-btn size-btn" type="button" aria-haspopup="dialog"><i class="fas fa-text-height" aria-hidden="true"></i><span class="size-btn-label">Size</span></button>
+            <span class="access-sep" aria-hidden="true"></span>
+            <button class="access-btn language-btn" type="button" aria-haspopup="dialog"><i class="fas fa-language" aria-hidden="true"></i><span class="language-btn-label">Language</span></button>
+            <button class="access-btn country-btn" type="button" aria-haspopup="dialog"><i class="fas fa-earth-europe" aria-hidden="true"></i><span class="country-btn-label">Country</span></button>
+        </div>
+    </div>
+
+    <section class="vis-card statement-card">
+        <div class="page-toolbar">
+            <a class="return-link" href="index.html"><i class="fas fa-chevron-left" aria-hidden="true"></i> Return to profiles</a>
+        </div>
+
+        <h1 class="card-title">Accessibility</h1>
+
+        <section class="support-section statement-section" aria-labelledby="aim-title">
+            <h2 id="aim-title">What we want</h2>
+            <p>STRONG-AYA wants everyone to be able to use this portal, including people with a disability. We aim at
+                the European standard for accessible websites, <span translate="no">EN 301 549</span>, which asks for
+                the Web Content Accessibility Guidelines (WCAG) 2.1, level AA. This statement covers the test version of
+                the STRONG-AYA Info Portal at <span translate="no">strongaya.github.io/strong-aya-info-portal</span>,
+                in English and in its translations.</p>
+        </section>
+
+        <section class="support-section statement-section" aria-labelledby="status-title">
+            <h2 id="status-title">How accessible is the portal now?</h2>
+            <p>The portal is <b>partially compliant</b> with WCAG 2.1 level AA. Most of it works with a keyboard, a
+                screen reader, large text and a dark screen, but we know about these points. The portal is a research
+                prototype with test data, and parts of it will still change.</p>
+            <ul>
+                <li><b>The pie chart and the bar chart</b> are drawn as pictures (SVG). A screen reader gets a
+                    one-sentence summary and the table view gives the same numbers, but the charts themselves cannot
+                    be explored with the keyboard. Reason: does not meet the standard yet.</li>
+                <li><b>The icon array</b> (the 100 small figures) is summarised in one sentence for screen readers.
+                    Reason: may not meet the standard; not yet checked with screen reader users.</li>
+                <li><b>The articles from <span translate="no">beatcancer.eu</span> and the national websites</b> are
+                    made by other organisations and open in a new tab; we cannot change how accessible they are.
+                    Reason: content of others, outside the scope of this statement.</li>
+                <li><b>Machine-translated pages</b> are translated automatically (by <span translate="no">DeepL</span>)
+                    and may contain mistakes. Every translated page says so at the top and links to the English page.
+                    Reason: outside the standard; reviewers are checking the translations.</li>
+                <li><b>Read aloud</b> uses the voices on your own device. Some devices have no voice for your
+                    language, or only a poor one, and phones stop reading when the screen locks.
+                    Reason: outside the standard; your browser's own read-aloud feature is the alternative.</li>
+                <li><b>Some buttons do nothing yet</b>, such as "Set as default", "Compare" and some filters. They
+                    show "Coming soon" when you point at them or reach them with the keyboard. Reason: does not meet
+                    the standard yet; they will be finished or removed.</li>
+                <li><b>Not tested with assistive technology yet.</b> Nobody who uses a screen reader, a switch or
+                    voice control has tested the pages yet; we checked them ourselves (see below).</li>
+            </ul>
+        </section>
+
+        <section class="support-section statement-section" aria-labelledby="offers-title">
+            <h2 id="offers-title">What the portal offers</h2>
+            <ul>
+                <li><b>The accessibility bar</b> under the purple banner: <b>Contrast</b> for stronger colours,
+                    <b>Dark</b> for a dark screen, <b>Size</b> for four text sizes, <b>Audio</b> to have the page read
+                    aloud, and <b>Language</b> and <b>Country</b>. Your choices stay on your own device.</li>
+                <li><b>Keyboard.</b> Every button, menu and dialog works with the keyboard, the element you are on is
+                    clearly marked, and a "Skip to main content" link takes you past the header.</li>
+                <li><b>Screen readers.</b> Every figure has a spoken summary of the numbers, and the table view shows
+                    the same numbers as text. Decorative icons are hidden, and links that open a new tab say so.</li>
+                <li><b>Plain language.</b> We write short sentences and explain medical words in the Glossary.</li>
+            </ul>
+        </section>
+
+        <section class="support-section statement-section" aria-labelledby="feedback-title">
+            <h2 id="feedback-title">Tell us what does not work</h2>
+            <p>Did you find a page or a feature that you cannot use? Or do you want information from this portal in
+                another form? Email us at <a href="mailto:info@strongaya.eu" translate="no">info@strongaya.eu</a>.
+                Please tell us the page address, what went wrong, and which device, browser or assistive
+                technology you use. We answer within <mark translate="no">[maintainers: fill in the response time,
+                e.g. 10 working days]</mark>.</p>
+        </section>
+
+        <section class="support-section statement-section" aria-labelledby="enforce-title">
+            <h2 id="enforce-title">Not happy with our answer?</h2>
+            <p>This portal is published by <mark translate="no">[maintainers: the organisation responsible for the
+                portal]</mark>. If we do not answer, or you are not satisfied with our answer, you can complain to
+                <mark translate="no">[maintainers: the complaints desk of that organisation, with a link]</mark>.
+                After that you can turn to <mark translate="no">[maintainers: the national complaints body for digital
+                accessibility, with a link]</mark>.</p>
+        </section>
+
+        <section class="support-section statement-section" aria-labelledby="prepared-title">
+            <h2 id="prepared-title">About this statement</h2>
+            <p>We prepared this statement on 20 October 2026. It is based on a self-assessment by the portal's
+                developers: on 20 October 2026 we reviewed the markup, styling, keyboard use and colour contrast of the
+                pages against WCAG 2.1 level AA by hand, without automated tools or users of assistive technology.
+                Last reviewed on 20 October 2026. We update this statement when the portal changes, and at least once
+                a year.</p>
+        </section>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-overlay">
+        <div class="footer-content">
+            <div class="footer-col footer-about">
+                <img src="images/footerlogo@2x.png" alt="STRONG-AYA" translate="no"/>
+                <p>STRONG-AYA is an interdisciplinary, multi-stakeholder European network to improve
+                    healthcare services, research and outcomes for adolescents and young adults (AYAs) with
+                    cancer.</p>
+                <p class="research-disclaimer"><b>Research Disclaimer</b><br/>This project is conducted for research
+                    purposes only. The content and outcomes presented are part of ongoing EU-funded research and may
+                    be subject to scientific, technical, and ethical limitations. Information on this website is not
+                    intended for clinical use and should not be interpreted as medical advice.</p>
+            </div>
+            <div class="footer-col">
+                <h2>Other</h2>
+                <ul>
+                    <li><a href="https://strongaya.eu/our-consortium/">Our consortium</a></li>
+                    <li><a href="https://strongaya.eu/ethics-and-governance/">Ethics and governance</a></li>
+                    <li><a href="https://strongaya.eu/what-is-ecosystem/">Ecosystems</a></li>
+                    <li><a href="https://strongaya.eu/project/">Project</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h2>Links</h2>
+                <ul>
+                    <li><a href="https://strongaya.eu/what-is-ecosystem/">How do the ecosystems work?</a></li>
+                    <li><a href="https://strongaya.eu/vision-and-objectives/">Vision and objectives</a></li>
+                    <li><a href="https://strongaya.eu/privacy-declaration/">Privacy declaration</a></li>
+                    <li><a href="https://strongaya.eu/cookie-statement/">Cookie statement</a></li>
+                    <li><a href="https://strongaya.eu/terms-and-conditions/">Terms and conditions</a></li>
+                    <li><a href="accessibility.html">Accessibility statement</a></li>
+                </ul>
+            </div>
+            <div class="footer-col quick-contact">
+                <h2>Quick contact</h2>
+                <div translate="no">+31 020 512 9111</div>
+                <div translate="no">INFO@STRONGAYA.EU</div>
+                <div translate="no">Plesmanlaan 121, 1066 CX, AMSTERDAM</div>
+            </div>
+        </div>
+        <div class="funding-statement">
+            <p>STRONG AYA is funded by the European Union under grant agreement no 101057482. Views and opinions
+                expressed are however those of the author(s) only and do not necessarily reflect those of the European
+                Union or the Health and Digital Executive Agency (HADEA). Neither the European Union nor the granting
+                authority can be held responsible for them.</p>
+            <p>STRONG AYA is also funded by Innovate UK under grants 10038931, 10039273, 10041045, and 10044189. Views
+                and opinions expressed are however those of the author(s) only and do not necessarily reflect those of
+                UK Research and Innovation and Innovate UK. Neither UKRI or the granting authority can be held
+                responsible for them.</p>
+            <div class="funding-logos">
+                <img src="images/eu-logo-1.jpg" alt="Funded by the European Union"/>
+                <img src="images/9f432dd7298f8cda-800x800ar@2x.png" alt="UKRI Innovate UK" translate="no"/>
+            </div>
+        </div>
+        <div class="copyright">© 2026 Strong Aya. All Rights Reserved.</div>
+    </div>
+</footer>
+</body>
+</html>

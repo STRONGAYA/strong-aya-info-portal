@@ -65,19 +65,19 @@ html, body {
    widens with larger text instead of squeezing it; the small icons
    keep their pixel sizes. */
 html {
-    font-size: 15px;
+    font-size: 93.75%; /* 15px at the browser default of 16px; a reader's own default scales it */
 }
 
 html.size-small {
-    font-size: 12.75px; /* 85 % */
+    font-size: 79.6875%; /* 85 % */
 }
 
 html.size-large {
-    font-size: 17.25px; /* 115 % */
+    font-size: 107.8125%; /* 115 % */
 }
 
 html.size-larger {
-    font-size: 19.5px; /* 130 % */
+    font-size: 121.875%; /* 130 % */
 }
 
 body {
@@ -108,6 +108,16 @@ li {
     text-wrap: pretty;
 }
 
+/* a long word (a German heading, a web address) breaks rather than
+   widening the page */
+h1, h2, h3, h4,
+.subject-label,
+.quick-contact div,
+.bc-card-title,
+.bc-insert-source {
+    overflow-wrap: anywhere;
+}
+
 /* on the pages in other languages, long words (German, Dutch,
    Finnish...) break with a hyphen rather than overflow; the dictionary
    follows the lang attribute of the page. The English pages are left
@@ -115,6 +125,13 @@ li {
 html:not([lang^="en"]) p,
 html:not([lang^="en"]) li,
 html:not([lang^="en"]) dd,
+html:not([lang^="en"]) h1,
+html:not([lang^="en"]) h2,
+html:not([lang^="en"]) h3,
+html:not([lang^="en"]) h4,
+html:not([lang^="en"]) .subject-label,
+html:not([lang^="en"]) button,
+html:not([lang^="en"]) .topics-dropdown a,
 html:not([lang^="en"]) .legend-label span,
 html:not([lang^="en"]) .bc-card-excerpt {
     hyphens: auto;
@@ -138,10 +155,14 @@ button {
 /* keyboard focus: one ring for every control, dark so it has 3:1 on
    white, on the cream background and on the orange surfaces (inverted
    to light in the dark mode), outside the element so rounded corners
-   and overflow do not clip it */
+   and overflow do not clip it; white on the dark footer */
 :focus-visible {
     outline: 3px solid var(--text-dark);
     outline-offset: 2px;
+}
+
+.site-footer :focus-visible {
+    outline-color: #fff;
 }
 
 .skip-link {
@@ -191,11 +212,14 @@ button {
     gap: 16px;
 }
 
+/* the small icons get padding, so each target is at least 24 by 24 px */
 .topbar-social a,
 .topbar-mail {
     display: inline-flex;
     align-items: center;
     gap: 8px;
+    padding: 6px;
+    margin: -6px 0;
     color: var(--on-orange);
     font-size: 0.8rem;
     letter-spacing: 0.5px;
@@ -282,6 +306,7 @@ button {
     display: inline-flex;
     align-items: center;
     gap: 5px;
+    padding: 6px 0;
 }
 
 .site-nav a i {
@@ -337,7 +362,7 @@ button {
     border: 1px solid transparent;
     border-radius: 8px;
     padding: 4px 10px;
-    font-size: 0.6667rem;
+    font-size: 0.8rem;
     color: var(--text-grey);
 }
 
@@ -359,11 +384,14 @@ button {
     background: var(--border-grey);
 }
 
-/* toggled accessibility mode (contrast / dark), or reading aloud */
+/* toggled accessibility mode (contrast / dark), or reading aloud: a
+   thicker, darker border and bold text, not a hue alone */
 .access-btn.active {
-    border-color: var(--brand-orange);
+    border: 2px solid var(--brand-orange-text);
+    padding: 3px 9px;
     background: rgba(247, 116, 30, 0.08);
     color: var(--text-dark);
+    font-weight: 600;
 }
 
 /* ============================================================
@@ -375,7 +403,7 @@ button {
 /* High-contrast mode: darker greys, stronger borders, plain white
    background and underlined links in the running text */
 html.mode-contrast {
-    --text-grey: #1c1c1c;
+    --text-grey: #3a3a3a;
     --border-grey: #4a4a4a;
     --border-control: #1c1c1c;
     --brand-orange-text: #9a3f05;
@@ -411,6 +439,7 @@ html.mode-dark body {
 html.mode-dark .site-header,
 html.mode-dark .page {
     filter: invert(1) hue-rotate(180deg);
+    --on-orange: #e3e3e3; /* inverts to dark text on the (inverted) orange: 4.8:1 */
 }
 
 html.mode-dark .site-header img,
@@ -491,7 +520,8 @@ html.mode-dark .page img {
     align-items: center;
     justify-content: center;
     gap: 4px;
-    width: 74px;
+    min-width: 74px;
+    padding: 6px 8px;
     min-height: 66px;
     background: #fff;
     border: 1px solid var(--border-grey);
@@ -560,7 +590,8 @@ html.mode-dark .page img {
     border-radius: 18px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
     padding: 28px;
-    width: 380px;
+    width: 100%;
+    max-width: 380px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -730,8 +761,34 @@ html.mode-dark .page img {
 }
 
 .subject-card.disabled {
-    opacity: 0.65;
     cursor: default;
+    border-style: dashed;
+}
+
+.subject-card.disabled img {
+    opacity: 0.5;
+    filter: grayscale(1);
+}
+
+.subject-card.disabled .subject-label {
+    color: var(--text-grey);
+}
+
+/* "Coming soon" as visible text on the subjects that are not there yet */
+.subject-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 10px;
+    background: var(--border-grey);
+    color: var(--text-dark);
+    font-size: 0.7333rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.topics-dropdown .subject-badge {
+    margin-left: 6px;
 }
 
 .subject-card.disabled:hover {
@@ -881,7 +938,8 @@ html.mode-dark .page img {
     color: var(--brand-orange-text);
 }
 
-.filter-dropdown button.current {
+.filter-dropdown button.current,
+.filter-dropdown button[aria-current="true"] {
     color: var(--brand-orange-text);
     font-weight: 600;
 }
@@ -911,7 +969,7 @@ html.mode-dark .page img {
     padding: 6px 10px;
     border-radius: 6px;
     width: max-content;
-    max-width: 220px;
+    max-width: min(220px, calc(100vw - 16px));
     white-space: normal;
     text-align: center;
     opacity: 0;
@@ -924,6 +982,13 @@ html.mode-dark .page img {
 [data-tooltip]:focus-visible::after {
     opacity: 1;
     visibility: visible;
+}
+
+/* the last tool button sits at the right edge: its bubble hangs to the left */
+.tool-buttons .tool-btn:last-child[data-tooltip]::after {
+    left: auto;
+    right: 0;
+    transform: none;
 }
 
 /* Escape hides the tooltips until the pointer or the focus moves on */
@@ -982,6 +1047,7 @@ html.mode-dark .page img {
     max-width: 41.3333rem;
     width: 90%;
     max-height: 80vh;
+    max-height: 80dvh;
     overflow-y: auto;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
 }
@@ -1154,7 +1220,7 @@ html.mode-dark .page img {
     margin: 0;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr));
     gap: 10px;
 }
 
@@ -1176,8 +1242,11 @@ html.mode-dark .page img {
     border-color: var(--brand-orange);
 }
 
+/* the chosen option differs in border width too, not in colour alone */
 .language-option[aria-current="true"] {
-    border-color: var(--brand-orange);
+    border-width: 3px;
+    border-color: var(--brand-orange-text);
+    padding: 9px 13px;
     background: rgba(247, 116, 30, 0.05);
 }
 
@@ -1284,7 +1353,7 @@ html.mode-dark .page img {
     border-color: var(--brand-orange);
 }
 
-.read-btn:disabled {
+.read-btn[aria-disabled="true"] {
     opacity: 0.5;
     cursor: default;
 }
@@ -1316,7 +1385,7 @@ html.mode-dark .page img {
 /* the paragraph (or figure) being read; the colours follow the
    contrast and dark modes through the variables and the inversion */
 .reading-now {
-    outline: 2px solid var(--brand-orange);
+    outline: 2px solid var(--brand-orange-text);
     outline-offset: 4px;
     border-radius: 6px;
     background: rgba(247, 116, 30, 0.08);
@@ -1335,7 +1404,7 @@ html.mode-dark .page img {
     margin: 0;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(160px, 100%), 1fr));
     gap: 10px;
 }
 
@@ -1358,7 +1427,9 @@ html.mode-dark .page img {
 }
 
 .size-option[aria-current="true"] {
-    border-color: var(--brand-orange);
+    border-width: 3px;
+    border-color: var(--brand-orange-text);
+    padding: 9px 13px;
     background: rgba(247, 116, 30, 0.05);
 }
 
@@ -1455,6 +1526,7 @@ html.mode-dark .page img {
     top: calc(100% + 8px);
     left: 50%;
     transform: translateX(-50%);
+    max-width: calc(100vw - 24px);
     background: #fff;
     border: 1px solid var(--border-grey);
     border-radius: 14px;
@@ -1478,7 +1550,8 @@ html.mode-dark .page img {
     color: var(--brand-orange-text);
 }
 
-.topics-dropdown a.current {
+.topics-dropdown a.current,
+.topics-dropdown a[aria-current="page"] {
     color: var(--brand-orange-text);
     font-weight: 600;
 }
@@ -1647,7 +1720,7 @@ html.mode-dark .page img {
 }
 
 .bc-card:focus-within {
-    outline: 2px solid var(--brand-orange);
+    outline: 3px solid var(--text-dark);
     outline-offset: 2px;
 }
 
@@ -1682,10 +1755,7 @@ html.mode-dark .page img {
 }
 
 .bc-card-title {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    display: block;
     margin: 0;
     font-size: 0.9333rem;
     font-weight: 600;
@@ -2326,6 +2396,8 @@ html.mode-dark .bc-card-logo img {
 }
 
 .footer-col li a {
+    display: inline-block;
+    padding: 3px 0;
     font-size: 0.8rem;
     letter-spacing: 0.3px;
     text-transform: uppercase;
@@ -2393,6 +2465,135 @@ html.mode-dark .bc-card-logo img {
     letter-spacing: 0.6px;
     color: #fff;
     padding-top: 12px;
+}
+
+/* ============================================================
+   NARROW SCREENS (320 px, WCAG 1.4.10): nothing scrolls sideways
+   ============================================================ */
+
+@media (max-width: 760px) {
+    .header-topbar {
+        padding: 6px 16px;
+        flex-wrap: wrap;
+        gap: 4px 16px;
+    }
+
+    .return-link {
+        white-space: normal;
+    }
+}
+
+/* the filter lists open across the tile instead of past the screen edge */
+@media (max-width: 640px) {
+    .filter-bar {
+        position: relative;
+        padding: 0;
+    }
+
+    .filter-wrap {
+        position: static;
+    }
+
+    .filter-dropdown,
+    .filter-wrap[data-filter="cancerType"] .filter-dropdown {
+        left: 0;
+        right: 0;
+        width: auto;
+        min-width: 0;
+    }
+
+    .tile-divider {
+        margin: 22px 0;
+    }
+}
+
+/* the subjects stack instead of scrolling sideways (portal.js writes
+   the track padding inline, hence !important) */
+@media (max-width: 600px) {
+    .carousel-btn,
+    .subject-carousel::before,
+    .subject-carousel::after {
+        display: none;
+    }
+
+    .subject-grid {
+        flex-direction: column;
+        overflow: visible;
+        scroll-snap-type: none;
+        padding: 0 !important;
+        gap: 16px;
+    }
+
+    .subject-card {
+        flex: none;
+        width: 100%;
+        min-height: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .own-data-card {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+/* ============================================================
+   PRINT: the page content only, in the light colours
+   ============================================================ */
+
+@media print {
+    .skip-link,
+    .accessibility-strip,
+    .read-aloud-bar,
+    .carousel-btn,
+    .subject-carousel::before,
+    .subject-carousel::after,
+    .tool-buttons,
+    .filter-dropdown,
+    .topics-dropdown {
+        display: none !important;
+    }
+
+    .subject-grid {
+        overflow: visible;
+        flex-wrap: wrap;
+        padding: 0 !important;
+    }
+
+    .data-table-wrapper {
+        overflow: visible;
+    }
+
+    html.mode-dark .site-header,
+    html.mode-dark .page {
+        filter: none;
+    }
+
+    .site-footer {
+        background: none;
+        color: var(--text-dark);
+    }
+}
+
+/* ============================================================
+   FORCED COLOURS (Windows high contrast): the swatches and icons
+   keep their colours, the chosen states get a visible outline
+   ============================================================ */
+
+@media (forced-colors: active) {
+    .legend-color-box,
+    .icon-color-indicator,
+    .person-icon {
+        forced-color-adjust: none;
+    }
+
+    .access-btn.active,
+    .language-option[aria-current="true"],
+    .size-option[aria-current="true"] {
+        outline: 3px solid Highlight;
+        outline-offset: -3px;
+    }
 }
 
 /* ============================================================

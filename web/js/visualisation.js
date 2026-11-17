@@ -514,6 +514,14 @@ class StrongAyaVisualisation {
             this.container.appendChild(viewSelector);
         }
         
+        // A live region that exists from the start, so that the notices
+        // written into it later (loading, too little data) are announced
+        const status = document.createElement('div');
+        status.className = 'visually-hidden vis-status';
+        status.setAttribute('role', 'status');
+        this.container.appendChild(status);
+        this.statusArea = status;
+        
         // Create visualisation area
         const visArea = document.createElement('div');
         visArea.id = `${this.containerId}-vis-area`;
@@ -583,7 +591,7 @@ class StrongAyaVisualisation {
         
         const grid = document.createElement('div');
         grid.id = 'view-selector-grid';
-        grid.style.cssText = 'display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; margin-bottom: 20px;';
+        grid.style.cssText = 'display: grid; grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr)); gap: 15px; margin-bottom: 20px;';
         modal.appendChild(grid);
         
         const footer = document.createElement('div');
@@ -656,14 +664,14 @@ class StrongAyaVisualisation {
                 card.style.cssText = 'background: white; border: 2px solid #d7d7d7; border-radius: 10px; padding: 15px; cursor: pointer; transition: all 0.3s ease; text-align: left; font-family: inherit; width: 100%;';
                 markSelected(card, selectedView === viewId);
                 
-                const name = document.createElement('div');
+                const name = document.createElement('span');
                 name.textContent = visType.name;
-                name.style.cssText = 'font-size: 1.0667rem; font-weight: 600; color: black; margin: 0 0 5px 0;';
+                name.style.cssText = 'display: block; font-size: 1.0667rem; font-weight: 600; color: black; margin: 0 0 5px 0;';
                 card.appendChild(name);
                 
-                const desc = document.createElement('div');
+                const desc = document.createElement('span');
                 desc.textContent = visType.description;
-                desc.style.cssText = 'font-size: 0.9333rem; color: #6d6d6d; margin: 0; line-height: 1.4;';
+                desc.style.cssText = 'display: block; font-size: 0.9333rem; color: #6d6d6d; margin: 0; line-height: 1.4;';
                 card.appendChild(desc);
                 
                 card.addEventListener('click', () => {
@@ -734,8 +742,14 @@ class StrongAyaVisualisation {
         this.computeCountsForLegend();
     }
     
+    // The spoken notice for screen readers ('' clears it)
+    announce(text) {
+        if (this.statusArea && this.statusArea.textContent !== text) this.statusArea.textContent = text;
+    }
+    
     render() {
         if (!this.visArea) return;
+        this.announce('');
         
         // Too few people in the selected group: show the notice instead
         // of any visualisation, whatever view is selected
@@ -908,7 +922,8 @@ class StrongAyaVisualisation {
     // topics' CSVs are loaded the first time the table is shown.
     renderTable() {
         if (!this.subjectTopics) {
-            this.visArea.innerHTML = '<p class="vis-loading" role="status">' + t('ui.loadingTable') + '</p>';
+            this.visArea.innerHTML = '<p class="vis-loading">' + t('ui.loadingTable') + '</p>';
+            this.announce(t('ui.loadingTable'));
             this.subjectTopicsRequest = this.subjectTopicsRequest || this.loadSubjectTopics().then(() => {
                 if (this.currentView === 'table') this.render();
             });
@@ -1030,9 +1045,12 @@ class StrongAyaVisualisation {
             plot_bgcolor: 'rgba(0,0,0,0)'
         };
         
+        // static: no hover labels (the numbers are on the chart and in the
+        // legend) and no drag zoom, see WCAG 1.4.13 and 2.5.7
         const config = {
             responsive: true,
-            displayModeBar: false
+            displayModeBar: false,
+            staticPlot: true
         };
         
         // Create wrapper with custom legend
@@ -1112,9 +1130,12 @@ class StrongAyaVisualisation {
             plot_bgcolor: 'rgba(0,0,0,0)'
         };
         
+        // static: no hover labels (the numbers are on the chart and in the
+        // legend) and no drag zoom, see WCAG 1.4.13 and 2.5.7
         const config = {
             responsive: true,
-            displayModeBar: false
+            displayModeBar: false,
+            staticPlot: true
         };
         
         // Create wrapper with custom legend
@@ -1154,12 +1175,13 @@ class StrongAyaVisualisation {
         const filterLabels = this.describeActiveFilters();
         const outcome = this.dataConfig.title || t('ui.thisTopic');
         this.visArea.innerHTML = `
-            <div class="insufficient-data" role="status">
+            <div class="insufficient-data">
                 <i class="fas fa-info-circle" aria-hidden="true"></i>
                 <p>${t('messages.insufficient', { filters: filterLabels, outcome: outcome })}</p>
                 <p>${t('messages.comeBack')}</p>
             </div>
         `;
+        this.announce(this.visArea.textContent.replace(/\s+/g, ' ').trim());
     }
     
     // Human-readable summary of the current filter bar selection, e.g.
@@ -1477,8 +1499,10 @@ localiseConfigs();
 function markFilterOption(wrap, option) {
     wrap.querySelectorAll('.filter-dropdown button[data-value]').forEach(function (o) {
         o.classList.remove('current');
+        o.removeAttribute('aria-current');
     });
     option.classList.add('current');
+    option.setAttribute('aria-current', 'true');
     const valueLabel = wrap.querySelector('.filter-toggle .filter-value');
     if (valueLabel) {
         valueLabel.textContent = option.dataset.value === 'all' ? t('ui.all') : option.textContent.trim();
@@ -1515,11 +1539,16 @@ function initFilterDropdowns(vis) {
             toggle.setAttribute('aria-expanded', String(!open));
         });
         
+        const close = function () {
+            dropdown.hidden = true;
+            toggle.setAttribute('aria-expanded', 'false');
+        };
+        
         dropdown.querySelectorAll('button[data-value]').forEach(function (option) {
             option.addEventListener('click', function () {
                 markFilterOption(wrap, option);
-                dropdown.hidden = true;
-                toggle.setAttribute('aria-expanded', 'false');
+                close();
+                toggle.focus(); // the chosen option disappears: keep the focus on the page
                 
                 const update = {};
                 update[wrap.dataset.filter] = option.dataset.value;
@@ -1529,9 +1558,17 @@ function initFilterDropdowns(vis) {
         });
         
         document.addEventListener('click', function (e) {
-            if (!wrap.contains(e.target) && !dropdown.hidden) {
-                dropdown.hidden = true;
-                toggle.setAttribute('aria-expanded', 'false');
+            if (!wrap.contains(e.target) && !dropdown.hidden) close();
+        });
+        // keyboard: the list closes when the focus leaves it and on Escape
+        wrap.addEventListener('focusout', function (e) {
+            if (!dropdown.hidden && !wrap.contains(e.relatedTarget)) close();
+        });
+        wrap.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && !dropdown.hidden) {
+                close();
+                toggle.focus();
+                e.stopPropagation();
             }
         });
     });

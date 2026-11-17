@@ -267,13 +267,15 @@
         reader.highlighted = null;
     }
 
+    // The Audio button's name says what a click does and starts with
+    // its visible label (WCAG 2.5.3); it is not a toggle, so no
+    // aria-pressed. The toolbar line (role="status") says what happens.
     function updateButtons() {
         var speaking = reader.state === 'speaking';
-        var label = reader.state === 'speaking' ? t('pause')
-            : reader.state === 'paused' ? t('resume')
-                : (reader.voice ? t('button', { voice: reader.voice.name }) : t('title'));
+        var label = reader.state === 'speaking' ? t('audioPause')
+            : reader.state === 'paused' ? t('audioResume')
+                : (reader.voice ? t('audioVoice', { voice: reader.voice.name }) : t('audioIdle'));
         reader.audioButtons.forEach(function (btn) {
-            btn.setAttribute('aria-pressed', String(reader.state !== 'idle'));
             btn.classList.toggle('active', reader.state !== 'idle');
             btn.setAttribute('aria-label', label);
             btn.title = label;
@@ -283,8 +285,9 @@
             play.setAttribute('aria-label', speaking ? t('pause') : (reader.state === 'paused' ? t('resume') : t('play')));
             play.title = play.getAttribute('aria-label');
             play.querySelector('i').className = speaking ? 'fas fa-pause' : 'fas fa-play';
-            reader.bar.querySelector('.read-prev').disabled = reader.index <= 0;
-            reader.bar.querySelector('.read-next').disabled = reader.index >= reader.blocks.length - 1;
+            // aria-disabled rather than disabled: a focused button must keep its focus
+            reader.bar.querySelector('.read-prev').setAttribute('aria-disabled', String(reader.index <= 0));
+            reader.bar.querySelector('.read-next').setAttribute('aria-disabled', String(reader.index >= reader.blocks.length - 1));
         }
     }
 
@@ -575,11 +578,15 @@
                 return '<option value="' + rate.value + '"' + (rate.value === reader.rate ? ' selected' : '') + '>' +
                     escapeHtml(t(rate.key)) + '</option>';
             }).join('') + '</select></label>' +
-            '<span class="read-status" role="status" aria-live="polite"></span>';
+            '<span class="read-status" role="status"></span>';
         bar.querySelector('.read-play').addEventListener('click', toggle);
         bar.querySelector('.read-stop').addEventListener('click', stop);
-        bar.querySelector('.read-prev').addEventListener('click', function () { jumpTo(reader.index - 1); });
-        bar.querySelector('.read-next').addEventListener('click', function () { jumpTo(reader.index + 1); });
+        bar.querySelector('.read-prev').addEventListener('click', function (e) {
+            if (e.currentTarget.getAttribute('aria-disabled') !== 'true') jumpTo(reader.index - 1);
+        });
+        bar.querySelector('.read-next').addEventListener('click', function (e) {
+            if (e.currentTarget.getAttribute('aria-disabled') !== 'true') jumpTo(reader.index + 1);
+        });
         bar.querySelector('.read-rate').addEventListener('change', function (e) {
             reader.rate = parseFloat(e.target.value) || 1;
             writeStorage('localStorage', RATE_KEY, String(reader.rate));

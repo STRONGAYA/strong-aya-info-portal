@@ -93,30 +93,52 @@ permission to reuse its content and logos, so agree this use with them (info@bea
 published beyond testing.
 
 ### National websites for young people with cancer
-When a visitor is in a European country that has a national website for young people with cancer, the first
-beatcancer.eu card on a topic page makes way for a card for that website on the right, with a short heading of its
-own (the beatcancer.eu heading then sits above the other two cards), and the support text names the website too, for example
-[kanker.nl/jong](https://www.kanker.nl/jong) in the Netherlands. The websites are listed per country code in
-`web/data/national_resources.json`:
+When a visitor is in a European country that has a community for young people with cancer, the last beatcancer.eu
+card on a topic page makes way for a card for that community on the right, with a short heading of its own (the
+beatcancer.eu heading then sits above the other cards), and the support text names it too. Only communities that
+[Youth Cancer Europe](https://youthcancereurope.org/community/) (YCE) lists for the country are shown. Where a
+country has one community for younger AYAs (teenagers) and another for older AYAs (young adults), both are shown:
+two cards, each with its ages ("National · Netherlands · ages 18 to 39"), and one beatcancer.eu card. Under the
+cards, a link always leads to YCE's community page ("Find communities in Bulgaria on the map of Youth Cancer Europe"). The communities
+are listed per country code in `web/data/national_resources.json`:
 
 ```json
 "NL": {
   "country": "Netherlands",
+  "yce_count": 4,
   "resources": [
-    {"name": "Jong", "organisation": "kanker.nl", "url": "https://www.kanker.nl/jong", "lang": "nl",
-     "description": "One sentence for a young reader about what the website offers.", "logo": "NL-nl.png"}
+    {"name": "Jongerenplatform LEF", "organisation": "Vereniging Kinderkanker Nederland",
+     "url": "https://www.kinderkankernederland.nl/informatie/kinderen-en-jongeren", "lang": "nl",
+     "ages": "younger", "age_range": null, "description": "One sentence for a young reader about what it offers.",
+     "logo": "NL-vkn.webp", "yce_title": "Vereniging Kinderkanker Nederland"},
+    {"name": "Stichting Jongeren en Kanker", "organisation": "Stichting Jongeren en Kanker (SJK)",
+     "url": "https://jongerenenkanker.nl/", "lang": "nl", "ages": "older", "age_range": "18-39",
+     "description": "...", "logo": "NL-sjk.png", "yce_title": "Stichting Jongeren en Kanker"}
   ]
 }
 ```
 
-`lang` is the language of the website; when a country lists several websites (e.g. Belgium in Dutch and in
+`yce_title` is the name of the community on YCE's page, `yce_count` the number of communities YCE lists for the
+country (for the maintainers). `ages` is `younger` (up to about 25), `older` (from 18) or `all`, and `age_range` the ages the community
+states itself (`"18-39"`, `"18+"` or `null`). Two cards are shown when a country has a `younger` and an `older` community; otherwise
+one. A community marked `"also_show": true` is added as the second card when there is room: Youth Cancer Europe
+itself in Romania, where it has its seat (it is not in its own list, so its `yce_title` is `null`). `lang` is the
+language of the website; when an age group has several websites (e.g. Belgium in Dutch and in
 French), the one in the visitor's browser language is shown, else the first. `logo` names a file in
 `web/images/national/` (or is `null`: then an illustration of the portal is shown); a logo drawn in white gets a
 dark plate with `"logo_background": "#2d2d2d"`. The logos belong to the organisations: agree their use with them
 before the portal is published beyond testing, as for beatcancer.eu. `confidence` and `notes` are for the
-maintainers (how well the website fits young adults of 15 to 39, caveats) and are not shown; the websites that were
-considered and rejected per country are in `data/national_resources_research.md`. Countries without an entry, and
-visitors outside Europe, see the beatcancer.eu articles only.
+maintainers and are not shown; the communities that were considered and rejected per country are in
+`data/national_resources_research.md`. Countries without an entry, and visitors outside Europe, see the
+beatcancer.eu articles only.
+
+`scripts/check_yce_communities.py` compares the file with YCE's page (standard library only): it saves YCE's list
+in `data/yce_communities.json` (names, websites and descriptions; not the e-mail addresses), updates `yce_count`,
+and lists every community that YCE no longer lists, with exit status 1, so that it can be removed or replaced:
+
+```shell
+python scripts/check_yce_communities.py web/data/national_resources.json data/yce_communities.json
+```
 
 The visitor's country is determined in the browser, without asking anything: from the time zone (such as
 `Europe/Amsterdam`), then from the browser language settings (a country in a language tag such as `nl-BE`), then

@@ -1933,8 +1933,10 @@ html.mode-dark .bc-card-logo img {
 
 /* beatcancer.eu (two tiles) and the national website (one tile, on the
    right) side by side, each with its own heading right above its tiles
-   and a thin line between them; without a national website
-   beatcancer.eu takes the full width */
+   and a thin line between them; with two national websites (younger and
+   older AYAs, .has-national-two) beatcancer.eu keeps one tile and the
+   national websites take two; without a national website beatcancer.eu
+   takes the full width */
 .bc-groups {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -2002,6 +2004,23 @@ html.mode-dark .bc-card-logo img {
     grid-template-columns: minmax(0, 1fr);
 }
 
+.has-national-two .bc-group-yarn {
+    grid-column: 1;
+}
+
+.has-national-two .bc-group-national {
+    grid-column: 2 / span 2;
+}
+
+.has-national-two .bc-group-yarn .bc-cards {
+    grid-template-columns: minmax(0, 1fr);
+}
+
+.has-national-two .bc-group-national .bc-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px;
+}
+
 @media (max-width: 860px) {
     .bc-groups {
         grid-template-columns: minmax(0, 1fr);
@@ -2016,7 +2035,8 @@ html.mode-dark .bc-card-logo img {
         row-gap: 32px;
     }
 
-    .has-national .bc-group-yarn .bc-cards {
+    .has-national .bc-group-yarn .bc-cards,
+    .has-national-two .bc-group-national .bc-cards {
         grid-template-columns: repeat(auto-fit, minmax(14.6667rem, 1fr));
         gap: 16px;
     }

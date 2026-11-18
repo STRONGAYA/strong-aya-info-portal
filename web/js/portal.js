@@ -104,15 +104,18 @@ function englishText(html) {
 
 // The framed block with articles from beatcancer.eu: article cards (each
 // opening the article in a new tab) and links to the matching topics on
-// the site; '' when there is nothing to show. national is the national
-// website for the visitor's country (see below): its card, with a short
-// heading of its own, takes the place of the last article, on the
-// right; the beatcancer.eu heading stays above the other two. country is the
+// the site; '' when there is nothing to show. nationals are the national
+// websites for the visitor's country (see pickNationalResources): their
+// cards, with a short heading of their own, take the place of the last
+// articles, on the right (one article stays; two websites, for younger
+// and older AYAs, leave one article); the beatcancer.eu heading stays
+// above the articles. A link under the cards always leads to Youth
+// Cancer Europe's map of communities. country is the
 // visitor's country ({ code, source }, see currentCountry), or null when
 // the national websites could not be loaded. On the pages in other
 // languages the (English) titles and summaries are marked as English
 // and a note says so.
-function beatcancerInsertHtml(page, national, country) {
+function beatcancerInsertHtml(page, nationals, country) {
     const articles = (page.resources || []).filter(function (r) {
         return isBeatcancerUrl(r.url);
     }).map(function (r) {
@@ -134,8 +137,9 @@ function beatcancerInsertHtml(page, national, country) {
             '</div></li>';
     });
     if (!articles.length) return '';
-    if (national && articles.length > 1) articles.pop();
-    else national = null;
+    nationals = (nationals || []).slice(0, 2);
+    if (nationals.length && articles.length > 1) articles.splice(Math.max(1, articles.length - nationals.length));
+    else nationals = [];
 
     const topics = (page.topics || []).filter(function (topic) {
         return isBeatcancerUrl(topic.url);
@@ -147,7 +151,7 @@ function beatcancerInsertHtml(page, national, country) {
             '</span></span>' + EXTERNAL_ICON, 'bc-topic-link');
     });
 
-    const hint = !national && country && !country.code
+    const hint = !nationals.length && country && !country.code
         ? ' <span>' + escapeHtml(t('national.askCountry')) + '</span> ' +
             countryChangeButton(t('national.chooseCountry'))
         : '';
@@ -171,37 +175,60 @@ function beatcancerInsertHtml(page, national, country) {
         '</div>';
 
     let nationalGroup = '';
-    if (national) {
-        const organisation = nativeText(national.organisation, national.lang);
-        const credit = national.logo
-            ? '<p class="bc-insert-note"><span>' + (national.name !== national.organisation
-                ? t('national.logoCredit', { name: nativeText(national.name, national.lang), organisation: organisation })
-                : t('national.logoCreditPlain', { organisation: organisation })) + '</span></p>'
-            : '';
+    if (nationals.length) {
+        const first = nationals[0];
+        // one heading for both websites; an organisation with two of them is named once
+        const sources = [];
+        nationals.forEach(function (n) {
+            const link = externalLink(n.url, nativeText(n.organisation, n.lang) + EXTERNAL_ICON, hostOf(n.url));
+            if (!sources.some(function (s) { return s.organisation === n.organisation; })) {
+                sources.push({ organisation: n.organisation, link: link });
+            }
+        });
+        const credits = nationals.filter(function (n, i) {
+            return n.logo && nationals.findIndex(function (m) { return m.logo === n.logo; }) === i;
+        }).map(function (n) {
+            const organisation = nativeText(n.organisation, n.lang);
+            return '<span>' + (n.name !== n.organisation
+                ? t('national.logoCredit', { name: nativeText(n.name, n.lang), organisation: organisation })
+                : t('national.logoCreditPlain', { organisation: organisation })) + '</span>';
+        });
+        // always a link to all communities on Youth Cancer Europe's map
+        const more = '<p class="bc-insert-more"><span>' +
+            escapeHtml(t('national.communityMap', { country: first.countryInProse })) + '</span>' +
+            externalLink(YCE_COMMUNITY_URL, '<span translate="no">Youth Cancer Europe</span>' + EXTERNAL_ICON,
+                'youthcancereurope.org', 'bc-topic-link') + '</p>';
         nationalGroup = '<div class="bc-group bc-group-national">' +
             '<div class="bc-insert-head"><div>' +
             '<h3 class="bc-insert-source">' + t('beatcancer.from', {
-                site: externalLink(national.url, organisation + EXTERNAL_ICON, hostOf(national.url))
+                site: listOfTwo(sources.map(function (s) { return s.link; }))
             }) + '</h3>' +
             '<p class="bc-insert-note"><span>' + t(COUNTRY_SOURCE_NOTE[country.source] || COUNTRY_SOURCE_NOTE.chosen, {
-                country: escapeHtml(national.countryInProse),
+                count: nationals.length,
+                country: escapeHtml(first.countryInProse),
                 change: countryChangeButton(t('national.changeCountry'))
             }) + '</span></p>' +
-            credit +
+            (credits.length ? '<p class="bc-insert-note">' + credits.join(' ') + '</p>' : '') +
             '</div></div>' +
-            '<ul class="bc-cards">' + nationalCardHtml(national) + '</ul>' +
+            '<ul class="bc-cards">' + nationals.map(nationalCardHtml).join('') + '</ul>' +
+            more +
             '</div>';
     }
 
-    return '<div class="bc-groups' + (national ? ' has-national' : '') + '">' + yarnGroup + nationalGroup + '</div>';
+    return '<div class="bc-groups' + (nationals.length ? ' has-national' : '') +
+        (nationals.length > 1 ? ' has-national-two' : '') + '">' + yarnGroup + nationalGroup + '</div>';
 }
 
 // The line after "You can also meet young people with the same
-// experience at ... beatcancer.eu." about the national website
-function supportNationalHtml(national) {
-    const site = externalLink(national.url, nativeText(national.name, national.lang), hostOf(national.url)) +
-        (national.organisation !== national.name ? ' (' + nativeText(national.organisation, national.lang) + ')' : '');
-    return t('national.supportLine', { country: escapeHtml(national.countryInProse), site: site });
+// experience at ... beatcancer.eu." about the national websites
+function supportNationalHtml(nationals) {
+    const sites = nationals.map(function (n) {
+        return externalLink(n.url, nativeText(n.name, n.lang), hostOf(n.url)) +
+            (n.organisation !== n.name ? ' (' + nativeText(n.organisation, n.lang) + ')' : '');
+    });
+    return t('national.supportLine', {
+        count: nationals.length, country: escapeHtml(nationals[0].countryInProse), site: listOfTwo(sites)
+    });
 }
 
 // Article images come from beatcancer.eu's image service, which sometimes
@@ -532,29 +559,63 @@ function locateCountry() {
     });
 }
 
-// The national website for the country: the one in the visitor's
-// browser language when the country lists several, else the first;
-// null when the country has none
-function pickNationalResource(data, country) {
+// The national websites to show for the country (at most two), from the
+// communities that Youth Cancer Europe lists for it: one for younger AYAs
+// (teenagers, "ages": "younger") and one for older AYAs (young adults,
+// "older") when the country has both, else one. Within an age group, the
+// one in the visitor's browser language when there are several (e.g.
+// Belgium in Dutch and in French), else the first. A website marked
+// also_show (Youth Cancer Europe itself in Romania, where it has its
+// seat) is added as the second card when there is room. [] when the
+// country has none.
+const YCE_COMMUNITY_URL = 'https://youthcancereurope.org/community/';
+
+function pickNationalResources(data, country) {
     const entry = data && data.countries && Object.prototype.hasOwnProperty.call(data.countries, country)
         ? data.countries[country] : null;
     const resources = (entry && entry.resources || []).filter(function (r) {
         return /^https?:\/\//.test(r.url || '');
     });
-    if (!resources.length) return null;
-    let chosen = null;
-    for (const tag of browserLanguages()) {
-        const language = tag.split('-')[0].toLowerCase();
-        chosen = resources.find(function (r) { return String(r.lang || '').toLowerCase() === language; });
-        if (chosen) break;
-    }
-    const picked = chosen || resources[0];
-    return Object.assign({
-        iso2: country,
-        country: countryName(country),
-        countryInProse: countryInProse(country),
-        index: entry.resources.indexOf(picked)
-    }, picked);
+    if (!resources.length) return [];
+    const languages = browserLanguages().map(function (tag) { return tag.split('-')[0].toLowerCase(); });
+    const best = function (list) {
+        for (const language of languages) {
+            const found = list.find(function (r) { return String(r.lang || '').toLowerCase() === language; });
+            if (found) return found;
+        }
+        return list[0];
+    };
+    const main = resources.filter(function (r) { return !r.also_show; });
+    const extra = resources.filter(function (r) { return r.also_show; });
+    const younger = main.filter(function (r) { return r.ages === 'younger'; });
+    const older = main.filter(function (r) { return r.ages === 'older'; });
+    const picked = younger.length && older.length ? [best(younger), best(older)] : main.length ? [best(main)] : [];
+    if (picked.length < 2 && extra.length) picked.push(best(extra));
+    return picked.map(function (r) {
+        return Object.assign({
+            iso2: country,
+            country: countryName(country),
+            countryInProse: countryInProse(country),
+            index: entry.resources.indexOf(r)
+        }, r);
+    });
+}
+
+// "ages 12 to 25" (age_range "12-25"), "ages 18 and over" ("18+"), or
+// "for teenagers" / "for young adults" when the website names no ages;
+// '' for a website for all young people that names none
+function nationalAges(n) {
+    const range = /^(\d{1,2})\s*(?:-\s*(\d{1,2})|(\+))$/.exec(n.age_range || '');
+    if (range && range[2]) return t('national.agesRange', { from: range[1], to: range[2] });
+    if (range) return t('national.agesFrom', { from: range[1] });
+    if (n.ages === 'younger') return t('national.agesYounger');
+    if (n.ages === 'older') return t('national.agesOlder');
+    return '';
+}
+
+// Two parts of a sentence joined: "A and B"
+function listOfTwo(parts) {
+    return parts.length > 1 ? t('national.listTwo', { first: parts[0], second: parts[1] }) : parts[0];
 }
 
 // The one-sentence description of a national website, in the language
@@ -586,7 +647,8 @@ function nationalCardHtml(n) {
     return '<li class="bc-card bc-card-national">' +
         '<div class="bc-card-media bc-card-logo' + (n.logo ? '' : ' bc-card-illustration') + '"' + plate + '>' + image + '</div>' +
         '<div class="bc-card-body">' +
-        '<span class="bc-card-type">' + escapeHtml(t('national.cardType', { country: n.country })) + '</span>' +
+        '<span class="bc-card-type">' + escapeHtml(t('national.cardType', { country: n.country }) +
+            (nationalAges(n) ? ' · ' + nationalAges(n) : '')) + '</span>' +
         '<h4 class="bc-card-title">' + externalLink(n.url, nativeText(n.name, n.lang), hostOf(n.url)) + '</h4>' +
         (nationalDescription(n) ? '<p class="bc-card-excerpt">' + escapeHtml(nationalDescription(n)) + '</p>' : '') +
         '<p class="bc-card-meta"><span>' + meta + '</span>' + EXTERNAL_ICON + '</p>' +
@@ -1223,16 +1285,18 @@ document.addEventListener('DOMContentLoaded', function () {
     function countryResultHtml(country, national, pending) {
         if (!country.code) return escapeHtml(t('national.resultChoose'));
         const suffix = pending ? 'Pending' : '';
-        const site = national && pickNationalResource(national, country.code);
+        const sites = national ? pickNationalResources(national, country.code) : [];
         let result;
-        if (!site) {
+        if (!sites.length) {
             result = country.code === OUTSIDE_EUROPE || !national
                 ? t('national.resultArticles' + suffix)
                 : t('national.resultNoSite' + suffix, { country: escapeHtml(countryInProse(country.code)) });
         } else {
             result = t('national.resultSite' + suffix, {
-                site: nativeText(site.name, site.lang) + (site.organisation && site.organisation !== site.name
-                    ? ' (' + nativeText(site.organisation, site.lang) + ')' : '')
+                site: listOfTwo(sites.map(function (site) {
+                    return nativeText(site.name, site.lang) + (site.organisation && site.organisation !== site.name
+                        ? ' (' + nativeText(site.organisation, site.lang) + ')' : '');
+                }))
             });
         }
         return result + (pending ? ' <strong>' + escapeHtml(t('national.pressApply')) + '</strong>' : '');
@@ -1517,15 +1581,15 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             const render = function () {
                 const country = currentCountry();
-                const site = national && country.code ? pickNationalResource(national, country.code) : null;
-                const html = beatcancerInsertHtml(page, site, national ? country : null);
+                const sites = national && country.code ? pickNationalResources(national, country.code) : [];
+                const html = beatcancerInsertHtml(page, sites, national ? country : null);
                 if (html) {
                     beatcancerInsert.innerHTML = html;
                     watchArticleImages(beatcancerInsert);
                 }
                 if (supportNational) {
-                    supportNational.innerHTML = site ? supportNationalHtml(site) : '';
-                    supportNational.hidden = !site;
+                    supportNational.innerHTML = sites.length ? supportNationalHtml(sites) : '';
+                    supportNational.hidden = !sites.length;
                 }
             };
             render();

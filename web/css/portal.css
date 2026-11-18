@@ -1735,6 +1735,16 @@ html.mode-dark .page img {
     flex: 1 1 260px;
 }
 
+/* the flag of the visitor's country above the national websites, in
+   the place of the YARN logo above the articles: smaller, in a row as
+   high as the logo */
+.bc-insert-flag {
+    height: 30px;
+    margin: 5px 0;
+    border-radius: 3px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
+}
+
 .bc-insert-source {
     margin: 0;
     font-size: 1rem;
@@ -1896,12 +1906,14 @@ html.mode-dark .page img {
 }
 
 /* card of the national website for young people with cancer: the logo
-   sits centred on white and is not cropped; without a logo an
-   illustration of the portal is shown */
+   sits centred on white and is not cropped; without a logo (or when it
+   does not load) the flag of the country is shown */
 .bc-card-logo {
     display: flex;
     align-items: center;
     justify-content: center;
+    min-height: 0; /* a tall logo must not stretch the 16:10 box */
+    overflow: hidden;
     padding: 14px 18px;
     background: #fff;
 }
@@ -1914,8 +1926,14 @@ html.mode-dark .page img {
     object-fit: contain;
 }
 
-.bc-card-illustration {
+.bc-card-flag {
     background: var(--bg-cream);
+}
+
+.bc-card-logo.bc-card-flag img {
+    height: 70%;
+    border-radius: 4px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
 }
 
 .bc-card-national .bc-card-type {
@@ -1972,6 +1990,20 @@ html.mode-dark .bc-card-logo img {
 .bc-group .bc-insert-head {
     align-self: end;
     margin-bottom: 0;
+}
+
+/* next to a national website: in both groups the logo (YARN, the flag)
+   on top with the heading right below it, so that the logos and the
+   headings of the two groups line up */
+.has-national .bc-group .bc-insert-head {
+    align-self: start;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+}
+
+.has-national .bc-insert-head > div {
+    flex: none;
 }
 
 .has-national .bc-group-yarn {

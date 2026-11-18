@@ -449,3 +449,29 @@ Removed because YCE does not list them: AT: GenerationYZ: CancerClub (Österreic
 | UA | 2 | none | - | Charity Foundation INSPIRATION FAMILY.: National foundation for adult cancer patients of all ages ('системною підтримкою дорослих онкопацієнтів'; https://inspirationfamily.org/ checked 2026-11-17, news Sep 2026); no Ukrainian youth group or AYA page - its 'YARN Project' page only describes its role in the European Youth Cancer Network.<br>Youth Cancer Europe: Individual YCE ambassador entry (Nataly Hrad) linking to a personal Instagram profile. |
 
 Changes after review by the maintainers (2026-11-17): only communities on YCE's list, and an old website is no reason to pass one over. ES shows the AAA (aaacancer.org) instead of the two FEFCI programmes, IE shows CanTeen Ireland (12-25) instead of Childhood Cancer Ireland's page (YouCan Ireland's domain does not resolve), BG and HU (parents' associations only) were removed and then shown again at the maintainers' request, and Youth Cancer Europe itself is shown next to the Romanian community (it has its seat in Cluj-Napoca). The countries without a card, and why, are in `docs/national_communities_uncertain.md`. Other choices: NL shows Stichting Jongeren en Kanker (18-39) and the youth platform LEF of Vereniging Kinderkanker Nederland instead of kanker.nl/jong (not on YCE's list); BE keeps Kom op tegen Kanker for Dutch (FLAYA, youth-led, 18-39, is the alternative); CH also lists the French version of the same page; MD shows the Romanian page of Little People, as YCE's Moldovan entry points there.
+
+## Peer-support review (2026-11-18)
+
+The maintainers asked to prefer peer-support networks (young people with cancer meeting each other) over foundations
+and information pages, and suggested AYA Zorgnetwerk for the Netherlands. Every YCE community was checked again on its
+own website; per-card evidence is in the `notes` of `web/data/national_resources.json`.
+
+| Country | Change |
+|---|---|
+| NL | **SJK kept** (now linked to its activities): YCE's descriptions of SJK and AYA Zorgnetwerk are swapped. SJK calls itself "de lotgenotenorganisatie voor en door jongeren met kanker"; AYA Zorg Nederland (formerly AYA Zorgnetwerk) is "een samenwerkingsverband van ziekenhuizen en zorgverleners", and its own peer page sends young people to SJK. LEF kept for teenagers. |
+| BE | Dutch card linked to Kom op tegen Kanker's peer-support page (meeting days, buddy, youth holiday). FLAYA (youth-led) was under maintenance (HTTP 503); swap it in when it is back. French card unchanged (information only; no French-language peer offer on YCE's list). |
+| DE | Two cards: Waldpiraten-Camp of the Deutsche Kinderkrebsstiftung (camps 9-15, Easter camp 16-17) and the TREFFPUNKTE of the Deutsche Stiftung für junge Erwachsene mit Krebs (local peer groups). Projekt Heldencamper ended in 2024. |
+| AT | Two cards from Survivors Austria: Mentoring (young survivors visit teenagers on the wards) and Survivors Treff (meet-ups). |
+| CH | Linked to the meet-ups page of Kinderkrebs Schweiz (over-18s), German and French. |
+| FR | Linked to the city talk groups of On est là. |
+| GB | Shine linked to "Connect with others"; Alike (now 18+, all ages), Trekstock and OUTpatients have no teenagers' offer. |
+| IE | CanTeen kept; YouCan Ireland's domain no longer resolves. |
+| SE | Two cards: Barncancerfonden's youth camp (15-19) and Ung Cancer (16-35, now `older`). |
+| DK, NO, FI | Linked to the peer pages (Ung Kræft "Mød andre", Ung Kreft "Ung og kreftrammet", Sylva's young-adult events). Finland's teenagers' card removed: stories and talks with professionals, not peer support. |
+| ES | Two cards: FEFCI's national gathering of teenagers (14-18) and AAA (now `older`). |
+| CZ | Two cards: Pink Bubble (11-29, now `younger`) and Společně k úsměvu (run by young survivors: online peer group, mentoring). |
+| PL, SI | Linked to the peer programmes (Pani Ani's AYA Survivorship Nawigator; Mali vitez's regional self-help groups). |
+| ME | New: MladiCe Crne Gore of Fenix (network of young people treated for cancer as children). |
+| IS, PT, HU, BG, RO, MD, RS, BA, HR, GR | Kept; descriptions updated where the peer offer was clearer. |
+
+Every card now has an image: the logo, else (or when it does not load) the flag of the country.

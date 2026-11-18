@@ -185,21 +185,23 @@ function beatcancerInsertHtml(page, nationals, country) {
                 sources.push({ organisation: n.organisation, link: link });
             }
         });
-        const credits = nationals.filter(function (n, i) {
-            return n.logo && nationals.findIndex(function (m) { return m.logo === n.logo; }) === i;
-        }).map(function (n) {
-            const organisation = nativeText(n.organisation, n.lang);
-            return '<span>' + (n.name !== n.organisation
-                ? t('national.logoCredit', { name: nativeText(n.name, n.lang), organisation: organisation })
-                : t('national.logoCreditPlain', { organisation: organisation })) + '</span>';
-        });
+        // the logos belong to the organisations: each one named once
+        const owners = nationals.filter(function (n, i) {
+            return n.logo && nationals.findIndex(function (m) {
+                return m.logo && m.organisation === n.organisation;
+            }) === i;
+        }).map(function (n) { return nativeText(n.organisation, n.lang); });
         // always a link to all communities on Youth Cancer Europe's map
         const more = '<p class="bc-insert-more"><span>' +
             escapeHtml(t('national.communityMap', { country: first.countryInProse })) + '</span>' +
             externalLink(YCE_COMMUNITY_URL, '<span translate="no">Youth Cancer Europe</span>' + EXTERNAL_ICON,
                 'youthcancereurope.org', 'bc-topic-link') + '</p>';
+        // the flag of the country, where the YARN logo is in the other group
         nationalGroup = '<div class="bc-group bc-group-national">' +
-            '<div class="bc-insert-head"><div>' +
+            '<div class="bc-insert-head">' +
+            '<img class="bc-insert-logo bc-insert-flag" src="' + escapeHtml(nationalFlagUrl(first.iso2)) + '" alt="' +
+            escapeHtml(t('national.flagAlt', { country: first.countryInProse })) + '" width="40" height="30"/>' +
+            '<div>' +
             '<h3 class="bc-insert-source">' + t('beatcancer.from', {
                 site: listOfTwo(sources.map(function (s) { return s.link; }))
             }) + '</h3>' +
@@ -208,7 +210,8 @@ function beatcancerInsertHtml(page, nationals, country) {
                 country: escapeHtml(first.countryInProse),
                 change: countryChangeButton(t('national.changeCountry'))
             }) + '</span></p>' +
-            (credits.length ? '<p class="bc-insert-note">' + credits.join(' ') + '</p>' : '') +
+            (owners.length ? '<p class="bc-insert-note"><span>' +
+                t('national.logoCredit', { count: owners.length, organisation: listOfTwo(owners) }) + '</span></p>' : '') +
             '</div></div>' +
             '<ul class="bc-cards">' + nationals.map(nationalCardHtml).join('') + '</ul>' +
             more +
@@ -318,7 +321,7 @@ const SITE_ROOT = (function () {
 const NATIONAL_RESOURCES_URL = SITE_ROOT + 'data/national_resources.json';
 const EUROPE_OUTLINES_URL = SITE_ROOT + 'data/europe_countries.json';
 const NATIONAL_LOGO_DIR = SITE_ROOT + 'images/national/';
-const NATIONAL_FALLBACK_IMAGE = SITE_ROOT + 'images/group.png';
+const NATIONAL_FLAG_DIR = SITE_ROOT + 'images/flags/';
 const COUNTRY_STORAGE_KEY = 'aya-country-choice';
 const OUTSIDE_EUROPE = 'outside';
 const POSITION_TIMEOUT_MS = 15000;
@@ -634,9 +637,29 @@ function nativeText(text, lang) {
     return /^[a-z]{2,3}$/i.test(lang || '') ? '<span lang="' + lang.toLowerCase() + '">' + safe + '</span>' : safe;
 }
 
+// The flag of a country (web/images/flags, from flag-icons, MIT licence)
+function nationalFlagUrl(iso2) {
+    return NATIONAL_FLAG_DIR + String(iso2 || '').toLowerCase() + '.svg';
+}
+
+// A logo that does not load gives way to the flag of the country, so
+// that every card shows an image (see nationalCardHtml)
+document.addEventListener('error', function (event) {
+    const img = event.target;
+    if (!(img instanceof HTMLImageElement) || !img.dataset.flag || img.src === img.dataset.flag) return;
+    const media = img.closest('.bc-card-logo');
+    if (media) {
+        media.classList.add('bc-card-flag');
+        media.style.background = '';
+    }
+    img.src = img.dataset.flag;
+}, true);
+
 function nationalCardHtml(n) {
-    const image = '<img src="' + escapeHtml(n.logo ? NATIONAL_LOGO_DIR + n.logo : NATIONAL_FALLBACK_IMAGE) +
-        '" alt="" loading="lazy"/>';
+    // the logo of the website, else the flag of the country
+    const flag = nationalFlagUrl(n.iso2);
+    const image = '<img src="' + escapeHtml(n.logo ? NATIONAL_LOGO_DIR + n.logo : flag) +
+        '" data-flag="' + escapeHtml(flag) + '" alt="" loading="lazy"/>';
     // a logo drawn in white needs a dark plate (logo_background: a hex colour)
     const plate = n.logo && /^#[0-9a-f]{3,8}$/i.test(n.logo_background || '')
         ? ' style="background:' + n.logo_background + '"' : '';
@@ -645,7 +668,7 @@ function nationalCardHtml(n) {
         language ? escapeHtml(t('national.inLanguage', { language: language })) : '']
         .filter(Boolean).join(' · ');
     return '<li class="bc-card bc-card-national">' +
-        '<div class="bc-card-media bc-card-logo' + (n.logo ? '' : ' bc-card-illustration') + '"' + plate + '>' + image + '</div>' +
+        '<div class="bc-card-media bc-card-logo' + (n.logo ? '' : ' bc-card-flag') + '"' + plate + '>' + image + '</div>' +
         '<div class="bc-card-body">' +
         '<span class="bc-card-type">' + escapeHtml(t('national.cardType', { country: n.country }) +
             (nationalAges(n) ? ' · ' + nationalAges(n) : '')) + '</span>' +

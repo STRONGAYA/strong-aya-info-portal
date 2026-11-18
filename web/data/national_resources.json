@@ -1,22 +1,35 @@
 {
-  "note": "Communities for young people with cancer on the topic pages: only the ones that Youth Cancer Europe lists at https://youthcancereurope.org/community/ (yce_title; yce_count is the number it lists for the country; the cards always link to that page), one card per age group (younger: teenagers, older: young adults), see README.md. Cross-referenced with Youth Cancer Europe on 2026-11-17 (scripts/check_yce_communities.py); confidence and notes are for the maintainers and are not shown. The logos belong to the organisations (web/images/national).",
+  "note": "Communities for young people with cancer on the topic pages: only the ones that Youth Cancer Europe lists at https://youthcancereurope.org/community/ (yce_title; yce_count is the number it lists for the country; the cards always link to that page), preferably peer-support networks, where young people with cancer meet each other; one card per age group (younger: teenagers, older: young adults), see README.md. Cross-referenced with Youth Cancer Europe on 2026-11-17 and reviewed for peer support on 2026-11-18 (scripts/check_yce_communities.py); confidence and notes are for the maintainers and are not shown. The logos belong to the organisations (web/images/national).",
   "countries": {
     "AT": {
       "country": "Austria",
       "yce_count": 2,
       "resources": [
         {
-          "name": "Survivors Austria",
-          "organisation": "Survivors Austria",
-          "url": "https://www.survivors.at/",
-          "lang": "de",
-          "ages": "all",
+          "name": "Mentoring",
+          "url": "https://www.survivors.at/mentoring/",
+          "ages": "younger",
           "age_range": null,
-          "description": "Austrian peer network of people who had cancer as children, teenagers or young adults: regional meet-ups, mentoring on children's cancer wards, late-effects information.",
-          "logo": "AT-survivors.png",
+          "description": "Young people who had cancer themselves visit children and teenagers on the children's cancer wards in Vienna, Innsbruck, Graz and Linz to talk, play or just listen.",
           "confidence": "medium",
+          "organisation": "Survivors Austria",
+          "lang": "de",
+          "logo": "AT-survivors.png",
           "yce_title": "Survivors Austria",
-          "notes": "Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 (HTTP 200; pages modified 14 Nov 2026; Survivors Treff dates 16 May 2026 Wien, 31 May 2026 Upper Austria, 5 Dec 2026 Graz). No age range stated. Ordinary members confirm they survived 'im Kindes-, Jugend- oder jungen Erwachsenenalter eine onkologische oder hämatologische Diagnose'; survivor mentors visit young patients on paediatric oncology wards in Wien, Innsbruck, Graz and Linz (since 2005); meet-ups in all federal states for adult survivors. Classified 'all' because it reaches teenage patients (mentoring) as well as adult survivors. Caveats: survivor-focused association that grew out of the Österreichische Kinder-Krebs-Hilfe, not aimed at people first diagnosed as adults in adult oncology; the online After-Work-Treff page lists only a 2023 date; contact e-mail domain is survivors-austria.at while the site is survivors.at. Logo: the image with alt 'Logo der Survivors Austria', 4075x1229 PNG, black and yellow on transparent (a white 'lightversion' PNG also exists). The current AT portal entry (Krebshilfe GenerationYZ) is not YCE-listed."
+          "notes": "Peer-support review 2026-11-18: Survivors Austria has two peer offers for different ages, so two cards. Mentoring runs since 2005. Previous card: the home page (ages all). Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 (HTTP 200; pages modified 14 Nov 2026; Survivors Treff dates 16 May 2026 Wien, 31 May 2026 Upper Austria, 5 Dec 2026 Graz). No age range stated. Ordinary members confirm they survived 'im Kindes-, Jugend- oder jungen Erwachsenenalter eine onkologische oder hämatologische Diagnose'; survivor mentors visit young patients on paediatric oncology wards in Wien, Innsbruck, Graz and Linz (since 2005); meet-ups in all federal states for adult survivors. Classified 'all' because it reaches teenage patients (mentoring) as well as adult survivors. Caveats: survivor-focused association that grew out of the Österreichische Kinder-Krebs-Hilfe, not aimed at people first diagnosed as adults in adult oncology; the online After-Work-Treff page lists only a 2023 date; contact e-mail domain is survivors-austria.at while the site is survivors.at. Logo: the image with alt 'Logo der Survivors Austria', 4075x1229 PNG, black and yellow on transparent (a white 'lightversion' PNG also exists). The current AT portal entry (Krebshilfe GenerationYZ) is not YCE-listed."
+        },
+        {
+          "name": "Survivors Treff",
+          "url": "https://www.survivors.at/survivors-treff/",
+          "ages": "older",
+          "age_range": null,
+          "description": "Regular meet-ups in Upper Austria, Styria, Tyrol and Vienna for people who had cancer as children, teenagers or young adults: Christmas markets, outdoor painting, a drink and a chat.",
+          "confidence": "medium",
+          "organisation": "Survivors Austria",
+          "lang": "de",
+          "logo": "AT-survivors.png",
+          "yce_title": "Survivors Austria",
+          "notes": "Peer-support review 2026-11-18: meet-ups listed for 5 Dec 2026 (Graz) and May 2026; some entries are from 2024."
         }
       ]
     },
@@ -31,11 +44,11 @@
           "lang": "bs",
           "ages": "all",
           "age_range": null,
-          "description": "A network of about 60 young people in Bosnia and Herzegovina who had cancer as children or teens: empowerment, scholarships, late-effects follow-up and volunteering.",
+          "description": "A group of about 60 young people in Bosnia and Herzegovina who had cancer as children or teens: empowerment weekends twice a year, volunteering at camps and scholarships.",
           "logo": "BA-srcezadjecu.png",
           "confidence": "medium",
           "yce_title": "Assosiation Heart for Children with Cancer ",
-          "notes": "Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 (curl, browser UA): page HTTP 200; English version https://srcezadjecu.ba/en/sta-radimo/mladice ('Young Cancer Survivors (MladiCe)'). Page text: 'MladiCe predstavljaju mrežu mladih izliječenih od raka. Aktivni su kao grupa u sklopu Udruženja ... Grupa broji 60 mladih koji su u djetinjstvu ili dobu adoloscencije preživjeli rak'; activities Osnaživanje, Stipendiranje, Praćenje kasnih posljedica, Volontiranje; member portraits uploaded 2024. Programme page undated; the association's site is active (news 9 Nov 2026). The association is a children's cancer charity (parents' houses, psychosocial support, rehabilitation) with this dedicated youth group, so it qualifies under the youth-group rule. Age: no range stated; classified 'all' because members survived cancer in childhood or adolescence and are now teenagers and young adults (scholarships for school/university). Covers mainly the Federation of BiH (offices Sarajevo and Tuzla). Logo: 293x60 transparent PNG, red; no larger or SVG version found (a 280x280 red programme icon for MladiCe is at https://srcezadjecu.ba/images/logos/SZD_WEBicons_280x280_03-2024-MladiCe1711989630.png)."
+          "notes": "Peer-support review 2026-11-18: kept; peer element: 'vikendi osnaživanja' (empowerment weekends) twice a year (https://srcezadjecu.ba/bs/sta-radimo/mladice/osnazivanje), members volunteer at the association's rehabilitation camps. Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 (curl, browser UA): page HTTP 200; English version https://srcezadjecu.ba/en/sta-radimo/mladice ('Young Cancer Survivors (MladiCe)'). Page text: 'MladiCe predstavljaju mrežu mladih izliječenih od raka. Aktivni su kao grupa u sklopu Udruženja ... Grupa broji 60 mladih koji su u djetinjstvu ili dobu adoloscencije preživjeli rak'; activities Osnaživanje, Stipendiranje, Praćenje kasnih posljedica, Volontiranje; member portraits uploaded 2024. Programme page undated; the association's site is active (news 9 Nov 2026). The association is a children's cancer charity (parents' houses, psychosocial support, rehabilitation) with this dedicated youth group, so it qualifies under the youth-group rule. Age: no range stated; classified 'all' because members survived cancer in childhood or adolescence and are now teenagers and young adults (scholarships for school/university). Covers mainly the Federation of BiH (offices Sarajevo and Tuzla). Logo: 293x60 transparent PNG, red; no larger or SVG version found (a 280x280 red programme icon for MladiCe is at https://srcezadjecu.ba/images/logos/SZD_WEBicons_280x280_03-2024-MladiCe1711989630.png)."
         }
       ]
     },
@@ -46,15 +59,15 @@
         {
           "name": "Jong en kanker?!",
           "organisation": "Kom op tegen Kanker",
-          "url": "https://www.allesoverkanker.be/jong-en-kanker",
+          "url": "https://www.allesoverkanker.be/jong-en-kanker/lotgenotencontact-en-ondersteunende-activiteiten-voor-jongeren",
           "lang": "nl",
           "ages": "all",
           "age_range": "16-35",
-          "description": "Flemish cancer charity's hub for young people with cancer: information, stories, peer contact, buddies, meeting days and a free youth holiday.",
+          "description": "Peer support for 16-35-year-olds in Flanders: five meeting days a year, a yearly youth holiday, a personal buddy, a team of young survivors and a closed Facebook group.",
           "logo": "BE-nl.svg",
           "confidence": "high",
           "yce_title": "Kom op tegen Kanker.",
-          "notes": "Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 with a browser User-Agent (HTTP 200). Title 'Jong en kanker?! | Kom op tegen Kanker'; footer 'Allesoverkanker.be is een initiatief van Kom op tegen Kanker vzw' (the YCE URL komoptegenkanker.be is the same organisation). Ages: 'De ontmoetingsdagen zijn er voor AYA's tussen 16 en 35 jaar' (five Saturdays a year) and 'De jongerenvakantie is er voor AYA's tussen 16 en 35 jaar' (next one 25-29 Oct 2027); closed Facebook group 'Jong en Kanker?!', buddies, A-team, AYA activity listing (e.g. AYA Café UZ Leuven 2026). Kept for Dutch-language browsers (current BE-nl card). Logo SVG (507x359 viewBox, #171229 and #FFDA5A) is byte-identical to komoptegenkanker.be/themes/custom/kotk_base/logo-kotk.svg. Earlier (2026-10-20): Verified 2026-10-20 (title 'Jong en kanker?! | Kom op tegen Kanker'; events dated 22 and 27 Oct 2026). Belgian AYA definition is 16-35. Kom op tegen Kanker is the cancer charity of the Dutch-speaking community (Flanders/Brussels), not a federal body; it is the most active AYA actor in Belgium (AYA Movement, AYA klankbordgroep). The logo served on allesoverkanker.be (/themes/custom/ocelot_aok/logo.svg) is byte-identical to the Kom op tegen Kanker logo, so one file covers both brands. A Facebook group 'Jong en Kanker?!' exists but has no website."
+          "notes": "Peer-support review 2026-11-18: deep link to Kom op tegen Kanker's peer-support page. FLAYA (flaya.org, youth-led, 18-39, Dutch only, Flanders and Brussels) fits the peer-support priority better but answered HTTP 503 'Even op onderhoud!' all day (content edited 17 Nov 2026, looks like a relaunch): swap to https://flaya.org/lotgenoten/ when it is back (logo https://flaya.org/wp-content/uploads/2026/11/Logo-transparante.png). Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 with a browser User-Agent (HTTP 200). Title 'Jong en kanker?! | Kom op tegen Kanker'; footer 'Allesoverkanker.be is een initiatief van Kom op tegen Kanker vzw' (the YCE URL komoptegenkanker.be is the same organisation). Ages: 'De ontmoetingsdagen zijn er voor AYA's tussen 16 en 35 jaar' (five Saturdays a year) and 'De jongerenvakantie is er voor AYA's tussen 16 en 35 jaar' (next one 25-29 Oct 2027); closed Facebook group 'Jong en Kanker?!', buddies, A-team, AYA activity listing (e.g. AYA Café UZ Leuven 2026). Kept for Dutch-language browsers (current BE-nl card). Logo SVG (507x359 viewBox, #171229 and #FFDA5A) is byte-identical to komoptegenkanker.be/themes/custom/kotk_base/logo-kotk.svg. Earlier (2026-10-20): Verified 2026-10-20 (title 'Jong en kanker?! | Kom op tegen Kanker'; events dated 22 and 27 Oct 2026). Belgian AYA definition is 16-35. Kom op tegen Kanker is the cancer charity of the Dutch-speaking community (Flanders/Brussels), not a federal body; it is the most active AYA actor in Belgium (AYA Movement, AYA klankbordgroep). The logo served on allesoverkanker.be (/themes/custom/ocelot_aok/logo.svg) is byte-identical to the Kom op tegen Kanker logo, so one file covers both brands. A Facebook group 'Jong en Kanker?!' exists but has no website."
         },
         {
           "name": "Je suis jeune et j'ai le cancer",
@@ -67,7 +80,7 @@
           "logo": "BE-fr.png",
           "confidence": "high",
           "yce_title": "Stichting tegen Kanker",
-          "notes": "Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 with a browser User-Agent (HTTP 200). YCE lists the Dutch name 'Stichting tegen Kanker' (kanker.be); this is the same federal foundation's French site (cancer.be). Page: 'Tu es jeune (entre 16 et 35 ans)'; 'Le terme AJA ... désigne les adolescents et jeunes adultes, entre 16 et 35 ans'. Information only (no peer group of its own). Kept for French-language browsers (current BE-fr card) - no francophone Belgian YCE entry offers a youth community. Logo: the site's logo.svg (155x55) only wraps an embedded PNG; the portal's existing BE-fr.png can stay. Earlier (2026-10-20): Verified 2026-10-20; page opens with 'Tu es jeune (entre 16 et 35 ans)'. French-language site of the federal foundation (Dutch mirror on kanker.be, listed under the nl entry). Logo is the vertical FR logo, 600x331 PNG on white. No francophone Belgian AYA patient association with a website was found (KickCancer is a research-funding foundation, not checked in depth). Helpline CancerInfo 0800 15 801."
+          "notes": "Peer-support review 2026-11-18: kept as the French-language card although it is information only: no French-language peer offer on YCE's Belgian list (BAOB is for women of any age, Kickcancer funds research; cancer.be refers young people to Care4AYA, which YCE does not list). Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 with a browser User-Agent (HTTP 200). YCE lists the Dutch name 'Stichting tegen Kanker' (kanker.be); this is the same federal foundation's French site (cancer.be). Page: 'Tu es jeune (entre 16 et 35 ans)'; 'Le terme AJA ... désigne les adolescents et jeunes adultes, entre 16 et 35 ans'. Information only (no peer group of its own). Kept for French-language browsers (current BE-fr card) - no francophone Belgian YCE entry offers a youth community. Logo: the site's logo.svg (155x55) only wraps an embedded PNG; the portal's existing BE-fr.png can stay. Earlier (2026-10-20): Verified 2026-10-20; page opens with 'Tu es jeune (entre 16 et 35 ans)'. French-language site of the federal foundation (Dutch mirror on kanker.be, listed under the nl entry). Logo is the vertical FR logo, 600x331 PNG on white. No francophone Belgian AYA patient association with a website was found (KickCancer is a research-funding foundation, not checked in depth). Helpline CancerInfo 0800 15 801."
         }
       ]
     },
@@ -86,7 +99,7 @@
           "logo": "BG-decaohz.webp",
           "confidence": "medium",
           "yce_title": "Association \"Children with Oncohematologic Diseases\"",
-          "notes": "Youth Cancer Europe cross-reference 2026-11-17; shown at the maintainers' request although it is a parents' association (the card always links to YCE's community page as well). Verified 2026-11-17 (curl, browser UA): https://www.decaohz.org/ redirects to https://decaohz.org/; lagery.html HTTP 200. Site rebuilt and very active (news 19 Sep, 25 Sep and 4 Oct 2026; footer '© 2010–2026'). The organisation calls itself 'Сдружение на родители · от 2010 г.' (parents' association, CCI member, licensed social-service provider 'за деца, младежи и техните семейства'). BORDERLINE: it has no standing youth group; the youth offer is the annual camp (since 2015) 'в две възрастови групи — за малчуганите и за тийнейджърите' for those in treatment, survivors and siblings ('децата и младежите създават своя общност'), plus sports games for 'деца и младежи, победили онкохематологично заболяване' (igri-na-pobeditelite.html; Balkan games Sept 2026, 70+ participants; earlier international team 'от 9 до 16 години'). Age: no numeric range; classified 'younger' because the camp group is 'teenagers' and the games participants were 9-16. Nothing for young adults diagnosed in adult oncology. Chosen over Foundation Gold (same audience) because it is more active and has an explicit teenage group; Gold is more survivor-focused in its mission. Logo: only WebP files on the site (logo-400.webp, 400x400, round badge, mostly cream/white with gold, transparent corners - fine on light backgrounds); a 180x180 PNG exists at https://decaohz.org/assets/img/apple-touch-icon.png (opaque cream background). English version at https://decaohz.org/en/index.html."
+          "notes": "Peer-support review 2026-11-18: kept: the camps have a teenage group for young people in treatment, survivors and siblings. Foundation Gold (fgold.org) has no young-adult peer offer (its camp is for children and youth over 10, the same audience). Youth Cancer Europe cross-reference 2026-11-17; shown at the maintainers' request although it is a parents' association (the card always links to YCE's community page as well). Verified 2026-11-17 (curl, browser UA): https://www.decaohz.org/ redirects to https://decaohz.org/; lagery.html HTTP 200. Site rebuilt and very active (news 19 Sep, 25 Sep and 4 Oct 2026; footer '© 2010–2026'). The organisation calls itself 'Сдружение на родители · от 2010 г.' (parents' association, CCI member, licensed social-service provider 'за деца, младежи и техните семейства'). BORDERLINE: it has no standing youth group; the youth offer is the annual camp (since 2015) 'в две възрастови групи — за малчуганите и за тийнейджърите' for those in treatment, survivors and siblings ('децата и младежите създават своя общност'), plus sports games for 'деца и младежи, победили онкохематологично заболяване' (igri-na-pobeditelite.html; Balkan games Sept 2026, 70+ participants; earlier international team 'от 9 до 16 години'). Age: no numeric range; classified 'younger' because the camp group is 'teenagers' and the games participants were 9-16. Nothing for young adults diagnosed in adult oncology. Chosen over Foundation Gold (same audience) because it is more active and has an explicit teenage group; Gold is more survivor-focused in its mission. Logo: only WebP files on the site (logo-400.webp, 400x400, round badge, mostly cream/white with gold, transparent corners - fine on light backgrounds); a 180x180 PNG exists at https://decaohz.org/assets/img/apple-touch-icon.png (opaque cream background). English version at https://decaohz.org/en/index.html."
         }
       ]
     },
@@ -95,30 +108,30 @@
       "yce_count": 1,
       "resources": [
         {
-          "name": "Angebote für Survivors",
+          "name": "Treffen, Austausch und Events",
           "organisation": "Kinderkrebs Schweiz",
-          "url": "https://www.kinderkrebs-infoplattform.ch/de/eltern-von-survivors-und-survivors/angebote-fuer-survivors",
+          "url": "https://www.kinderkrebs-infoplattform.ch/de/eltern-von-survivors-und-survivors/angebote-fuer-survivors/treffen-austausch-und-events",
           "lang": "de",
           "ages": "older",
           "age_range": "18+",
-          "description": "Childhood Cancer Switzerland's offers for survivors: free meet-ups for those aged 18+, health and fertility consultations, career coaching, legal advice and stories.",
+          "description": "Meet-ups and online events where people who had cancer as children or teenagers get together, and WeCanDays weekends with workshops and sport; for over-18s.",
           "logo": "CH-kinderkrebs.svg",
           "confidence": "medium",
           "yce_title": "Kinderkrebs Schweiz",
-          "notes": "Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 (HTTP 200 for de, fr and en; titles 'Angebote für Survivors' / 'Offres destinées aux Survivors' / 'Offers for Survivors | Infoplattform Kinderkrebs Schweiz'). Programme of the umbrella organisation's 'Fachstelle Survivorship' for people who had cancer as children: free events TogetherWeCelebrate (12 Dec 2026, fully booked) and TogetherWeBrunch (13 Mar 2027, Olten, German), both 'Survivors aged 18 and over', travel costs covered; interdisciplinary consultations on health, body image, sexuality and fertility at nine locations; career coaching; legal advice on disability insurance; stories and podcast. The offers page itself states no age; events are 18+ with no upper limit, hence 'older'. Kinderkrebs Schweiz is mainly a parents' umbrella organisation and this is its survivor programme, not a group for people diagnosed as adults. The page sits on the organisation's information platform (kinderkrebs-infoplattform.ch, no Italian version); the organisation's own shorter survivors page exists in de/fr/it/en (it: https://www.kinderkrebs-schweiz.ch/it/attivita/survivor). For fr-CH use the fr alt_url (lang fr). Logo: KKS_Webseite_Logo_RGB.svg (714.8x175.3 viewBox, red/blue/pink on transparent). The current CH portal entry (AYA Cancer Support CH) is not YCE-listed."
+          "notes": "Peer-support review 2026-11-18: deep link to the meet-ups page (Lausanne 20 Nov, Bern 21 Nov, 12 Dec 2026, 13 Mar 2027, WeCanDays 27-28 Aug 2027; event pages say 'Für Survivors ü18'). No peer offer for under-18s (the 'Survivor u. 18' agenda filter shows family events). Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 (HTTP 200 for de, fr and en; titles 'Angebote für Survivors' / 'Offres destinées aux Survivors' / 'Offers for Survivors | Infoplattform Kinderkrebs Schweiz'). Programme of the umbrella organisation's 'Fachstelle Survivorship' for people who had cancer as children: free events TogetherWeCelebrate (12 Dec 2026, fully booked) and TogetherWeBrunch (13 Mar 2027, Olten, German), both 'Survivors aged 18 and over', travel costs covered; interdisciplinary consultations on health, body image, sexuality and fertility at nine locations; career coaching; legal advice on disability insurance; stories and podcast. The offers page itself states no age; events are 18+ with no upper limit, hence 'older'. Kinderkrebs Schweiz is mainly a parents' umbrella organisation and this is its survivor programme, not a group for people diagnosed as adults. The page sits on the organisation's information platform (kinderkrebs-infoplattform.ch, no Italian version); the organisation's own shorter survivors page exists in de/fr/it/en (it: https://www.kinderkrebs-schweiz.ch/it/attivita/survivor). For fr-CH use the fr alt_url (lang fr). Logo: KKS_Webseite_Logo_RGB.svg (714.8x175.3 viewBox, red/blue/pink on transparent). The current CH portal entry (AYA Cancer Support CH) is not YCE-listed."
         },
         {
-          "name": "Offres destinées aux Survivors",
+          "name": "Rencontres, échanges et événements",
           "organisation": "Cancer de l'Enfant en Suisse",
-          "url": "https://www.kinderkrebs-infoplattform.ch/fr/parents-de-survivors-et-survivors/offres-destinees-aux-survivors",
+          "url": "https://www.kinderkrebs-infoplattform.ch/fr/parents-de-survivors-et-survivors/offres-destinees-aux-survivors/rencontres-echanges-et-evenements",
           "lang": "fr",
           "ages": "older",
           "age_range": "18+",
-          "description": "Childhood Cancer Switzerland's offers for survivors: free meet-ups for those aged 18+, health and fertility consultations, career coaching, legal advice and stories.",
+          "description": "Meet-ups and online events where people who had cancer as children or teenagers get together, and WeCanDays weekends with workshops and sport; for over-18s.",
           "logo": "CH-kinderkrebs.svg",
           "confidence": "medium",
           "yce_title": "Kinderkrebs Schweiz",
-          "notes": "French version of the German page above (same programme of Kinderkrebs Schweiz / Cancer de l'Enfant en Suisse); verified HTTP 200 on 2026-11-17."
+          "notes": "Peer-support review 2026-11-18: deep link to the meet-ups page (Lausanne 20 Nov, Bern 21 Nov, 12 Dec 2026, 13 Mar 2027, WeCanDays 27-28 Aug 2027; event pages say 'Für Survivors ü18'). No peer offer for under-18s (the 'Survivor u. 18' agenda filter shows family events). French version of the German page above (same programme of Kinderkrebs Schweiz / Cancer de l'Enfant en Suisse); verified HTTP 200 on 2026-11-17."
         }
       ]
     },
@@ -131,13 +144,26 @@
           "organisation": "Nadační fond Pink Bubble",
           "url": "https://pinkbubble.cz/cz/info-pro-pacienty",
           "lang": "cs",
-          "ages": "all",
+          "ages": "younger",
           "age_range": "11-29",
           "description": "Czech foundation for 11-29-year-olds in or after cancer treatment: a personal contact person, wishes, help with studies or work, mini-holidays and trips with peers.",
           "logo": "CZ-pinkbubble.svg",
           "confidence": "high",
           "yce_title": "Nadační fond Pink Bubble ",
-          "notes": "Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 (HTTP 200, html lang cs; /cz/info-pro-pacienty/ redirects to the URL without slash; homepage news 2026). Age evidence on the patient page: 'Pink Bubble je tady pro všechny mladé lidi ve věku 11 až 29 let, kterým vstoupila do života rakovina - ať už jsou právě v léčbě, zotavují se po ní, nebo je trápí její pozdní následky.' The page speaks to young people directly ('Napiš pár slov o sobě...') and names a coordinator. Offers: experiences and wishes, mini-holidays with friends or siblings, aids, school and job support, group trips (e.g. ~50 'Bublinky' aged 11-30 at Velká Úpa). Chosen over Společně k úsměvu (also 'all') because it covers young people both in and after treatment, including those diagnosed as young adults up to 29, nationwide; Společně k úsměvu is limited to survivors of paediatric oncology whose treatment has ended. Founded 2012; foundation register N 908, Prague. Logo: SVG 317x48, grey #4d4d4d + pink #ea008a (a white variant logo-big-white.svg also exists)."
+          "notes": "Peer-support review 2026-11-18: kept as the card for teenagers and for young people still in treatment (11-29, the only nationwide offer that also reaches teenagers in treatment); marked younger so that Společně k úsměvu (survivors after treatment) is shown beside it. Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 (HTTP 200, html lang cs; /cz/info-pro-pacienty/ redirects to the URL without slash; homepage news 2026). Age evidence on the patient page: 'Pink Bubble je tady pro všechny mladé lidi ve věku 11 až 29 let, kterým vstoupila do života rakovina - ať už jsou právě v léčbě, zotavují se po ní, nebo je trápí její pozdní následky.' The page speaks to young people directly ('Napiš pár slov o sobě...') and names a coordinator. Offers: experiences and wishes, mini-holidays with friends or siblings, aids, school and job support, group trips (e.g. ~50 'Bublinky' aged 11-30 at Velká Úpa). Chosen over Společně k úsměvu (also 'all') because it covers young people both in and after treatment, including those diagnosed as young adults up to 29, nationwide; Společně k úsměvu is limited to survivors of paediatric oncology whose treatment has ended. Founded 2012; foundation register N 908, Prague. Logo: SVG 317x48, grey #4d4d4d + pink #ea008a (a white variant logo-big-white.svg also exists)."
+        },
+        {
+          "name": "Společně k úsměvu",
+          "organisation": "Společně k úsměvu",
+          "url": "https://www.spolecnekusmevu.cz/astra/svepomocna-skupina/",
+          "lang": "cs",
+          "ages": "older",
+          "age_range": null,
+          "description": "Run by young people who had cancer as children or teens: an online peer group every two weeks for those who finished treatment, and mentoring of young patients.",
+          "logo": "CZ-spolecnekusmevu.jpg",
+          "confidence": "medium",
+          "yce_title": "Společně k úsměvu, z.s.",
+          "notes": "Peer-support review 2026-11-18: registered as Společně k úsměvu, z.s.; run by young survivors, the strongest peer network in Czechia. Self-help group 'Astra': online video call every two weeks, moderated by therapists, 'zdrojem podpory jsou však vyléčení sobě navzájem'; open to anyone treated 'v dětském věku, v období dospívání, případně i v rané dospělosti' whose treatment has ended (also Slovakia). 'Moudrý průvodce': survivors 18+ mentor patients on the children's cancer ward. No age range stated; 'older' because the offers are for survivors after treatment and mentors are 18+. Group page last modified March 2025, last group news September 2023; site active (news 3 Nov 2026). KRTEK rejected: hospital foundation of the Brno children's oncology clinic, teen weekends only for its own patients. Logo: JPEG on white (1442x1414), trimmed and resized to 420 px; no transparent or SVG version found."
         }
       ]
     },
@@ -146,17 +172,31 @@
       "yce_count": 4,
       "resources": [
         {
-          "name": "Deutsche Stiftung für junge Erwachsene mit Krebs",
+          "name": "Waldpiraten-Camp",
+          "organisation": "Deutsche Kinderkrebsstiftung",
+          "url": "https://www.kinderkrebsstiftung.de/wir-helfen/leben-nach-der-behandlung/waldpiraten-camp/das-camp/",
+          "lang": "de",
+          "ages": "younger",
+          "age_range": null,
+          "description": "Eight-day camps in Heidelberg for 9-15-year-olds after cancer and their siblings: outdoor adventures, workshops and talk groups; a separate Easter camp is for 16-17-year-olds.",
+          "logo": "DE-waldpiraten.png",
+          "logo_background": "#2d2d2d",
+          "confidence": "medium",
+          "yce_title": "Deutsche Kinderkrebsstiftung",
+          "notes": "Peer-support review 2026-11-18: the teenagers' peer offer of the Deutsche Kinderkrebsstiftung: summer camps for 9-15 ('Du bist zwischen 9 und 15 Jahre alt', 2027 dates listed) and an 'Ostercamp für 16- bis 17-Jährige' (25 Mar - 1 Apr 2027). age_range left empty (card says 'for teenagers') because the camps together cover 9-17. Camps are for after treatment; many campers are under 12. Logo: the camp's PNG (409x319, transparent, light green #88C695, about 2:1 on white), so on a dark plate; the SVG version renders its text garbled."
+        },
+        {
+          "name": "TREFFPUNKTE",
           "organisation": "Deutsche Stiftung für junge Erwachsene mit Krebs",
-          "url": "https://junge-erwachsene-mit-krebs.de/",
+          "url": "https://treffpunkte.junge-erwachsene-mit-krebs.de/",
           "lang": "de",
           "ages": "older",
           "age_range": "18-39",
-          "description": "National foundation for 18-39-year-olds with cancer: first-aid guide, Junges Krebsportal expert advice, local meet-ups, podcast and personal stories.",
+          "description": "Local groups run by young volunteers with cancer experience, meeting in cafés and parks across Germany, plus online groups (also in English, queer, and for incurable cancer).",
           "logo": "DE-de.png",
           "confidence": "high",
           "yce_title": "Deutsche Stiftung für junge Erwachsene mit Krebs",
-          "notes": "Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 (HTTP 200). Homepage: 'zentrale Anlaufstelle für junge Erwachsene im Alter von 18 bis 39 Jahren, die von Krebs betroffen sind'; TREFFPUNKT meet-ups listed for 18 Nov 2026 (Berlin, Siegen-Wittgenstein, Köln, plus 'TREFFPUNKT English | Digital'); Erste Hilfe guide, Junges Krebsportal and podcast linked. Same choice as the current portal entry. Logo file is named '4c_weiß' but is the colour logo on a mostly opaque white background (1625x1004 PNG); the ß is percent-encoded in logo_url. Earlier (2026-10-20): Verified 2026-10-20 (events 21 and 26 Oct listed, uploads from July 2026). Age range 18-39 per the foundation's materials. The header logo file is named '4c_weiss' but is the full-colour logo on an opaque white background (1625x1004 PNG) - checked visually. An English site version exists at /en/. The site is also reachable as www.junge-erwachsene-mit-krebs.de (redirects to the non-www host)."
+          "notes": "Peer-support review 2026-11-18: deep link to the finder of its TREFFPUNKTE (about 40 local and online peer groups; explainer https://junge-erwachsene-mit-krebs.de/jung-und-krebs/treffpunkte/). The Deutsche Kinderkrebsstiftung's Junge-Leute-Seminare are for people who had cancer as children, so the foundation stays the older card. Projekt Heldencamper ended in 2024 (site HTTP 500; trips and concert tickets, not peer support). Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 (HTTP 200). Homepage: 'zentrale Anlaufstelle für junge Erwachsene im Alter von 18 bis 39 Jahren, die von Krebs betroffen sind'; TREFFPUNKT meet-ups listed for 18 Nov 2026 (Berlin, Siegen-Wittgenstein, Köln, plus 'TREFFPUNKT English | Digital'); Erste Hilfe guide, Junges Krebsportal and podcast linked. Same choice as the current portal entry. Logo file is named '4c_weiß' but is the colour logo on a mostly opaque white background (1625x1004 PNG); the ß is percent-encoded in logo_url. Earlier (2026-10-20): Verified 2026-10-20 (events 21 and 26 Oct listed, uploads from July 2026). Age range 18-39 per the foundation's materials. The header logo file is named '4c_weiss' but is the full-colour logo on an opaque white background (1625x1004 PNG) - checked visually. An English site version exists at /en/. The site is also reachable as www.junge-erwachsene-mit-krebs.de (redirects to the non-www host)."
         }
       ]
     },
@@ -171,24 +211,24 @@
           "lang": "da",
           "ages": "younger",
           "age_range": "12-17",
-          "description": "Free summer camp near Ribe for 12-17-year-olds with cancer, followed by a nine-month mentor programme and network groups to keep meeting each other.",
+          "description": "Free summer camp near Ribe for 12-17-year-olds with cancer, followed by a nine-month mentor programme and network groups where the young people keep meeting.",
           "logo": "DK-boernecancerfonden.png",
           "confidence": "medium",
           "yce_title": "Børnecancerfonden",
-          "notes": "Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 (HTTP 200). Age evidence: 'Er dit barn mellem 12 og 17 år, er det muligt at blive tilmeldt Cool Camp for kræftramte unge'; after the camp 'et 9 måneder langt mentorprogram' and 'netværksgrupper, hvor de unge holder kontakten og mødes'. Held at Skovly Lejrcenter near Ribe in the first part of the school summer holidays, free; separate camps for siblings (10-17) and for families with children aged 6-12. Caveats: camps are arranged by LIVSKRAFT and supported (since 2014) by Børnecancerfonden, which is mainly a research and family-support fund; the page is written to parents ('dit barn') and shows no 2026/2027 dates. Shown because it is the only YCE-listed offer for Danish teenagers with cancer; drop it if the maintainers want only organisations that run the group themselves. Logo: bcf_logo_dark_purple_rgb.png, 2514x2514 opaque square, mostly dark purple - may need cropping or a different file from the organisation."
+          "notes": "Peer-support review 2026-11-18: kept; no other teenagers' offer on boernecancerfonden.dk (RESPECT is about school, Superkraft an app for families). Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 (HTTP 200). Age evidence: 'Er dit barn mellem 12 og 17 år, er det muligt at blive tilmeldt Cool Camp for kræftramte unge'; after the camp 'et 9 måneder langt mentorprogram' and 'netværksgrupper, hvor de unge holder kontakten og mødes'. Held at Skovly Lejrcenter near Ribe in the first part of the school summer holidays, free; separate camps for siblings (10-17) and for families with children aged 6-12. Caveats: camps are arranged by LIVSKRAFT and supported (since 2014) by Børnecancerfonden, which is mainly a research and family-support fund; the page is written to parents ('dit barn') and shows no 2026/2027 dates. Shown because it is the only YCE-listed offer for Danish teenagers with cancer; drop it if the maintainers want only organisations that run the group themselves. Logo: bcf_logo_dark_purple_rgb.png, 2514x2514 opaque square, mostly dark purple - may need cropping or a different file from the organisation."
         },
         {
           "name": "Ung Kræft",
           "organisation": "Kræftens Bekæmpelse",
-          "url": "https://www.cancer.dk/ungkraeft/",
+          "url": "https://www.cancer.dk/ungkraeft/ungmedkraeft/moed-andre/",
           "lang": "da",
           "ages": "older",
           "age_range": "18-39",
-          "description": "Danish Cancer Society's community for 18-39-year-olds with or after cancer and young relatives: information, meet-ups, personal stories and counselling links.",
+          "description": "Facebook community for 18-39-year-olds with or after cancer, plus monthly network groups led by young volunteers in five Danish cities and youth rooms at hospitals.",
           "logo": "DK-da.svg",
           "confidence": "high",
           "yce_title": "Ung Kræft",
-          "notes": "Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 (HTTP 200; title 'Ung Kræft – fællesskab for unge kræftpatienter og pårørende'; 'ingen unge kræftpatienter, pårørende og efterlevende i alderen 18-39 år skal stå alene med kræft'). English page https://www.cancer.dk/ungkraeft/ungmedkraeft/engelsk-side/ (HTTP 200). Same as the current portal entry. No Ung Kræft logo file on the page; the existing DK-da.svg (Kræftens Bekæmpelse wordmark extracted from the inline footer SVG) can be kept, hence logo_url null. Earlier (2026-10-20): Verified 2026-10-20 (title 'Ung Kræft - fællesskab for unge kræftpatienter og pårørende'; featured story 1 Nov 2025). Ung Kræft has no separate logo image on the page (the sub-brand header is text only); DK-da.svg is the red Kræftens Bekæmpelse wordmark extracted from the inline SVG in the page footer (viewBox 1580x116), so logo_url is null. The Facebook group 'UNG KRÆFT - UNGE MED OG EFTER KRÆFT' is the nationwide community."
+          "notes": "Peer-support review 2026-11-18: deep link to 'Mød andre unge med og efter kræft'. Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 (HTTP 200; title 'Ung Kræft – fællesskab for unge kræftpatienter og pårørende'; 'ingen unge kræftpatienter, pårørende og efterlevende i alderen 18-39 år skal stå alene med kræft'). English page https://www.cancer.dk/ungkraeft/ungmedkraeft/engelsk-side/ (HTTP 200). Same as the current portal entry. No Ung Kræft logo file on the page; the existing DK-da.svg (Kræftens Bekæmpelse wordmark extracted from the inline footer SVG) can be kept, hence logo_url null. Earlier (2026-10-20): Verified 2026-10-20 (title 'Ung Kræft - fællesskab for unge kræftpatienter og pårørende'; featured story 1 Nov 2025). Ung Kræft has no separate logo image on the page (the sub-brand header is text only); DK-da.svg is the red Kræftens Bekæmpelse wordmark extracted from the inline SVG in the page footer (viewBox 1580x116), so logo_url is null. The Facebook group 'UNG KRÆFT - UNGE MED OG EFTER KRÆFT' is the nationwide community."
         }
       ]
     },
@@ -197,17 +237,30 @@
       "yce_count": 3,
       "resources": [
         {
+          "name": "Encuentro Nacional de Adolescentes con Cáncer",
+          "organisation": "Federación Española de Familias de Cáncer Infantil",
+          "url": "https://cancerinfantil.org/trabajar-la-autoestima-y-desconectar-de-la-enfermedad-asi-ha-sido-el-encuentro-nacional-de-adolescentes-con-cancer-de-federacion/",
+          "lang": "es",
+          "ages": "younger",
+          "age_range": "14-18",
+          "description": "A ten-day summer gathering each year where 14-18-year-olds from all over Spain who have or had cancer share experiences, do sports and outdoor activities, and support each other.",
+          "logo": "ES-fefci.svg",
+          "confidence": "medium",
+          "yce_title": "Federación Española de Familias de Cáncer Infantil",
+          "notes": "Peer-support review 2026-11-18: report of the 23rd edition (July 2026, ASPANOA, Almudévar: '47 adolescentes de entre 14 y 18 años', 'apoyo mutuo... relaciones entre iguales'); teenagers take part through the regional member associations. Stable but thin alternative: https://cancerinfantil.org/que-hacemos/#ocio (Encuentro Nacional de Adolescentes, Convivencia de Jóvenes, Grupo de supervivientes 18+). Logo: the site's SVG (707x248, transparent, #00B9EE and #002F53)."
+        },
+        {
           "name": "Asociación Española de Adolescentes y Adultos Jóvenes con Cáncer (AAA)",
           "organisation": "Asociación Española de Adolescentes y Adultos Jóvenes con Cáncer (AAA)",
           "url": "https://aaacancer.org/",
           "lang": "es",
-          "ages": "all",
+          "ages": "older",
           "age_range": null,
-          "description": "Spanish association of adolescents and young adults with cancer: a welcome kit for newly diagnosed young patients, talks in schools and volunteering.",
+          "description": "Association that began as a meeting group where young people with cancer share experiences; former patients welcome newly diagnosed teenagers and young adults in Madrid hospitals.",
           "logo": "ES-aaa.png",
           "confidence": "medium",
           "yce_title": "Spanish Association of Adolescents and Young Adults with Cancer",
-          "notes": "Youth Cancer Europe cross-reference 2026-11-17; chosen over the two FEFCI programmes because it is the AYA association itself (the age of its website does not matter, as the maintainers decided). Fetched 2026-11-17 (HTTP 200). The only AYA-specific organisation among Spain's YCE entries, but its site is dormant: HTTP Last-Modified 27 Apr 2021, newest dated content Nov 2019 (Telemadrid report) plus an undated COVID-era '#hazmeunhueco' challenge; the 2019 board change is the latest organisational news. Founded Nov 2011 at Hospital Niño Jesús out of the Fundación Iñaki Nogueroles (2010). Projects: 'El Kit de la Cuestión' (kit handed to newly diagnosed adolescents and young adults by ex-patients, 4 Madrid hospitals), 'Corre la Voz' (talks in secondary schools and universities), volunteering. Ages: no range stated ('adolescentes y adultos jóvenes'); the 'Por qué se crea' page cites 15-25 and 15-30 epidemiology, board members were diagnosed at 18 and 25 - classified 'all'. Not shown because the FEFCI programmes are active in 2026 and cover the same group. RELATION TO THE CURRENT ES CARD (Fundación Caíco, adolescentesyjovenesconcancer.com): a different legal entity. The Caíco site's legal notice names Fundación Caíco (CIF G84587328, Madrid foundations register) as owner, and the welcome message by Dr Luis Madero says the site was 'financiado por la Fundación Caíco' and written mainly by the Niño Jesús oncology service - AAA is not mentioned. They are closely linked, though: AAA's menu item 'Adolescentes y jóvenes' links to adolescentesyjovenesconcancer.com, the Caíco site reuses AAA's social-media accounts (X @JovenesCancer, Instagram jovenescancer, vimeo.com/aaacancer, a YouTube channel named after AAA), AAA's kit includes Fundación Caíco information, and AAA's secretary Cristina Langa and YCE ambassador Andrea Ruano appear among its testimonials. If the maintainers accept the Caíco site as AAA's current youth resource, this entry (ages 'all') with url https://adolescentesyjovenesconcancer.com/ would replace the two FEFCI cards; strictly, Fundación Caíco itself is not on the YCE list. Logo: 480x80 PNG on an opaque white background."
+          "notes": "Peer-support review 2026-11-18: ages set to older so that FEFCI's national teenagers' gathering can be shown beside it; site dormant (last modified 27 Apr 2021, newest content Nov 2019) but still the only association specifically for AYAs. Youth Cancer Europe cross-reference 2026-11-17; chosen over the two FEFCI programmes because it is the AYA association itself (the age of its website does not matter, as the maintainers decided). Fetched 2026-11-17 (HTTP 200). The only AYA-specific organisation among Spain's YCE entries, but its site is dormant: HTTP Last-Modified 27 Apr 2021, newest dated content Nov 2019 (Telemadrid report) plus an undated COVID-era '#hazmeunhueco' challenge; the 2019 board change is the latest organisational news. Founded Nov 2011 at Hospital Niño Jesús out of the Fundación Iñaki Nogueroles (2010). Projects: 'El Kit de la Cuestión' (kit handed to newly diagnosed adolescents and young adults by ex-patients, 4 Madrid hospitals), 'Corre la Voz' (talks in secondary schools and universities), volunteering. Ages: no range stated ('adolescentes y adultos jóvenes'); the 'Por qué se crea' page cites 15-25 and 15-30 epidemiology, board members were diagnosed at 18 and 25 - classified 'all'. Not shown because the FEFCI programmes are active in 2026 and cover the same group. RELATION TO THE CURRENT ES CARD (Fundación Caíco, adolescentesyjovenesconcancer.com): a different legal entity. The Caíco site's legal notice names Fundación Caíco (CIF G84587328, Madrid foundations register) as owner, and the welcome message by Dr Luis Madero says the site was 'financiado por la Fundación Caíco' and written mainly by the Niño Jesús oncology service - AAA is not mentioned. They are closely linked, though: AAA's menu item 'Adolescentes y jóvenes' links to adolescentesyjovenesconcancer.com, the Caíco site reuses AAA's social-media accounts (X @JovenesCancer, Instagram jovenescancer, vimeo.com/aaacancer, a YouTube channel named after AAA), AAA's kit includes Fundación Caíco information, and AAA's secretary Cristina Langa and YCE ambassador Andrea Ruano appear among its testimonials. If the maintainers accept the Caíco site as AAA's current youth resource, this entry (ages 'all') with url https://adolescentesyjovenesconcancer.com/ would replace the two FEFCI cards; strictly, Fundación Caíco itself is not on the YCE list. Logo: 480x80 PNG on an opaque white background."
         }
       ]
     },
@@ -216,30 +269,17 @@
       "yce_count": 2,
       "resources": [
         {
-          "name": "Nuorelle",
-          "organisation": "Sylva ry",
-          "url": "https://www.sylva.fi/tietoa-ja-tukea/nuorelle/",
-          "lang": "fi",
-          "ages": "younger",
-          "age_range": null,
-          "description": "Sylva's section for teenagers with cancer: free conversation support with therapists, peer stories and videos, and information to share with friends.",
-          "logo": "FI-fi.svg",
-          "confidence": "medium",
-          "yce_title": "Sylva",
-          "notes": "Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 (HTTP 200; title 'Syöpää sairastaville nuorille - Sylva ry'). No age range stated. Classified 'younger' because Sylva splits its services into Lapsiperheelle (families with children), Nuorelle (young people) and Nuorelle aikuiselle (young adults, 18-35 per its events), so this section covers teenagers under 18; its stories mention diagnosis at 15 and school life. Offers: free therapeutic conversation support (shared with young adults), peer stories, videos and podcasts, information for friends; a story mentions Sylva's weekend course. No teen events were listed on 17 Nov 2026, so it is less active than the young-adult section."
-        },
-        {
           "name": "Nuorelle aikuiselle",
           "organisation": "Sylva ry",
-          "url": "https://www.sylva.fi/tietoa-ja-tukea/nuorelle-aikuiselle/",
+          "url": "https://www.sylva.fi/tietoa-ja-tukea/nuorelle-aikuiselle/tapahtumat-ja-toiminta/",
           "lang": "fi",
           "ages": "older",
           "age_range": "18-35",
-          "description": "Sylva, Finland's cancer association for children and young people, offers 18-35-year-olds peer support, VOIMA weekends, events, everyday help and information.",
+          "description": "Meet other 18-35-year-olds with cancer at informal coffee meet-ups in several cities and on weekend courses, or ask for a trained volunteer peer supporter who had cancer.",
           "logo": "FI-fi.svg",
           "confidence": "high",
           "yce_title": "Sylva",
-          "notes": "Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 (HTTP 200; title 'Syöpää sairastavalle nuorelle aikuiselle - Sylva ry'). Age evidence on https://www.sylva.fi/tietoa-ja-tukea/nuorelle-aikuiselle/tapahtumat-ja-toiminta/: VOIMA weekend 'tarkoitettu 18-35 -vuotiaille', Fuck Cancer coffees 'kaikille 18—35-vuotiaille'; VOIMA online course autumn 2026 'Kohderyhmä: 18–35 vuotiaat' (Mondays 26 Oct - 7 Dec 2026); FC coffees in Oulu, Tampere and Turku in autumn 2026. Sylva is the national organisation for children, young people and young adults with cancer. Raised from 'medium' (2026-10-20) to 'high' because the age range and current events are now confirmed. Finnish only (no Swedish or English version). Logo: blue SVG (126x62 viewBox, #00A8B8); white variant https://www.sylva.fi/uploads/sites/1/2021/04/f3c2e613-logo_valkoinen.svg. Earlier (2026-10-20): Verified 2026-10-20 (title 'Syöpää sairastavalle nuorelle aikuiselle - Sylva ry'; VOIMA weekend for 18-35-year-olds 2-4 Oct 2026). Sylva is a national organisation for children AND young people with cancer, with an explicit young-adult (18-35) programme, which qualifies under the brief's rule for paediatric organisations with a clear young-adult programme. The section page itself does not state the age range (the events do), hence 'medium'. Finnish only - see the separate sv entry."
+          "notes": "Peer-support review 2026-11-18: deep link to the events and activities of young adults ('kaikille 18-35-vuotiaille'). The teenagers' page 'Nuorelle' was removed: stories and one-to-one talks with professionals, not peer support (Sylva's peer support is for parents and young adults). Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 (HTTP 200; title 'Syöpää sairastavalle nuorelle aikuiselle - Sylva ry'). Age evidence on https://www.sylva.fi/tietoa-ja-tukea/nuorelle-aikuiselle/tapahtumat-ja-toiminta/: VOIMA weekend 'tarkoitettu 18-35 -vuotiaille', Fuck Cancer coffees 'kaikille 18—35-vuotiaille'; VOIMA online course autumn 2026 'Kohderyhmä: 18–35 vuotiaat' (Mondays 26 Oct - 7 Dec 2026); FC coffees in Oulu, Tampere and Turku in autumn 2026. Sylva is the national organisation for children, young people and young adults with cancer. Raised from 'medium' (2026-10-20) to 'high' because the age range and current events are now confirmed. Finnish only (no Swedish or English version). Logo: blue SVG (126x62 viewBox, #00A8B8); white variant https://www.sylva.fi/uploads/sites/1/2021/04/f3c2e613-logo_valkoinen.svg. Earlier (2026-10-20): Verified 2026-10-20 (title 'Syöpää sairastavalle nuorelle aikuiselle - Sylva ry'; VOIMA weekend for 18-35-year-olds 2-4 Oct 2026). Sylva is a national organisation for children AND young people with cancer, with an explicit young-adult (18-35) programme, which qualifies under the brief's rule for paediatric organisations with a clear young-adult programme. The section page itself does not state the age range (the events do), hence 'medium'. Finnish only - see the separate sv entry."
         }
       ]
     },
@@ -250,15 +290,15 @@
         {
           "name": "On est là",
           "organisation": "Association On est là",
-          "url": "https://asso-onestla.fr/",
+          "url": "https://asso-onestla.fr/antennes",
           "lang": "fr",
           "ages": "all",
           "age_range": "13-30",
-          "description": "French youth association for young people with or after cancer: talk groups with a psychologist then pizza, buddying with former patients, outings and events.",
+          "description": "Talk groups in several French cities for young people in or after cancer treatment (a psychologist, then pizza), buddying with former patients, outings and a Discord community.",
           "logo": "FR-onestla.webp",
           "confidence": "medium",
           "yce_title": "On Est Là",
-          "notes": "Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 with a browser User-Agent (HTTP 200). Meta description: 'réunit les jeunes face aux cancer via des groupes de parole conviviaux, ou de parrainage entre ancien et malade actuel'. Ages: Bordeaux antenna 'tous les jeunes entre 13 et 30 ans en traitement ou en rémission'; Lille 'jeunes adultes âgés de 18 à 30 ans'; 'L'association' calls it 'une association pour les adolescents atteints du cancer'. Antennas: Paris (Institut Curie, Gustave Roussy AJA unit), Lyon (Centre Léon Bérard), Bordeaux (Institut Bergonié, CHU Pellegrin), Lille, Marseille, Rouen, Tours. Caveat: newest dated website content is 30 Sep 2024 (10th anniversary, Prix Galien shortlist) and the board shown is 2023-2024, so current activity could not be confirmed from the site (it points to Instagram, Facebook and a Discord launched 2023) - hence 'medium'. Logo: green wordmark WebP 400x150 on transparent (a 150x150 round icon /img/logo-la.webp also exists); no SVG/PNG found."
+          "notes": "Peer-support review 2026-11-18: deep link to the city groups page (talk groups per city with ages, e.g. Bordeaux 13-30, Lille 18-30); newest dated web content Sep 2024, but its Discord community is active (220 members). Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 with a browser User-Agent (HTTP 200). Meta description: 'réunit les jeunes face aux cancer via des groupes de parole conviviaux, ou de parrainage entre ancien et malade actuel'. Ages: Bordeaux antenna 'tous les jeunes entre 13 et 30 ans en traitement ou en rémission'; Lille 'jeunes adultes âgés de 18 à 30 ans'; 'L'association' calls it 'une association pour les adolescents atteints du cancer'. Antennas: Paris (Institut Curie, Gustave Roussy AJA unit), Lyon (Centre Léon Bérard), Bordeaux (Institut Bergonié, CHU Pellegrin), Lille, Marseille, Rouen, Tours. Caveat: newest dated website content is 30 Sep 2024 (10th anniversary, Prix Galien shortlist) and the board shown is 2023-2024, so current activity could not be confirmed from the site (it points to Instagram, Facebook and a Discord launched 2023) - hence 'medium'. Logo: green wordmark WebP 400x150 on transparent (a 150x150 round icon /img/logo-la.webp also exists); no SVG/PNG found."
         }
       ]
     },
@@ -269,16 +309,16 @@
         {
           "name": "Shine Cancer Support",
           "organisation": "Shine Cancer Support",
-          "url": "https://shinecancersupport.org/",
+          "url": "https://shinecancersupport.org/connect-with-others/",
           "lang": "en",
           "ages": "older",
           "age_range": null,
-          "description": "UK charity for adults in their 20s, 30s and 40s with cancer: online support programmes, local Shine Networks, meet-ups, a yearly conference and resources.",
+          "description": "Monthly meet-ups across the UK run by volunteers who had cancer, for people in their 20s, 30s and 40s, plus online chats, Facebook groups and small online group programmes.",
           "logo": "GB-shine.png",
           "logo_background": "#2d2d2d",
           "confidence": "high",
           "yce_title": "Shine Cancer Support",
-          "notes": "Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 with a browser User-Agent (HTTP 200). About page: 'Shine Cancer Support is a UK charity supporting adults in their 20s, 30s and 40s who have been diagnosed with cancer'; homepage 'In your 20s, 30s, or 40s with cancer? You're in the right place.' Patient-led since 2008; programmes Break Out, Circles (incurable cancer), Reset (ages 20-28), Plus Ones; Shine Networks, Diversity, LGBTQI+ and chronic-cancer groups; Shine Connect conference; Shake Up Max event 29-30 Jan 2027 listed. Age 20s-40s: starts after 18 so 'older', though it runs to 49 (wider than 39). Logo: header PNG 450x170 is WHITE on transparent (checked in memory) -> needs a dark background; a coloured alternative is the orange square site icon https://shinecancersupport.org/wp-content/uploads/2025/02/cropped-shine-orange-justgiving-2-270x270.png. No YCE-listed UK organisation serves teenagers (Teenage Cancer Trust, the current card, is not on the YCE list)."
+          "notes": "Peer-support review 2026-11-18: deep link to 'Connect with others', which gathers its peer offers (alternative: /networks/). No teenagers' partner on YCE's list: Alike is now an 18+ app for anyone with cancer, Trekstock is exercise and wellbeing for people in their 20s-40s, OUTpatients is LGBTIQ+ for all ages. Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 with a browser User-Agent (HTTP 200). About page: 'Shine Cancer Support is a UK charity supporting adults in their 20s, 30s and 40s who have been diagnosed with cancer'; homepage 'In your 20s, 30s, or 40s with cancer? You're in the right place.' Patient-led since 2008; programmes Break Out, Circles (incurable cancer), Reset (ages 20-28), Plus Ones; Shine Networks, Diversity, LGBTQI+ and chronic-cancer groups; Shine Connect conference; Shake Up Max event 29-30 Jan 2027 listed. Age 20s-40s: starts after 18 so 'older', though it runs to 49 (wider than 39). Logo: header PNG 450x170 is WHITE on transparent (checked in memory) -> needs a dark background; a coloured alternative is the orange square site icon https://shinecancersupport.org/wp-content/uploads/2025/02/cropped-shine-orange-justgiving-2-270x270.png. No YCE-listed UK organisation serves teenagers (Teenage Cancer Trust, the current card, is not on the YCE list)."
         }
       ]
     },
@@ -297,7 +337,7 @@
           "logo": "GR-el.png",
           "confidence": "medium",
           "yce_title": "Kyttaro",
-          "notes": "Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 (HTTP 200, html lang el). Founded and run by 'νέα άτομα που έχουν αποθεραπευτεί από καρκίνο κατά τη διάρκεια της παιδικής ή εφηβικής ηλικίας'; aim: 'να βελτιώσουμε την ποιότητα ζωής των νέων ατόμων που έχουν αποθεραπευτεί ή νοσούν από καρκίνο' (support network for young survivors, people currently ill and their families; information events and seminars, bone-marrow donor drives, hospital visits). Board members were diagnosed at ages 2-15 and are now students/young professionals. Ages: no range stated; members are young adults treated as children or teenagers, while support also reaches those currently in treatment - classified 'all'. Caveats: newest post still 28 Jul 2025 (no news for over a year); the homepage still shows Lorem-ipsum placeholder testimonials; Greek only; not a service for people first diagnosed at 18-39. Logo: 414x199 PNG, transparent, dark. Earlier (2026-10-20): Pan-Hellenic survivors' association founded and run by people who had cancer in childhood or adolescence (board members diagnosed at ages 2-15); offers information events, seminars, awareness of late effects, hospital visits and volunteering. It is the closest to an AYA-specific organisation in Greece but is not a service for people diagnosed at 18-39. Site in Greek only; newest post 28 July 2025. YARN associated partner. Logo: 414x199 PNG (RGBA) from the site header."
+          "notes": "Peer-support review 2026-11-18: kept: run by young people who had cancer as children or teens, the stronger peer network. Karkinaki is mainly a parents' and family organisation; its new 'Next Chapter' online meetings for young people (only in a PDF guide of 13 Nov 2026) are moderated psychoeducation; not shown. Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 (HTTP 200, html lang el). Founded and run by 'νέα άτομα που έχουν αποθεραπευτεί από καρκίνο κατά τη διάρκεια της παιδικής ή εφηβικής ηλικίας'; aim: 'να βελτιώσουμε την ποιότητα ζωής των νέων ατόμων που έχουν αποθεραπευτεί ή νοσούν από καρκίνο' (support network for young survivors, people currently ill and their families; information events and seminars, bone-marrow donor drives, hospital visits). Board members were diagnosed at ages 2-15 and are now students/young professionals. Ages: no range stated; members are young adults treated as children or teenagers, while support also reaches those currently in treatment - classified 'all'. Caveats: newest post still 28 Jul 2025 (no news for over a year); the homepage still shows Lorem-ipsum placeholder testimonials; Greek only; not a service for people first diagnosed at 18-39. Logo: 414x199 PNG, transparent, dark. Earlier (2026-10-20): Pan-Hellenic survivors' association founded and run by people who had cancer in childhood or adolescence (board members diagnosed at ages 2-15); offers information events, seminars, awareness of late effects, hospital visits and volunteering. It is the closest to an AYA-specific organisation in Greece but is not a service for people diagnosed at 18-39. Site in Greek only; newest post 28 July 2025. YARN associated partner. Logo: 414x199 PNG (RGBA) from the site header."
         }
       ]
     },
@@ -316,7 +356,7 @@
           "logo": "HR-hr.png",
           "confidence": "medium",
           "yce_title": "Association Krijesnica",
-          "notes": "Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 (HTTP 200, html lang hr; site active: monthly plan images for Oct and Nov 2026). Programme page of the national children's cancer association: 'Skupina koja okuplja mlade osobe koje su preboljele malignu bolest tijekom djetinjstva ili rane odrasle dobi'; join criteria include 'imaš više od 16. godina'. Offers monthly meetups, skills programmes, advocacy, volunteering/mentoring, trips and camps, personal psychological support. Ages: 16+ with no upper limit, so 'all'. Caveat: for survivors (after treatment), not people currently in treatment; page undated. Related page: https://krijesnica.hr/susreti-mladih-krijesnice/. Logo: horizontal SVG wrapping an embedded 2324x1032 PNG (dark text, yellow/white firefly emblem, transparent background) - fine on light backgrounds; the 2026-10 research used a 400x283 PNG instead. Earlier (2026-10-20): Krijesnica is a children-and-families cancer association (Zagreb, national scope, YARN associated partner, CCI member); the 'Kutak za mlade Krijesnice' section is a dedicated programme for members over 16 who were treated for a malignant disease in childhood or early adulthood ('tijekom djetinjstva ili rane odrasle dobi'). The programme page is undated but the site is active (posts dated Oct 2026). Site in Croatian only. Logo is the association's logo (400x283 PNG, palette), not a separate youth-group mark."
+          "notes": "Peer-support review 2026-11-18: kept: clearly peer support: monthly meetups, trips, camps and mentoring for members aged 16+. Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 (HTTP 200, html lang hr; site active: monthly plan images for Oct and Nov 2026). Programme page of the national children's cancer association: 'Skupina koja okuplja mlade osobe koje su preboljele malignu bolest tijekom djetinjstva ili rane odrasle dobi'; join criteria include 'imaš više od 16. godina'. Offers monthly meetups, skills programmes, advocacy, volunteering/mentoring, trips and camps, personal psychological support. Ages: 16+ with no upper limit, so 'all'. Caveat: for survivors (after treatment), not people currently in treatment; page undated. Related page: https://krijesnica.hr/susreti-mladih-krijesnice/. Logo: horizontal SVG wrapping an embedded 2324x1032 PNG (dark text, yellow/white firefly emblem, transparent background) - fine on light backgrounds; the 2026-10 research used a 400x283 PNG instead. Earlier (2026-10-20): Krijesnica is a children-and-families cancer association (Zagreb, national scope, YARN associated partner, CCI member); the 'Kutak za mlade Krijesnice' section is a dedicated programme for members over 16 who were treated for a malignant disease in childhood or early adulthood ('tijekom djetinjstva ili rane odrasle dobi'). The programme page is undated but the site is active (posts dated Oct 2026). Site in Croatian only. Logo is the association's logo (400x283 PNG, palette), not a separate youth-group mark."
         }
       ]
     },
@@ -335,7 +375,7 @@
           "logo": "HU-erintettek.png",
           "confidence": "medium",
           "yce_title": "Érintettek Parents' Association",
-          "notes": "Youth Cancer Europe cross-reference 2026-11-17; shown at the maintainers' request although it is a parents' association (the card always links to YCE's community page as well). Verified 2026-11-17 (HTTP 200, html lang hu; news 4 Oct, 28 Oct and 15 Nov 2026 - the association turns 10 in Dec 2026). Érintettek is a parents' association for childhood cancer (YCE title says so), but it is not parents-only: founders include 'gyógyult fiatalok' (young survivors), and the English page describes a survivorship section 'designed for parents, survivors and anyone interested' with 'opportunities to connect with other survivors' plus survivor events ('occasions to meet, have fun, share experiences'). The section links the booklet 'Az élet újra indul' written to young survivors in the second person ('Ez a könyv, segítség számodra'), PanCare plain-language guidelines, late-effects pages and stories. Ages: none stated; survivors of childhood cancer of any age - classified 'all'. Caveats: borderline fit (main audience families of children in treatment; nothing for people first diagnosed as adults); the YCE URL https://www.erintettek.hu/hu/ redirects (301) to a 2020 blog post, so use erintettek.hu. The 2026-10 research rated it 'low' and Hungary was dropped; under the YCE-only rule it is the sole Hungarian option. Logo: 187x71 PNG, transparent, dark."
+          "notes": "Peer-support review 2026-11-18: kept: no standing youth or survivor peer group (occasional: a 'LifeForward Brunch' for survivors 18+ in April 2025, family outings); Érintettek is the only YCE organisation for Hungary. Youth Cancer Europe cross-reference 2026-11-17; shown at the maintainers' request although it is a parents' association (the card always links to YCE's community page as well). Verified 2026-11-17 (HTTP 200, html lang hu; news 4 Oct, 28 Oct and 15 Nov 2026 - the association turns 10 in Dec 2026). Érintettek is a parents' association for childhood cancer (YCE title says so), but it is not parents-only: founders include 'gyógyult fiatalok' (young survivors), and the English page describes a survivorship section 'designed for parents, survivors and anyone interested' with 'opportunities to connect with other survivors' plus survivor events ('occasions to meet, have fun, share experiences'). The section links the booklet 'Az élet újra indul' written to young survivors in the second person ('Ez a könyv, segítség számodra'), PanCare plain-language guidelines, late-effects pages and stories. Ages: none stated; survivors of childhood cancer of any age - classified 'all'. Caveats: borderline fit (main audience families of children in treatment; nothing for people first diagnosed as adults); the YCE URL https://www.erintettek.hu/hu/ redirects (301) to a 2020 blog post, so use erintettek.hu. The 2026-10 research rated it 'low' and Hungary was dropped; under the YCE-only rule it is the sole Hungarian option. Logo: 187x71 PNG, transparent, dark."
         }
       ]
     },
@@ -350,11 +390,11 @@
           "lang": "en",
           "ages": "younger",
           "age_range": "12-25",
-          "description": "Irish nationwide support group for 12-25-year-olds who have or had cancer: activity weekends away, trips and the chance to meet others who get it.",
+          "description": "Nationwide group where young people who have or had cancer meet on activity weekends away and trips, and help each other; membership is free.",
           "logo": "IE-canteen.png",
           "confidence": "medium",
           "yce_title": "Canteen Ireland",
-          "notes": "Youth Cancer Europe cross-reference 2026-11-17; chosen over the young people's page of Childhood Cancer Ireland because it is the youth peer group itself (the age of its website does not matter, as the maintainers decided). YouCan Ireland (young adults) is left out: its domain does not resolve. Verified 2026-11-17 with a browser User-Agent (HTTP 200). 'CanTeen Ireland is a nationwide support group for young people between the ages of 12 and 25 years who have or have had cancer'; 7-8 activity weekends a year. The organisation is still active (co-hosts the CAYAS conference with Childhood Cancer Ireland, 6th edition 3 Oct 2026 at Croke Park; CCI's young-person page describes it in the present tense), but its website is stale: newest content is the Winter Ball of 16 Nov 2019 and the newest year anywhere on the site is 2019. It is the more youth-focused option (a real peer group); shown as alternative because a young visitor would land on 2019 events. Facebook: https://www.facebook.com/CanTeenIreland. Logo: orange PNG 383x75 on transparent."
+          "notes": "Peer-support review 2026-11-18: kept. YouCan Ireland's domain no longer resolves (dead site); Childhood Cancer Ireland has psychotherapy and one-to-one 'Connecting Champions' mentoring with well-known people, not peer support. Youth Cancer Europe cross-reference 2026-11-17; chosen over the young people's page of Childhood Cancer Ireland because it is the youth peer group itself (the age of its website does not matter, as the maintainers decided). YouCan Ireland (young adults) is left out: its domain does not resolve. Verified 2026-11-17 with a browser User-Agent (HTTP 200). 'CanTeen Ireland is a nationwide support group for young people between the ages of 12 and 25 years who have or have had cancer'; 7-8 activity weekends a year. The organisation is still active (co-hosts the CAYAS conference with Childhood Cancer Ireland, 6th edition 3 Oct 2026 at Croke Park; CCI's young-person page describes it in the present tense), but its website is stale: newest content is the Winter Ball of 16 Nov 2019 and the newest year anywhere on the site is 2019. It is the more youth-focused option (a real peer group); shown as alternative because a young visitor would land on 2019 events. Facebook: https://www.facebook.com/CanTeenIreland. Logo: orange PNG 383x75 on transparent."
         }
       ]
     },
@@ -369,11 +409,11 @@
           "lang": "is",
           "ages": "younger",
           "age_range": "13-18",
-          "description": "Teen group of Börn með krabbamein for 13-18-year-olds who have had cancer, and their siblings: regular meet-ups, outings, ski trips and a Facebook group.",
+          "description": "Teen group for 13-18-year-olds who have had cancer (siblings welcome): regular meet-ups, cinema, bowling, pizza nights, ski and other trips, and a Facebook group.",
           "logo": "IS-bornmedkrabbamein.svg",
           "confidence": "medium",
           "yce_title": "Styrktarfélag krabbameinssjúkra barna",
-          "notes": "Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 (HTTP 200). YCE lists the organisation under its former name Styrktarfélag krabbameinssjúkra barna (SKB); www.skb.is now redirects to https://www.bornmedkrabbamein.is/ ('Börn með krabbamein, styrktarfélag', founded 1991, supports children with cancer and their families). Group page: 'fyrst og fremst krakkar sem hafa greinst með krabbamein og eru á aldrinum 13-18 ára', siblings of the same age welcome; meets regularly (cinema, bowling, pizza, guests, ski and other trips); Facebook page 'USK – Unglingahópur SKB'. The support-groups overview says '13-20 ára' - 'younger' either way. The page is undated, so current activity is not confirmed on the site. Logo: header SVG (324x77 viewBox, blue #256AB3). Kraftur (18-40, the current IS portal entry) is not YCE-listed, so Iceland gets no 'older' card under the YCE-only rule."
+          "notes": "Peer-support review 2026-11-18: kept; no peer group for young adults (the other groups are for parents). Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 (HTTP 200). YCE lists the organisation under its former name Styrktarfélag krabbameinssjúkra barna (SKB); www.skb.is now redirects to https://www.bornmedkrabbamein.is/ ('Börn með krabbamein, styrktarfélag', founded 1991, supports children with cancer and their families). Group page: 'fyrst og fremst krakkar sem hafa greinst með krabbamein og eru á aldrinum 13-18 ára', siblings of the same age welcome; meets regularly (cinema, bowling, pizza, guests, ski and other trips); Facebook page 'USK – Unglingahópur SKB'. The support-groups overview says '13-20 ára' - 'younger' either way. The page is undated, so current activity is not confirmed on the site. Logo: header SVG (324x77 viewBox, blue #256AB3). Kraftur (18-40, the current IS portal entry) is not YCE-listed, so Iceland gets no 'older' card under the YCE-only rule."
         }
       ]
     },
@@ -392,7 +432,26 @@
           "logo": "RO-ro.png",
           "confidence": "medium",
           "yce_title": "Association Little People Moldova",
-          "notes": "Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 (curl, browser UA): page HTTP 200; same page and logo as the RO card. YCE's Moldova entry points to the Romanian site (https://www.thelittlepeople.ro/), which has no Moldova-specific page. Little People runs its psychosocial programme in the paediatric haematology and oncology wards of the Institutul Oncologic Chișinău ('Ce facem' page) and lists a Chișinău office at Str. Nicolae Testemițanu 30 (contact page). The Temerarii page: annual camp and Christmas gala 'întrunesc peste 130 de tineri din toată țara, la care se adaugă grupuri mici de participanți din Republica Moldova, Cehia sau Polonia'. Age: 'peste 300 de tineri cu vîrste cuprinse între 14 și 29 de ani' ('Ce facem' page) -> 'all'. Active: 'Așa a fost în Tabăra Temerarii 2026' (28 Oct 2026) and 'Gala de Crăciun Temerarii 2026' (3 Nov 2026). Medium because the club is Romanian with Moldovans as guest participants, and members were treated in paediatric oncology. Romanian is Moldova's official language; the site's Russian version (/ru/) is a thin, machine-like translation without a Temerarii page. Logo: 140x73 transparent PNG, red; no larger version found."
+          "notes": "Peer-support review 2026-11-18: kept: survivor-run community, 300+ members aged 14-29: outings, summer camp, Christmas gala. Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 (curl, browser UA): page HTTP 200; same page and logo as the RO card. YCE's Moldova entry points to the Romanian site (https://www.thelittlepeople.ro/), which has no Moldova-specific page. Little People runs its psychosocial programme in the paediatric haematology and oncology wards of the Institutul Oncologic Chișinău ('Ce facem' page) and lists a Chișinău office at Str. Nicolae Testemițanu 30 (contact page). The Temerarii page: annual camp and Christmas gala 'întrunesc peste 130 de tineri din toată țara, la care se adaugă grupuri mici de participanți din Republica Moldova, Cehia sau Polonia'. Age: 'peste 300 de tineri cu vîrste cuprinse între 14 și 29 de ani' ('Ce facem' page) -> 'all'. Active: 'Așa a fost în Tabăra Temerarii 2026' (28 Oct 2026) and 'Gala de Crăciun Temerarii 2026' (3 Nov 2026). Medium because the club is Romanian with Moldovans as guest participants, and members were treated in paediatric oncology. Romanian is Moldova's official language; the site's Russian version (/ru/) is a thin, machine-like translation without a Temerarii page. Logo: 140x73 transparent PNG, red; no larger version found."
+        }
+      ]
+    },
+    "ME": {
+      "country": "Montenegro",
+      "yce_count": 1,
+      "resources": [
+        {
+          "name": "MladiCe Crne Gore",
+          "organisation": "NVO „Fenix“ Crna Gora",
+          "url": "https://fenixnvo.me/category/mladice/",
+          "lang": "sr",
+          "ages": "all",
+          "age_range": null,
+          "description": "Network of young people in Montenegro who were treated for cancer as children: conventions with young survivors from the region, workshops and an online peer platform.",
+          "logo": "ME-fenix.png",
+          "confidence": "medium",
+          "yce_title": "Fenix Montenegro",
+          "notes": "Peer-support review 2026-11-18: Fenix is a parents' association that runs 'MladiCe Crne Gore', a network of 'mladi koji su u djetinjstvu liječeni od raka' (no ages stated). Regional MladiCe conventions 2017, 2019, 2021 and 26-28 Sep 2025; EU-funded 'Empowered for the Future' project (2025) for young survivors in the Western Balkans, including an online platform. Site alive (posts up to 30 Sep 2025). Page declares sr-RS; text is Montenegrin in Latin script. Logo: the site's SVG (706 KB, traced) rasterised to a 584x240 transparent PNG."
         }
       ]
     },
@@ -407,24 +466,24 @@
           "lang": "nl",
           "ages": "younger",
           "age_range": null,
-          "description": "Youth platform LEF of the Dutch childhood cancer association for children and teens with cancer: camps, outings, a buddy programme and peer contact.",
+          "description": "Youth platform of the Dutch childhood cancer association: camps for 13-17-year-olds, a buddy programme with young survivors, and outings to meet others who get it.",
           "logo": "NL-vkn.webp",
           "confidence": "medium",
           "yce_title": "Vereniging Kinderkanker Nederland",
-          "notes": "Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 with a browser User-Agent (HTTP 200). Page 'Kinderen en jongeren': 'Heb jij kanker (gehad)? ... Je vindt bij ons jongerenplatform LEF activiteiten die we speciaal voor jou organiseren, zoals kampen met andere kinderen en jongeren'; LEF Instagram @lef_jong_en_kanker. No single age range stated: the buddy programme is for 8-18, the agenda lists 'Kamp 13 t/m 17 jaar' (2 Apr 2027), and the association covers cancer diagnosed at 0-18 (Prinses Máxima Centrum). Classified 'younger' because everything ends at 18. Caveat: the page addresses children as well as teenagers (some text is child-level), hence 'medium'; it is the only YCE-listed Dutch offer for under-18s, who are treated at the Prinses Máxima Centrum rather than in adult AYA care. Logo is WebP only (250x147, green on transparent); no SVG/PNG found."
+          "notes": "Peer-support review 2026-11-18: kept: still the only organisation on YCE's Dutch list with a peer offer for under-18s (buddy programme 8-18, 'Kamp 13 t/m 17 jaar' 2-4 Apr 2027). The page's 'activiteiten' link goes to a staging domain (404). Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 with a browser User-Agent (HTTP 200). Page 'Kinderen en jongeren': 'Heb jij kanker (gehad)? ... Je vindt bij ons jongerenplatform LEF activiteiten die we speciaal voor jou organiseren, zoals kampen met andere kinderen en jongeren'; LEF Instagram @lef_jong_en_kanker. No single age range stated: the buddy programme is for 8-18, the agenda lists 'Kamp 13 t/m 17 jaar' (2 Apr 2027), and the association covers cancer diagnosed at 0-18 (Prinses Máxima Centrum). Classified 'younger' because everything ends at 18. Caveat: the page addresses children as well as teenagers (some text is child-level), hence 'medium'; it is the only YCE-listed Dutch offer for under-18s, who are treated at the Prinses Máxima Centrum rather than in adult AYA care. Logo is WebP only (250x147, green on transparent); no SVG/PNG found."
         },
         {
           "name": "Stichting Jongeren en Kanker",
           "organisation": "Stichting Jongeren en Kanker (SJK)",
-          "url": "https://jongerenenkanker.nl/",
+          "url": "https://jongerenenkanker.nl/activiteiten/",
           "lang": "nl",
           "ages": "older",
           "age_range": "18-39",
-          "description": "Dutch patient foundation for 18-39-year-olds with or after cancer: meet-ups, weekends away, workshops, peer contact, personal stories and advocacy.",
+          "description": "Meet-ups, day trips and weekends away for 18-39-year-olds with or after cancer, organised by volunteers who had cancer themselves, all over the Netherlands.",
           "logo": "NL-sjk.png",
           "confidence": "high",
           "yce_title": "Stichting Jongeren en Kanker",
-          "notes": "Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 with a browser User-Agent (HTTP 200). www.jongerenenkanker.nl (the YCE URL) redirects to jongerenenkanker.nl. Homepage: 'SJK is er voor jongvolwassenen tussen de 18 en 39 jaar die kanker hebben (gehad).' Activity calendar with dated events: Efteling midweek 18/25 Nov 2026, Amsterdam 5 Dec, Leiderdorp 19 Dec 2026, weekends Jan, Feb and Apr 2027. SJK calls itself 'de lotgenotenorganisatie voor en door jongeren met kanker'; AYA Zorg Nederland's peer page calls SJK 'de belangrijkste organisatie die speciaal bedoeld is voor jou en andere AYA's'; Vereniging Kinderkanker Nederland sends its 16-40 survivors to SJK's events. SJK is also a partner of kanker.nl/jong. Logo: dark wordmark PNG on transparent background, 1920x685 (checked in memory, not saved)."
+          "notes": "Peer-support review 2026-11-18: kept instead of AYA Zorg Nederland (formerly Nationaal AYA 'Jong & Kanker' Zorgnetwerk; ayazorgnetwerk.nl now redirects to ayazorgnederland.nl), which the maintainer suggested: YCE's descriptions of the two are swapped. SJK's own page (jongerenenkanker.nl/samenwerking-aya-zorgnetwerk-aya-fonds-en-sjk/): 'SJK is de lotgenotenorganisatie voor en door jongeren met kanker'; 'Het AYA Zorgnetwerk is een samenwerkingsverband van ziekenhuizen en zorgverleners'. AYA Zorg Nederland's own peer page (/aya/lotgenoten/) calls SJK 'de belangrijkste organisatie die speciaal bedoeld is voor jou en andere AYA's' and runs no peer activities itself. Deep link to the activities page. Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 with a browser User-Agent (HTTP 200). www.jongerenenkanker.nl (the YCE URL) redirects to jongerenenkanker.nl. Homepage: 'SJK is er voor jongvolwassenen tussen de 18 en 39 jaar die kanker hebben (gehad).' Activity calendar with dated events: Efteling midweek 18/25 Nov 2026, Amsterdam 5 Dec, Leiderdorp 19 Dec 2026, weekends Jan, Feb and Apr 2027. SJK calls itself 'de lotgenotenorganisatie voor en door jongeren met kanker'; AYA Zorg Nederland's peer page calls SJK 'de belangrijkste organisatie die speciaal bedoeld is voor jou en andere AYA's'; Vereniging Kinderkanker Nederland sends its 16-40 survivors to SJK's events. SJK is also a partner of kanker.nl/jong. Logo: dark wordmark PNG on transparent background, 1920x685 (checked in memory, not saved)."
         }
       ]
     },
@@ -435,15 +494,15 @@
         {
           "name": "Ung Kreft",
           "organisation": "Ung Kreft",
-          "url": "https://ungkreft.no/",
+          "url": "https://ungkreft.no/ung-og-kreftrammet",
           "lang": "no",
           "ages": "all",
           "age_range": "15-35",
-          "description": "Norwegian organisation for people aged 15-35 with cancer and young relatives: peer supporters, regional groups, events, Ung Kreft-rommet community and stories.",
+          "description": "Talk with a volunteer aged 15-35 who has been through cancer too, meet others in local county groups and at Ung Kreft-rommet in Oslo, or join the Facebook group.",
           "logo": "NO-no.svg",
           "confidence": "high",
           "yce_title": "Ung Kreft",
-          "notes": "Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 (HTTP 200). Ung Kreft-rommet 'er åpent for alle mellom 15 og 35 år'; 'Er du mellom 15-35 og har blitt rammet av kreft?'; events dated 12 Nov - 6 Dec 2026; likepersoner (peer supporters) offered. Same as the current portal entry. Logo: ungkreft-dark.svg (144x31 viewBox, orange #EE805B); white variant at https://ungkreft.no/images/general/logo/ungkreft-white.svg. Language code 'no' (Bokmål) as in the current entry. Earlier (2026-10-20): Verified 2026-10-20 (events through 26 Oct 2026, news June 2026). Established independent AYA organisation with county groups across Norway. A white logo variant exists at /images/general/logo/ungkreft-white.svg. Language code 'no' (Bokmål)."
+          "notes": "Peer-support review 2026-11-18: deep link to the page for young people with cancer (county groups, Ung Kreft-rommet in Oslo, peer contacts, Facebook group). Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 (HTTP 200). Ung Kreft-rommet 'er åpent for alle mellom 15 og 35 år'; 'Er du mellom 15-35 og har blitt rammet av kreft?'; events dated 12 Nov - 6 Dec 2026; likepersoner (peer supporters) offered. Same as the current portal entry. Logo: ungkreft-dark.svg (144x31 viewBox, orange #EE805B); white variant at https://ungkreft.no/images/general/logo/ungkreft-white.svg. Language code 'no' (Bokmål) as in the current entry. Earlier (2026-10-20): Verified 2026-10-20 (events through 26 Oct 2026, news June 2026). Established independent AYA organisation with county groups across Norway. A white logo variant exists at /images/general/logo/ungkreft-white.svg. Language code 'no' (Bokmål)."
         }
       ]
     },
@@ -454,15 +513,15 @@
         {
           "name": "Fundacja Pani Ani",
           "organisation": "Fundacja Pani Ani",
-          "url": "https://fundacjapaniani.org/",
+          "url": "https://fundacjapaniani.org/#nawigator",
           "lang": "pl",
           "ages": "all",
           "age_range": "15-39",
-          "description": "Peer-led Polish network for teenagers and young adults after cancer: workshops, camps, group sessions, mentoring and advocacy, run by survivors since 2004.",
+          "description": "Survivor-led Polish foundation for 15-39-year-olds after cancer: free online workshops, meetings with other survivors, retreats and one-to-one talks with a psychologist.",
           "logo": "PL-pl.jpg",
           "confidence": "high",
           "yce_title": "Fundacja Pani Ani ",
-          "notes": "Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 with a browser User-Agent (HTTP 200). Single-page site with PL/EN toggle (html lang=pl). 'Wspieramy nastolatków i młodych dorosłych po chorobie nowotworowej'; new project 'AYA Survivorship Nawigator' with the DKMS Foundation: 'Dla osób 15-39 lat, udział bezpłatny' (online workshops, one-to-one psychological consultations, meetings with other survivors, retreat workshops). The page shows both 'Registration is open' and 'Registration for this round is closed' blocks (probably toggled by script), so check before publishing. Founded 2004 in Kraków, EU-CAYAS-NET partner. Caveat: aimed at survivors (after treatment); support during treatment is not described. Logo only as JPEG on white (1244x1134). Earlier (2026-10-20): Single-page site with PL/EN toggle (html lang=pl); HTTP Last-Modified 6 Aug 2026, so actively maintained. Focus is survivors ('nastolatki i młodzi dorośli po chorobie nowotworowej'), no explicit age range, support for people still in treatment not stated. Associated partner of EU-CAYAS-NET; presented 'A'YA?! Polish Network for AYA Survivors' on the YARN platform (June 2024). Facebook: https://www.facebook.com/FundacjaPaniAni. Logo only available as JPEG (1244x1134, white background); og:image is a campaign photo, not a logo."
+          "notes": "Peer-support review 2026-11-18: deep link to the section of its current peer programme 'AYA Survivorship Nawigator' (with DKMS; 'Dla osób 15–39 lat, udział bezpłatny'; registration open on 2026-11-18). If the project ends, use the stable anchor https://fundacjapaniani.org/#academy ('peer-led przestrzeń wsparcia: warsztaty, obozy i grupy'). Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 with a browser User-Agent (HTTP 200). Single-page site with PL/EN toggle (html lang=pl). 'Wspieramy nastolatków i młodych dorosłych po chorobie nowotworowej'; new project 'AYA Survivorship Nawigator' with the DKMS Foundation: 'Dla osób 15-39 lat, udział bezpłatny' (online workshops, one-to-one psychological consultations, meetings with other survivors, retreat workshops). The page shows both 'Registration is open' and 'Registration for this round is closed' blocks (probably toggled by script), so check before publishing. Founded 2004 in Kraków, EU-CAYAS-NET partner. Caveat: aimed at survivors (after treatment); support during treatment is not described. Logo only as JPEG on white (1244x1134). Earlier (2026-10-20): Single-page site with PL/EN toggle (html lang=pl); HTTP Last-Modified 6 Aug 2026, so actively maintained. Focus is survivors ('nastolatki i młodzi dorośli po chorobie nowotworowej'), no explicit age range, support for people still in treatment not stated. Associated partner of EU-CAYAS-NET; presented 'A'YA?! Polish Network for AYA Survivors' on the YARN platform (June 2024). Facebook: https://www.facebook.com/FundacjaPaniAni. Logo only available as JPEG (1244x1134, white background); og:image is a campaign photo, not a logo."
         }
       ]
     },
@@ -477,11 +536,11 @@
           "lang": "pt",
           "ages": "younger",
           "age_range": "12-17",
-          "description": "Acreditar's group for 12-17-year-olds who have or had cancer: regional and national meetings, outings, holiday camps and awareness activities with peers.",
+          "description": "Group for 12-17-year-olds who have or had cancer: regional and national meetings, outings, holiday camps and time with others who get it.",
           "logo": "PT-acreditar.png",
           "confidence": "high",
           "yce_title": "ACREDITAR",
-          "notes": "Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 (HTTP 200; modified 1 Sep 2026). Age evidence: 'Barnabé é o nome que a Acreditar dá a todos nós, com idade entre os 12 e os 17 anos e que temos ou tivemos cancro, com diagnóstico até aos 17 anos.' Offers: regional and national sharing meetings, leisure activities (picnics, cinema, holiday camps, theme parks), awareness actions; join via e-mail, WhatsApp or the form on the page. The earlier research rated this 'low' only because it was then the sole Portuguese option and covers teens; together with JAA, Acreditar now covers both age groups."
+          "notes": "Peer-support review 2026-11-18: kept; link works. Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 (HTTP 200; modified 1 Sep 2026). Age evidence: 'Barnabé é o nome que a Acreditar dá a todos nós, com idade entre os 12 e os 17 anos e que temos ou tivemos cancro, com diagnóstico até aos 17 anos.' Offers: regional and national sharing meetings, leisure activities (picnics, cinema, holiday camps, theme parks), awareness actions; join via e-mail, WhatsApp or the form on the page. The earlier research rated this 'low' only because it was then the sole Portuguese option and covers teens; together with JAA, Acreditar now covers both age groups."
         },
         {
           "name": "Jovens Adultos Acreditar (JAA)",
@@ -490,11 +549,11 @@
           "lang": "pt",
           "ages": "older",
           "age_range": "18+",
-          "description": "Acreditar's community for people aged 18 or over who had cancer up to age 25: meet other young adults, in-person and online meetings, outings, training and advocacy.",
+          "description": "Community for people aged 18 or over who had cancer up to age 25: meetings in person and online, outings and sharing with peers, and a group that speaks up for young patients.",
           "logo": "PT-acreditar.png",
           "confidence": "high",
           "yce_title": "ACREDITAR",
-          "notes": "Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 (HTTP 200, html lang pt-PT; page published 30 Jan 2026, modified 2 Feb 2026). Age evidence: 'JAA - Jovens Adultos Acreditar - todos aqueles com idade igual ao superior a 18 anos que têm ou tiveram cancro, com diagnóstico até aos 25 anos' and 'Se tens ou tiveste cancro, com diagnóstico entre os 18 e 25 anos, junta-te a nós'. So: aged 18+, diagnosed at or before 25 (the two sentences differ on whether childhood diagnoses count). Offers: meet peers, in-person and online meetings, leisure activities, the 'Advocacy Lab' rights group, training, international events; sign-up form on the page. Acreditar is the national parents' association for children and young people with cancer (Lisbon, Coimbra, Porto, Funchal). Logo: current header PNG 789x308, transparent, blue/green/yellow (logo_cores.png 993x355 is the older colour variant used in 2026-10)."
+          "notes": "Peer-support review 2026-11-18: kept; link works. Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 (HTTP 200, html lang pt-PT; page published 30 Jan 2026, modified 2 Feb 2026). Age evidence: 'JAA - Jovens Adultos Acreditar - todos aqueles com idade igual ao superior a 18 anos que têm ou tiveram cancro, com diagnóstico até aos 25 anos' and 'Se tens ou tiveste cancro, com diagnóstico entre os 18 e 25 anos, junta-te a nós'. So: aged 18+, diagnosed at or before 25 (the two sentences differ on whether childhood diagnoses count). Offers: meet peers, in-person and online meetings, leisure activities, the 'Advocacy Lab' rights group, training, international events; sign-up form on the page. Acreditar is the national parents' association for children and young people with cancer (Lisbon, Coimbra, Porto, Funchal). Logo: current header PNG 789x308, transparent, blue/green/yellow (logo_cores.png 993x355 is the older colour variant used in 2026-10)."
         }
       ]
     },
@@ -513,7 +572,7 @@
           "logo": "RO-ro.png",
           "confidence": "high",
           "yce_title": "Little People Romania",
-          "notes": "Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 with a browser User-Agent (HTTP 200). Page title 'Temerarii - Asociația Little People'; 'Clubul Temerarii - comunitatea adolescenților și tinerilor români supraviețuitori de cancer', 300+ members from 85+ localities. Age: 'Ce facem' page says 'peste 300 de tineri cu vîrste cuprinse între 14 și 29 de ani' -> 'all' by the rule (starts below 18, ends above 26). Active: news 5 Nov 2026 'Gala de Crăciun Temerarii 2026', 28 Oct 2026 report on Tabăra Temerarii 2026 (Sinaia, 5-10 July). Caveat: members are mostly survivors treated in paediatric oncology. The YCE URL https://www.thelittlepeople.ro redirects to /en/. Logo: red PNG 140x73 on transparent (same as current RO-ro.png); the header also uses a small grey variant. Earlier (2026-10-20): Members are adolescent and young-adult survivors treated in paediatric oncology (club page: 300+ members from 85+ localities; 'Ce facem' page: ages 14-29; press: 18-35); young adults diagnosed in adult oncology are not the core group. Smaller groups from Moldova, Czechia and Poland join annual events; coordinator listed in Chișinău. Site also has EN (/en/) and RU (/ru/) versions; latest news May 2026 (YARN partner, Temerarii camp 2026 announced). Logo is the 140x73 transparent header PNG – no larger version found on the site."
+          "notes": "Peer-support review 2026-11-18: kept: survivor-run community, 300+ members aged 14-29: outings, summer camp, Christmas gala. Little People's 'Sunt OK!' is therapy, not peer support. Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 with a browser User-Agent (HTTP 200). Page title 'Temerarii - Asociația Little People'; 'Clubul Temerarii - comunitatea adolescenților și tinerilor români supraviețuitori de cancer', 300+ members from 85+ localities. Age: 'Ce facem' page says 'peste 300 de tineri cu vîrste cuprinse între 14 și 29 de ani' -> 'all' by the rule (starts below 18, ends above 26). Active: news 5 Nov 2026 'Gala de Crăciun Temerarii 2026', 28 Oct 2026 report on Tabăra Temerarii 2026 (Sinaia, 5-10 July). Caveat: members are mostly survivors treated in paediatric oncology. The YCE URL https://www.thelittlepeople.ro redirects to /en/. Logo: red PNG 140x73 on transparent (same as current RO-ro.png); the header also uses a small grey variant. Earlier (2026-10-20): Members are adolescent and young-adult survivors treated in paediatric oncology (club page: 300+ members from 85+ localities; 'Ce facem' page: ages 14-29; press: 18-35); young adults diagnosed in adult oncology are not the core group. Smaller groups from Moldova, Czechia and Poland join annual events; coordinator listed in Chișinău. Site also has EN (/en/) and RU (/ru/) versions; latest news May 2026 (YARN partner, Temerarii camp 2026 announced). Logo is the 140x73 transparent header PNG – no larger version found on the site."
         },
         {
           "name": "Youth Cancer Europe",
@@ -547,7 +606,7 @@
           "logo": "RS-sr.png",
           "confidence": "medium",
           "yce_title": "Cika Boca & MladiCe",
-          "notes": "Youth Cancer Europe cross-reference 2026-11-17: Same organisation as the current card: Udruženje Čika Boca (since 2011) runs MladiCe, its network of young people treated for cancer; YCE's 'Cika Boca & MladiCe' is the joint brand. Verified 2026-11-17: the YCE URL https://cikaboca.mladice.org/podrska/ now returns HTTP 404 and the subdomain root HTTP 403; a Wayback snapshot of 9 Sep 2026 shows it was the joint site 'Čika Boca & MladiCe - Podrška mladima suočenim sa rakom' (Čika Boca 'od 2011. bavi psihosocijalnom inkluzijom dece i mladih lečenih od raka - MladiCe'). cikaboca.org, www.cikaboca.org, mladice.org and www.mladice.org all redirect to https://info.mladice.org/ (HTTP 200), whose pages were last modified 24 Sep 2026 (WordPress API) - the organisation has consolidated onto this site, so it is the best (only) live page. It offers 44 publications 'Za mlade, njihove porodice i sve koji žele da pruže podršku' in four areas (tokom lečenja, psihološko zdravlje, posle lečenja, obrazovanje i karijera); the old peer-support/programmes page is no longer online (contact per YCE: mladice@mladice.org). Age: 'young people aged 12 to 35' from the YARN event page https://beatcancer.eu/event/cikaboca-mladice-event-youth-cancer-serbia (14 May 2024), not stated on the organisation's own site; a 2023 joint camp form used groups 7-18 and 18-30. Logo: 512x512 transparent PNG (red/coral mark), already in the portal as RS-sr.png; a 192x192 version is at /wp-content/uploads/2025/08/logo.png. Earlier (2026-10-20): www.mladice.org redirects (301) to info.mladice.org, a publications site 'for young people, their families and everyone who wants to support them' with 44 texts in four areas (during treatment, psychological health, after treatment, education and career). MladiCe is a network (founded 2011) of people treated for cancer in childhood/adolescence, part of the Serbian childhood-cancer organisations network. Pages carry no dates; media uploaded 2025-2026. Serbian in Latin script. Logo: 512x512 square PNG (palette) used as header logo/site icon."
+          "notes": "Peer-support review 2026-11-18: kept: information site only; the peer offers ('MladiCe Pričalice' online groups, 'Mi možemo sve' camp) have no live page, so there is nothing better to link. Youth Cancer Europe cross-reference 2026-11-17: Same organisation as the current card: Udruženje Čika Boca (since 2011) runs MladiCe, its network of young people treated for cancer; YCE's 'Cika Boca & MladiCe' is the joint brand. Verified 2026-11-17: the YCE URL https://cikaboca.mladice.org/podrska/ now returns HTTP 404 and the subdomain root HTTP 403; a Wayback snapshot of 9 Sep 2026 shows it was the joint site 'Čika Boca & MladiCe - Podrška mladima suočenim sa rakom' (Čika Boca 'od 2011. bavi psihosocijalnom inkluzijom dece i mladih lečenih od raka - MladiCe'). cikaboca.org, www.cikaboca.org, mladice.org and www.mladice.org all redirect to https://info.mladice.org/ (HTTP 200), whose pages were last modified 24 Sep 2026 (WordPress API) - the organisation has consolidated onto this site, so it is the best (only) live page. It offers 44 publications 'Za mlade, njihove porodice i sve koji žele da pruže podršku' in four areas (tokom lečenja, psihološko zdravlje, posle lečenja, obrazovanje i karijera); the old peer-support/programmes page is no longer online (contact per YCE: mladice@mladice.org). Age: 'young people aged 12 to 35' from the YARN event page https://beatcancer.eu/event/cikaboca-mladice-event-youth-cancer-serbia (14 May 2024), not stated on the organisation's own site; a 2023 joint camp form used groups 7-18 and 18-30. Logo: 512x512 transparent PNG (red/coral mark), already in the portal as RS-sr.png; a 192x192 version is at /wp-content/uploads/2025/08/logo.png. Earlier (2026-10-20): www.mladice.org redirects (301) to info.mladice.org, a publications site 'for young people, their families and everyone who wants to support them' with 44 texts in four areas (during treatment, psychological health, after treatment, education and career). MladiCe is a network (founded 2011) of people treated for cancer in childhood/adolescence, part of the Serbian childhood-cancer organisations network. Pages carry no dates; media uploaded 2025-2026. Serbian in Latin script. Logo: 512x512 square PNG (palette) used as header logo/site icon."
         }
       ]
     },
@@ -556,17 +615,30 @@
       "yce_count": 3,
       "resources": [
         {
+          "name": "Ungdomsläger",
+          "organisation": "Barncancerfonden",
+          "url": "https://www.barncancerfonden.se/rad-och-stod/stod/familjevistelser-lager-och-rekreation/ungdomslager/",
+          "lang": "sv",
+          "ages": "younger",
+          "age_range": "15-19",
+          "description": "A yearly camp where 15-19-year-olds who have or had cancer, or whose brother or sister has, spend a long weekend together; a shorter camp is for 12-14-year-olds.",
+          "logo": "SE-barncancerfonden.svg",
+          "confidence": "medium",
+          "yce_title": "Barncancerfonden",
+          "notes": "Peer-support review 2026-11-18: youth camp for childhood-cancer patients, survivors and siblings: 2026 camp 14-17 May at Aspenäs near Lerum; a free pre-camp for 12-14-year-olds ran 24-26 Oct 2026. Runs once a year. Logo: the site's inline header SVG (viewBox 520x216, currentColor) with fill #2F5294."
+        },
+        {
           "name": "Ung Cancer",
           "organisation": "Ung Cancer",
-          "url": "https://ungcancer.se/",
+          "url": "https://ungcancer.se/pages/cancerdrabbad",
           "lang": "sv",
-          "ages": "all",
+          "ages": "older",
           "age_range": "16-35",
-          "description": "Independent Swedish non-profit for 16-35-year-olds affected by cancer: free membership, peer meet-ups, rehabilitation, financial and psychosocial support, cancer information.",
+          "description": "Free membership for 16-35-year-olds with cancer: local member meet-ups, a chat buddy who has been through it, mentoring, closed Facebook groups and online courses.",
           "logo": "SE-sv.svg",
           "confidence": "high",
           "yce_title": "Ung Cancer",
-          "notes": "Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 (HTTP 200). 'ideell, fristående organisation för unga vuxna 16-35 år som möter cancer - som drabbad eller som närstående'; 'Våra tusentals medlemmar är mellan 16 och 35 år gamla och medlemskapet är gratis'. English version at https://ungcancer.se/en. Same as the current portal entry. Logo: dark wordmark SVG (591x318 viewBox, #282826) on the site's Shopify CDN (the page adds crop/width query parameters). Earlier (2026-10-20): Verified 2026-10-20 (Pärldagar Oct 2026, copyright 2026). Covers patients, relatives and bereaved aged 16-35; founded 2010. www.ungcancer.se redirects to ungcancer.se. Logo is the dark wordmark SVG from the site's Shopify CDN; the og:image is a share graphic, not a logo."
+          "notes": "Peer-support review 2026-11-18: deep link to the page for members with cancer; ages set to older (it calls its members 'unga vuxna') so that Barncancerfonden's youth camp can be shown beside it. Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 (HTTP 200). 'ideell, fristående organisation för unga vuxna 16-35 år som möter cancer - som drabbad eller som närstående'; 'Våra tusentals medlemmar är mellan 16 och 35 år gamla och medlemskapet är gratis'. English version at https://ungcancer.se/en. Same as the current portal entry. Logo: dark wordmark SVG (591x318 viewBox, #282826) on the site's Shopify CDN (the page adds crop/width query parameters). Earlier (2026-10-20): Verified 2026-10-20 (Pärldagar Oct 2026, copyright 2026). Covers patients, relatives and bereaved aged 16-35; founded 2010. www.ungcancer.se redirects to ungcancer.se. Logo is the dark wordmark SVG from the site's Shopify CDN; the og:image is a share graphic, not a logo."
         }
       ]
     },
@@ -577,15 +649,15 @@
         {
           "name": "Ustanova Mali vitez",
           "organisation": "Ustanova Mali vitez",
-          "url": "https://ustanova-malivitez.si/",
+          "url": "https://ustanova-malivitez.si/program/107-2",
           "lang": "sl",
           "ages": "all",
           "age_range": null,
-          "description": "Slovenian foundation for young people cured of cancer: counselling, late-effects advice, self-help groups, scholarships, camps and peer activities.",
+          "description": "Regional self-help groups in seven Slovenian regions for young people who had cancer as children, and week-long group stays where survivors meet and support each other.",
           "logo": "SI-sl.png",
           "confidence": "medium",
           "yce_title": "Foundation Little Knights",
-          "notes": "Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 (HTTP 200, html lang sl-SI; posts dated 2 Sep, 12 Oct and 26 Oct 2026). 'Fundacija za pomoč mladim, ozdravljenim od raka' - the only Slovenian NGO on late effects of childhood cancer: group rehabilitation in spas and camps, regional groups, psychological and medical counselling, help with education. Ages: no range stated. Eligibility for the Oct 2026 rehabilitation: 'vitezi, tj. osebe zdravljene zaradi raka v otroštvu, pri katerih je bilo zdravljenje zaključeno pred 3 ali več leti'; the follow-up post calls it 'namenjena odraslim, ki so v otroštvu preboleli raka'; it also relayed the YARN call for 18-39-year-olds. Classified 'all' because education support and regional groups are not restricted to adults; mostly young adults in practice. Caveats: survivors of childhood cancer only; the site shows an 'under construction' banner and the 'Za viteze' and 'Program' pages are empty, so the homepage is the best page. YCE's e-mail 'info@ustanova-malivetz.si' has a typo; the site uses info@ustanova-malivitez.si. Logo: horizontal PNG 1250x271, transparent, navy and orange. Earlier (2026-10-20): Describes itself as the only Slovenian NGO dealing with late effects of childhood cancer; beneficiaries are young people (teens and young adults) who were treated for cancer as children; no age range stated. Not a service for people first diagnosed at 18-39; no such Slovenian resource was found. Site in Slovenian only; newest post 13 Oct 2026. YARN associated partner ('Foundation Little Knight'). Logo: 1250x271 PNG (RGBA, horizontal) from the site header."
+          "notes": "Peer-support review 2026-11-18: deep link to 'Regijske skupine za samopomoč' (Ljubljana, Maribor, Celje, Ajdovščina, Novo mesto, Slovenj Gradec, Beltinci; the odd URL is the canonical one). The group rehabilitation stays are 'namenjena odraslim' and need treatment ended 3+ years ago; kept 'all' because the regional groups state no age. Youth Cancer Europe cross-reference 2026-11-17: Verified 2026-11-17 (HTTP 200, html lang sl-SI; posts dated 2 Sep, 12 Oct and 26 Oct 2026). 'Fundacija za pomoč mladim, ozdravljenim od raka' - the only Slovenian NGO on late effects of childhood cancer: group rehabilitation in spas and camps, regional groups, psychological and medical counselling, help with education. Ages: no range stated. Eligibility for the Oct 2026 rehabilitation: 'vitezi, tj. osebe zdravljene zaradi raka v otroštvu, pri katerih je bilo zdravljenje zaključeno pred 3 ali več leti'; the follow-up post calls it 'namenjena odraslim, ki so v otroštvu preboleli raka'; it also relayed the YARN call for 18-39-year-olds. Classified 'all' because education support and regional groups are not restricted to adults; mostly young adults in practice. Caveats: survivors of childhood cancer only; the site shows an 'under construction' banner and the 'Za viteze' and 'Program' pages are empty, so the homepage is the best page. YCE's e-mail 'info@ustanova-malivetz.si' has a typo; the site uses info@ustanova-malivitez.si. Logo: horizontal PNG 1250x271, transparent, navy and orange. Earlier (2026-10-20): Describes itself as the only Slovenian NGO dealing with late effects of childhood cancer; beneficiaries are young people (teens and young adults) who were treated for cancer as children; no age range stated. Not a service for people first diagnosed at 18-39; no such Slovenian resource was found. Site in Slovenian only; newest post 13 Oct 2026. YARN associated partner ('Foundation Little Knight'). Logo: 1250x271 PNG (RGBA, horizontal) from the site header."
         }
       ]
     }

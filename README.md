@@ -96,11 +96,16 @@ published beyond testing.
 When a visitor is in a European country that has a community for young people with cancer, the last beatcancer.eu
 card on a topic page makes way for a card for that community on the right, with a short heading of its own (the
 beatcancer.eu heading then sits above the other cards), and the support text names it too. Only communities that
-[Youth Cancer Europe](https://youthcancereurope.org/community/) (YCE) lists for the country are shown. Where a
-country has one community for younger AYAs (teenagers) and another for older AYAs (young adults), both are shown:
-two cards, each with its ages ("National · Netherlands · ages 18 to 39"), and one beatcancer.eu card. Under the
-cards, a link always leads to YCE's community page ("Find communities in Bulgaria on the map of Youth Cancer Europe"). The communities
-are listed per country code in `web/data/national_resources.json`:
+[Youth Cancer Europe](https://youthcancereurope.org/community/) (YCE) lists for the country are shown, and among
+those peer-support networks come first: groups, meet-ups, camps, buddies or online communities where young people
+with cancer meet each other, rather than foundations or information pages (each card links to the page about that
+offer where there is one). Check what an organisation does on its own website: YCE's descriptions can be swapped (in
+the Netherlands, YCE calls the AYA care network of hospitals the peer-support organisation, and Stichting Jongeren en
+Kanker the one that works with hospitals). Where a country has one community for younger AYAs (teenagers) and
+another for older AYAs (young adults), both are shown: two cards, each with its ages ("National · Netherlands · ages
+18 to 39"), and one beatcancer.eu card. Above the cards sits the flag of the country, where the YARN logo sits above
+the articles. Under the cards, a link always leads to YCE's community page ("Find communities in Bulgaria on the map
+of Youth Cancer Europe"). The communities are listed per country code in `web/data/national_resources.json`:
 
 ```json
 "NL": {
@@ -112,7 +117,7 @@ are listed per country code in `web/data/national_resources.json`:
      "ages": "younger", "age_range": null, "description": "One sentence for a young reader about what it offers.",
      "logo": "NL-vkn.webp", "yce_title": "Vereniging Kinderkanker Nederland"},
     {"name": "Stichting Jongeren en Kanker", "organisation": "Stichting Jongeren en Kanker (SJK)",
-     "url": "https://jongerenenkanker.nl/", "lang": "nl", "ages": "older", "age_range": "18-39",
+     "url": "https://jongerenenkanker.nl/activiteiten/", "lang": "nl", "ages": "older", "age_range": "18-39",
      "description": "...", "logo": "NL-sjk.png", "yce_title": "Stichting Jongeren en Kanker"}
   ]
 }
@@ -125,9 +130,11 @@ one. A community marked `"also_show": true` is added as the second card when the
 itself in Romania, where it has its seat (it is not in its own list, so its `yce_title` is `null`). `lang` is the
 language of the website; when an age group has several websites (e.g. Belgium in Dutch and in
 French), the one in the visitor's browser language is shown, else the first. `logo` names a file in
-`web/images/national/` (or is `null`: then an illustration of the portal is shown); a logo drawn in white gets a
-dark plate with `"logo_background": "#2d2d2d"`. The logos belong to the organisations: agree their use with them
-before the portal is published beyond testing, as for beatcancer.eu. `confidence` and `notes` are for the
+`web/images/national/`; a logo drawn in white gets a dark plate with `"logo_background": "#2d2d2d"`. Without a
+logo (`null`), or when it does not load, the card shows the flag of the country from `web/images/flags/` (from
+[flag-icons](https://github.com/lipis/flag-icons), MIT licence, in that folder), so every card has an image. The logos belong to the organisations: agree their use with them
+before the portal is published beyond testing, as for beatcancer.eu. The heading credits them to the organisations
+("Logos: Barncancerfonden and Ung Cancer."). `confidence` and `notes` are for the
 maintainers and are not shown; the communities that were considered and rejected per country are in
 `data/national_resources_research.md`. Countries without an entry, and visitors outside Europe, see the
 beatcancer.eu articles only.
